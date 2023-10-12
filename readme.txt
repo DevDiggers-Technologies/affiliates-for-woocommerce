@@ -1,20 +1,14 @@
-# Affiliates for WooCommerce
-**Contributors**: `DevDiggers`
+=== Affiliates for WooCommerce - Boost your Earnings with Affiliate Marketing Program ===
+Contributors: devdiggers
+Tags: wordpress Affiliates for WooCommerce, WooCommerce Affiliate Marketing, Affiliate Program, Earn with WooCommerce, Boost Sales with Affiliates, Best Affiliate Platform, Partner with WooCommerce, Maximize Earnings, Increase Revenue with Affiliates, WooCommerce Partner Program, Monetize Your Website with Affiliates for WooCommerce, Marketing Collaboration, Commission, Referral System, Affiliate Networking
+Requires at least: 5.8
+Tested up to: 6.2.0
+Requires PHP: 7.2
+Stable tag: 1.0.0
+License: GNU/GPL for more info see license.txt included with plugin
+License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
-**Tags**: wordpress Affiliates for WooCommerce, WooCommerce Affiliate Marketing, Affiliate Program, Earn with WooCommerce, Boost Sales with Affiliates, Best Affiliate Platform, Partner with WooCommerce, Maximize Earnings, Increase Revenue with Affiliates, WooCommerce Partner Program, Monetize Your Website with Affiliates for WooCommerce, Marketing Collaboration, Commission, Referral System, Affiliate Networking
-
-**WordPress**
-  * `Requires at least: 5.0.0`
-  * `Tested up to: 6.2.x`
-
-**WooCommerce**
-  * `Requires at least: 5.0.0`
-  * `Tested up to: 7.5.x`
-
-**License**: GNU/GPL for more info see license.txt included with plugin
-**License URI**: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
-
-## Description
+== Description==
 
 Affiliates for WooCommerce is a plugin that allows site owners to create an affiliate marketing program for their online store. The plugin allows affiliates to promote the store and earn a commission on sales made through their unique affiliate links.
 
@@ -118,6 +112,30 @@ Site owners have complete control over their affiliate program, including settin
 1. Upload the `affiliates-for-woocommerce` folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Configure the plugin using the 'Affiliates' menu
+
+== Screenshots ==
+
+1. General configuration page.
+2. Referrals configuration page.
+3. Commissions configuration page.
+4. Shortcodes configuration page.
+5. Affiliates list page.
+6. Affiliate details page.
+7. Commissions list page.
+8. Payouts list page.
+9. Top products list page.
+10. Visits list page.
+11. Registration fields list page.
+12. Affiliate login/registration page.
+13. Become an affiliate page.
+14. Affiliate dashboard page.
+15. Affiliate commissions page.
+16. Affiliate payouts page.
+17. Affiliate visits page.
+18. Affiliate top products page.
+19. Affiliate link generator page.
+20. Affiliate settings page.
+21. Affiliate dashboard on my accounts page.
 
 == Frequently Asked Questions ==
 

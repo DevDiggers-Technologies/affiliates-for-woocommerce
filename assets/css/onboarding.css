@@ -1,0 +1,18 @@
+.ddwcaf-go-pro {
+    background: #00a6a1;
+    color: #fff;
+    font-weight: 700;
+    padding: 2px 5px;
+    border: 1px solid #00a6a1;
+    border-radius: 5px;
+}
+.ddwcaf-go-pro:hover {
+    color: #fff;
+}
+.ddwcaf-upgrade-submenu-li {
+    background: #00a6a1;
+}
+.ddwcaf-upgrade-submenu {
+    color: #fff;
+    font-weight: 600;
+}

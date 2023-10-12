@@ -1,0 +1,20 @@
+# A set of files you probably don't want in your Affiliates for WooCommerce zip
+.distignore
+.git
+.gitignore
+build
+bin
+node_modules
+src
+composer.json
+composer.lock
+Gruntfile.js
+package.json
+package-lock.json
+phpcs.xml
+vendor
+config
+webpack.config.js
+babel.config.js
+*.tar.gz
+*.zip
