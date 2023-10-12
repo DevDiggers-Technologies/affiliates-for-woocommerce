@@ -1,0 +1,2514 @@
+# Copyright (C) 2023
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/affiliates-for-woocommerce\n"
+"POT-Creation-Date: 2023-10-12 11:11:39+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2023-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Country: United States\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
+"attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-Bookmarks: \n"
+"X-Textdomain-Support: yes\n"
+"X-Generator: grunt-wp-i18n 1.0.3\n"
+
+#: autoload/autoload.php:54
+#. translators: %s for the filepath
+msgid "The file attempting to be loaded at %s does not exist."
+msgstr ""
+
+#: functions.php:54
+#. translators: %1$s for a opening tag and %2$s for a closing tag
+msgid ""
+"Affiliates for WooCommerce is activated but not effective. It requires "
+"%sWooCommerce Plugin%s in order to use its functionalities."
+msgstr ""
+
+#: functions.php:80 includes/admin/admin-functions.php:96
+msgid "Configuration"
+msgstr ""
+
+#: functions.php:81
+msgid "GO PRO"
+msgstr ""
+
+#: functions.php:97
+msgid "Support"
+msgstr ""
+
+#: functions.php:98
+msgid "Documentation"
+msgstr ""
+
+#: functions.php:99 includes/admin/admin-functions.php:910
+#: templates/admin/configuration/commissions-configuration-template.php:34
+#: templates/admin/configuration/emails-configuration-template.php:31
+#: templates/admin/configuration/endpoints-configuration-template.php:33
+#: templates/admin/configuration/general-configuration-template.php:45
+#: templates/admin/configuration/referrals-configuration-template.php:31
+#: templates/admin/configuration/shortcodes-configuration-template.php:31
+msgid "Review"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:205 includes/file-handler.php:72
+#: templates/admin/affiliates/manage-affiliate-template.php:244
+#: templates/front/affiliate-dashboard/settings-section.php:50
+msgid "Direct Bank/Wire Transfer"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:206 includes/file-handler.php:78
+msgid "PayPal"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:207
+msgid "WooCommerce Wallet Management"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:334
+#: templates/admin/configuration/referrals-configuration-template.php:62
+#: templates/shortcodes/affiliate-registration-form.php:66
+msgid "Username"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:348
+#: templates/shortcodes/affiliate-registration-form.php:73
+msgid "Email address"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:362
+#: templates/shortcodes/affiliate-registration-form.php:33
+#: templates/shortcodes/affiliate-registration-form.php:80
+msgid "Password"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:376
+msgid "First Name"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:390
+msgid "Last Name"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:404
+msgid "How will you promote our site?"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:418
+msgid "Please read and accept our [terms]"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:541
+msgid "Dashboard"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:545
+#: includes/admin/admin-functions.php:84 includes/admin/admin-functions.php:354
+#: templates/admin/configuration/configuration-template.php:27
+msgid "Commissions"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:549
+#: includes/admin/admin-functions.php:86 includes/admin/admin-functions.php:541
+msgid "Payouts"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:553
+#: includes/admin/admin-functions.php:90 includes/admin/admin-functions.php:625
+#: templates/admin/affiliates/affiliates-list-template.php:329
+#: templates/admin/configuration/referrals-configuration-template.php:160
+msgid "Visits"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:557
+#: includes/admin/admin-functions.php:88 includes/admin/admin-functions.php:587
+msgid "Top Products"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:561
+msgid "Link Generator"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:565
+msgid "Settings"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:650
+msgid "Share on Twitter"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:663
+msgid "Share on Facebook"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:677
+msgid "Share on Pinterest"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:697
+msgid "Share on LinkedIn"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:713
+msgid "Share on Viber"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:747
+msgid "Share on VK"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:760
+msgid "Share on Reddit"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:786
+msgid "Share on Tumblr"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:804
+#: helper/affiliate/affiliate-helper.php:827
+msgid "Share on WhatsApp"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:851
+#: helper/commission/commission-helper.php:423
+#: helper/payout/payout-helper.php:331 includes/admin/admin-functions.php:343
+#: includes/admin/admin-functions.php:533
+#: templates/admin/affiliates/affiliates-list-template.php:424
+#: templates/admin/configuration/general-configuration-template.php:32
+#: templates/front/affiliate-dashboard/commissions-section.php:41
+#: templates/front/affiliate-dashboard/payouts-section.php:42
+msgid "Pending"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:852
+#: templates/admin/affiliates/affiliates-list-template.php:425
+#: templates/admin/configuration/general-configuration-template.php:33
+msgid "Approved"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:853
+#: templates/admin/affiliates/affiliates-list-template.php:426
+#: templates/admin/configuration/general-configuration-template.php:34
+msgid "Rejected"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:854
+#: templates/admin/affiliates/affiliates-list-template.php:427
+#: templates/admin/configuration/general-configuration-template.php:35
+msgid "Banned"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:855
+msgid "Active"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:856
+msgid "Inactive"
+msgstr ""
+
+#: helper/commission/commission-helper.php:424
+#: includes/admin/admin-functions.php:344
+#: templates/front/affiliate-dashboard/commissions-section.php:42
+msgid "Pending Payment"
+msgstr ""
+
+#: helper/commission/commission-helper.php:425
+#: includes/admin/admin-functions.php:345
+#: templates/admin/affiliates/affiliates-list-template.php:327
+#: templates/front/affiliate-dashboard/commissions-section.php:43
+msgid "Paid"
+msgstr ""
+
+#: helper/commission/commission-helper.php:426
+#: includes/admin/admin-functions.php:346
+#: templates/front/affiliate-dashboard/commissions-section.php:44
+msgid "Not Confirmed"
+msgstr ""
+
+#: helper/commission/commission-helper.php:427
+#: helper/payout/payout-helper.php:333 includes/admin/admin-functions.php:347
+#: includes/admin/admin-functions.php:535
+#: templates/front/affiliate-dashboard/commissions-section.php:45
+#: templates/front/affiliate-dashboard/payouts-section.php:44
+msgid "Cancelled"
+msgstr ""
+
+#: helper/commission/commission-helper.php:428
+#: includes/admin/admin-functions.php:348
+#: templates/front/affiliate-dashboard/commissions-section.php:46
+msgid "Refunded"
+msgstr ""
+
+#: helper/payout/payout-helper.php:332 includes/admin/admin-functions.php:534
+#: templates/front/affiliate-dashboard/payouts-section.php:43
+msgid "Completed"
+msgstr ""
+
+#: helper/payout/payout-helper.php:347
+msgid "Manually by Admin"
+msgstr ""
+
+#: helper/payout/payout-helper.php:348
+msgid "Requested by Affiliate"
+msgstr ""
+
+#: helper/payout/payout-helper.php:349
+msgid "Automatic Monthly Payout"
+msgstr ""
+
+#: includes/admin/admin-ajax-functions.php:77
+#: includes/admin/admin-ajax-functions.php:106
+#: includes/admin/admin-ajax-functions.php:138
+#: includes/front/front-ajax-functions.php:103
+msgid "Security check failed!"
+msgstr ""
+
+#: includes/admin/admin-ajax-functions.php:132
+msgid "Successfully fetched!"
+msgstr ""
+
+#: includes/admin/admin-functions.php:63
+#. translators: %s for a tag
+msgid ""
+"Want more advanced functionalities in your Affiliates for WooCommerce "
+"plugin, upgrade it by purchasing the %s."
+msgstr ""
+
+#: includes/admin/admin-functions.php:63
+msgid "pro version"
+msgstr ""
+
+#: includes/admin/admin-functions.php:78 includes/admin/admin-functions.php:82
+#: includes/admin/admin-functions.php:309
+#: includes/admin/admin-functions.php:872
+msgid "Affiliates"
+msgstr ""
+
+#: includes/admin/admin-functions.php:80
+msgid "Analytics | Affiliates"
+msgstr ""
+
+#: includes/admin/admin-functions.php:80
+msgid "Analytics"
+msgstr ""
+
+#: includes/admin/admin-functions.php:82
+msgid "Affiliates | Affiliates"
+msgstr ""
+
+#: includes/admin/admin-functions.php:84
+msgid "Commissions | Affiliates"
+msgstr ""
+
+#: includes/admin/admin-functions.php:86
+msgid "Payouts | Affiliates"
+msgstr ""
+
+#: includes/admin/admin-functions.php:88
+msgid "Top Products | Affiliates"
+msgstr ""
+
+#: includes/admin/admin-functions.php:90
+msgid "Visits | Affiliates"
+msgstr ""
+
+#: includes/admin/admin-functions.php:92
+msgid "Rules | Affiliates"
+msgstr ""
+
+#: includes/admin/admin-functions.php:92
+msgid "Rules"
+msgstr ""
+
+#: includes/admin/admin-functions.php:94
+msgid "Registration Fields | Affiliates"
+msgstr ""
+
+#: includes/admin/admin-functions.php:94
+msgid "Registration Fields"
+msgstr ""
+
+#: includes/admin/admin-functions.php:96
+msgid "Configuration | Affiliates"
+msgstr ""
+
+#: includes/admin/admin-functions.php:110
+msgid "Extensions"
+msgstr ""
+
+#: includes/admin/admin-functions.php:111
+msgid "Upgrade to Pro"
+msgstr ""
+
+#: includes/admin/admin-functions.php:111
+msgid "Upgrade to Pro | Affiliates"
+msgstr ""
+
+#: includes/admin/admin-functions.php:147
+msgid "Affiliates Per Page"
+msgstr ""
+
+#: includes/admin/admin-functions.php:167
+msgid "Commissions Per Page"
+msgstr ""
+
+#: includes/admin/admin-functions.php:187
+msgid "Payouts Per Page"
+msgstr ""
+
+#: includes/admin/admin-functions.php:207
+msgid "Top Products Per Page"
+msgstr ""
+
+#: includes/admin/admin-functions.php:227
+msgid "Visits Per Page"
+msgstr ""
+
+#: includes/admin/admin-functions.php:247
+msgid "Registration Fields Per Page"
+msgstr ""
+
+#: includes/admin/admin-functions.php:266
+#: includes/admin/admin-functions.php:483
+#: includes/admin/admin-functions.php:748
+#: includes/admin/admin-functions.php:777
+#: templates/admin/configuration/emails-configuration-template.php:38
+#: templates/admin/configuration/endpoints-configuration-template.php:40
+msgid "Affiliates for WooCommerce Go Pro"
+msgstr ""
+
+#: includes/admin/admin-functions.php:268
+msgid "Analytics Report"
+msgstr ""
+
+#: includes/admin/admin-functions.php:270
+msgid "Want to check the advanced reports of how your affiliates are performing?"
+msgstr ""
+
+#: includes/admin/admin-functions.php:272
+msgid "How much earnings generated by affiliates and when?"
+msgstr ""
+
+#: includes/admin/admin-functions.php:273
+msgid "How much commissions generated for affiliates and when?"
+msgstr ""
+
+#: includes/admin/admin-functions.php:274
+msgid "How much commissions are paid to affiliates and when?"
+msgstr ""
+
+#: includes/admin/admin-functions.php:275
+msgid "How much commissions are unpaid to affiliates and when?"
+msgstr ""
+
+#: includes/admin/admin-functions.php:276
+msgid "How much commissions are refunded from affiliates and when?"
+msgstr ""
+
+#: includes/admin/admin-functions.php:277
+msgid "How much vists are registered from affiliates and when?"
+msgstr ""
+
+#: includes/admin/admin-functions.php:278
+msgid "How much vists are converted from affiliates and when?"
+msgstr ""
+
+#: includes/admin/admin-functions.php:279
+msgid "How much is the conversion rate from affiliates and when?"
+msgstr ""
+
+#: includes/admin/admin-functions.php:280
+msgid "Compare reports from previous years."
+msgstr ""
+
+#: includes/admin/admin-functions.php:281
+msgid "Check all or individual affiliate reports."
+msgstr ""
+
+#: includes/admin/admin-functions.php:282
+msgid "Bar and line charts."
+msgstr ""
+
+#: includes/admin/admin-functions.php:284
+#: includes/admin/admin-functions.php:500
+#: includes/admin/admin-functions.php:522
+#: includes/admin/admin-functions.php:761
+#: includes/admin/admin-functions.php:797
+#: templates/admin/configuration/emails-configuration-template.php:55
+#: templates/admin/configuration/endpoints-configuration-template.php:52
+msgid "Go Pro"
+msgstr ""
+
+#: includes/admin/admin-functions.php:285
+#: includes/admin/admin-functions.php:501
+#: includes/admin/admin-functions.php:523
+#: includes/admin/admin-functions.php:762
+#: includes/admin/admin-functions.php:798
+#: templates/admin/configuration/emails-configuration-template.php:56
+#: templates/admin/configuration/endpoints-configuration-template.php:53
+msgid "Learn more about Pro"
+msgstr ""
+
+#: includes/admin/admin-functions.php:304
+msgid "Affiliate saved successfully."
+msgstr ""
+
+#: includes/admin/admin-functions.php:310
+#: includes/admin/admin-functions.php:818
+msgid "Add New"
+msgstr ""
+
+#: includes/admin/admin-functions.php:319
+#: includes/admin/admin-functions.php:832
+msgid "Search"
+msgstr ""
+
+#: includes/admin/admin-functions.php:342
+#: includes/admin/admin-functions.php:532
+#: includes/admin/admin-functions.php:617
+#: templates/front/affiliate-dashboard/commissions-section.php:40
+#: templates/front/affiliate-dashboard/payouts-section.php:41
+#: templates/front/affiliate-dashboard/visits-section.php:42
+msgid "All"
+msgstr ""
+
+#: includes/admin/admin-functions.php:382
+#: includes/admin/admin-functions.php:569
+#: includes/admin/admin-functions.php:652
+msgid "Search by ID"
+msgstr ""
+
+#: includes/admin/admin-functions.php:397
+#: includes/admin/admin-functions.php:667
+#. translators: %s: order ID
+msgid "Order #%s"
+msgstr ""
+
+#: includes/admin/admin-functions.php:399
+#: includes/admin/admin-functions.php:669
+msgid "Close modal panel"
+msgstr ""
+
+#: includes/admin/admin-functions.php:407
+#: includes/admin/admin-functions.php:677
+msgid "Billing details"
+msgstr ""
+
+#: includes/admin/admin-functions.php:411
+#: includes/admin/admin-functions.php:681
+#: templates/admin/affiliates/affiliates-list-template.php:324
+#: templates/admin/configuration/referrals-configuration-template.php:211
+msgid "Email"
+msgstr ""
+
+#: includes/admin/admin-functions.php:416
+#: includes/admin/admin-functions.php:686
+msgid "Phone"
+msgstr ""
+
+#: includes/admin/admin-functions.php:421
+#: includes/admin/admin-functions.php:691
+msgid "Payment via"
+msgstr ""
+
+#: includes/admin/admin-functions.php:427
+#: includes/admin/admin-functions.php:697
+msgid "Shipping details"
+msgstr ""
+
+#: includes/admin/admin-functions.php:435
+#: includes/admin/admin-functions.php:705
+msgid "Shipping method"
+msgstr ""
+
+#: includes/admin/admin-functions.php:443
+#: includes/admin/admin-functions.php:713
+msgid "Note"
+msgstr ""
+
+#: includes/admin/admin-functions.php:457
+#: includes/admin/admin-functions.php:727
+msgid "Edit this order"
+msgstr ""
+
+#: includes/admin/admin-functions.php:457
+#: includes/admin/admin-functions.php:727
+#: templates/admin/registration/affiliate-registration-fields-template.php:313
+msgid "Edit"
+msgstr ""
+
+#: includes/admin/admin-functions.php:485
+msgid "Payout Details"
+msgstr ""
+
+#: includes/admin/admin-functions.php:487
+msgid "Want to check payout details?"
+msgstr ""
+
+#: includes/admin/admin-functions.php:489
+msgid "Check withdrawal details."
+msgstr ""
+
+#: includes/admin/admin-functions.php:490
+msgid "Check payout created and completed dates."
+msgstr ""
+
+#: includes/admin/admin-functions.php:491
+msgid "Check payout status."
+msgstr ""
+
+#: includes/admin/admin-functions.php:492
+msgid "Update payout status."
+msgstr ""
+
+#: includes/admin/admin-functions.php:493
+msgid "Add and update payout transaction ID."
+msgstr ""
+
+#: includes/admin/admin-functions.php:494
+msgid "Automatic transaction ID generation in case of wallet withdrawal."
+msgstr ""
+
+#: includes/admin/admin-functions.php:495
+msgid "Check payout affiliate details."
+msgstr ""
+
+#: includes/admin/admin-functions.php:496
+msgid "Check commission details linked with the payout."
+msgstr ""
+
+#: includes/admin/admin-functions.php:497
+msgid "Check order details linked with the payout."
+msgstr ""
+
+#: includes/admin/admin-functions.php:498
+msgid "Check all affiliate earnings."
+msgstr ""
+
+#: includes/admin/admin-functions.php:509
+msgid "WooCommerce Analytics Go Pro"
+msgstr ""
+
+#: includes/admin/admin-functions.php:511
+msgid "Create Payout"
+msgstr ""
+
+#: includes/admin/admin-functions.php:513
+msgid "Want to create affiliate payouts for pending commission?"
+msgstr ""
+
+#: includes/admin/admin-functions.php:515
+msgid "Select specific affiliates for payout."
+msgstr ""
+
+#: includes/admin/admin-functions.php:516
+msgid "Select all affiliates for payout."
+msgstr ""
+
+#: includes/admin/admin-functions.php:517
+msgid ""
+"Select payout reference as \"Manually by Admin\", \"Requested by "
+"Affiliate\" or \"Automatic Monthly Payout\"."
+msgstr ""
+
+#: includes/admin/admin-functions.php:518
+msgid "Create payout for any specific date or for all pending commissions."
+msgstr ""
+
+#: includes/admin/admin-functions.php:519
+msgid "Batch processing for load balancing in order to create payouts."
+msgstr ""
+
+#: includes/admin/admin-functions.php:520
+msgid "Tested with 10 lakhs affiliates and worked smoothly."
+msgstr ""
+
+#: includes/admin/admin-functions.php:542
+msgid "Create"
+msgstr ""
+
+#: includes/admin/admin-functions.php:618
+#: templates/front/affiliate-dashboard/visits-section.php:43
+msgid "Converted"
+msgstr ""
+
+#: includes/admin/admin-functions.php:619
+#: templates/front/affiliate-dashboard/visits-section.php:44
+msgid "Not Converted"
+msgstr ""
+
+#: includes/admin/admin-functions.php:750
+msgid "Commission Rules"
+msgstr ""
+
+#: includes/admin/admin-functions.php:752
+msgid "Want to create advanced commission rules?"
+msgstr ""
+
+#: includes/admin/admin-functions.php:754
+msgid "Configure rules to override the global commission rate."
+msgstr ""
+
+#: includes/admin/admin-functions.php:755
+msgid "Configure commission rules for specific products."
+msgstr ""
+
+#: includes/admin/admin-functions.php:756
+msgid "Configure commission rules for specific product categories."
+msgstr ""
+
+#: includes/admin/admin-functions.php:757
+msgid "Configure commission rules for specific user roles."
+msgstr ""
+
+#: includes/admin/admin-functions.php:758
+msgid "Fixed or percentage commission calculation."
+msgstr ""
+
+#: includes/admin/admin-functions.php:759
+msgid "Prioritize commission rules."
+msgstr ""
+
+#: includes/admin/admin-functions.php:779
+msgid "Add/Edit Registration Field"
+msgstr ""
+
+#: includes/admin/admin-functions.php:781
+msgid ""
+"Want to add more fields on the affiliate registration form or want to edit "
+"it?"
+msgstr ""
+
+#: includes/admin/admin-functions.php:783
+msgid "Add unlimited fields to the registration with fully customization fields."
+msgstr ""
+
+#: includes/admin/admin-functions.php:784
+msgid "Label of the field."
+msgstr ""
+
+#: includes/admin/admin-functions.php:785
+msgid ""
+"Type of the field such as text, number, email, password, select, checkbox, "
+"textarea, radio, date, country and state."
+msgstr ""
+
+#: includes/admin/admin-functions.php:786
+msgid "Name of the field."
+msgstr ""
+
+#: includes/admin/admin-functions.php:787
+#: includes/admin/admin-functions.php:788
+msgid "Placeholder of the field."
+msgstr ""
+
+#: includes/admin/admin-functions.php:789
+msgid "Options of the field for select and radio type fields."
+msgstr ""
+
+#: includes/admin/admin-functions.php:790
+msgid "Postiion of the field in the affiliate registration form."
+msgstr ""
+
+#: includes/admin/admin-functions.php:791
+msgid "Extra CSS classes for the field."
+msgstr ""
+
+#: includes/admin/admin-functions.php:792
+msgid "Description for the affiliate to show below the field."
+msgstr ""
+
+#: includes/admin/admin-functions.php:793
+msgid "Field can be mandatory/required or not."
+msgstr ""
+
+#: includes/admin/admin-functions.php:794
+msgid "Field can be editable from the affiliate dashboard."
+msgstr ""
+
+#: includes/admin/admin-functions.php:795
+msgid "Field can be active or inactive."
+msgstr ""
+
+#: includes/admin/admin-functions.php:804
+msgid "Field saved successfully."
+msgstr ""
+
+#: includes/admin/admin-functions.php:808
+msgid "Registration fields are reset to default now."
+msgstr ""
+
+#: includes/admin/admin-functions.php:811
+msgid ""
+"To show this form anywhere on the front end, use this shortcode %s. Also, "
+"registration form will get displayed on the affiliate dashboard page as "
+"well."
+msgstr ""
+
+#: includes/admin/admin-functions.php:817
+msgid "Affiliates Registration Fields"
+msgstr ""
+
+#: includes/admin/admin-functions.php:822
+msgid "Restore Defaults"
+msgstr ""
+
+#: includes/admin/admin-functions.php:910
+#: templates/admin/configuration/commissions-configuration-template.php:34
+#: templates/admin/configuration/emails-configuration-template.php:31
+#: templates/admin/configuration/endpoints-configuration-template.php:33
+#: templates/admin/configuration/general-configuration-template.php:45
+#: templates/admin/configuration/referrals-configuration-template.php:31
+#: templates/admin/configuration/shortcodes-configuration-template.php:31
+#. translators: %s for a tag
+msgid ""
+"If you really like our plugin, please leave us a %s rating, we'll really "
+"appreciate it."
+msgstr ""
+
+#: includes/admin/admin-functions.php:985
+msgid "Please enter"
+msgstr ""
+
+#: includes/admin/admin-functions.php:986
+msgid "or more character"
+msgstr ""
+
+#: includes/admin/admin-functions.php:987
+msgid "No result Found"
+msgstr ""
+
+#: includes/file-handler.php:84
+msgid "WooCommerce Wallet Management [Pro]"
+msgstr ""
+
+#: includes/file-handler.php:102
+#: templates/admin/configuration/shortcodes-configuration-template.php:69
+msgid "Affiliate Dashboard"
+msgstr ""
+
+#: includes/file-handler.php:110
+msgid "My Referral URL on %s"
+msgstr ""
+
+#: includes/front/front-ajax-functions.php:60
+#: templates/front/affiliate-dashboard/link-generator-section.php:45
+msgid "Generate a Custom URL"
+msgstr ""
+
+#: includes/front/front-ajax-functions.php:61
+#: templates/front/affiliate-dashboard/link-generator-section.php:46
+msgid ""
+"If you want to redirect users to any specific page (for example: a product "
+"page) use this link generator."
+msgstr ""
+
+#: includes/front/front-ajax-functions.php:64
+#: templates/front/affiliate-dashboard/link-generator-section.php:49
+msgid "Page URL"
+msgstr ""
+
+#: includes/front/front-ajax-functions.php:69
+#: templates/admin/visits/visits-list-template.php:273
+#: templates/front/affiliate-dashboard/link-generator-section.php:54
+#: templates/front/affiliate-dashboard/visits-section.php:61
+msgid "Referral URL"
+msgstr ""
+
+#: includes/front/front-ajax-functions.php:73
+#: templates/front/affiliate-dashboard/link-generator-section.php:27
+#: templates/front/affiliate-dashboard/link-generator-section.php:58
+msgid "Copy Referral URL"
+msgstr ""
+
+#: includes/front/front-ajax-functions.php:80
+#: templates/front/affiliate-dashboard/link-generator-section.php:33
+#: templates/front/affiliate-dashboard/link-generator-section.php:65
+msgid ""
+"Copy this URL and use it to redirect users to our site with your affiliate "
+"token."
+msgstr ""
+
+#: includes/front/front-ajax-functions.php:85
+#: templates/front/affiliate-dashboard/link-generator-section.php:38
+#: templates/front/affiliate-dashboard/link-generator-section.php:70
+msgid "Share your referral URL on:"
+msgstr ""
+
+#: includes/front/front-ajax-functions.php:97
+msgid "Page url not provided."
+msgstr ""
+
+#: includes/front/front-functions.php:206
+msgid "Copied"
+msgstr ""
+
+#: includes/front/front-functions.php:246
+#: includes/front/front-functions.php:325
+#: templates/admin/affiliates/manage-affiliate-template.php:51
+msgid "%s is required!"
+msgstr ""
+
+#: includes/front/front-functions.php:348
+msgid "Settings saved successfully."
+msgstr ""
+
+#: includes/global-functions.php:80
+msgid "required"
+msgstr ""
+
+#: includes/global-functions.php:149
+msgid "Select a country / region&hellip;"
+msgstr ""
+
+#: includes/global-functions.php:157
+msgid "Update country / region"
+msgstr ""
+
+#: includes/global-functions.php:171 includes/global-functions.php:172
+msgid "Select an option&hellip;"
+msgstr ""
+
+#: includes/global-functions.php:220
+msgid "Choose an option"
+msgstr ""
+
+#: templates/admin/affiliates/affiliates-list-template.php:75
+msgid "Affiliate List"
+msgstr ""
+
+#: templates/admin/affiliates/affiliates-list-template.php:76
+msgid "Affiliates List"
+msgstr ""
+
+#: templates/admin/affiliates/affiliates-list-template.php:239
+msgid "%d affiliate(s) deleted successfully."
+msgstr ""
+
+#: templates/admin/affiliates/affiliates-list-template.php:241
+msgid "Status changed for %d affiliate(s) successfully."
+msgstr ""
+
+#: templates/admin/affiliates/affiliates-list-template.php:248
+msgid "%d affiliate(s) not exits."
+msgstr ""
+
+#: templates/admin/affiliates/affiliates-list-template.php:253
+msgid "Select affiliate(s) to delete."
+msgstr ""
+
+#: templates/admin/affiliates/affiliates-list-template.php:258
+#: templates/admin/affiliates/affiliates-list-template.php:291
+#: templates/admin/commissions/commissions-list-template.php:266
+#: templates/admin/payouts/payouts-list-template.php:259
+#: templates/admin/registration/affiliate-registration-fields-template.php:217
+#: templates/admin/visits/visits-list-template.php:238
+msgid "Invalid nonce. Security check failed!!!"
+msgstr ""
+
+#: templates/admin/affiliates/affiliates-list-template.php:282
+msgid "Affiliate is deleted successfully."
+msgstr ""
+
+#: templates/admin/affiliates/affiliates-list-template.php:285
+msgid "Affiliate not exists."
+msgstr ""
+
+#: templates/admin/affiliates/affiliates-list-template.php:303
+msgid "No affiliates avaliable."
+msgstr ""
+
+#: templates/admin/affiliates/affiliates-list-template.php:323
+#: templates/admin/configuration/commissions-configuration-template.php:130
+#: templates/admin/registration/affiliate-registration-fields-template.php:251
+msgid "Name"
+msgstr ""
+
+#: templates/admin/affiliates/affiliates-list-template.php:325
+msgid "Commission Rate"
+msgstr ""
+
+#: templates/admin/affiliates/affiliates-list-template.php:326
+msgid "Earnings"
+msgstr ""
+
+#: templates/admin/affiliates/affiliates-list-template.php:328
+msgid "Unpaid"
+msgstr ""
+
+#: templates/admin/affiliates/affiliates-list-template.php:330
+msgid "Conversion Rate"
+msgstr ""
+
+#: templates/admin/affiliates/affiliates-list-template.php:331
+#: templates/admin/commissions/commissions-list-template.php:305
+#: templates/admin/configuration/commissions-configuration-template.php:132
+#: templates/admin/payouts/payouts-list-template.php:296
+#: templates/admin/registration/affiliate-registration-fields-template.php:255
+#: templates/front/affiliate-dashboard/commissions-section.php:81
+#: templates/front/affiliate-dashboard/payouts-section.php:80
+msgid "Status"
+msgstr ""
+
+#: templates/admin/affiliates/affiliates-list-template.php:391
+#: templates/admin/payouts/payouts-list-template.php:351
+msgid "View"
+msgstr ""
+
+#: templates/admin/affiliates/affiliates-list-template.php:392
+#: templates/admin/affiliates/affiliates-list-template.php:405
+#: templates/admin/commissions/commissions-list-template.php:374
+#: templates/admin/payouts/payouts-list-template.php:367
+#: templates/admin/visits/visits-list-template.php:326
+msgid "Delete"
+msgstr ""
+
+#: templates/admin/affiliates/affiliates-list-template.php:406
+msgid "Change Affiliate Status to Pending"
+msgstr ""
+
+#: templates/admin/affiliates/affiliates-list-template.php:407
+msgid "Approve Affiliate"
+msgstr ""
+
+#: templates/admin/affiliates/affiliates-list-template.php:408
+msgid "Reject Affiliate"
+msgstr ""
+
+#: templates/admin/affiliates/affiliates-list-template.php:409
+msgid "Ban Affiliate"
+msgstr ""
+
+#: templates/admin/affiliates/affiliates-list-template.php:423
+msgid "All Status"
+msgstr ""
+
+#: templates/admin/affiliates/affiliates-list-template.php:430
+#: templates/admin/commissions/commissions-list-template.php:417
+#: templates/admin/payouts/payouts-list-template.php:399
+#: templates/admin/top-products/top-products-list-template.php:223
+#: templates/admin/visits/visits-list-template.php:357
+#: templates/front/affiliate-dashboard/commissions-section.php:68
+#: templates/front/affiliate-dashboard/payouts-section.php:67
+#: templates/front/affiliate-dashboard/visits-section.php:53
+msgid "Filter"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:64
+msgid "Details are saved successfully."
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:66
+msgid "Kindly fill all the mandatory fields."
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:88
+msgid "Affiliate #%s Details"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:89
+msgid "Back"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:99
+msgid "Referral URL: %s"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:100
+msgid "Email: %s"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:111
+#: templates/admin/top-products/top-products-list-template.php:170
+#: templates/front/affiliate-dashboard/dashboard-section.php:38
+msgid "Total Earnings"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:116
+#: templates/front/affiliate-dashboard/dashboard-section.php:43
+msgid "Paid Amount"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:121
+#: templates/front/affiliate-dashboard/dashboard-section.php:48
+msgid "Unpaid Amount"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:126
+#: templates/front/affiliate-dashboard/dashboard-section.php:53
+msgid "Visitors"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:131
+#: templates/front/affiliate-dashboard/dashboard-section.php:58
+msgid "Customers"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:136
+#: templates/front/affiliate-dashboard/dashboard-section.php:63
+msgid "Conversion"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:145
+msgid "Details"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:152
+msgid "Referral Token [Pro]"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:153
+msgid "Enter your referral token"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:154
+msgid ""
+"You can use the brand name as a referral token which allows \"friendly\" "
+"looking referral links."
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:162
+msgid "Commission Rate [Pro]"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:163
+msgid "Enter your commission rate"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:164
+msgid ""
+"You can enter any specific commission rate for the affiliate and if not "
+"entered then global rate is used."
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:175
+msgid "Email Notifications [Pro]"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:182
+msgid "Notify on New Commissions [Pro]"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:185
+msgid ""
+"Get an email when a new commission is made and its status switches to "
+"pending."
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:191
+msgid "Notify on Paid Commissions [Pro]"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:194
+msgid "Get an email when a commission status changes to paid."
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:200
+msgid "Notify on Commissions Status Change [Pro]"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:203
+msgid "Get an email when a commission status changes."
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:211
+msgid "Account Info"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:219
+#: templates/front/affiliate-dashboard/settings-section.php:24
+msgid "Withdrawal Info"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:220
+#: templates/front/affiliate-dashboard/settings-section.php:25
+msgid "Please fill out the below withdrawal information for the commission payouts."
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:222
+#: templates/front/affiliate-dashboard/settings-section.php:27
+msgid "Withdrawal Method"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:236
+#: templates/front/affiliate-dashboard/settings-section.php:41
+msgid "Default Withdrawal Method"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:251
+#: templates/front/affiliate-dashboard/settings-section.php:56
+msgid "Account Name"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:254
+#: templates/front/affiliate-dashboard/settings-section.php:59
+msgid "Enter your account name"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:261
+#: templates/front/affiliate-dashboard/settings-section.php:65
+msgid "IBAN"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:264
+#: templates/front/affiliate-dashboard/settings-section.php:68
+msgid "Enter your account iban"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:271
+#: templates/front/affiliate-dashboard/settings-section.php:74
+msgid "Swift Code"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:274
+#: templates/front/affiliate-dashboard/settings-section.php:77
+msgid "Enter your account swift code"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:282
+#: templates/admin/affiliates/manage-affiliate-template.php:290
+#: templates/front/affiliate-dashboard/settings-section.php:84
+#: templates/front/affiliate-dashboard/settings-section.php:90
+msgid "PayPal Email"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:293
+#: templates/front/affiliate-dashboard/settings-section.php:93
+msgid "Enter your PayPal email"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:305
+#: templates/admin/configuration/commissions-configuration-template.php:219
+#: templates/admin/configuration/general-configuration-template.php:219
+#: templates/admin/configuration/referrals-configuration-template.php:244
+#: templates/admin/configuration/shortcodes-configuration-template.php:78
+#: templates/front/affiliate-dashboard/settings-section.php:102
+msgid "Save Changes"
+msgstr ""
+
+#: templates/admin/commissions/commissions-list-template.php:58
+msgid "Commission List"
+msgstr ""
+
+#: templates/admin/commissions/commissions-list-template.php:59
+msgid "Commissions List"
+msgstr ""
+
+#: templates/admin/commissions/commissions-list-template.php:177
+msgid "Last Updated %s"
+msgstr ""
+
+#: templates/admin/commissions/commissions-list-template.php:179
+msgid "Created %s"
+msgstr ""
+
+#: templates/admin/commissions/commissions-list-template.php:185
+#: templates/admin/visits/visits-list-template.php:166
+msgid "Preview"
+msgstr ""
+
+#: templates/admin/commissions/commissions-list-template.php:240
+msgid "%d commission(s) deleted successfully."
+msgstr ""
+
+#: templates/admin/commissions/commissions-list-template.php:242
+msgid "Payout is processed successfully for %d commission(s)."
+msgstr ""
+
+#: templates/admin/commissions/commissions-list-template.php:244
+msgid "%d commission(s) status changed successfully."
+msgstr ""
+
+#: templates/admin/commissions/commissions-list-template.php:252
+msgid "%d commission(s) could not be paid."
+msgstr ""
+
+#: templates/admin/commissions/commissions-list-template.php:254
+msgid "%d commission(s) not exits."
+msgstr ""
+
+#: templates/admin/commissions/commissions-list-template.php:261
+msgid "Select commission(s) to delete."
+msgstr ""
+
+#: templates/admin/commissions/commissions-list-template.php:278
+msgid "No commissions avaliable."
+msgstr ""
+
+#: templates/admin/commissions/commissions-list-template.php:298
+#: templates/admin/payouts/payouts-list-template.php:291
+#: templates/admin/visits/visits-list-template.php:270
+#: templates/front/affiliate-dashboard/commissions-section.php:75
+#: templates/front/affiliate-dashboard/payouts-section.php:74
+#: templates/front/affiliate-dashboard/visits-section.php:60
+msgid "ID"
+msgstr ""
+
+#: templates/admin/commissions/commissions-list-template.php:299
+#: templates/admin/payouts/payouts-list-template.php:292
+#: templates/admin/visits/visits-list-template.php:271
+msgid "Affiliate"
+msgstr ""
+
+#: templates/admin/commissions/commissions-list-template.php:300
+#: templates/admin/visits/visits-list-template.php:272
+msgid "Order"
+msgstr ""
+
+#: templates/admin/commissions/commissions-list-template.php:301
+#: templates/admin/top-products/top-products-list-template.php:168
+#: templates/front/affiliate-dashboard/commissions-section.php:76
+#: templates/front/affiliate-dashboard/top-products-section.php:42
+msgid "Product"
+msgstr ""
+
+#: templates/admin/commissions/commissions-list-template.php:302
+#: templates/front/affiliate-dashboard/commissions-section.php:77
+msgid "Total"
+msgstr ""
+
+#: templates/admin/commissions/commissions-list-template.php:303
+#: templates/front/affiliate-dashboard/commissions-section.php:78
+msgid "Refund"
+msgstr ""
+
+#: templates/admin/commissions/commissions-list-template.php:304
+msgid "Commision"
+msgstr ""
+
+#: templates/admin/commissions/commissions-list-template.php:306
+#: templates/admin/visits/visits-list-template.php:275
+#: templates/front/affiliate-dashboard/commissions-section.php:80
+#: templates/front/affiliate-dashboard/visits-section.php:63
+msgid "Date"
+msgstr ""
+
+#: templates/admin/commissions/commissions-list-template.php:360
+#: templates/admin/payouts/payouts-list-template.php:364
+msgid "Change Status to Pending"
+msgstr ""
+
+#: templates/admin/commissions/commissions-list-template.php:361
+msgid "Change Status to Not Confirmed"
+msgstr ""
+
+#: templates/admin/commissions/commissions-list-template.php:362
+#: templates/admin/payouts/payouts-list-template.php:365
+msgid "Change Status to Cancelled"
+msgstr ""
+
+#: templates/admin/commissions/commissions-list-template.php:363
+msgid "Change Status to Refunded"
+msgstr ""
+
+#: templates/admin/commissions/commissions-list-template.php:364
+msgid "Change Status to Paid"
+msgstr ""
+
+#: templates/admin/commissions/commissions-list-template.php:369
+msgid "Pay via %s"
+msgstr ""
+
+#: templates/admin/commissions/commissions-list-template.php:373
+msgid "Pay to Affiliate Default Withdrawal Method"
+msgstr ""
+
+#: templates/admin/commissions/commissions-list-template.php:389
+#: templates/admin/payouts/payouts-list-template.php:382
+#: templates/admin/visits/visits-list-template.php:340
+#: templates/front/affiliate-dashboard/commissions-section.php:62
+#: templates/front/affiliate-dashboard/payouts-section.php:61
+#: templates/front/affiliate-dashboard/visits-section.php:47
+msgid "From:"
+msgstr ""
+
+#: templates/admin/commissions/commissions-list-template.php:392
+#: templates/admin/payouts/payouts-list-template.php:385
+#: templates/admin/visits/visits-list-template.php:343
+#: templates/front/affiliate-dashboard/commissions-section.php:65
+#: templates/front/affiliate-dashboard/payouts-section.php:64
+#: templates/front/affiliate-dashboard/visits-section.php:50
+msgid "To:"
+msgstr ""
+
+#: templates/admin/commissions/commissions-list-template.php:395
+#: templates/admin/payouts/payouts-list-template.php:388
+#: templates/admin/top-products/top-products-list-template.php:212
+#: templates/admin/visits/visits-list-template.php:346
+msgid "Select Affiliate"
+msgstr ""
+
+#: templates/admin/commissions/commissions-list-template.php:406
+msgid "Select Product"
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:44
+#: templates/admin/configuration/configuration-template.php:25
+#: templates/admin/configuration/general-configuration-template.php:55
+#: templates/admin/configuration/referrals-configuration-template.php:41
+msgid "General"
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:50
+#: templates/admin/configuration/referrals-configuration-template.php:71
+#: templates/admin/configuration/referrals-configuration-template.php:105
+#: templates/admin/configuration/referrals-configuration-template.php:114
+#: templates/admin/configuration/referrals-configuration-template.php:129
+#: templates/admin/configuration/referrals-configuration-template.php:151
+msgid "Enable/Disable [Pro]"
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:51
+msgid "Affiliate Self Refer [Pro]"
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:52
+msgid "Enable/Disable the affiliate self refer functionality."
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:53
+msgid ""
+"This allows affiliates to earn commissions on their own orders. Disabling "
+"this option will not record a commission if an affiliate uses their own "
+"referral link/coupons during orders."
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:59
+msgid "Default/Global Commission Rate (%)"
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:60
+msgid "This is the default commission rate for all affiliates."
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:61
+msgid "You can override this value in each Affiliates' detail page."
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:73
+msgid "Excluded Products [Pro]"
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:76
+msgid "For these selected products, affiliates will not get any commissions."
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:78
+msgid "Search by title"
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:80
+#: templates/admin/configuration/commissions-configuration-template.php:92
+msgid "Leave empty if you want to give commissions for all products to affiliates."
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:85
+msgid "Excluded Categories [Pro]"
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:88
+msgid "For these selected categories, affiliates will not get any commissions."
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:90
+msgid "Search by name"
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:99
+#: templates/admin/configuration/commissions-configuration-template.php:109
+#: templates/admin/configuration/general-configuration-template.php:61
+#: templates/admin/configuration/general-configuration-template.php:112
+#: templates/admin/configuration/general-configuration-template.php:151
+#: templates/admin/configuration/general-configuration-template.php:181
+#: templates/admin/configuration/general-configuration-template.php:209
+#: templates/admin/configuration/referrals-configuration-template.php:166
+msgid "Enable/Disable"
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:100
+msgid "Exclude Taxes from Commission Calculations"
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:101
+msgid ""
+"Enable/Disable the exclude taxes functionality for the affiliate commission "
+"calculation."
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:102
+msgid ""
+"Enable this option if you want to calculate commissions for the affiliate "
+"without taxes."
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:110
+msgid "Exclude Discounts from Commission Calculations"
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:111
+msgid ""
+"Enable/Disable the exclude discounts functionality for the affiliate "
+"commission calculation."
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:112
+msgid ""
+"Enable this option if you want to calculate commissions for the affiliate "
+"without discounts."
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:119
+msgid "Payouts/Withdrawals"
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:124
+msgid "Payment Methods"
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:131
+msgid "Available"
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:153
+msgid "%s is required"
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:167
+msgid ""
+"Affiliates for WooCommerce Pro version is needed to use WooCommerce Wallet "
+"Management as withdrawal method."
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:173
+msgid "Withdrawal Type [Pro]"
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:174
+msgid "Select the withdrawal type from the given options."
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:175
+msgid "Choose how you want to manage the affiliate commission earnings withdrawal."
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:179
+msgid "Manually by admin"
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:180
+msgid "Manually requested by the affiliate"
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:181
+msgid "Automatically create a payout on a specific day of the month"
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:187
+msgid "Withdrawal Day [Pro]"
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:188
+msgid "Select any day between (1-28) for the monthly payment."
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:189
+msgid "Choose any day of the month to pay commissions to all affiliates."
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:199
+msgid "Payment Threshold (%s) [Pro]"
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:200
+msgid "Enter any threshold value for the affiliate earnings withdrawal."
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:201
+msgid ""
+"Enter any minimum threshold amount for the affiliate to earn in order to "
+"allow the withdrawal."
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:211
+msgid "Commissions' days old [Pro]"
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:212
+msgid "Enter any minimum number of days old for commissions."
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:213
+msgid ""
+"Enter the minimum number of days that should pass since the commission's "
+"creation to allow it to be automatically paid. Leave empty to consider all "
+"commissions."
+msgstr ""
+
+#: templates/admin/configuration/configuration-template.php:26
+msgid "Referrals"
+msgstr ""
+
+#: templates/admin/configuration/configuration-template.php:28
+msgid "Shortcodes"
+msgstr ""
+
+#: templates/admin/configuration/configuration-template.php:29
+msgid "Emails"
+msgstr ""
+
+#: templates/admin/configuration/configuration-template.php:30
+msgid "Endpoints"
+msgstr ""
+
+#: templates/admin/configuration/emails-configuration-template.php:40
+msgid "Emails Configuration"
+msgstr ""
+
+#: templates/admin/configuration/emails-configuration-template.php:42
+msgid "Want to use and customize the email templates for all emails?"
+msgstr ""
+
+#: templates/admin/configuration/emails-configuration-template.php:44
+msgid "Enable various email notifications."
+msgstr ""
+
+#: templates/admin/configuration/emails-configuration-template.php:45
+msgid ""
+"Customize the affiliate status emails such as pending, approved, rejected "
+"and banned."
+msgstr ""
+
+#: templates/admin/configuration/emails-configuration-template.php:46
+msgid ""
+"Customize the commission emails such as new, paid and when it's status "
+"changed."
+msgstr ""
+
+#: templates/admin/configuration/emails-configuration-template.php:47
+msgid "Customize the payout status emails such as pending, completed and cancelled."
+msgstr ""
+
+#: templates/admin/configuration/emails-configuration-template.php:48
+msgid "Add custom heading."
+msgstr ""
+
+#: templates/admin/configuration/emails-configuration-template.php:49
+msgid "Add custom subject."
+msgstr ""
+
+#: templates/admin/configuration/emails-configuration-template.php:50
+msgid "Add custom mail content."
+msgstr ""
+
+#: templates/admin/configuration/emails-configuration-template.php:51
+msgid "Add custom header and footer."
+msgstr ""
+
+#: templates/admin/configuration/emails-configuration-template.php:52
+msgid "Add custom HTML and CSS."
+msgstr ""
+
+#: templates/admin/configuration/emails-configuration-template.php:53
+msgid "Various dynamic placeholders are provided to use dynamic data."
+msgstr ""
+
+#: templates/admin/configuration/endpoints-configuration-template.php:42
+msgid "Endpoints Configuration"
+msgstr ""
+
+#: templates/admin/configuration/endpoints-configuration-template.php:44
+msgid ""
+"Want to customize the endpoints and section title of the affiliate "
+"dashboard page?"
+msgstr ""
+
+#: templates/admin/configuration/endpoints-configuration-template.php:46
+msgid "All sections' endpoints and titles are completely customizable."
+msgstr ""
+
+#: templates/admin/configuration/endpoints-configuration-template.php:47
+msgid "Custom or dynamic endpoints."
+msgstr ""
+
+#: templates/admin/configuration/endpoints-configuration-template.php:48
+msgid "Custom or dynamic endpoints title."
+msgstr ""
+
+#: templates/admin/configuration/endpoints-configuration-template.php:49
+msgid "Create multilingual URLs."
+msgstr ""
+
+#: templates/admin/configuration/endpoints-configuration-template.php:50
+msgid "Completely Reliabile."
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:62
+msgid "Enable Affiliates for WooCommerce"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:63
+msgid "Enable/Disable the module functionalities for the users."
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:64
+msgid "This allows the module functionality to be used on the frontend."
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:70
+msgid "Default Affiliate Status [Pro]"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:71
+msgid ""
+"This is the default status used for all affiliates once they become "
+"affiliate."
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:72
+msgid ""
+"This affiliate status will get assigned to both new registered affiliates "
+"and converted affiliates."
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:81
+msgid "User Roles"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:84
+msgid "Selected user roles will be able to apply for the affiliate functionality."
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:86
+msgid "Search by role"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:106
+msgid ""
+"Leave empty if you don't want to provide functionalities to any other user "
+"roles to convert them into affiliates."
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:113
+msgid "Enable Affiliate Registration Fields on WooCommerce Registration Form"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:114
+msgid ""
+"Enable/Disable the affiliate registration fields to be appear on the "
+"WooCommerce registration form."
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:115
+msgid ""
+"You can disable this option if you want the affiliate registration to be "
+"done only from the affiliate dashboard page."
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:122
+#: templates/admin/configuration/general-configuration-template.php:165
+msgid "Affiliate Dashboard Page"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:125
+msgid ""
+"This is used for the default affiliate dashboard page where you must have "
+"placed the affiliate dashboard shortcode manually."
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:136
+msgid ""
+"An affiliate dashboard page is already created via plugin and is "
+"pre-selected here."
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:142
+msgid "Primary Color"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:143
+msgid "This is the primary color used for the affiliate dashboard styling."
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:144
+msgid ""
+"This color gets used in the styling of some components on the affiliate "
+"dashboard page."
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:152
+#: templates/admin/configuration/general-configuration-template.php:210
+msgid "Enable Sidebar Widgets"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:153
+msgid "Enable/Disable sidebar widgets on the affiliate dashboard page."
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:154
+msgid ""
+"This allows the widgets to be shown on the sidebar on the affiliate "
+"dashboard page."
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:161
+msgid "Default Affiliate Dashboard"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:162
+msgid "Select the default affiliate dashboard."
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:163
+msgid ""
+"Select the default affiliate dashboard url either as affiliate dashbaord "
+"page having the affiliate dashboard shortcode or the my account page menu."
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:166
+msgid "My Account Page"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:175
+msgid "My Account Menu"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:182
+msgid "Enable Affiliates Menu on the My Account Page"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:183
+msgid ""
+"Enable/Disable the affiliates menu on the my account page for the allowed "
+"users so they can use the affiliate functionality."
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:184
+msgid ""
+"Disable this if you want the affiliate dashboard functionality to be used "
+"via Affiliate Dashboard page only."
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:191
+msgid "Endpoint [Pro]"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:192
+msgid ""
+"This is the endpoint used for the my account page menu which shows the "
+"affiliate dashboard."
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:193
+msgid "Default: affiliate-dashboard"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:200
+msgid "Endpoint Title [Pro]"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:201
+msgid ""
+"This is the endpoint title used for the my account page menu which shows "
+"the affiliate dashboard."
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:202
+msgid "Default: Affiliate Dashboard"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:211
+msgid ""
+"Enable/Disable sidebar widgets on the affiliate dashboard menu on my "
+"accounts page."
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:212
+msgid ""
+"This allows the widgets to be shown on the sidebar on the affiliate "
+"dashboard menu."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:47
+msgid "Query Variable Name"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:48
+msgid "This query variable name is used to store referral tokens in the URL."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:49
+msgid "Default: ref"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:50
+msgid "%s/%s={%s}."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:57
+msgid "Default Referral Token [Pro]"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:58
+msgid ""
+"This is the default referral token used in the query variable for "
+"affiliates to earn commissions."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:59
+msgid "This will be the default referral token for all affiliates."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:61
+msgid "User ID"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:72
+msgid "Allow Affiliates to Change their Referral Token [Pro]"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:73
+msgid ""
+"Enable/Disable the referral token change functionality from the affiliate "
+"dashboard."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:74
+msgid ""
+"This allows \"friendly\" looking links - because affiliates can use their "
+"brand name instead of {%s}."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:80
+msgid "Cookies"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:86
+msgid "Referral Cookie Name"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:87
+msgid "This cookie name used to store referral tokens."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:88
+msgid "Default: ddwcaf_referral_token"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:89
+msgid ""
+"This name should be as unique as possible to avoid conflict with other "
+"plugins. %s: if you change this setting, all cookies created previously "
+"will no longer be valid."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:89
+msgid "Warning"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:96
+msgid "Referral Cookie Expires After (in days)"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:97
+msgid "After the entered time, referral cookie gets expired."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:98
+msgid "Leave the field empty for no expiration."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:106
+msgid "Change referral cookie if another referral link is visited [Pro]"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:107
+msgid ""
+"Enable/Disable the referral token change functionality in the referral "
+"cookie if another referral link gets visited."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:108
+msgid ""
+"This allows to overrides the new referral token in the cookie if user "
+"accesses the site using another referral link."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:115
+msgid "Delete the Cookies after Checkout [Pro]"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:116
+msgid ""
+"Enable/Disable the functionality to delete the referral cookie from the "
+"browser once the user places the order."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:117
+msgid ""
+"This allows to delete the referral cookie once the customer places the "
+"order. Disable this option to allow the same affiliate to earn commission "
+"for all future orders as well if there isn't any new affiliate refers."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:123
+msgid "Coupons [Pro]"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:130
+msgid "Assign Coupons to Affiliates [Pro]"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:131
+msgid ""
+"Enable/Disable the functionality to assign the coupons to affiliate on "
+"creating or modifying it."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:132
+msgid ""
+"This allows affiliates to promote your site via coupons so each order that "
+"contains the coupon will generate a commission for the affiliate."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:138
+msgid "Display Coupon Section on Affiliate Dashboard [Pro]"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:139
+msgid "Select the appropriate option to whom you want to show the coupon section."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:140
+msgid ""
+"Select whether to display the \"Coupons\" section to all affiliates or only "
+"to those affiliates that have any coupon assigned to them."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:142
+msgid "To all affiliates"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:143
+msgid "Only to those affiliates that have any coupon assigned to them"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:152
+msgid "Send an email to affiliate when a coupon gets assigned [Pro]"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:153
+msgid ""
+"Enable/Disable the send email functionality to affiliates when a coupon "
+"gets assigned."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:154
+msgid "Enable to notify affiliates when any coupon gets assigned to their account."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:167
+msgid "Register Visits"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:168
+msgid "Enable/Disable the register visits functionality."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:169
+msgid ""
+"This allows registering the visits of the affiliate referred URLs by users "
+"with their IP addresses in your database."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:176
+msgid "Re-register the same visit after (in seconds) [Pro]"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:177
+msgid "After the entered time, same visit get registered again."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:178
+msgid ""
+"After the above entered time, if the same user visits the same referred "
+"url, re-register the visit. Leave empty to disable re-register."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:184
+msgid "Social Share"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:190
+msgid "Allowed Options"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:191
+msgid ""
+"Selected social media share options will get displayed on the Link "
+"Generator section."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:192
+msgid ""
+"Select which social media share options you want to enable in the \"Link "
+"Generator\" section on the affiliate dashboard. Leave empty for no social "
+"shares."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:199
+msgid "Search by social platforms"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:202
+msgid "Facebook"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:203
+msgid "Twitter"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:204
+msgid "Pinterest"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:205
+msgid "LinkedIn"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:206
+msgid "Viber"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:207
+msgid "VK"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:208
+msgid "Reddit"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:209
+msgid "WhatsApp"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:210
+msgid "Tumblr"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:217
+msgid "Title"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:218
+msgid "This is the title used in the social share."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:219
+msgid "This is the title to be used in the Twitter and Pinterest social share."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:226
+msgid "Text"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:227
+msgid ""
+"Enter the text to be used in the Twitter, Pinterest and WhatsApp social "
+"share. Use {referral_url} placeholder to display the affiliate url."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:228
+msgid "Use {referral_url} placeholder to display the affiliate url."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:235
+msgid "Pinterest Image URL"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:236
+msgid "This is the image url used in the Pinterest social share."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:237
+msgid "Enter the URL of the image to use in Pinterest social sharing."
+msgstr ""
+
+#: templates/admin/configuration/shortcodes-configuration-template.php:41
+msgid "Shortcodes Configuration"
+msgstr ""
+
+#: templates/admin/configuration/shortcodes-configuration-template.php:47
+msgid "Affiliate Registration Form"
+msgstr ""
+
+#: templates/admin/configuration/shortcodes-configuration-template.php:48
+msgid "This is the shortcode used to display the affiliate registration form."
+msgstr ""
+
+#: templates/admin/configuration/shortcodes-configuration-template.php:49
+msgid "Default: [ddwcaf_affiliate_registration_form_shortcode]"
+msgstr ""
+
+#: templates/admin/configuration/shortcodes-configuration-template.php:56
+msgid "Affiliate Registration Form Content"
+msgstr ""
+
+#: templates/admin/configuration/shortcodes-configuration-template.php:57
+msgid "Select the content to be displayed on the affiliate registration shortcode."
+msgstr ""
+
+#: templates/admin/configuration/shortcodes-configuration-template.php:59
+msgid "Login + Registration Form"
+msgstr ""
+
+#: templates/admin/configuration/shortcodes-configuration-template.php:60
+msgid "Only Registration Form"
+msgstr ""
+
+#: templates/admin/configuration/shortcodes-configuration-template.php:70
+msgid "This is the shortcode used to display the affiliate dashboard."
+msgstr ""
+
+#: templates/admin/configuration/shortcodes-configuration-template.php:71
+msgid "Default: [ddwcaf_affiliate_dashboard_shortcode]"
+msgstr ""
+
+#: templates/admin/payouts/payouts-list-template.php:66
+msgid "Payout List"
+msgstr ""
+
+#: templates/admin/payouts/payouts-list-template.php:67
+msgid "Payouts List"
+msgstr ""
+
+#: templates/admin/payouts/payouts-list-template.php:159
+#: templates/front/affiliate-dashboard/payouts-section.php:100
+msgid "Account Name: %s"
+msgstr ""
+
+#: templates/admin/payouts/payouts-list-template.php:160
+#: templates/front/affiliate-dashboard/payouts-section.php:101
+msgid "IBAN: %s"
+msgstr ""
+
+#: templates/admin/payouts/payouts-list-template.php:161
+#: templates/front/affiliate-dashboard/payouts-section.php:102
+msgid "Swift Code: %s"
+msgstr ""
+
+#: templates/admin/payouts/payouts-list-template.php:233
+msgid "%d payout(s) deleted successfully."
+msgstr ""
+
+#: templates/admin/payouts/payouts-list-template.php:235
+msgid "Payout is processed successfully for %d payout(s)."
+msgstr ""
+
+#: templates/admin/payouts/payouts-list-template.php:237
+msgid "%d payout(s) status changed successfully."
+msgstr ""
+
+#: templates/admin/payouts/payouts-list-template.php:245
+msgid "%d payout(s) could not be paid."
+msgstr ""
+
+#: templates/admin/payouts/payouts-list-template.php:247
+msgid "%d payout(s) not exits."
+msgstr ""
+
+#: templates/admin/payouts/payouts-list-template.php:254
+msgid "Select payout(s) to delete."
+msgstr ""
+
+#: templates/admin/payouts/payouts-list-template.php:271
+msgid "No payouts avaliable."
+msgstr ""
+
+#: templates/admin/payouts/payouts-list-template.php:293
+#: templates/front/affiliate-dashboard/payouts-section.php:75
+msgid "Payment Method"
+msgstr ""
+
+#: templates/admin/payouts/payouts-list-template.php:294
+#: templates/front/affiliate-dashboard/payouts-section.php:76
+msgid "Amount"
+msgstr ""
+
+#: templates/admin/payouts/payouts-list-template.php:295
+#: templates/front/affiliate-dashboard/payouts-section.php:77
+msgid "Reference"
+msgstr ""
+
+#: templates/admin/payouts/payouts-list-template.php:297
+#: templates/front/affiliate-dashboard/payouts-section.php:78
+msgid "Created On"
+msgstr ""
+
+#: templates/admin/payouts/payouts-list-template.php:298
+#: templates/front/affiliate-dashboard/payouts-section.php:79
+msgid "Completed On"
+msgstr ""
+
+#: templates/admin/payouts/payouts-list-template.php:366
+msgid "Change Status to Completed"
+msgstr ""
+
+#: templates/admin/registration/affiliate-registration-fields-template.php:56
+msgid "Registration Field List"
+msgstr ""
+
+#: templates/admin/registration/affiliate-registration-fields-template.php:57
+msgid "Registration Fields List"
+msgstr ""
+
+#: templates/admin/registration/affiliate-registration-fields-template.php:158
+msgid ""
+"This field is protected and can't be deleted or modified. It is used in the "
+"registration form and it is active or inactive as per the WooCommerce "
+"configuration."
+msgstr ""
+
+#: templates/admin/registration/affiliate-registration-fields-template.php:201
+msgid "Status changed for %d field(s) successfully."
+msgstr ""
+
+#: templates/admin/registration/affiliate-registration-fields-template.php:207
+msgid "%d field(s) not exits."
+msgstr ""
+
+#: templates/admin/registration/affiliate-registration-fields-template.php:212
+msgid "Select field(s) to take action."
+msgstr ""
+
+#: templates/admin/registration/affiliate-registration-fields-template.php:229
+msgid "No fields avaliable."
+msgstr ""
+
+#: templates/admin/registration/affiliate-registration-fields-template.php:249
+msgid "Label"
+msgstr ""
+
+#: templates/admin/registration/affiliate-registration-fields-template.php:250
+msgid "Type"
+msgstr ""
+
+#: templates/admin/registration/affiliate-registration-fields-template.php:252
+msgid "Position"
+msgstr ""
+
+#: templates/admin/registration/affiliate-registration-fields-template.php:253
+msgid "Required"
+msgstr ""
+
+#: templates/admin/registration/affiliate-registration-fields-template.php:254
+msgid "Editable"
+msgstr ""
+
+#: templates/admin/registration/affiliate-registration-fields-template.php:329
+msgid "Change to Active"
+msgstr ""
+
+#: templates/admin/registration/affiliate-registration-fields-template.php:330
+msgid "Change to Inactive"
+msgstr ""
+
+#: templates/admin/top-products/top-products-list-template.php:52
+msgid "Top Product List"
+msgstr ""
+
+#: templates/admin/top-products/top-products-list-template.php:53
+msgid "Top Products List"
+msgstr ""
+
+#: templates/admin/top-products/top-products-list-template.php:149
+msgid "No products avaliable."
+msgstr ""
+
+#: templates/admin/top-products/top-products-list-template.php:169
+#: templates/front/affiliate-dashboard/top-products-section.php:43
+msgid "Quantity"
+msgstr ""
+
+#: templates/admin/top-products/top-products-list-template.php:171
+#: templates/front/affiliate-dashboard/top-products-section.php:44
+msgid "Total Commisions"
+msgstr ""
+
+#: templates/admin/visits/visits-list-template.php:57
+msgid "Visit List"
+msgstr ""
+
+#: templates/admin/visits/visits-list-template.php:58
+msgid "Visits List"
+msgstr ""
+
+#: templates/admin/visits/visits-list-template.php:174
+msgid "Guest IP: [Pro]"
+msgstr ""
+
+#: templates/admin/visits/visits-list-template.php:222
+msgid "%d visit(s) deleted successfully."
+msgstr ""
+
+#: templates/admin/visits/visits-list-template.php:228
+msgid "%d visit(s) not exits."
+msgstr ""
+
+#: templates/admin/visits/visits-list-template.php:233
+msgid "Select visit(s) to delete."
+msgstr ""
+
+#: templates/admin/visits/visits-list-template.php:250
+msgid "No visits avaliable."
+msgstr ""
+
+#: templates/admin/visits/visits-list-template.php:274
+#: templates/front/affiliate-dashboard/visits-section.php:62
+msgid "Referrer/Origin URL"
+msgstr ""
+
+#: templates/admin/visits/visits-list-template.php:276
+#: templates/front/affiliate-dashboard/visits-section.php:64
+msgid "Conversion Date"
+msgstr ""
+
+#: templates/front/affiliate-dashboard/commissions-section.php:79
+msgid "Commission"
+msgstr ""
+
+#: templates/front/affiliate-dashboard/commissions-section.php:111
+msgid "No commissions yet."
+msgstr ""
+
+#: templates/front/affiliate-dashboard/commissions-section.php:126
+#: templates/front/affiliate-dashboard/payouts-section.php:137
+#: templates/front/affiliate-dashboard/top-products-section.php:78
+#: templates/front/affiliate-dashboard/visits-section.php:106
+msgid "Previous"
+msgstr ""
+
+#: templates/front/affiliate-dashboard/commissions-section.php:131
+#: templates/front/affiliate-dashboard/payouts-section.php:142
+#: templates/front/affiliate-dashboard/top-products-section.php:83
+#: templates/front/affiliate-dashboard/visits-section.php:111
+msgid "Next"
+msgstr ""
+
+#: templates/front/affiliate-dashboard/link-generator-section.php:22
+msgid "Your Referral Token"
+msgstr ""
+
+#: templates/front/affiliate-dashboard/link-generator-section.php:24
+msgid "Your Referral URL"
+msgstr ""
+
+#: templates/front/affiliate-dashboard/payouts-section.php:122
+msgid "No payouts yet."
+msgstr ""
+
+#: templates/front/affiliate-dashboard/settings-section.php:102
+#: templates/shortcodes/affiliate-dashboard.php:94
+msgid "Become an Affiliate"
+msgstr ""
+
+#: templates/front/affiliate-dashboard/top-products-section.php:63
+msgid "No products yet."
+msgstr ""
+
+#: templates/front/affiliate-dashboard/visits-section.php:91
+msgid "No visits yet."
+msgstr ""
+
+#: templates/shortcodes/affiliate-dashboard.php:25
+msgid "Thank You!!"
+msgstr ""
+
+#: templates/shortcodes/affiliate-dashboard.php:26
+msgid ""
+"Your request has been submitted successfully for the affiliate program and "
+"it is being reviewed. You'll get an email update soon."
+msgstr ""
+
+#: templates/shortcodes/affiliate-dashboard.php:33
+#: templates/shortcodes/affiliate-dashboard.php:41
+msgid "We are Sorry!!"
+msgstr ""
+
+#: templates/shortcodes/affiliate-dashboard.php:34
+msgid ""
+"Your profile is successfully reviewed and it is rejected for now so kindly "
+"submit the form again with more appropriate details."
+msgstr ""
+
+#: templates/shortcodes/affiliate-dashboard.php:42
+msgid "Your profile is banned now so you can't earn commissions now."
+msgstr ""
+
+#: templates/shortcodes/affiliate-dashboard.php:75
+#: templates/shortcodes/affiliate-dashboard.php:100
+msgid "Logout"
+msgstr ""
+
+#: templates/shortcodes/affiliate-dashboard.php:85
+msgid ""
+"You're just 1 step away from becoming an affiliate so kindly provide us the "
+"following details to proceed."
+msgstr ""
+
+#: templates/shortcodes/affiliate-dashboard.php:100
+msgid "You need to logout first in order to join our affiliate program."
+msgstr ""
+
+#: templates/shortcodes/affiliate-registration-form.php:22
+msgid "Login"
+msgstr ""
+
+#: templates/shortcodes/affiliate-registration-form.php:29
+msgid "Username or email address"
+msgstr ""
+
+#: templates/shortcodes/affiliate-registration-form.php:41
+msgid "Remember me"
+msgstr ""
+
+#: templates/shortcodes/affiliate-registration-form.php:44
+msgid "Log in"
+msgstr ""
+
+#: templates/shortcodes/affiliate-registration-form.php:47
+msgid "Lost your password?"
+msgstr ""
+
+#: templates/shortcodes/affiliate-registration-form.php:59
+#: templates/shortcodes/affiliate-registration-form.php:94
+msgid "Register"
+msgstr ""
+
+#: templates/shortcodes/affiliate-registration-form.php:86
+msgid "A link to set a new password will be sent to your email address."
+msgstr ""
+
+#: includes/install.php:127
+msgctxt "[GLOBAL] Dashboard page title"
+msgid "Affiliate Dashboard"
+msgstr ""
+
+#: templates/admin/commissions/commissions-list-template.php:152
+#: templates/admin/visits/visits-list-template.php:149
+#. translators: 1: first name 2: last name
+msgctxt "full name"
+msgid "%1$s %2$s"
+msgstr ""

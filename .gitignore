@@ -1,0 +1,21 @@
+# A set of files you probably don't want in your MultiPOS - Point of Sale for WooCommerce git push
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# Project files
+node_modules/
+
+# IDE files
+.idea
+.vscode/*
+project.xml
+project.properties
+.project
+.settings*
+*.sublime-project
+*.sublime-workspace
+.sublimelinterrc
+
+.git
