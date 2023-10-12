@@ -5,13 +5,14 @@
 
 **WordPress**
   * `Requires at least: 5.0.0`
-  * `Tested up to: 6.2.x`
+  * `Tested up to: 6.3.x`
 
 **WooCommerce**
   * `Requires at least: 5.0.0`
-  * `Tested up to: 7.5.x`
+  * `Tested up to: 8.1.x`
 
 **License**: GNU/GPL for more info see license.txt included with plugin
+
 **License URI**: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
 ## Description
