@@ -25,11 +25,14 @@ With Affiliates for WooCommerce, site owners can easily set up an affiliate prog
 Site owners have complete control over their affiliate program, including setting commission rates, defining cookie expiration periods, and setting minimum payout thresholds. They can also view reports on affiliate activity, including the number of clicks, impressions, and conversions.
 
 👉 <a href="https://demo.devdiggers.com/woocommerce/woocommerce-affiliates-free/" title="Live Demo">Affiliates for WooCommerce Live Demo</a>
+
 👉 <a href="https://devdiggers.com/affiliates-for-woocommerce/" title="Documentation">Affiliates for WooCommerce Documentation</a>
+
 👉 <a href="https://devdiggers.com/product/woocommerce-affiliates/" title="Premium Version">Affiliates for WooCommerce Premium Version</a>
+
 👉 <a href="https://devdiggers.com/woocommerce-extensions/" title="WooCommerce Extensions">WooCommerce Extensions</a>
 
-= FEATURES OF THE AFFILIATES FOR WOOCOMMERCE FREE VERSION =
+## FEATURES OF THE AFFILIATES FOR WOOCOMMERCE FREE VERSION
 
 * Module can be enabled or disabled by the admin.
 * Allow other user roles to be able to converted into affiliates.
@@ -74,7 +77,7 @@ Site owners have complete control over their affiliate program, including settin
 
 <p><a href="https://demo.devdiggers.com/woocommerce/woocommerce-affiliates-free/">Check The Live Demo of the Affiliates for WooCommerce Free Version &gt;</a></p>
 
-= FEATURES OF THE AFFILIATES FOR WOOCOMMERCE PREMIUM VERSION =
+## FEATURES OF THE AFFILIATES FOR WOOCOMMERCE PREMIUM VERSION
 
 * Automatically approve all affiliates after their registration or when existing user become an affiliate.
 * Choose the default status as pending, approved, rejected or banned for new affiliate.
@@ -113,33 +116,36 @@ Site owners have complete control over their affiliate program, including settin
 
 <p><a href="https://demo.devdiggers.com/woocommerce/woocommerce-affiliates/">Check The Live Demo of the Affiliates for WooCommerce Premium Version &gt;</a></p>
 
-== Installation ==
+## Installation
 
 1. Upload the `affiliates-for-woocommerce` folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Configure the plugin using the 'Affiliates' menu
 
-== Frequently Asked Questions ==
+## Frequently Asked Questions
 
-= How many affiliates can I have? =
+### How many affiliates can I have?
 There’s no limit for the number of affiliates you can have.
 
-= How do I pay my affiliates? =
+### How do I pay my affiliates?
 You can pay via bank transfer or PayPal.
 
-= Does this plugin register referral visits =
+### Does this plugin register referral visits?
 Yes, it register or saves the referral visits and can be seen at the admin or affiliate end.
 
-= Do you offer support? =
+### Do you offer support?
 Of course! We offer support in the forums here on WordPress.org and if you have a premium version we offer priority email support.
 
-= For complete documentation =
+## For complete documentation
 Visit [Affiliates for WooCommerce Documentation](https://devdiggers.com/affiliates-for-woocommerce/)
 
-= For any other question feel free to do so. =
+For any other question feel free to do so.
+
 For any queries, kindly connect with us from [DevDiggers Contact](https://devdiggers.com/contact/)
 
-== Changelog ==
+## Changelog
 
-= 1.0 =
+**= 1.1.0 =**
+```
 Initial release
+```
