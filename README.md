@@ -1,7 +1,7 @@
 # Affiliates for WooCommerce
 **Contributors**: `DevDiggers`
 
-**Tags**: wordpress Affiliates for WooCommerce, WooCommerce Affiliate Marketing, Affiliate Program, Earn with WooCommerce, Boost Sales with Affiliates, Best Affiliate Platform, Partner with WooCommerce, Maximize Earnings, Increase Revenue with Affiliates, WooCommerce Partner Program, Monetize Your Website with Affiliates for WooCommerce, Marketing Collaboration, Commission, Referral System, Affiliate Networking
+**Tags**: Affiliates for WooCommerce, WooCommerce Affiliate Marketing, Affiliate Program, WooCommerce Partner Program, Affiliate Networking
 
 **WordPress**
   * `Requires at least: 5.0.0`
@@ -9,7 +9,7 @@
 
 **WooCommerce**
   * `Requires at least: 5.0.0`
-  * `Tested up to: 8.8.2`
+  * `Tested up to: 8.9.2`
 
 **License**: GNU/GPL for more info see license.txt included with plugin
 
