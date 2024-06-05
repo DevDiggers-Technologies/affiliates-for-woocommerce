@@ -5,11 +5,11 @@
 
 **WordPress**
   * `Requires at least: 5.0.0`
-  * `Tested up to: 6.3.x`
+  * `Tested up to: 6.5.2`
 
 **WooCommerce**
   * `Requires at least: 5.0.0`
-  * `Tested up to: 8.1.x`
+  * `Tested up to: 8.8.2`
 
 **License**: GNU/GPL for more info see license.txt included with plugin
 
@@ -147,6 +147,19 @@ For any queries, kindly connect with us from [DevDiggers Contact](https://devdig
 ## Changelog
 
 **= 1.1.0 =**
+```
+Added WooCommerce HPOS (High-Performance order storage) compatibility.
+Added compatibility with latest WordPress and WooCommerce.
+Resolved security issues.
+```
+
+**= 1.0.1 =**
+```
+Added compatibility with latest versions of WordPress and WooCommerce.
+Resolved security issues.
+```
+
+**= 1.0.0 =**
 ```
 Initial release
 ```

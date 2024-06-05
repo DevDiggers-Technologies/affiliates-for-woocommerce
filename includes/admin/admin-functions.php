@@ -274,8 +274,8 @@ if ( ! class_exists( 'DDWCAF_Admin_Functions' ) ) {
                         <li><?php esc_html_e( 'How much commissions are paid to affiliates and when?', 'affiliates-for-woocommerce' ); ?></li>
                         <li><?php esc_html_e( 'How much commissions are unpaid to affiliates and when?', 'affiliates-for-woocommerce' ); ?></li>
                         <li><?php esc_html_e( 'How much commissions are refunded from affiliates and when?', 'affiliates-for-woocommerce' ); ?></li>
-                        <li><?php esc_html_e( 'How much vists are registered from affiliates and when?', 'affiliates-for-woocommerce' ); ?></li>
-                        <li><?php esc_html_e( 'How much vists are converted from affiliates and when?', 'affiliates-for-woocommerce' ); ?></li>
+                        <li><?php esc_html_e( 'How much visits are registered from affiliates and when?', 'affiliates-for-woocommerce' ); ?></li>
+                        <li><?php esc_html_e( 'How much visits are converted from affiliates and when?', 'affiliates-for-woocommerce' ); ?></li>
                         <li><?php esc_html_e( 'How much is the conversion rate from affiliates and when?', 'affiliates-for-woocommerce' ); ?></li>
                         <li><?php esc_html_e( 'Compare reports from previous years.', 'affiliates-for-woocommerce' ); ?></li>
                         <li><?php esc_html_e( 'Check all or individual affiliate reports.', 'affiliates-for-woocommerce' ); ?></li>

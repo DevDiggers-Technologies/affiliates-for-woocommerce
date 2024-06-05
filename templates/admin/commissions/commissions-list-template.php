@@ -10,6 +10,7 @@ namespace DDWCAffiliates\Templates\Admin\Commissions;
 
 use DDWCAffiliates\Helper\Error\DDWCAF_Error_Helper;
 use DDWCAffiliates\Helper\Commission\DDWCAF_Commission_Helper;
+use DDWCAffiliates\Helper\Affiliate\DDWCAF_Affiliate_Helper;
 use DDWCAffiliates\Helper\Payout\DDWCAF_Payout_Helper;
 
 defined( 'ABSPATH' ) || exit();
@@ -39,6 +40,13 @@ if ( ! class_exists( 'DDWCAF_Commissions_List_Template' ) ) {
         protected $commission_helper;
 
 		/**
+         * Affiliate Helper Variable
+         *
+         * @var object
+         */
+        protected $affiliate_helper;
+
+		/**
          * Args Variable
          *
          * @var array
@@ -53,6 +61,7 @@ if ( ! class_exists( 'DDWCAF_Commissions_List_Template' ) ) {
         public function __construct( $ddwcaf_configuration ) {
             $this->ddwcaf_configuration = $ddwcaf_configuration;
             $this->commission_helper    = new DDWCAF_Commission_Helper( $ddwcaf_configuration );
+			$this->affiliate_helper     = new DDWCAF_Affiliate_Helper( $ddwcaf_configuration );
 
             parent::__construct( [
 				'singular' => esc_html__( 'Commission List', 'affiliates-for-woocommerce' ),
