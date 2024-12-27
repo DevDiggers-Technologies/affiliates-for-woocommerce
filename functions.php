@@ -5,13 +5,13 @@
  * Plugin URI: https://devdiggers.com/woocommerce-extensions/?utm_source=Affiliates for WooCommerce Plugin&utm_medium=Plugins List&utm_campaign=WooCommerce Extensions
  * Author: DevDiggers
  * Author URI: https://devdiggers.com/
- * Version: 1.1.0
+ * Version: 1.1.1
  * Text Domain: affiliates-for-woocommerce
  * Domain Path: /i18n
  * WC requires at least: 5.0.0
- * WC tested up to: 8.8.2
+ * WC tested up to: 9.5.1
  * WP requires at least: 5.0.0
- * WP tested up to: 6.5.2
+ * WP tested up to: 6.7.1
  * Requires Plugins: woocommerce
  *
  * @package Affiliates for WooCommerce

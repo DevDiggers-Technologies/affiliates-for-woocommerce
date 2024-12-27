@@ -2,9 +2,9 @@
 Contributors: devdiggers
 Tags: Affiliates for WooCommerce, WooCommerce Affiliate Marketing, Affiliate Program, WooCommerce Partner Program, Affiliate Networking
 Requires at least: 5.8
-Tested up to: 6.5.2
+Tested up to: 6.7.1
 Requires PHP: 7.2
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GNU/GPL for more info see license.txt included with plugin
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -162,6 +162,10 @@ Visit [Affiliates for WooCommerce Documentation](https://devdiggers.com/affiliat
 For any queries, kindly connect with us from [DevDiggers Contact](https://devdiggers.com/contact/)
 
 == Changelog ==
+
+= 1.1.1 =
+Added compatibility with latest WordPress and WooCommerce.
+Resolved security issues.
 
 = 1.1.0 =
 Added WooCommerce HPOS (High-Performance order storage) compatibility.
