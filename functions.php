@@ -5,13 +5,14 @@
  * Plugin URI: https://devdiggers.com/woocommerce-extensions/?utm_source=Affiliates for WooCommerce Plugin&utm_medium=Plugins List&utm_campaign=WooCommerce Extensions
  * Author: DevDiggers
  * Author URI: https://devdiggers.com/
- * Version: 1.0.0
+ * Version: 1.1.1
  * Text Domain: affiliates-for-woocommerce
  * Domain Path: /i18n
  * WC requires at least: 5.0.0
- * WC tested up to: 8.1.x
+ * WC tested up to: 9.5.1
  * WP requires at least: 5.0.0
- * WP tested up to: 6.3.x
+ * WP tested up to: 6.7.1
+ * Requires Plugins: woocommerce
  *
  * @package Affiliates for WooCommerce
  */
@@ -66,6 +67,13 @@ if ( ! class_exists( 'DDWCAF_Free_Init' ) ) {
 				require_once DDWCAF_PLUGIN_FILE . 'autoload/autoload.php';
 				new DDWCAF_File_Handler();
 			}
+
+			// For HPOS Compatibility
+			add_action( 'before_woocommerce_init', function() {
+				if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+					\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+				}
+			} );
 		}
 
 		/**

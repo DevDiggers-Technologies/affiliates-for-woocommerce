@@ -1,19 +1,23 @@
 # Affiliates for WooCommerce
 **Contributors**: `DevDiggers`
 
-**Tags**: wordpress Affiliates for WooCommerce, WooCommerce Affiliate Marketing, Affiliate Program, Earn with WooCommerce, Boost Sales with Affiliates, Best Affiliate Platform, Partner with WooCommerce, Maximize Earnings, Increase Revenue with Affiliates, WooCommerce Partner Program, Monetize Your Website with Affiliates for WooCommerce, Marketing Collaboration, Commission, Referral System, Affiliate Networking
+**Tags**: Affiliates for WooCommerce, WooCommerce Affiliate Marketing, Affiliate Program, WooCommerce Partner Program, Affiliate Networking
 
 **WordPress**
   * `Requires at least: 5.0.0`
-  * `Tested up to: 6.3.x`
+  * `Tested up to: 6.7.1`
 
 **WooCommerce**
   * `Requires at least: 5.0.0`
-  * `Tested up to: 8.1.x`
+  * `Tested up to: 9.5.1`
 
 **License**: GNU/GPL for more info see license.txt included with plugin
 
 **License URI**: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+
+## Short Description
+
+Affiliates for WooCommerce is a plugin that allows site owners to create an affiliate marketing program for their online store. The plugin allows affiliates to promote the store and earn a commission on sales made through their unique affiliate links.
 
 ## Description
 
@@ -146,7 +150,26 @@ For any queries, kindly connect with us from [DevDiggers Contact](https://devdig
 
 ## Changelog
 
+**= 1.1.1 =**
+```
+Added compatibility with latest WordPress and WooCommerce.
+Resolved security issues.
+```
+
 **= 1.1.0 =**
+```
+Added WooCommerce HPOS (High-Performance order storage) compatibility.
+Added compatibility with latest WordPress and WooCommerce.
+Resolved security issues.
+```
+
+**= 1.0.1 =**
+```
+Added compatibility with latest versions of WordPress and WooCommerce.
+Resolved security issues.
+```
+
+**= 1.0.0 =**
 ```
 Initial release
 ```

@@ -485,5 +485,5 @@ if ( ! class_exists( 'DDWCAF_Front_Functions' ) ) {
 				$order->save();
 			}
 		}
-    }
+	}
 }

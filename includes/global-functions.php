@@ -2,33 +2,31 @@
 /**
  * Global Functions
  *
- * @author DevDiggers
  * @package Affiliates for WooCommerce
  * @version 1.0.0
  */
 
-
 defined( 'ABSPATH' ) || exit();
 
 if ( ! function_exists( 'ddwcaf_is_wallet_active' ) ) {
-    /**
-     * Is Wallet Active function
-     *
-     * @return void
-     */
-    function ddwcaf_is_wallet_active() {
+	/**
+	 * Is Wallet Active function
+	 *
+	 * @return void
+	 */
+	function ddwcaf_is_wallet_active() {
 		return class_exists( 'DDWCWM_Init' );
 	}
 }
 
 if ( ! function_exists( 'ddwcaf_form_field' ) ) {
-    /**
-     * Display Form field function
-     *
-     * @return void
-     */
-    function ddwcaf_form_field( $args ) {
-        $defaults = [
+	/**
+	 * Display Form field function
+	 *
+	 * @return void
+	 */
+	function ddwcaf_form_field( $args ) {
+		$defaults = [
 			'type'                  => 'text',
 			'name'                  => '',
 			'value'                 => '',
@@ -297,7 +295,7 @@ if ( ! function_exists( 'ddwcaf_form_field' ) ) {
 		if ( $args['return'] ) {
 			return $field;
 		} else {
-			echo wp_kses_post( $field ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $field; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
-    }
+	}
 }

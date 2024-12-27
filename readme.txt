@@ -1,14 +1,17 @@
 === Affiliates for WooCommerce - Boost your Earnings with Affiliate Marketing Program ===
 Contributors: devdiggers
-Tags: wordpress Affiliates for WooCommerce, WooCommerce Affiliate Marketing, Affiliate Program, Earn with WooCommerce, Boost Sales with Affiliates, Best Affiliate Platform, Partner with WooCommerce, Maximize Earnings, Increase Revenue with Affiliates, WooCommerce Partner Program, Monetize Your Website with Affiliates for WooCommerce, Marketing Collaboration, Commission, Referral System, Affiliate Networking
+Tags: Affiliates for WooCommerce, WooCommerce Affiliate Marketing, Affiliate Program, WooCommerce Partner Program, Affiliate Networking
 Requires at least: 5.8
-Tested up to: 6.2.0
+Tested up to: 6.7.1
 Requires PHP: 7.2
-Stable tag: 1.0.0
+Stable tag: 1.1.1
 License: GNU/GPL for more info see license.txt included with plugin
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
-== Description==
+== Short Description ==
+Affiliates for WooCommerce is a plugin that allows site owners to create an affiliate marketing program for their online store. The plugin allows affiliates to promote the store and earn a commission on sales made through their unique affiliate links.
+
+== Description ==
 
 Affiliates for WooCommerce is a plugin that allows site owners to create an affiliate marketing program for their online store. The plugin allows affiliates to promote the store and earn a commission on sales made through their unique affiliate links.
 
@@ -23,7 +26,7 @@ Site owners have complete control over their affiliate program, including settin
 👉 <a href="https://devdiggers.com/product/woocommerce-affiliates/" title="Premium Version">Affiliates for WooCommerce Premium Version</a>
 👉 <a href="https://devdiggers.com/woocommerce-extensions/" title="WooCommerce Extensions">WooCommerce Extensions</a>
 
-= FEATURES OF THE AFFILIATES FOR WOOCOMMERCE FREE VERSION =
+###⚡️ FEATURES OF THE AFFILIATES FOR WOOCOMMERCE FREE VERSION
 
 * Module can be enabled or disabled by the admin.
 * Allow other user roles to be able to converted into affiliates.
@@ -68,7 +71,7 @@ Site owners have complete control over their affiliate program, including settin
 
 <p><a href="https://demo.devdiggers.com/woocommerce/woocommerce-affiliates-free/">Check The Live Demo of the Affiliates for WooCommerce Free Version &gt;</a></p>
 
-= FEATURES OF THE AFFILIATES FOR WOOCOMMERCE PREMIUM VERSION =
+###⚡️ FEATURES OF THE AFFILIATES FOR WOOCOMMERCE PREMIUM VERSION
 
 * Automatically approve all affiliates after their registration or when existing user become an affiliate.
 * Choose the default status as pending, approved, rejected or banned for new affiliate.
@@ -98,6 +101,7 @@ Site owners have complete control over their affiliate program, including settin
 * Set different commission rates for different affiliates.
 * View the visit user IP address.
 * Configure advanced commission rules for specific products, categories and user roles.
+* Configure multi-level affiliate commission rules.
 * Create advanced affiliate registration form by adding unlimited fields.
 * Choose which fields can be edited by the affiliate later.
 * Advanced analytics and reports provided in the affiliate dashboard.
@@ -158,6 +162,19 @@ Visit [Affiliates for WooCommerce Documentation](https://devdiggers.com/affiliat
 For any queries, kindly connect with us from [DevDiggers Contact](https://devdiggers.com/contact/)
 
 == Changelog ==
+
+= 1.1.1 =
+Added compatibility with latest WordPress and WooCommerce.
+Resolved security issues.
+
+= 1.1.0 =
+Added WooCommerce HPOS (High-Performance order storage) compatibility.
+Added compatibility with latest WordPress and WooCommerce.
+Resolved security issues.
+
+= 1.0.1 =
+Added compatibility with latest versions of WordPress and WooCommerce.
+Resolved security issues.
 
 = 1.0 =
 Initial release
