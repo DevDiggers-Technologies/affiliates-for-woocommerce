@@ -36,7 +36,7 @@ if ( ! class_exists( 'DDWCAF_Install' ) ) {
 				`affiliate_id` bigint(20) NOT NULL,
 				`url` varchar(255) NOT NULL,
 				`referrer_url` varchar(255) DEFAULT NULL,
-				`ip` varchar(15) NOT NULL,
+				`ip` varchar(50) NOT NULL,
 				`date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
 				`order_id` bigint(20) DEFAULT NULL,
 				`conversion_date` datetime DEFAULT NULL,
@@ -123,7 +123,7 @@ if ( ! class_exists( 'DDWCAF_Install' ) ) {
 			}
 
 			$page = [
-				'name'    => 'affiliate-dashboard',
+				'name'    => 'affiliate-dashboard-page',
 				'title'   => esc_html_x( 'Affiliate Dashboard', '[GLOBAL] Dashboard page title', 'affiliates-for-woocommerce' ),
 				'content' => '<!-- wp:shortcode -->[ddwcaf_affiliate_dashboard_shortcode]<!-- /wp:shortcode -->',
 			];

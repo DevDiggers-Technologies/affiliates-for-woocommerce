@@ -30,7 +30,7 @@ warning () {
 	echo -e "\n${YELLOW_BOLD}$1${COLOR_RESET}\n"
 }
 
-status "💃 Time to release Affiliates for WooCommerce Free 🙂"
+status "💃 Time to release Affiliates for WooCommerce 🙂"
 
 warning "Ready to proceed to create a zip? [Y/N]: "
 read -r PROCEED
@@ -60,28 +60,28 @@ status "${PLUGIN_SLUG}.zip file generated!"
 
 rm -rf "$BUILD_PATH"
 
-status "Deleting if development zip exists..."
-rm -rf "${PLUGIN_SLUG}-development.zip"
+# status "Deleting if development zip exists..."
+# rm -rf "${PLUGIN_SLUG}-development.zip"
 
-status "Generating development directory..."
-rm -rf "$BUILD_PATH"
-mkdir -p "$DESTINATION_PATH"
+# status "Generating development directory..."
+# rm -rf "$BUILD_PATH"
+# mkdir -p "$DESTINATION_PATH"
 
-status "Syncing files..."
+# status "Syncing files..."
 
-rsync -rc --exclude "node_modules" "$PROJECT_PATH/" "$DESTINATION_PATH" --delete --delete-excluded
-# rsync -rc --exclude-from="$PROJECT_PATH/.distignore" "$PROJECT_PATH/" "$DESTINATION_PATH" --delete --delete-excluded
+# rsync -rc --exclude "node_modules" "$PROJECT_PATH/" "$DESTINATION_PATH" --delete --delete-excluded
+# # rsync -rc --exclude-from="$PROJECT_PATH/.distignore" "$PROJECT_PATH/" "$DESTINATION_PATH" --delete --delete-excluded
 
-status "Generating zip file..."
+# status "Generating zip file..."
 
-cd "$BUILD_PATH" || exit
+# cd "$BUILD_PATH" || exit
 
-zip -q -r "${PLUGIN_SLUG}-development.zip" "$PLUGIN_SLUG/"
+# zip -q -r "${PLUGIN_SLUG}-development.zip" "$PLUGIN_SLUG/"
 
-cd "$PROJECT_PATH" || exit
-mv "$BUILD_PATH/${PLUGIN_SLUG}-development.zip" "$PROJECT_PATH"
-status "${PLUGIN_SLUG}-development.zip file generated!"
+# cd "$PROJECT_PATH" || exit
+# mv "$BUILD_PATH/${PLUGIN_SLUG}-development.zip" "$PROJECT_PATH"
+# status "${PLUGIN_SLUG}-development.zip file generated!"
 
-rm -rf "$BUILD_PATH"
+# rm -rf "$BUILD_PATH"
 
 success "Done. You've built Affiliates for WooCommerce zip! 🎉 "
