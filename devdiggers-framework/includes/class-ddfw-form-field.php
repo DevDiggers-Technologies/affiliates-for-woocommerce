@@ -152,7 +152,7 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 				$field_container = '<p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide ' . esc_attr( implode( ' ', $args['field_class'] ) ) . '">%1$s</p>';
 			}
 
-			$default_input_class = $is_admin ? 'regular-text' : 'form-control woocommerce-Input';
+			$default_input_class = $is_admin ? 'regular-text' : 'form-control woocommerce-Input woocommerce-Input--text input-text';
 
 			switch ( $args['type'] ) {
 				case 'country':
@@ -340,7 +340,7 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 								<p><?php esc_html_e( 'Click the upload button to select an image from your media library or upload a new one.', 'devdiggers-framework' ); ?></p>
 								<input type="hidden" name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" value="<?php echo esc_attr( $value ); ?>" />
 								<input type="hidden" id="<?php echo esc_attr( $args['id'] ); ?>-default-image" value="<?php echo esc_attr( $args['default_image'] ? $args['default_image'] : '' ); ?>" />
-								<button type="button" class="button ddfw-upload-image-button" data-id="<?php echo esc_attr( $args['id'] ); ?>">
+								<button type="button" class="button ddfw-upload-image-button" data-id="<?php echo esc_attr( $args['id'] ); ?>" <?php echo implode( ' ', $custom_attributes ); ?>>
 									<?php
 									DDFW_SVG::get_svg_icon(
 										'file',
