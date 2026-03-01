@@ -78,6 +78,7 @@ if ( ! class_exists( 'DDWCAF_Admin_Dashboard' ) ) {
                 'slug'                    => 'ddwcaf-dashboard',
                 'plugin_name'             => $plugin_name,
                 'screen_options_callback' => [ $this, 'add_screen_options' ],
+                'upgrade_url'             => 'https://devdiggers.com/product/woocommerce-affiliates/?utm_source=plugin-dashboard&utm_medium=upgrade-link&utm_campaign=affiliates-for-woocommerce',
                 'menus'                   => [
                     'dashboard'      => [
                         'label'    => esc_html__( 'Dashboard', 'affiliates-for-woocommerce' ),
