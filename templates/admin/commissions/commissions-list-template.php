@@ -19,7 +19,7 @@ if ( ! class_exists( 'DDWCAF_Commissions_List_Template' ) ) {
 	/**
 	 * Commissions list class
 	 */
-	class DDWCAF_Commissions_List_Template extends \WP_List_table {
+	class DDWCAF_Commissions_List_Template extends \WP_List_Table {
 		/**
 		 * Error Helper Trait
 		 */
@@ -79,7 +79,7 @@ if ( ! class_exists( 'DDWCAF_Commissions_List_Template' ) ) {
 			$this->_column_headers = $this->get_column_info();
 
 			$request_scheme = is_ssl() ? 'https' : 'http';
-			$current_url    = sanitize_url( "$request_scheme://" . wp_unslash( $_SERVER[ 'HTTP_HOST' ] ) . wp_unslash( $_SERVER[ 'REQUEST_URI' ] ) );
+			$current_url    = "$request_scheme://" . wp_unslash( $_SERVER[ 'HTTP_HOST' ] ) . wp_unslash( $_SERVER[ 'REQUEST_URI' ] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
             if ( strpos( $current_url, '_wp_http_referer' ) !== false ) {
                 $new_url = remove_query_arg( [ '_wp_http_referer', '_wpnonce' ], stripslashes( $current_url ) );
@@ -152,9 +152,18 @@ if ( ! class_exists( 'DDWCAF_Commissions_List_Template' ) ) {
                     $affiliate_id   = $commission[ 'affiliate_id' ];
                     $affiliate_data = get_userdata( $affiliate_id );
                     $order          = wc_get_order( $commission[ 'order_id' ] );
+
+					if ( ! $order ) {
+						continue;
+					}
+
                     $order_currency = $order->get_currency();
                     $product        = wc_get_product( $commission[ 'product_id' ] );
                     $buyer          = '';
+
+					if ( ! $product ) {
+						continue;
+					}
 
                     if ( $order->get_billing_first_name() || $order->get_billing_last_name() ) {
                         /* translators: 1: first name 2: last name */
@@ -178,7 +187,7 @@ if ( ! class_exists( 'DDWCAF_Commissions_List_Template' ) ) {
 
                     ob_start();
 					?>
-					<mark class="ddwcaf-status ddwcaf-commission-status-<?php echo esc_attr( $commission[ 'status' ] ); ?>"><span><?php echo esc_html( $this->commission_helper->ddwcaf_get_translation( $commission[ 'status' ] ) ); ?></span></mark>
+					<mark class="ddwcaf-status ddwcaf-commission-status-<?php echo esc_attr( $commission[ 'status' ] ); ?>"><?php echo esc_html( $this->commission_helper->ddwcaf_get_translation( $commission[ 'status' ] ) ); ?></mark>
 					<?php
 					$status_html = ob_get_clean();
 
@@ -188,16 +197,40 @@ if ( ! class_exists( 'DDWCAF_Commissions_List_Template' ) ) {
                         $date = sprintf( esc_html__( 'Created %s', 'affiliates-for-woocommerce' ), date_i18n( "{$date_format} {$time_format}", strtotime( $commission[ 'created_at' ] ) ) );
                     }
 
+					$page = ! empty( $_GET[ 'page' ] ) ? sanitize_text_field( wp_unslash( $_GET[ 'page' ] ) ) : '';
+
                     $data[] = [
                         'id'                => $commission[ 'id' ],
-                        'affiliate_details' => '<a href="' . esc_url( admin_url( "admin.php?page=affiliates-for-woocommerce&action=view&ddwcaf-id={$affiliate_id}" ) ) . '">' . esc_html( "(#{$affiliate_id}) {$affiliate_data->user_login} <{$affiliate_data->user_email}>" ) . '</a>',
-                        'order'             => '<a href="#" class="order-preview" data-order-id="' . absint( $order->get_id() ) . '" title="' . esc_attr( __( 'Preview', 'affiliates-for-woocommerce' ) ) . '">' . esc_html__( 'Preview', 'affiliates-for-woocommerce' ) . '</a><a href="' . esc_url( admin_url( 'post.php?post=' . absint( $order->get_id() ) ) . '&action=edit' ) . '"><strong>#' . esc_attr( $order->get_order_number() ) . ' ' . esc_html( $buyer ) . '</strong></a>',
-                        'product'           => '<a href="' . esc_url( $product->get_permalink() ) . '" target="_blank">' . wp_kses_post( $product->get_image( 'thumbnail' ) ) . '<div>' . esc_html( $product->get_name() ) . '<br />x ' . esc_html( $commission[ 'quantity' ] ) . '</div></a>',
-                        'total'             => wc_price( $commission[ 'line_total' ], [ 'currency' => $order_currency ] ),
-                        'refund'            => wc_price( $commission[ 'refund' ], [ 'currency' => $order_currency ] ),
-                        'commission'        => '<strong>' . wc_price( $commission[ 'commission' ], [ 'currency' => $order_currency ] ) . '</strong>',
-                        'status'            => $status_html,
-                        'date'              => $date,
+                        'affiliate_details' => '<a href="' . esc_url( admin_url( "admin.php?page={$page}&menu=affiliates&action=view&id={$affiliate_id}" ) ) . '">' . esc_html( "(#{$affiliate_id}) {$affiliate_data->user_login} <{$affiliate_data->user_email}>" ) . '</a>',
+                        'order'             => '<a href="' . esc_url( admin_url( 'post.php?post=' . absint( $order->get_id() ) ) . '&action=edit' ) . '"><strong>#' . esc_attr( $order->get_order_number() ) . ' ' . esc_html( $buyer ) . '</strong></a>',
+                        'product'           => '<a href="' . esc_url( $product->get_permalink() ) . '" target="_blank" class="ddwcaf-product-name-wrapper">' . wp_kses_post( $product->get_image( 'thumbnail', [ 'class' => 'ddwcaf-product-thumbnail' ] ) ) . '<div>' . esc_html( $product->get_name() ) . '<span class="ddwcaf-product-quantity">x ' . esc_html( $commission[ 'quantity' ] ) . '</span></div></a>',
+                        'amount'            => sprintf(
+                            '<div class="ddwcaf-amount-column">
+                                <div class="ddwcaf-commission-amount">
+                                    %1$s
+                                </div>
+                                <div class="ddwcaf-order-total">
+                                    %2$s %3$s
+                                </div>
+                                %4$s
+                            </div>',
+                            '<strong>' . wc_price( $commission[ 'commission' ], [ 'currency' => $order_currency ] ) . '</strong>',
+                             esc_html__( 'Order:', 'affiliates-for-woocommerce' ),
+                             wc_price( $commission[ 'line_total' ], [ 'currency' => $order_currency ] ),
+                             $commission['refund'] > 0 ? '<div class="ddwcaf-refund-amount">' . esc_html__( 'Refund:', 'affiliates-for-woocommerce' ) . ' ' . wc_price( $commission['refund'], [ 'currency' => $order_currency ] ) . '</div>' : ''
+                        ),
+                        'status_date'       => sprintf(
+                            '<div class="ddwcaf-status-timeline-column">
+                                <div class="ddwcaf-status-tier">
+                                    %1$s
+                                </div>
+                                <div class="ddwcaf-date-tier">
+                                    %2$s
+                                </div>
+                            </div>',
+                            $status_html,
+                            $date
+                        ),
 					];
                 }
             }
@@ -211,15 +244,15 @@ if ( ! class_exists( 'DDWCAF_Commissions_List_Template' ) ) {
 		 * @return void
 		 */
 		public function process_bulk_action() {
-			if ( ! empty( $_GET[ 'ddwcaf_nonce' ] ) && wp_unslash( $_GET[ 'ddwcaf_nonce' ] ) ) { // WPCS: sanitization ok.
-				$nonce = filter_input( INPUT_GET, 'ddwcaf_nonce', FILTER_SANITIZE_STRING );
+			if ( ! empty( $_GET[ 'ddwcaf_nonce' ] ) && wp_unslash( $_GET[ 'ddwcaf_nonce' ] ) ) { // WPCS: CSRF ok. // WPCS: input var ok. // WPCS: sanitization ok.
+				$nonce = sanitize_text_field( wp_unslash( $_GET[ 'ddwcaf_nonce' ] ) );
 				if ( wp_verify_nonce( $nonce, 'ddwcaf_nonce_action' ) ) {
 					$action = $this->current_action();
 
 					if ( in_array( $action, [ 'delete', 'pending', 'paid', 'not_confirmed', 'cancelled', 'refunded' ] ) || strpos( $action, 'payout_' ) !== false ) {
-						if ( ! empty( $_GET[ 'ddwcaf-id' ] ) ) { // WPCS: input var ok.
-							if ( is_array( $_GET[ 'ddwcaf-id' ] ) ) { // WPCS: input var ok.
-								$ids     = array_map( 'sanitize_text_field', wp_unslash( $_GET[ 'ddwcaf-id' ] ) );  // WPCS: input var ok.
+						if ( ! empty( $_GET[ 'id' ] ) ) { // WPCS: input var ok.
+							if ( is_array( $_GET[ 'id' ] ) ) { // WPCS: input var ok.
+								$ids     = array_map( 'sanitize_text_field', wp_unslash( $_GET[ 'id' ] ) );  // WPCS: input var ok.
 								$success = $error = 0;
 
                                 if ( strpos( $action, 'payout_' ) !== false ) {
@@ -243,7 +276,6 @@ if ( ! class_exists( 'DDWCAF_Commissions_List_Template' ) ) {
                                     }
                                 }
 
-
                                 if ( $success ) {
                                     if ( 'delete' === $action ) {
                                         $message = sprintf( esc_html__( '%d commission(s) deleted successfully.', 'affiliates-for-woocommerce' ), $success );
@@ -260,7 +292,7 @@ if ( ! class_exists( 'DDWCAF_Commissions_List_Template' ) ) {
                                     if ( strpos( $action, 'payout_' ) !== false ) {
                                         $message = sprintf( esc_html__( '%d commission(s) could not be paid.', 'affiliates-for-woocommerce' ), $error );
                                     } else {
-                                        $message = sprintf( esc_html__( '%d commission(s) not exits.', 'affiliates-for-woocommerce' ), $error );
+                                        $message = sprintf( esc_html__( '%d commission(s) not exists.', 'affiliates-for-woocommerce' ), $error );
                                     }
 
                                     $this->ddwcaf_print_notification( $message, 'error' );
@@ -308,11 +340,8 @@ if ( ! class_exists( 'DDWCAF_Commissions_List_Template' ) ) {
 				'affiliate_details' => esc_html__( 'Affiliate', 'affiliates-for-woocommerce' ),
 				'order'             => esc_html__( 'Order', 'affiliates-for-woocommerce' ),
 				'product'           => esc_html__( 'Product', 'affiliates-for-woocommerce' ),
-				'total'             => esc_html__( 'Total', 'affiliates-for-woocommerce' ),
-				'refund'            => esc_html__( 'Refund', 'affiliates-for-woocommerce' ),
-				'commission'        => esc_html__( 'Commision', 'affiliates-for-woocommerce' ),
-				'status'            => esc_html__( 'Status', 'affiliates-for-woocommerce' ),
-				'date'              => esc_html__( 'Date', 'affiliates-for-woocommerce' ),
+				'amount'            => esc_html__( 'Commission', 'affiliates-for-woocommerce' ),
+				'status_date'       => esc_html__( 'Status & Date', 'affiliates-for-woocommerce' ),
 			];
 
 			return apply_filters( 'ddwcaf_commissions_list_columns', $columns );
@@ -341,11 +370,8 @@ if ( ! class_exists( 'DDWCAF_Commissions_List_Template' ) ) {
 				'affiliate_details' => [ 'affiliate_details', true ],
 				'order'             => [ 'order', true ],
 				'product'           => [ 'product', true ],
-				'total'             => [ 'total', true ],
-				'refund'            => [ 'refund', true ],
-				'commission'        => [ 'commission', true ],
-				'status'            => [ 'status', true ],
-				'date'              => [ 'date', true ],
+				'amount'            => [ 'commission', true ],
+				'status_date'       => [ 'status', true ],
 			] );
 		}
 
@@ -356,7 +382,7 @@ if ( ! class_exists( 'DDWCAF_Commissions_List_Template' ) ) {
 		 * @return string
 		 */
 		public function column_cb( $item ) {
-			return sprintf( '<input type="checkbox" name="ddwcaf-id[]" value="%d" />', esc_attr( $item[ 'id' ] ) );
+			return sprintf( '<input type="checkbox" name="id[]" value="%d" />', esc_attr( $item[ 'id' ] ) );
 		}
 
 		/**
@@ -392,38 +418,49 @@ if ( ! class_exists( 'DDWCAF_Commissions_List_Template' ) ) {
 		 */
 		public function extra_tablenav( $which ) {
 			if ( 'top' === $which ) {
+				$page         = ! empty( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
+				$menu         = ! empty( $_GET['menu'] ) ? sanitize_text_field( wp_unslash( $_GET['menu'] ) ) : '';
                 $affiliate_id = $this->args[ 'affiliate_id' ];
                 $product_id   = $this->args[ 'product_id' ];
 				?>
-                <label for="from-date"><?php esc_html_e( 'From:', 'affiliates-for-woocommerce' ); ?></label>
-                <input type="datetime-local" value="<?php echo esc_attr( $this->args[ 'from_date' ] ); ?>" name="from-date" id="from-date" class="ddwcaf-datepicker" placeholder="yyyy-mm-dd" autocomplete="off" />
+				<div class="alignleft actions bulkactions ddwcaf-bulk-actions">
+					<label for="from-date"><?php esc_html_e( 'From:', 'affiliates-for-woocommerce' ); ?></label>
+					<input type="date" value="<?php echo esc_attr( $this->args[ 'from_date' ] ); ?>" name="from-date" id="from-date" class="ddwcaf-datepicker" placeholder="yyyy-mm-dd" autocomplete="off" />
 
-                <label for="end-date"><?php esc_html_e( 'To:', 'affiliates-for-woocommerce' ); ?></label>
-                <input type="datetime-local" value="<?php echo esc_attr( $this->args[ 'end_date' ] ); ?>" name="end-date" id="end-date" class="ddwcaf-datepicker" placeholder="yyyy-mm-dd" autocomplete="off" />
+					<label for="end-date"><?php esc_html_e( 'To:', 'affiliates-for-woocommerce' ); ?></label>
+					<input type="date" value="<?php echo esc_attr( $this->args[ 'end_date' ] ); ?>" name="end-date" id="end-date" class="ddwcaf-datepicker" placeholder="yyyy-mm-dd" autocomplete="off" />
 
-                <select name="affiliate-id" class="ddwcaf-affiliate" data-placeholder="<?php esc_attr_e( 'Select Affiliate', 'affiliates-for-woocommerce' ); ?>">
-                    <?php
-                    if ( ! empty( $affiliate_id ) ) {
-                        $affiliate_data = get_userdata( $affiliate_id );
-                        ?>
-                        <option value="<?php echo esc_attr( $affiliate_id ); ?>"><?php echo esc_html( "(#{$affiliate_id}) {$affiliate_data->user_login} <{$affiliate_data->user_email}>" ); ?></option>
-                        <?php
-                    }
-                    ?>
-                </select>
+					<select name="affiliate-id" class="ddfw-users regular-text" data-placeholder="<?php esc_attr_e( 'Select Affiliate', 'affiliates-for-woocommerce' ); ?>" data-role="ddwcaf_affiliate">
+						<?php
+						if ( ! empty( $affiliate_id ) ) {
+							$affiliate_data = get_userdata( $affiliate_id );
+							?>
+							<option value="<?php echo esc_attr( $affiliate_id ); ?>"><?php echo esc_html( "(#{$affiliate_id}) {$affiliate_data->user_login} <{$affiliate_data->user_email}>" ); ?></option>
+							<?php
+						}
+						?>
+					</select>
 
-                <select class="regular-text ddwcaf-products" name="product-id" data-placeholder="<?php esc_attr_e( 'Select Product', 'affiliates-for-woocommerce' ); ?>">
-                    <?php
-                    if ( ! empty( $product_id ) ) {
-                        $product = wc_get_product( $product_id );
-                        ?>
-                        <option value="<?php echo esc_attr( $product_id ); ?>" selected="selected"><?php echo esc_html( $product->get_name() ); ?></option>
-                        <?php
-                    }
-                    ?>
-                </select>
+					<select class="regular-text ddfw-products" name="product-id" data-placeholder="<?php esc_attr_e( 'Select Product', 'affiliates-for-woocommerce' ); ?>">
+						<?php
+						if ( ! empty( $product_id ) ) {
+							$product = wc_get_product( $product_id );
+							?>
+							<option value="<?php echo esc_attr( $product_id ); ?>" selected="selected"><?php echo esc_html( $product->get_name() ); ?></option>
+							<?php
+						}
+						?>
+					</select>
 
-                <input type="submit" value="<?php esc_attr_e( 'Filter', 'affiliates-for-woocommerce' ); ?>" name="ddwcaf_filter_submit" class="button" />
+					<input type="submit" value="<?php esc_attr_e( 'Filter', 'affiliates-for-woocommerce' ); ?>" name="ddwcaf_filter_submit" class="button" />
+					<?php
+					if ( ! empty( $_GET['ddwcaf_filter_submit'] ) ) {
+						?>
+						<a href="<?php echo esc_url( admin_url( "admin.php?page={$page}&menu={$menu}" ) ); ?>" class="button"><?php esc_html_e( 'Reset', 'affiliates-for-woocommerce' ); ?></a>
+					<?php
+					}
+					?>
+				</div>
 				<?php
 			}
 		}

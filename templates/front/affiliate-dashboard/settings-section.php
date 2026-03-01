@@ -79,6 +79,8 @@ $default_withdrawal_method = $affiliate_helper->ddwcaf_get_affiliate_default_wit
             ] );
         }
 
+        do_action( 'ddwcaf_add_fields_before_paypal_email_for_affiliate', $affiliate_id );
+
         if ( array_key_exists( 'paypal_email', $available_withdrawal_methods ) ) {
             ?>
             <h4><?php esc_html_e( 'PayPal Email', 'affiliates-for-woocommerce' ); ?></h4>
@@ -96,6 +98,8 @@ $default_withdrawal_method = $affiliate_helper->ddwcaf_get_affiliate_default_wit
         }
         ?>
     </div>
+
+    <?php do_action( 'ddwcaf_add_fields_before_submit_button_settings_page' ); ?>
 
     <p class="woocommerce-form-row form-row">
         <?php wp_nonce_field( 'ddwcaf_nonce_action', 'ddwcaf_nonce' ); ?>

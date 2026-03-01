@@ -1,187 +1,103 @@
 "use strict";
+
 import './admin.less';
 
-var ddwcaf = jQuery.noConflict();
+const ddwcaf = jQuery.noConflict();
 
-document.addEventListener( 'DOMContentLoaded', () => {
-    const ddwcafProductsSelect2 = () => {
-        if ( ddwcaf( '.ddwcaf-products' ).length ) {
-            ddwcaf( '.ddwcaf-products' ).select2( {
-                ajax: {
-                    method  : 'post',
-                    url     : ddwcafAdminObject.ajax.ajaxUrl,   // AJAX URL is predefined in WordPress admin
-                    dataType: 'json',
-                    delay   : 250,                           // delay in ms while typing when to perform a AJAX search
-                    data    : params => {
-                        return {
-                            query : params.term,                      // search query
-                            action: 'ddwcaf_get_products_list',
-                            nonce : ddwcafAdminObject.ajax.ajaxNonce,
-                        };
-                    },
-                    processResults: products => {
-                        let options = [];
-                        if (products != undefined && products != null) {
-                            // products is the array of objects, and each of them contains value and the Label of the option
-                            products.forEach(product => {
-                                options.push({
-                                    id  : product.ID,
-                                    text: product.title
-                                });
-                            });
-                        }
-                        return { results: options };
-                    },
-                    cache: true
-                },
-                multiple          : ddwcaf(this).attr( 'multiple' ),
-                minimumInputLength: 1, // the minimum of symbols to input before perform a search
-                language          : {
-                    inputTooShort: args => `${ddwcafAdminObject.i18n.pleaseEnter} ${args.minimum - args.input.length} ${ddwcafAdminObject.i18n.moreCharacter}`,
-                    noResults: () => ddwcafAdminObject.i18n.noResult,
-                }
-            } );
+document.addEventListener('DOMContentLoaded', () => {
+    // Add Row functionality
+    document.addEventListener('click', (e) => {
+        if (e.target.matches('.ddwcaf-add-row') || e.target.closest('.ddwcaf-add-row')) {
+            e.preventDefault();
+            const button = e.target.closest('.ddwcaf-add-row');
+            const templateId = button.getAttribute('data-template');
+            const maxIndexInput = button.closest('.ddfw-fields-section').querySelector('#ddwcaf-max-index');
+            let maxIndex = parseInt(maxIndexInput.value, 10);
+            
+            // Increment the index
+            maxIndex++;
+            maxIndexInput.value = maxIndex;
+            
+            // Get the template and compile it
+            const template = wp.template(templateId);
+            const html = template({ key: maxIndex });
+            
+            // Insert the new row before the "Add Row" button row
+            const tbody = button.closest('tbody');
+            const addRowTr = button.closest('tr');
+            addRowTr.insertAdjacentHTML('beforebegin', html);
+            
+            // Re-initialize Select2 for the new row
+            const newRow = addRowTr.previousElementSibling;
+            initializeSelect2InRow(newRow);
         }
-    }
-
-    const ddwcafCategoriesSelect2 = () => {
-        if ( ddwcaf( '.ddwcaf-categories' ).length ) {
-            ddwcaf( '.ddwcaf-categories' ).select2( {
-                ajax: {
-                    method  : 'post',
-                    url     : ddwcafAdminObject.ajax.ajaxUrl,   // AJAX URL is predefined in WordPress admin
-                    dataType: 'json',
-                    delay   : 250,                           // delay in ms while typing when to perform a AJAX search
-                    data    : params => {
-                        return {
-                            query : params.term,                      // search query
-                            action: 'ddwcaf_get_categories_list',
-                            nonce : ddwcafAdminObject.ajax.ajaxNonce,
-                        };
-                    },
-                    processResults: response => {
-                        let options = [];
-                        let cats    = response.categories;
-
-                        if ( cats != undefined && cats != null) {
-                            cats.forEach( category => {
-                                options.push({
-                                    id  : category.term_id,
-                                    text: category.name
-                                });
-                            } );
-                        }
-
-                        return { results: options };
-                    },
-                    cache: true
-                },
-                multiple          : ddwcaf(this).attr( 'multiple' ),
-                minimumInputLength: 1, // the minimum of symbols to input before perform a search
-                language          : {
-                    inputTooShort: args => `${ddwcafAdminObject.i18n.pleaseEnter} ${args.minimum - args.input.length} ${ddwcafAdminObject.i18n.moreCharacter}`,
-                    noResults: () => ddwcafAdminObject.i18n.noResult,
-                }
-            });
-        }
-    }
-
-    const ddwcafSelect2 = () => {
-        if ( ddwcaf( '.ddwcaf-select2' ).length ) {
-            ddwcaf( '.ddwcaf-select2' ).select2();
-        }
-    }
-
-    ddwcafProductsSelect2();
-    ddwcafCategoriesSelect2();
-    ddwcafSelect2();
-
-    if ( ddwcaf( '.ddwcaf-affiliate' ).length ) {
-        ddwcaf( '.ddwcaf-affiliate' ).select2( {
-            ajax: {
-                method  : 'post',
-                url     : ddwcafAdminObject.ajax.ajaxUrl,   // AJAX URL is predefined in WordPress admin
-                dataType: 'json',
-                delay   : 250,                           // delay in ms while typing when to perform a AJAX search
-                data    : params => {
-                    return {
-                        query : params.term,                      // search query
-                        action: 'ddwcaf_get_affiliates_list',
-                        nonce : ddwcafAdminObject.ajax.ajaxNonce,
-                    };
-                },
-                processResults: response => {
-                    let options = [];
-                    if ( response.success && response.users != undefined && response.users != null && response.users.length ) {
-                        // users is the array of objects, and each of them contains value and the Label of the option
-                        response.users.forEach( user => {
-                            options.push( {
-                                id  : user.ID,
-                                text: `(#${user.ID}) ${user.user_login} <${user.user_email}>`
-                            } );
-                        } );
-                    }
-                    return {
-                        results: options
-                    };
-                },
-                cache: true
-            },
-            width             : ddwcaf( '#from-date' ).length ? '25%': '50%',
-            multiple          : ddwcaf(this).attr( 'multiple' ),
-            minimumInputLength: 1,                                                               // the minimum of symbols to input before perform a search
-            language          : {
-                inputTooShort: args => `${ddwcafAdminObject.i18n.pleaseEnter} ${args.minimum - args.input.length} ${ddwcafAdminObject.i18n.moreCharacter}`,
-                noResults: () => ddwcafAdminObject.i18n.noResult,
+        // Remove Row functionality
+        else if (e.target.matches('.ddwcaf-remove-row') || e.target.closest('.ddwcaf-remove-row')) {
+            e.preventDefault();
+            const removeButton = e.target.closest('.ddwcaf-remove-row');
+            const row = removeButton.closest('tr');
+            
+            if (confirm('Are you sure you want to remove this row?')) {
+                row.remove();
             }
-        } );
+        }
+    });
+    
+    // Initialize Select2 for all select elements in a given row
+    function initializeSelect2InRow(row) {
+        // Use the global framework functions
+        if (typeof window.ddfwInitializeProductsSelect2 === 'function') {
+            window.ddfwInitializeProductsSelect2(row);
+        }
+        
+        if (typeof window.ddfwInitializeCategoriesSelect2 === 'function') {
+            window.ddfwInitializeCategoriesSelect2(row);
+        }
+        
+        if (typeof window.ddfwInitializeSelect2 === 'function') {
+            window.ddfwInitializeSelect2(row);
+        }
     }
 
-    const fieldTypeElement = ddwcaf( '#ddwcaf-type' );
+    // Global Copy URL functionality
+    document.addEventListener('click', (e) => {
+        const copyBtn = e.target.closest('.ddwcaf-copy-url-btn');
+        if (!copyBtn) return;
 
-    if ( fieldTypeElement.length ) {
-        const showFieldOptions = fieldType => {
-            if ( 'select' === fieldType || 'radio' === fieldType ) {
-                document.querySelector( '#ddwcaf-options' ).closest( 'tr' ).style.display = 'table-row';
+        const targetId = copyBtn.getAttribute('data-target');
+        const targetInput = document.getElementById(targetId);
+        
+        if (targetInput) {
+            const textToCopy = targetInput.innerText || targetInput.textContent;
+            
+            const performCopy = () => {
+                const originalHTML = copyBtn.innerHTML;
+                copyBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#01CC44" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalHTML;
+                }, 2000);
+            };
+
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    performCopy();
+                }).catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
             } else {
-                document.querySelector( '#ddwcaf-options' ).closest( 'tr' ).style.display = 'none';
+                const tempTextArea = document.createElement('textarea');
+                tempTextArea.value = textToCopy;
+                document.body.appendChild(tempTextArea);
+                tempTextArea.select();
+                try {
+                    document.execCommand('copy');
+                    performCopy();
+                } catch (err) {
+                    console.error('Fallback copy failed: ', err);
+                }
+                document.body.removeChild(tempTextArea);
             }
         }
-
-        showFieldOptions( fieldTypeElement.val() );
-
-        fieldTypeElement.on( 'change', e => {
-            showFieldOptions( e.target.value );
-        } );
-    }
-
-    if ( document.querySelectorAll( '.ddwcaf-editor' ).length ) {
-		tinymce.init( {
-			selector:  '.ddwcaf-editor',
-			height: 160,
-			menubar: false,
-			plugins: [ 'textcolor', 'colorpicker', 'link', 'lists', 'hr', 'media', 'charmap', 'image' ],
-			toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter | alignright alignjustify | bullist numlist outdent indent | hr |  styleselect | link forecolor | charmap removeformat | image',
-			content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
-			urlconverter_callback: (url, node, on_save, name) => url
-		} );  
-	}
-
-    const withdrawalTypeElement = ddwcaf( '#ddwcaf-withdrawal-type' );
-
-    if ( withdrawalTypeElement.length ) {
-        const showWithdrawalTypeOptions = value => {
-            if ( 'automatically_on_day' === value ) {
-                document.querySelector( '#ddwcaf-withdrawal-day' ).closest( 'tr' ).style.display = 'table-row';
-            } else {
-                document.querySelector( '#ddwcaf-withdrawal-day' ).closest( 'tr' ).style.display = 'none';
-            }
-        }
-
-        showWithdrawalTypeOptions( withdrawalTypeElement.val() );
-
-        withdrawalTypeElement.on( 'change', e => {
-            showWithdrawalTypeOptions( e.target.value );
-        } );
-    }
-} );
+    });
+});

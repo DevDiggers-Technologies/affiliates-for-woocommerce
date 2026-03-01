@@ -1,5 +1,5 @@
 #!/bin/bash
-PLUGIN_SLUG="affiliates-for-woocommerce"
+PLUGIN_SLUG="dd-woocommerce-affiliates"
 PROJECT_PATH=$(pwd)
 BUILD_PATH="${PROJECT_PATH}/build"
 DESTINATION_PATH="$BUILD_PATH/$PLUGIN_SLUG"
@@ -39,6 +39,9 @@ if [ "$(echo "${PROCEED:-n}" | tr "[:upper:]" "[:lower:]")" != "y" ]; then
 	error "Release cancelled!"
 	exit 1
 fi
+
+status "Removing previously generated zip (if exists)..."
+rm -f "$PROJECT_PATH/${PLUGIN_SLUG}.zip"
 
 status "Generating build directory..."
 rm -rf "$BUILD_PATH"

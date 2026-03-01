@@ -68,7 +68,7 @@ if ( ! class_exists( 'DDWCAF_Affiliate_Registration_Fields_Template' ) ) {
 			$this->_column_headers = $this->get_column_info();
 
 			$request_scheme = is_ssl() ? 'https' : 'http';
-			$current_url    = sanitize_url( "$request_scheme://" . wp_unslash( $_SERVER[ 'HTTP_HOST' ] ) . wp_unslash( $_SERVER[ 'REQUEST_URI' ] ) );
+			$current_url    = "$request_scheme://" . wp_unslash( $_SERVER[ 'HTTP_HOST' ] ) . wp_unslash( $_SERVER[ 'REQUEST_URI' ] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
             if ( strpos( $current_url, '_wp_http_referer' ) !== false ) {
                 $new_url = remove_query_arg( [ '_wp_http_referer', '_wpnonce' ], stripslashes( $current_url ) );
@@ -148,7 +148,7 @@ if ( ! class_exists( 'DDWCAF_Affiliate_Registration_Fields_Template' ) ) {
 
                     ob_start();
 					?>
-					<mark class="ddwcaf-status ddwcaf-field-status-<?php echo esc_attr( $registration_field[ 'status' ] ); ?>"><span><?php echo esc_html( $this->affiliate_helper->ddwcaf_get_translation( $registration_field[ 'status' ] ) ); ?></span></mark>
+					<mark class="ddwcaf-status ddwcaf-field-status-<?php echo esc_attr( $registration_field[ 'status' ] ); ?>"><?php echo esc_html( $this->affiliate_helper->ddwcaf_get_translation( $registration_field[ 'status' ] ) ); ?></mark>
 					<?php
 					$status_html = ob_get_clean();
 
@@ -175,41 +175,41 @@ if ( ! class_exists( 'DDWCAF_Affiliate_Registration_Fields_Template' ) ) {
 		 * @return void
 		 */
 		public function process_bulk_action() {
-			if ( ! empty( $_GET[ 'ddwcaf_nonce' ] ) && wp_unslash( $_GET[ 'ddwcaf_nonce' ] ) ) { // WPCS: sanitization ok.
-				$nonce = filter_input( INPUT_GET, 'ddwcaf_nonce', FILTER_SANITIZE_STRING );
+			if ( ! empty( $_GET[ 'ddwcaf_nonce' ] ) && wp_unslash( $_GET[ 'ddwcaf_nonce' ] ) ) { // WPCS: CSRF ok. // WPCS: input var ok. // WPCS: sanitization ok.
+				$nonce = sanitize_text_field( wp_unslash( $_GET[ 'ddwcaf_nonce' ] ) );
 				if ( wp_verify_nonce( $nonce, 'ddwcaf_nonce_action' ) ) {
 					$action = $this->current_action();
 
 					if ( in_array( $action, [ 'active', 'inactive' ] ) ) {
-						if ( ! empty( $_GET[ 'ddwcaf-id' ] ) ) { // WPCS: input var ok.
-							if ( is_array( $_GET[ 'ddwcaf-id' ] ) ) { // WPCS: input var ok.
-								$ids = array_map( 'sanitize_text_field', wp_unslash( $_GET[ 'ddwcaf-id' ] ) ); // WPCS: input var ok.
+						if ( ! empty( $_GET[ 'id' ] ) ) { // WPCS: input var ok.
+							if ( is_array( $_GET[ 'id' ] ) ) { // WPCS: input var ok.
+								$ids = array_map( 'sanitize_text_field', wp_unslash( $_GET[ 'id' ] ) ); // WPCS: input var ok.
 
 								$success = $error = 0;
 
-								foreach ( $ids as $id ) {
-									$response = $this->affiliate_helper->ddwcaf_update_affiliate_registration_field_status( $id, $action );
+                                foreach ( $ids as $id ) {
+                                    $response = $this->affiliate_helper->ddwcaf_update_affiliate_registration_field_status( $id, $action );
 
-									if ( $response ) {
-										$success++;
-									} else {
-										$error++;
-									}
-								}
+                                    if ( $response ) {
+                                        $success++;
+                                    } else {
+                                        $error++;
+                                    }
+                                }
 
                                 if ( $success ) {
-									$message = sprintf( esc_html__( 'Status changed for %d field(s) successfully.', 'affiliates-for-woocommerce' ), $success );
+                                    $message = sprintf( esc_html__( 'Status changed for %d field(s) successfully.', 'affiliates-for-woocommerce' ), $success );
 
                                     $this->ddwcaf_print_notification( $message );
                                 }
 
                                 if ( $error ) {
-                                    $message = sprintf( esc_html__( '%d field(s) not exits.', 'affiliates-for-woocommerce' ), $error );
+                                    $message = sprintf( esc_html__( '%d field(s) not exists.', 'affiliates-for-woocommerce' ), $error );
                                     $this->ddwcaf_print_notification( $message, 'error' );
                                 }
 							}
 						} else {
-							$message = esc_html__( 'Select field(s) to take action.', 'affiliates-for-woocommerce' );
+							$message = esc_html__( 'Select field(s) first.', 'affiliates-for-woocommerce' );
 							$this->ddwcaf_print_notification( $message, 'error' );
 						}
 					}
@@ -293,7 +293,7 @@ if ( ! class_exists( 'DDWCAF_Affiliate_Registration_Fields_Template' ) ) {
 		 */
 		public function column_cb( $item ) {
             if ( $item[ 'modify' ] ) {
-                return sprintf( '<input type="checkbox" name="ddwcaf-id[]" value="%d" />', esc_attr( $item[ 'id' ] ) );
+                return sprintf( '<input type="checkbox" name="id[]" value="%d" />', esc_attr( $item[ 'id' ] ) );
             }
             return '';
 		}
@@ -307,10 +307,12 @@ if ( ! class_exists( 'DDWCAF_Affiliate_Registration_Fields_Template' ) ) {
 		public function column_label( $item ) {
 			$search       = ! empty( $_GET[ 's' ] ) ? sanitize_text_field( wp_unslash( $_GET[ 's' ] ) ) : '';
 			$current_page = $this->get_pagenum();
+			$page         = ! empty( $_GET[ 'page' ] ) ? sanitize_text_field( wp_unslash( $_GET[ 'page' ] ) ) : '';
+			$menu         = ! empty( $_GET[ 'menu' ] ) ? sanitize_text_field( wp_unslash( $_GET[ 'menu' ] ) ) : '';
 
             if ( $item[ 'modify' ] ) {
                 $actions = [
-                    'edit'   => sprintf( '<a href="%s">%s</a>', sanitize_url( admin_url( 'admin.php?page=' . $_REQUEST[ 'page' ] . "&action=edit&ddwcaf-id=" . $item[ 'id' ] ) ), esc_html__( 'Edit', 'affiliates-for-woocommerce' ) ),
+                    'edit'   => sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'admin.php?page=' . $page . '&menu=' . $menu . '&action=edit&id=' . $item[ 'id' ] ) ), esc_html__( 'Edit', 'affiliates-for-woocommerce' ) ),
                 ];
             } else {
                 $actions = [];

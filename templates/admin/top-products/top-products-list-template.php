@@ -64,7 +64,7 @@ if ( ! class_exists( 'DDWCAF_Top_Products_List_Template' ) ) {
 			$this->_column_headers = $this->get_column_info();
 
 			$request_scheme = is_ssl() ? 'https' : 'http';
-			$current_url    = sanitize_url( "$request_scheme://" . wp_unslash( $_SERVER[ 'HTTP_HOST' ] ) . wp_unslash( $_SERVER[ 'REQUEST_URI' ] ) );
+			$current_url    = "$request_scheme://" . wp_unslash( $_SERVER[ 'HTTP_HOST' ] ) . wp_unslash( $_SERVER[ 'REQUEST_URI' ] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
             if ( strpos( $current_url, '_wp_http_referer' ) !== false ) {
                 $new_url = remove_query_arg( [ '_wp_http_referer', '_wpnonce' ], stripslashes( $current_url ) );
@@ -95,24 +95,7 @@ if ( ! class_exists( 'DDWCAF_Top_Products_List_Template' ) ) {
 
 			$data = $this->ddwcaf_prepare_data( $top_products );
 
-			usort( $data, [ $this, 'usort_reorder' ] );
-
 			$this->items = $data;
-		}
-
-		/**
-		 * Usort
-		 *
-		 * @param int $first First value.
-		 * @param int $second Second value.
-		 * @return $result
-		 */
-		public function usort_reorder( $first, $second ) {
-			$orderby = ! empty( $_GET[ 'orderby' ] ) ? sanitize_text_field( wp_unslash( $_GET[ 'orderby' ] ) ) : 'quantity';
-			$order   = ! empty( $_GET[ 'order' ] ) ? sanitize_text_field( wp_unslash( $_GET[ 'order' ] ) ) : 'desc';
-			$result  = strnatcmp( $first[ $orderby ], $second[ $orderby ] );
-
-			return 'asc' === $order ? $result : -$result;
 		}
 
 		/**
@@ -128,8 +111,12 @@ if ( ! class_exists( 'DDWCAF_Top_Products_List_Template' ) ) {
                 foreach ( $top_products as $top_product ) {
                     $product = wc_get_product( $top_product[ 'product' ] );
 
+					if ( ! $product ) {
+						continue;
+					}
+
                     $data[] = [
-                        'product'    => '<a href="' . esc_url( $product->get_permalink() ) . '" target="_blank">' . wp_kses_post( $product->get_image( 'thumbnail' ) ) . '<div>' . esc_html( $product->get_name() ) . '</div></a>',
+                        'product'    => '<a href="' . esc_url( $product->get_permalink() ) . '" target="_blank" class="ddwcaf-product-name-wrapper">' . wp_kses_post( $product->get_image( 'thumbnail', [ 'class' => 'ddwcaf-product-thumbnail' ] ) ) . '<span>' . esc_html( $product->get_name() ) . '</span></a>',
                         'quantity'   => $top_product[ 'quantity' ],
                         'earnings'   => wc_price( $top_product[ 'earnings' ] ),
                         'commission' => '<strong>' . wc_price( $top_product[ 'commission' ] ) . '</strong>',
@@ -207,20 +194,32 @@ if ( ! class_exists( 'DDWCAF_Top_Products_List_Template' ) ) {
 		 */
 		public function extra_tablenav( $which ) {
 			if ( 'top' === $which ) {
+				$page         = ! empty( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
+				$menu         = ! empty( $_GET['menu'] ) ? sanitize_text_field( wp_unslash( $_GET['menu'] ) ) : '';
                 $affiliate_id = $this->args[ 'affiliate_id' ];
 				?>
-                <select name="affiliate-id" class="ddwcaf-affiliate" data-placeholder="<?php esc_attr_e( 'Select Affiliate', 'affiliates-for-woocommerce' ); ?>">
-                    <?php
-                    if ( ! empty( $affiliate_id ) ) {
-                        $affiliate_data = get_userdata( $affiliate_id );
-                        ?>
-                        <option value="<?php echo esc_attr( $affiliate_id ); ?>"><?php echo esc_html( "(#{$affiliate_id}) {$affiliate_data->user_login} <{$affiliate_data->user_email}>" ); ?></option>
-                        <?php
-                    }
-                    ?>
-                </select>
+				<div class="alignleft actions bulkactions ddwcaf-bulk-actions">
+					<select name="affiliate-id" class="ddfw-users regular-text" data-placeholder="<?php esc_attr_e( 'Select Affiliate', 'affiliates-for-woocommerce' ); ?>" data-role="ddwcaf_affiliate">
+						<?php
+						if ( ! empty( $affiliate_id ) ) {
+							$affiliate_data = get_userdata( $affiliate_id );
+							?>
+							<option value="<?php echo esc_attr( $affiliate_id ); ?>"><?php echo esc_html( "(#{$affiliate_id}) {$affiliate_data->user_login} <{$affiliate_data->user_email}>" ); ?></option>
+							<?php
+						}
+						?>
+					</select>
 
-                <input type="submit" value="<?php esc_attr_e( 'Filter', 'affiliates-for-woocommerce' ); ?>" name="ddwcaf_filter_submit" class="button" />
+					<input type="submit" value="<?php esc_attr_e( 'Filter', 'affiliates-for-woocommerce' ); ?>" name="ddwcaf_filter_submit" class="button" />
+
+					<?php
+					if ( ! empty( $_GET['ddwcaf_filter_submit'] ) ) {
+						?>
+						<a href="<?php echo esc_url( admin_url( "admin.php?page={$page}&menu={$menu}" ) ); ?>" class="button"><?php esc_html_e( 'Reset', 'affiliates-for-woocommerce' ); ?></a>
+					<?php
+					}
+					?>
+				</div>
 				<?php
 			}
 		}

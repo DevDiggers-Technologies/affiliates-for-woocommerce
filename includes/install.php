@@ -19,7 +19,11 @@ if ( ! class_exists( 'DDWCAF_Install' ) ) {
 		 * @return void
 		 */
 		public static function ddwcaf_on_plugin_activation() {
-            if ( ! function_exists( 'dbDelta' ) ) {
+			if ( ! get_option( '_ddwcpr_installed_at' ) ) {
+				update_option( '_ddwcpr_installed_at', time() );
+			}
+
+			if ( ! function_exists( 'dbDelta' ) ) {
 				require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 			}
 
@@ -31,7 +35,7 @@ if ( ! class_exists( 'DDWCAF_Install' ) ) {
 			$charset_collate              = $wpdb->get_charset_collate();
 
 			// Visits table.
-            dbDelta( "CREATE TABLE {$wpdb->ddwcaf_visits} (
+			dbDelta( "CREATE TABLE {$wpdb->ddwcaf_visits} (
 				`id` bigint(20) NOT NULL AUTO_INCREMENT,
 				`affiliate_id` bigint(20) NOT NULL,
 				`url` varchar(255) NOT NULL,
@@ -44,7 +48,7 @@ if ( ! class_exists( 'DDWCAF_Install' ) ) {
 			) $charset_collate;" );
 
 			// Commissions table.
-            dbDelta( "CREATE TABLE {$wpdb->ddwcaf_commissions} (
+			dbDelta( "CREATE TABLE {$wpdb->ddwcaf_commissions} (
 				`id` bigint(20) NOT NULL AUTO_INCREMENT,
 				`affiliate_id` bigint(20) NOT NULL,
 				`order_id` bigint(20) NOT NULL,

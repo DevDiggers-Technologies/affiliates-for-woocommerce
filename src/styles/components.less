@@ -1,0 +1,82 @@
+@import 'variables.less';
+
+// Common Base Classes - Reusable components
+.ddwcaf-card-base {
+    background: @background-white;
+    border-radius: @radius-lg;
+    padding: @spacing-xl;
+    border: solid 1px @border-color;
+}
+
+// Summary Card Component
+.ddwcaf-summary-card {
+    .ddwcaf-card-base();
+    border-radius: @radius-lg;
+    transition: all 0.2s ease;
+
+    .ddwcaf-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: @spacing-lg;
+
+        .ddwcaf-card-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            background-color: @background-light;
+
+            svg {
+                color: @text-primary;
+                width: 24px;
+                height: 24px;
+            }
+        }
+
+        .ddwcaf-change-indicator {
+            display: flex;
+            align-items: center;
+            gap: @spacing-xs;
+            font-size: 12px;
+            font-weight: 600;
+
+            &.positive {
+                color: @success-color;
+            }
+
+            &.negative {
+                color: @error-color;
+            }
+
+            svg {
+                width: 12px;
+                height: 12px;
+            }
+        }
+    }
+
+    .ddwcaf-card-content {
+        h4 {
+            margin: 0 0 @spacing-sm 0;
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1.4;
+            color: @text-secondary;
+        }
+
+        .ddwcaf-card-value {
+            .ddwcaf-value-number,
+            .ddwcaf-value-text {
+                font-size: 18px;
+                font-weight: 700;
+                line-height: 1.1;
+                display: block;
+                color: @text-primary;
+            }
+        }
+    }
+}

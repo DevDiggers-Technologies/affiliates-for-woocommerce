@@ -24,7 +24,7 @@ Site owners have complete control over their affiliate program, including settin
 
 👉 <a href="https://demo.devdiggers.com/woocommerce-affiliates-free/" title="Live Demo">Affiliates for WooCommerce Live Demo</a>
 👉 <a href="https://devdiggers.com/affiliates-for-woocommerce/" title="Documentation">Affiliates for WooCommerce Documentation</a>
-👉 <a href="https://devdiggers.com/plugin/woocommerce-affiliates/" title="Premium Version">Affiliates for WooCommerce Premium Version</a>
+👉 <a href="https://devdiggers.com/product/woocommerce-affiliates/" title="Premium Version">Affiliates for WooCommerce Premium Version</a>
 👉 <a href="https://devdiggers.com/woocommerce-extensions/" title="WooCommerce Extensions">WooCommerce Extensions</a>
 
 ###⚡️ FEATURES OF THE AFFILIATES FOR WOOCOMMERCE FREE VERSION
@@ -98,7 +98,7 @@ Site owners have complete control over their affiliate program, including settin
 * Various placholders are provided to use the dynamic data in emails.
 * Configure endpoints and titles of all sections provided on the affiliate dashboard.
 * Advanced analytics and reports are provided.
-* <a href="https://devdiggers.com/plugin/woocommerce-wallet-management/" target="_blank">WooCommerce Wallet plugin</a> can be used to credit the payouts in the affiliate's wallet.
+* <a href="https://devdiggers.com/product/woocommerce-wallet-management/" target="_blank">WooCommerce Wallet plugin</a> can be used to credit the payouts in the affiliate's wallet.
 * Set different commission rates for different affiliates.
 * View the visit user IP address.
 * Configure advanced commission rules for specific products, categories and user roles.

@@ -16,16 +16,18 @@ if ( ! class_exists( 'DDWCAF_Common_Hooks' ) ) {
 	 */
 	class DDWCAF_Common_Hooks extends DDWCAF_Common_Functions {
 		/**
-         * Construct
-         * 
-         * @param array $ddwcaf_configuration
-         */
-        public function __construct( $ddwcaf_configuration ) {
-            parent::__construct( $ddwcaf_configuration );
+		 * Construct
+		 * 
+		 * @param array $ddwcaf_configuration
+		 */
+		public function __construct( $ddwcaf_configuration ) {
+			parent::__construct( $ddwcaf_configuration );
 
-			add_action( 'init', [ $this, 'ddwcaf_add_endpoints' ] );
+			$this->ddwcaf_add_endpoints();
+
+			add_filter( 'ddfw_modify_svg_icons', [ $this, 'ddwcaf_add_svg_icons' ], 10, 2 );
 
 			add_filter( 'woocommerce_order_status_changed', [ $this, 'ddwcaf_handle_order_status_changed' ], 10, 3 );
-        }
+		}
 	}
 }

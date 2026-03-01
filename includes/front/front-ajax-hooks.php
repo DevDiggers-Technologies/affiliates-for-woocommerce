@@ -23,6 +23,7 @@ if ( ! class_exists( 'DDWCAF_Front_Ajax_Hooks' ) ) {
             parent::__construct( $ddwcaf_configuration );
 
             add_action( 'wp_ajax_ddwcaf_get_custom_referral_html', [ $this, 'ddwcaf_get_custom_referral_html' ] );
+            add_action( 'wp_ajax_ddwcaf_get_table_rows', [ $this, 'ddwcaf_get_table_rows' ] );
         }
     }
 }
