@@ -4,12 +4,12 @@
 **Tags**: Affiliates for WooCommerce, WooCommerce Affiliate Marketing, Affiliate Program, Earn with WooCommerce, Boost Sales with Affiliates, Best Affiliate Platform, Partner with WooCommerce, Maximize Earnings, Increase Revenue with Affiliates, WooCommerce Partner Program, Monetize Your Website with Affiliates for WooCommerce, Marketing Collaboration, Commission, Referral System, Affiliate Networking
 
 **WordPress**
-  * `Requires at least: 5.0.0`
-  * `Tested up to: 6.x.x`
+  * `Requires at least: 6.5.0`
+  * `Tested up to: 6.4.0`
 
 **WooCommerce**
-  * `Requires at least: 5.0.0`
-  * `Tested up to: 10.x.x`
+  * `Requires at least: 9.0.0`
+  * `Tested up to: 10.4.4`
 
 ## Description
 

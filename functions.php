@@ -9,9 +9,9 @@
  * Text Domain: affiliates-for-woocommerce
  * Domain Path: /i18n
  * WC requires at least: 5.0.0
- * WC tested up to: 10.x.x
+ * WC tested up to: 10.4.4
  * WP requires at least: 5.0.0
- * WP tested up to: 6.x.x
+ * WP tested up to: 6.9.0
  * DevDiggersPrefix: ddwcaf
  * Requires Plugins: woocommerce
  * License: GNU General Public License v3.0
@@ -150,19 +150,19 @@ if ( ! class_exists( 'DDWCAF_Free_Init' ) ) {
 // Initialize the plugin.
 if ( ! class_exists( 'DDWCAF_Init' ) ) {
 	DDWCAF_Free_Init::get_instance();
-}
 
-// Load DevDiggers Framework if not loaded already.
-add_action( 'plugins_loaded', function() {
-	// Check if the plugin framework is already loaded.
-	if ( ! defined( 'DDFW_LOADED' ) && file_exists( DDWCAF_PLUGIN_FILE . 'devdiggers-framework/init.php' ) ) {
-		if ( ! empty( $_GET['page'] ) && 'ddwcaf-dashboard' === $_GET['page'] ) {
-			require DDWCAF_PLUGIN_FILE . 'devdiggers-framework/init.php';
-		} else {
-			require DDWCAF_PLUGIN_FILE . 'devdiggers-framework/init.php';
+	// Load DevDiggers Framework if not loaded already.
+	add_action( 'plugins_loaded', function() {
+		// Check if the plugin framework is already loaded.
+		if ( ! defined( 'DDFW_LOADED' ) && file_exists( DDWCAF_PLUGIN_FILE . 'devdiggers-framework/init.php' ) ) {
+			if ( ! empty( $_GET['page'] ) && 'ddwcaf-dashboard' === $_GET['page'] ) {
+				require DDWCAF_PLUGIN_FILE . 'devdiggers-framework/init.php';
+			} else {
+				require DDWCAF_PLUGIN_FILE . 'devdiggers-framework/init.php';
+			}
 		}
-	}
-} );
+	} );
+}
 
 // For HPOS Compatibility
 add_action( 'before_woocommerce_init', function() {

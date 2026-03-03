@@ -69,7 +69,7 @@ if ( ! class_exists( 'DDWCAF_Install' ) ) {
 				`id` bigint(20) NOT NULL AUTO_INCREMENT,
 				`commission_id` bigint(20) NOT NULL,
 				`meta_key` varchar(255) NOT NULL DEFAULT '',
-				`meta_value` longtext NOT NULL DEFAULT '',
+				`meta_value` longtext NOT NULL,
 				PRIMARY KEY (id)
 			) $charset_collate;";
 

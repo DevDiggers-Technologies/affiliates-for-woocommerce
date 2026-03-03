@@ -171,7 +171,7 @@ if ( ! class_exists( 'DDWCAF_Visits_List_Template' ) ) {
 					ob_start();
 					?>
 					<a href="<?php echo esc_url( $visit[ 'url' ] ); ?>" target="_blank"><?php echo esc_url( $visit[ 'url' ] ); ?></a><br />
-					<small class="meta"><?php echo sprintf( esc_html__( 'Guest IP: %s', 'affiliates-for-woocommerce' ), $visit[ 'ip' ] ); ?></small>
+					<small class="meta"><?php echo esc_html__( 'Guest IP: [Pro]', 'affiliates-for-woocommerce' ); ?></small>
 					<?php
 					$url = ob_get_clean();
 
