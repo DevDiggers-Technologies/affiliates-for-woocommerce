@@ -230,172 +230,53 @@ if ( ! class_exists( 'DDWCAF_Admin_Dashboard' ) ) {
          * @return void
          */
         public function add_screen_options() {
-            $menu = ! empty( $_GET['menu'] ) ? sanitize_text_field( wp_unslash( $_GET['menu'] ) ) : 'dashboard';
+            global $myListTable;
 
-            switch ( $menu ) {
+            $current_menu = ! empty( $_GET['menu'] ) ? sanitize_title( wp_unslash( $_GET['menu'] ) ) : 'dashboard';
+
+            $args = [
+                'default'  => 20,
+                'hidden'   => 'id',
+                'sanitize' => 'intval',
+            ];
+
+            switch ( $current_menu ) {
                 case 'affiliates':
-                    $this->ddwcaf_add_screen_options_in_affiliates_list();
+                    $args['label']  = esc_html__( 'Affiliates Per Page', 'affiliates-for-woocommerce' );
+                    $args['option'] = 'ddwcaf_affiliates_per_page';
+                    $myListTable    = new Admin\Affiliates\DDWCAF_Affiliates_List_Template( $this->ddwcaf_configuration );
                     break;
                 case 'commissions':
-                    $this->ddwcaf_add_screen_options_in_commissions_list();
+                    $args['label']  = esc_html__( 'Commissions Per Page', 'affiliates-for-woocommerce' );
+                    $args['option'] = 'ddwcaf_commissions_per_page';
+                    $myListTable    = new Admin\Commissions\DDWCAF_Commissions_List_Template( $this->ddwcaf_configuration );
                     break;
                 case 'payouts':
-                    $this->ddwcaf_add_screen_options_in_payouts_list();
+                    $args['label']  = esc_html__( 'Payouts Per Page', 'affiliates-for-woocommerce' );
+                    $args['option'] = 'ddwcaf_payouts_per_page';
+                    $myListTable    = new Admin\Payouts\DDWCAF_Payouts_List_Template( $this->ddwcaf_configuration );
                     break;
                 case 'top-products':
-                    $this->ddwcaf_add_screen_options_in_top_products_list();
+                    $args['label']  = esc_html__( 'Top Products Per Page', 'affiliates-for-woocommerce' );
+                    $args['option'] = 'ddwcaf_top_products_per_page';
+                    $myListTable    = new Admin\Top_Products\DDWCAF_Top_Products_List_Template( $this->ddwcaf_configuration );
                     break;
                 case 'visits':
-                    $this->ddwcaf_add_screen_options_in_visits_list();
+                    $args['label']  = esc_html__( 'Visits Per Page', 'affiliates-for-woocommerce' );
+                    $args['option'] = 'ddwcaf_visits_per_page';
+                    $myListTable    = new Admin\Visits\DDWCAF_Visits_List_Template( $this->ddwcaf_configuration );
                     break;
                 case 'registration-fields':
-                    $this->ddwcaf_add_screen_options_in_affiliates_registration_fields_list();
-                    break;
-                case 'creatives':
-                    $this->ddwcaf_add_screen_options_in_creatives_list();
+                    $args['label']  = esc_html__( 'Registration Fields Per Page', 'affiliates-for-woocommerce' );
+                    $args['option'] = 'ddwcaf_affiliates_registration_fields_per_page';
+                    $myListTable    = new Admin\Registration\DDWCAF_Affiliate_Registration_Fields_Template( $this->ddwcaf_configuration );
                     break;
             }
+
+            if ( ! empty( $args['option'] ) ) {
+                add_screen_option( 'per_page', $args );
+            }
         }
-
-        /**
-		 * Affiliates List Screen Options.
-		 *
-		 * @return void
-		 */
-		public function ddwcaf_add_screen_options_in_affiliates_list() {
-			global $myListTable;
-
-            $args = [
-                'label'   => esc_html__( 'Affiliates Per Page', 'affiliates-for-woocommerce' ),
-                'default' => 20,
-                'option'  => 'ddwcaf_affiliates_per_page',
-                'hidden' => 'id'
-            ];
-
-            $myListTable = new Admin\Affiliates\DDWCAF_Affiliates_List_Template( $this->ddwcaf_configuration );
-
-			add_screen_option( 'per_page', $args );
-		}
-
-        /**
-		 * Commissions List Screen Options.
-		 *
-		 * @return void
-		 */
-		public function ddwcaf_add_screen_options_in_commissions_list() {
-			global $myListTable;
-
-            $args = [
-                'label'   => esc_html__( 'Commissions Per Page', 'affiliates-for-woocommerce' ),
-                'default' => 20,
-                'option'  => 'ddwcaf_commissions_per_page',
-                'hidden' => 'id'
-            ];
-
-            $myListTable = new Admin\Commissions\DDWCAF_Commissions_List_Template( $this->ddwcaf_configuration );
-
-			add_screen_option( 'per_page', $args );
-		}
-
-        /**
-		 * Payouts List Screen Options.
-		 *
-		 * @return void
-		 */
-		public function ddwcaf_add_screen_options_in_payouts_list() {
-			global $myListTable;
-
-            $args = [
-                'label'   => esc_html__( 'Payouts Per Page', 'affiliates-for-woocommerce' ),
-                'default' => 20,
-                'option'  => 'ddwcaf_payouts_per_page',
-                'hidden' => 'id'
-            ];
-
-            $myListTable = new Admin\Payouts\DDWCAF_Payouts_List_Template( $this->ddwcaf_configuration );
-
-			add_screen_option( 'per_page', $args );
-		}
-
-        /**
-		 * Top Products List Screen Options.
-		 *
-		 * @return void
-		 */
-		public function ddwcaf_add_screen_options_in_top_products_list() {
-			global $myListTable;
-
-            $args = [
-                'label'   => esc_html__( 'Top Products Per Page', 'affiliates-for-woocommerce' ),
-                'default' => 20,
-                'option'  => 'ddwcaf_top_products_per_page',
-                'hidden' => 'id'
-            ];
-
-            $myListTable = new Admin\Top_Products\DDWCAF_Top_Products_List_Template( $this->ddwcaf_configuration );
-
-			add_screen_option( 'per_page', $args );
-		}
-
-        /**
-		 * Visits List Screen Options.
-		 *
-		 * @return void
-		 */
-		public function ddwcaf_add_screen_options_in_visits_list() {
-			global $myListTable;
-
-            $args = [
-                'label'   => esc_html__( 'Visits Per Page', 'affiliates-for-woocommerce' ),
-                'default' => 20,
-                'option'  => 'ddwcaf_visits_per_page',
-                'hidden' => 'id'
-            ];
-
-            $myListTable = new Admin\Visits\DDWCAF_Visits_List_Template( $this->ddwcaf_configuration );
-
-			add_screen_option( 'per_page', $args );
-		}
-
-        /**
-		 * Affiliate Registration Fields List Screen Options.
-		 *
-		 * @return void
-		 */
-		public function ddwcaf_add_screen_options_in_affiliates_registration_fields_list() {
-			global $myListTable;
-
-            $args = [
-                'label'   => esc_html__( 'Registration Fields Per Page', 'affiliates-for-woocommerce' ),
-                'default' => 20,
-                'option'  => 'ddwcaf_affiliates_registration_fields_per_page',
-                'hidden' => 'id'
-            ];
-
-            $myListTable = new Admin\Registration\DDWCAF_Affiliate_Registration_Fields_Template( $this->ddwcaf_configuration );
-
-			add_screen_option( 'per_page', $args );
-		}
-
-        /**
-		 * Creatives List Screen Options.
-		 *
-		 * @return void
-		 */
-		public function ddwcaf_add_screen_options_in_creatives_list() {
-			global $myListTable;
-
-            $args = [
-                'label'   => esc_html__( 'Creatives Per Page', 'affiliates-for-woocommerce' ),
-                'default' => 20,
-                'option'  => 'ddwcaf_creatives_per_page',
-                'hidden' => 'id'
-            ];
-
-            $myListTable = new Admin\Creatives\DDWCAF_Creatives_List_Template( $this->ddwcaf_configuration );
-
-			add_screen_option( 'per_page', $args );
-		}
 
         /**
 		 * Dashboard Submenu

@@ -147,13 +147,13 @@ if ( ! class_exists( 'DDWCAF_Free_Init' ) ) {
 	}
 }
 
-// Initialize the plugin.
-if ( ! class_exists( 'DDWCAF_Init' ) ) {
-	DDWCAF_Free_Init::get_instance();
+// Initialize the plugin after all plugins are loaded to check if Pro is active.
+add_action( 'plugins_loaded', function() {
+	if ( ! class_exists( 'DDWCAF_Init' ) ) {
+		// Load Free version.
+		DDWCAF_Free_Init::get_instance();
 
-	// Load DevDiggers Framework if not loaded already.
-	add_action( 'plugins_loaded', function() {
-		// Check if the plugin framework is already loaded.
+		// Load DevDiggers Framework if not loaded already.
 		if ( ! defined( 'DDFW_LOADED' ) && file_exists( DDWCAF_PLUGIN_FILE . 'devdiggers-framework/init.php' ) ) {
 			if ( ! empty( $_GET['page'] ) && 'ddwcaf-dashboard' === $_GET['page'] ) {
 				require DDWCAF_PLUGIN_FILE . 'devdiggers-framework/init.php';
@@ -161,8 +161,8 @@ if ( ! class_exists( 'DDWCAF_Init' ) ) {
 				require DDWCAF_PLUGIN_FILE . 'devdiggers-framework/init.php';
 			}
 		}
-	} );
-}
+	}
+}, 99 );
 
 // For HPOS Compatibility
 add_action( 'before_woocommerce_init', function() {
