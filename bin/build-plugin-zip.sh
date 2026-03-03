@@ -1,5 +1,5 @@
 #!/bin/bash
-PLUGIN_SLUG="dd-woocommerce-affiliates"
+PLUGIN_SLUG="affiliates-for-woocommerce"
 PROJECT_PATH=$(pwd)
 BUILD_PATH="${PROJECT_PATH}/build"
 DESTINATION_PATH="$BUILD_PATH/$PLUGIN_SLUG"
