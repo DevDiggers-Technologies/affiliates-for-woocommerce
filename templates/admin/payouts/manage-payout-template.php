@@ -33,6 +33,7 @@ if ( ! class_exists( 'DDWCAF_Manage_Payout_Template' ) ) {
 		 */
 		public function __construct( $ddwcaf_configuration ) {
             $page              = ! empty( $_GET[ 'page' ] ) ? sanitize_text_field( wp_unslash( $_GET[ 'page' ] ) ) : '';
+            $menu              = ! empty( $_GET[ 'menu' ] ) ? sanitize_text_field( wp_unslash( $_GET[ 'menu' ] ) ) : '';
             $affiliate_helper  = new DDWCAF_Affiliate_Helper( $ddwcaf_configuration );
             $payout_helper     = new DDWCAF_Payout_Helper( $ddwcaf_configuration );
             $visit_helper      = new DDWCAF_Visit_Helper( $ddwcaf_configuration );
@@ -94,7 +95,7 @@ if ( ! class_exists( 'DDWCAF_Manage_Payout_Template' ) ) {
                 <div class="ddwcaf-page-header">
                     <div class="ddwcaf-header-left">
                         <h1><?php echo esc_html( sprintf( __( 'Payout #%d', 'affiliates-for-woocommerce' ), $payout_id ) ); ?></h1>
-                        <a href="<?php echo esc_url( admin_url( 'admin.php?page=' . $page ) ); ?>" class="button"><?php esc_html_e( '← Back', 'affiliates-for-woocommerce' ); ?></a>
+                        <a href="<?php echo esc_url( admin_url( 'admin.php?page=' . $page . '&menu=' . $menu ) ); ?>" class="button"><?php esc_html_e( '← Back', 'affiliates-for-woocommerce' ); ?></a>
                     </div>
                 </div>
 

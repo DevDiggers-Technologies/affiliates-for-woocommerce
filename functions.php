@@ -155,7 +155,20 @@ add_action( 'plugins_loaded', function() {
 
 		// Load DevDiggers Framework if not loaded already.
 		if ( ! defined( 'DDFW_LOADED' ) && file_exists( DDWCAF_PLUGIN_FILE . 'devdiggers-framework/init.php' ) ) {
-			if ( ! empty( $_GET['page'] ) && 'ddwcaf-dashboard' === $_GET['page'] ) {
+			$should_load = true;
+
+			if ( ! empty( $_GET['page'] ) ) {
+				$current_page = $_GET['page'];
+				$prefix       = explode( '-', $current_page )[0];
+
+				if ( 0 === strpos( $prefix, 'ddwc' ) || 0 === strpos( $prefix, 'ddwp' ) ) {
+					if ( 'ddwcaf' !== $prefix ) {
+						$should_load = false;
+					}
+				}
+			}
+
+			if ( $should_load ) {
 				require DDWCAF_PLUGIN_FILE . 'devdiggers-framework/init.php';
 			}
 		}

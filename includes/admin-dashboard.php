@@ -57,6 +57,7 @@ if ( ! class_exists( 'DDWCAF_Admin_Dashboard' ) ) {
             $this->affiliate_helper     = new DDWCAF_Affiliate_Helper( $ddwcaf_configuration );
             $this->ddwcaf_add_dashboard_menu();
             add_action( 'admin_enqueue_scripts', [ $this, 'ddwcaf_enqueue_admin_scripts' ] );
+			add_filter( 'admin_footer_text', [ $this, 'ddwcaf_set_admin_footer_text' ], 99 );
         }
 
         /**
@@ -882,5 +883,37 @@ if ( ! class_exists( 'DDWCAF_Admin_Dashboard' ) ) {
                 }
             }
         }
+
+        /**
+		 * Change the admin footer text function.
+		 *
+		 * @param  string $footer_text text to be rendered in the footer.
+		 * @return string
+		 */
+		public function ddwcaf_set_admin_footer_text( $footer_text ) {
+			if ( ! current_user_can( 'manage_woocommerce' ) || ! function_exists( 'wc_get_screen_ids' ) ) {
+				return $footer_text;
+			}
+			$current_screen = get_current_screen();
+			$wc_pages       = wc_get_screen_ids();
+
+			// Set only WC pages.
+			$wc_pages = array_diff( $wc_pages, [ 'profile', 'user-edit' ] );
+
+			/**
+			 * Check to make sure we're on a plugin page.
+			 * 
+			 * @since 1.0.0
+			 */
+			if ( isset( $current_screen->base ) && 'devdiggers-plugins_page_ddwcaf-dashboard' === $current_screen->base ) {
+				// Change the footer text.
+				$footer_text = sprintf(
+					/* translators: %s for a tag */
+					esc_html__( 'If you really like our plugin, please leave us a %s rating, we\'ll really appreciate it.', 'affiliates-for-woocommerce' ), '<a href="//wordpress.org/support/plugin/affiliates-for-woocommerce/reviews/#new-post" target="_blank" title="' . esc_attr__( 'Review', 'affiliates-for-woocommerce' ) . '" aria-label="' . esc_attr__( 'Review', 'affiliates-for-woocommerce' ) . '"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 32" height="10"><path d="M16 26.534L6.111 32 8 20.422l-8-8.2 11.056-1.688L16 0l4.944 10.534L32 12.223l-8 8.2L25.889 32zm40 0L46.111 32 48 20.422l-8-8.2 11.056-1.688L56 0l4.944 10.534L72 12.223l-8 8.2L65.889 32zm40 0L86.111 32 88 20.422l-8-8.2 11.056-1.688L96 0l4.944 10.534L112 12.223l-8 8.2L105.889 32zm40 0L126.111 32 128 20.422l-8-8.2 11.056-1.688L136 0l4.944 10.534L152 12.223l-8 8.2L145.889 32zm40 0L166.111 32 168 20.422l-8-8.2 11.056-1.688L176 0l4.944 10.534L192 12.223l-8 8.2L185.889 32z" fill="#F5A623" fill-rule="evenodd"/></svg></a>'
+				);
+			}
+
+			return $footer_text;
+		}
     }
 }
