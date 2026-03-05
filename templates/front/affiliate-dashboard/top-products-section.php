@@ -35,55 +35,32 @@ $total_count       = $commission_helper->ddwcaf_get_top_products_count( $args );
 $top_products      = $commission_helper->ddwcaf_get_top_products( $args );
 
 ?>
-<div class="ddwcaf-list-wrapper">
-    <table class="shop_table_responsive ddwcaf-table ddwcaf-commissions-table">
-        <thead>
-            <tr>
-                <th><?php esc_html_e( 'Product', 'affiliates-for-woocommerce' ); ?></th>
-                <th><?php esc_html_e( 'Quantity', 'affiliates-for-woocommerce' ); ?></th>
-                <th><?php esc_html_e( 'Total Commisions', 'affiliates-for-woocommerce' ); ?></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            if ( ! empty( $top_products ) ) {
-                foreach ( $top_products as $key => $top_product ) {
-                    $product = wc_get_product( $top_product[ 'product' ] );
-                    ?>
-                    <tr>
-                        <td class="column column-product"><a href="<?php echo esc_url( $product->get_permalink() ); ?>" target="_blank"><?php echo wp_kses_post( $product->get_image( 'thumbnail' ) ); ?><div><?php echo esc_html( $product->get_name() ); ?></div></a></td>
-                        <td><?php echo esc_html( $top_product[ 'quantity' ] ); ?></td>
-                        <td><?php echo wc_price( $top_product[ 'commission' ] ); ?></td>
-                    </tr>
-                    <?php
-                }
-            } else {
-                ?>
-                <tr>
-                    <td colspan="4"><center><?php esc_html_e( 'No products yet.', 'affiliates-for-woocommerce' ); ?></center></td>
-                </tr>
-                <?php
-            }
-            ?>
-        </tbody>
-    </table>
-</div>
-<?php
-if ( 1 < $total_count ) {
-    ?>
-    <div class="woocommerce-pagination woocommerce-pagination--without-numbers woocommerce-Pagination ddwcaf-pagination">
-        <?php
-        if ( 1 !== $current_page && $current_page > 1 ) {
-            ?>
-            <a class="woocommerce-button woocommerce-button--previous woocommerce-Button woocommerce-Button--previous button" href="<?php echo esc_url( $affiliate_helper->ddwcaf_get_affiliate_dashboard_url( $endpoints[ 'top-products' ][ 'endpoint' ], $current_page - 1 ) ); ?>"><?php esc_html_e( 'Previous', 'affiliates-for-woocommerce' ); ?></a>
-            <?php
-        }
-        if ( ceil( $total_count / $per_page ) > $current_page ) {
-            ?>
-            <a class="woocommerce-button woocommerce-button--next woocommerce-Button woocommerce-Button--next button" href="<?php echo esc_url( $affiliate_helper->ddwcaf_get_affiliate_dashboard_url( $endpoints[ 'top-products' ][ 'endpoint' ], $current_page + 1 ) ); ?>"><?php esc_html_e( 'Next', 'affiliates-for-woocommerce' ); ?></a>
-            <?php
-        }
-        ?>
+<div class="ddwcaf-table-container">
+    <div class="ddwcaf-table-loader-overlay">
+        <span class="ddwcaf-table-spinner"></span>
     </div>
-    <?php
-}
+
+    <div class="ddwcaf-table-wrapper">
+        <table class="my_account_orders shop_table_responsive ddwcaf-table ddwcaf-commissions-table">
+            <thead>
+                <tr>
+                    <th><?php esc_html_e( 'Product', 'affiliates-for-woocommerce' ); ?></th>
+                    <th><?php esc_html_e( 'Quantity', 'affiliates-for-woocommerce' ); ?></th>
+                    <th><?php esc_html_e( 'Total Commisions', 'affiliates-for-woocommerce' ); ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php $commission_helper->ddwcaf_render_top_products_table_rows( $top_products ); ?>
+            </tbody>
+        </table>
+        <input type="hidden" class="ddwcaf-current-page" value="<?php echo esc_attr( $current_page ); ?>" />
+        <input type="hidden" class="ddwcaf-total-count" value="<?php echo esc_attr( $total_count ); ?>" />
+    </div>
+
+    <?php if ( ceil( $total_count / $per_page ) > 1 ) : ?>
+        <div class="woocommerce-pagination woocommerce-pagination--without-numbers woocommerce-Pagination ddwcaf-pagination">
+            <button class="ddwcaf-pagination-button button woocommerce-Button--previous" data-table="top_products" data-perform="previous" <?php echo 1 === $current_page ? 'disabled' : ''; ?>><?php esc_html_e( 'Previous', 'affiliates-for-woocommerce' ); ?></button>
+            <button class="ddwcaf-pagination-button button woocommerce-Button--next" data-table="top_products" data-perform="next" <?php echo ceil( $total_count / $per_page ) <= $current_page ? 'disabled' : ''; ?>><?php esc_html_e( 'Next', 'affiliates-for-woocommerce' ); ?></button>
+        </div>
+    <?php endif; ?>
+</div>

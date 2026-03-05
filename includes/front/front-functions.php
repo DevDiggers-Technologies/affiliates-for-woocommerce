@@ -113,9 +113,9 @@ if ( ! class_exists( 'DDWCAF_Front_Functions' ) ) {
 						$title = $endpoint[ 'title' ];
 					}
 				}
-            }
+			}
 
-            return $title;
+			return $title;
 		}
 
 		/**
@@ -125,14 +125,18 @@ if ( ! class_exists( 'DDWCAF_Front_Functions' ) ) {
 		 * @return array
 		 */
 		public function ddwcaf_remove_sidebar_from_custom_menu_page( $sidebars_widgets ) {
-            global $wp_query;
+			global $wp_query;
 
 			if ( isset( $wp_query->query_vars[ $this->ddwcaf_configuration[ 'my_account_endpoint' ] ] ) && empty( $this->ddwcaf_configuration[ 'enable_widgets_my_account_endpoint' ] ) && is_account_page() ) {
-				return [ false ];
+				$sidebars_widgets[ 'sidebar-1' ]   = [];
+				$sidebars_widgets[ 'sidebar-primary' ]   = [];
+				$sidebars_widgets[ 'sidebar-secondary' ] = [];
 			}
 
 			if ( ! empty( $this->ddwcaf_configuration[ 'affiliate_dashboard_page_id' ] ) && is_page( $this->ddwcaf_configuration[ 'affiliate_dashboard_page_id' ] ) && empty( $this->ddwcaf_configuration[ 'enable_widgets_affiliate_dashboard_page' ] ) ) {
-				return [ false ];
+				$sidebars_widgets[ 'sidebar-1' ]   = [];
+				$sidebars_widgets[ 'sidebar-primary' ]   = [];
+				$sidebars_widgets[ 'sidebar-secondary' ] = [];
 			}
 
 			return $sidebars_widgets;
@@ -150,7 +154,7 @@ if ( ! class_exists( 'DDWCAF_Front_Functions' ) ) {
 			?>
 			<input type="hidden" name="_ddwcaf_user_role" value="ddwcaf_affiliate" />
 			<?php
-            $this->affiliate_helper->ddwcaf_display_affiliate_registration_fields();
+			$this->affiliate_helper->ddwcaf_display_affiliate_registration_fields();
 		}
 
 		/**
@@ -191,8 +195,27 @@ if ( ! class_exists( 'DDWCAF_Front_Functions' ) ) {
 		 * @return void
 		 */
 		public function ddwcaf_front_scripts() {
-			wp_register_style( 'ddwcaf-front-style', DDWCAF_PLUGIN_URL . 'assets/css/front.css', [], DDWCAF_SCRIPT_VERSION );
-			wp_register_script( 'ddwcaf-front-script', DDWCAF_PLUGIN_URL . 'assets/js/front.js', [], DDWCAF_SCRIPT_VERSION );
+			wp_register_script( 'ddwcaf-currency-format-script', DDWCAF_PLUGIN_URL . 'assets/js/currency-format.js', [], filemtime( DDWCAF_PLUGIN_FILE . 'assets/js/currency-format.js' ) );
+
+			wp_localize_script(
+				'ddwcaf-currency-format-script',
+				'ddwcafCurrencyObject',
+				[
+					'currency_format_num_decimals' => esc_attr( wc_get_price_decimals() ),
+					'currency_format_symbol'       => get_woocommerce_currency_symbol(),
+					'currency_code'                => get_woocommerce_currency(),
+					'currency_format_decimal_sep'  => esc_attr( wc_get_price_decimal_separator() ),
+					'currency_format_thousand_sep' => esc_attr( wc_get_price_thousand_separator() ),
+					'currency_format'              => esc_attr( str_replace( [ '%1$s', '%2$s' ], [ '%s', '%v' ], get_woocommerce_price_format() ) ),
+				]
+			);
+
+			wp_register_style( 'ddwcaf-front-style', DDWCAF_PLUGIN_URL . 'assets/css/front.css', [], filemtime( DDWCAF_PLUGIN_FILE . 'assets/css/front.css' ) );
+			wp_register_script( 'ddwcaf-front-script', DDWCAF_PLUGIN_URL . 'assets/js/front.js', [ 'ddwcaf-currency-format-script' ], filemtime( DDWCAF_PLUGIN_FILE . 'assets/js/front.js' ) );
+
+			$site_url   = site_url();
+			$parsed_url = parse_url( $site_url, PHP_URL_PATH );
+			$code       = get_woocommerce_currency();
 
 			wp_localize_script(
 				'ddwcaf-front-script',
@@ -205,13 +228,42 @@ if ( ! class_exists( 'DDWCAF_Front_Functions' ) ) {
 					'i18n' => [
 						'copied' => esc_html__( 'Copied', 'affiliates-for-woocommerce' ),
 					],
+					'SITE_URL'     => $site_url,
+					'siteUrl'      => ( $parsed_url ? $parsed_url : '' ) . '/wp-admin/admin.php',
+					'primaryColor' => esc_attr( $this->ddwcaf_configuration[ 'primary_color' ] ),
+					'affiliate_id' => get_current_user_id(),
+					'currency'     => [
+						'code'              => $code,
+						'precision'         => wc_get_price_decimals(),
+						'symbol'            => html_entity_decode( get_woocommerce_currency_symbol( $code ) ),
+						'symbolPosition'    => get_option( 'woocommerce_currency_pos' ),
+						'decimalSeparator'  => wc_get_price_decimal_separator(),
+						'thousandSeparator' => wc_get_price_thousand_separator(),
+						'priceFormat'       => html_entity_decode( get_woocommerce_price_format() ),
+					],
 				]
 			);
+
+			global $wp;
+
+			if ( ( ! empty( $this->ddwcaf_configuration[ 'affiliate_dashboard_page_id' ] ) && is_page( $this->ddwcaf_configuration[ 'affiliate_dashboard_page_id' ] ) ) || ( is_account_page() && isset( $wp->query_vars[ $this->ddwcaf_configuration[ 'my_account_endpoint' ] ] ) ) ) {
+				wp_enqueue_script( 'chart', DDWCAF_PLUGIN_URL . 'assets/js/chart.js', [], filemtime( DDWCAF_PLUGIN_FILE . 'assets/js/chart.js' ) );
+
+				$this->ddwcaf_enqueue_front_scripts();
+			}
 
 			?>
 			<style>
 				:root {
 					--ddwcaf-primary-color: <?php echo esc_attr( $this->ddwcaf_configuration[ 'primary_color' ] ); ?>;
+					--ddwcaf-details-icon-color: <?php echo esc_attr( $this->ddwcaf_configuration[ 'details_icon_color' ] ); ?>;
+					--ddwcaf-details-icon-wrapper-background-color: <?php echo esc_attr( $this->ddwcaf_configuration[ 'details_icon_wrapper_background_color' ] ); ?>;
+					--ddwcaf-details-card-background-color: <?php echo esc_attr( $this->ddwcaf_configuration[ 'details_card_background_color' ] ); ?>;
+					--ddwcaf-details-card-border-color: <?php echo esc_attr( $this->ddwcaf_configuration[ 'details_card_border_color' ] ); ?>;
+					--ddwcaf-details-card-text-color: <?php echo esc_attr( $this->ddwcaf_configuration[ 'details_card_text_color' ] ); ?>;
+					--ddwcaf-details-card-value-color: <?php echo esc_attr( $this->ddwcaf_configuration[ 'details_card_value_color' ] ); ?>;
+					--ddwcaf-table-header-background-color: <?php echo esc_attr( $this->ddwcaf_configuration[ 'table_header_background_color' ] ); ?>;
+					--ddwcaf-table-header-text-color: <?php echo esc_attr( $this->ddwcaf_configuration[ 'table_header_text_color' ] ); ?>;
 				}
 			</style>
 			<?php
@@ -307,11 +359,33 @@ if ( ! class_exists( 'DDWCAF_Front_Functions' ) ) {
 		}
 
 		/**
+		 * Handle applied coupon function
+		 *
+		 * @param string $coupon_code
+		 * @return void
+		 */
+		public function ddwcaf_handle_applied_coupon( $coupon_code ) {
+			if ( ! empty( $coupon_code ) ) {
+				$coupon       = new \WC_Coupon( $coupon_code );
+				$affiliate_id = $coupon->get_meta( '_ddwcaf_assigned_affiliate' );
+
+				if ( ! empty( $affiliate_id ) ) {
+					$token = $this->affiliate_helper->ddwcaf_get_affiliate_referral_token( $affiliate_id );
+					$this->ddwcaf_set_token_in_cookie( $token );
+				}
+			}
+		}
+
+		/**
          * Handle WP loaded function
          *
          * @return void
          */
         public function ddwcaf_handle_wp_loaded() {
+			if ( ! empty( $_GET[ 'apply-promocode' ] ) ) {
+				WC()->cart->add_discount( $_GET[ 'apply-promocode' ] );
+			}
+
 			if ( ! empty( $_POST[ 'ddwcaf_nonce' ] ) && wp_verify_nonce( $_POST[ 'ddwcaf_nonce' ], 'ddwcaf_nonce_action' ) ) {
 				if ( ! empty( $_POST[ 'ddwcaf_affiliate_info_submit' ] ) ) {
 					$affiliate_registration_fields = $this->affiliate_helper->ddwcaf_get_affiliate_registration_fields();
@@ -325,6 +399,10 @@ if ( ! class_exists( 'DDWCAF_Front_Functions' ) ) {
 							wc_add_notice( sprintf( esc_html__( '%s is required!', 'affiliates-for-woocommerce' ), $affiliate_registration_field[ 'label' ] ), 'error' );
 							return;
 						}
+					}
+
+					if ( apply_filters( 'ddwcaf_custom_check_affiliate_info_submit', false ) ) {
+						return;
 					}
 
 					$user = wp_get_current_user();
@@ -350,15 +428,15 @@ if ( ! class_exists( 'DDWCAF_Front_Functions' ) ) {
 
 					exit();
 				}
-            }
-        }
+			}
+		}
 
-        /**
-         * Handle WP function
-         *
-         * @return void
-         */
-        public function ddwcaf_handle_wp() {
+		/**
+		 * Handle WP function
+		 *
+		 * @return void
+		 */
+		public function ddwcaf_handle_wp() {
 			if ( is_user_logged_in() ) {
 				$user = wp_get_current_user();
 
@@ -392,6 +470,7 @@ if ( ! class_exists( 'DDWCAF_Front_Functions' ) ) {
 						'affiliate_id' => $affiliate_id,
 						'url'          => $url,
 						'ip'           => $ip_address,
+						'date'         => '',
 					] );
 
 					if ( $visit_exists ) {
@@ -411,11 +490,11 @@ if ( ! class_exists( 'DDWCAF_Front_Functions' ) ) {
 					$visit_helper->ddwcaf_save_visit( $data );
 				}
 			}
-        }
+		}
 
-        /**
+		/**
 		 * Set token in cookie function
-         * 
+		 * 
 		 * @param string $token
 		 * @return void
 		 */
@@ -433,6 +512,10 @@ if ( ! class_exists( 'DDWCAF_Front_Functions' ) ) {
 			$affiliate_id = $this->affiliate_helper->ddwcaf_get_affiliate_id_by_token( $token );
 
 			if ( ! $affiliate_id ) {
+				return;
+			}
+
+			if ( $affiliate_id == get_current_user_id() ) {
 				return;
 			}
 
@@ -464,7 +547,7 @@ if ( ! class_exists( 'DDWCAF_Front_Functions' ) ) {
 
 			$affiliate_data = get_userdata( $affiliate_id );
 
-			if ( ( $order->get_customer_id() == $affiliate_id || $order->get_customer_id() === $affiliate_data->user_email ) ) {
+			if ( $order->get_customer_id() == $affiliate_id || $order->get_customer_id() === $affiliate_data->user_email ) {
 				return;
 			}
 
@@ -484,6 +567,16 @@ if ( ! class_exists( 'DDWCAF_Front_Functions' ) ) {
 
 				$order->save();
 			}
+		}
+
+		/**
+		 * Handle Store API checkout order processed function
+		 *
+		 * @param object $order
+		 * @return void
+		 */
+		public function ddwcaf_handle_store_api_checkout_order_processed( $order ) {
+			$this->ddwcaf_handle_checkout_order_processed( $order->get_id(), [], $order );
 		}
 	}
 }

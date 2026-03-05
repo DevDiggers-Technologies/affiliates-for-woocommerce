@@ -15,9 +15,9 @@ global $ddwcaf_configuration;
 
 	<?php if ( 'both' === $ddwcaf_configuration[ 'affiliate_registration_form_shortcode_content' ] ) : ?>
 
-	<div class="u-columns col2-set ddwcaf-affiliate-login" id="customer_login">
+	<div class="<?php echo esc_attr( apply_filters( 'ddwcaf_modify_login_registration_form_wrapper_classes', 'u-columns col2-set ddwcaf-affiliate-login' ) ); ?>" id="customer_login">
 
-		<div class="u-column1 col-1">
+		<div class="<?php echo esc_attr( apply_filters( 'ddwcaf_modify_login_form_wrapper_classes', 'u-column1 col-1' ) ); ?>">
 
 			<h2><?php esc_html_e( 'Login', 'affiliates-for-woocommerce' ); ?></h2>
 
@@ -27,7 +27,7 @@ global $ddwcaf_configuration;
 
 				<p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
 					<label for="username"><?php esc_html_e( 'Username or email address', 'affiliates-for-woocommerce' ); ?>&nbsp;<span class="required">*</span></label>
-					<input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="username" id="username" autocomplete="username" value="<?php echo ( ! empty( $_POST['username'] ) ) ? esc_attr( $_POST['username'] ) : ''; ?>" />
+					<input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="username" id="username" autocomplete="username" value="<?php echo ( ! empty( $_POST['username'] ) ) ? esc_attr( wp_unslash( $_POST['username'] ) ) : ''; ?>" /><?php // @codingStandardsIgnoreLine ?>
 				</p>
 				<p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
 					<label for="password"><?php esc_html_e( 'Password', 'affiliates-for-woocommerce' ); ?>&nbsp;<span class="required">*</span></label>
@@ -54,7 +54,7 @@ global $ddwcaf_configuration;
 
 		<?php endif; ?>
 
-		<div class="u-column2 col-2">
+		<div class="<?php echo esc_attr( apply_filters( 'ddwcaf_modify_registration_form_wrapper_classes', 'u-column2 col-2' ) ); ?>">
 
 			<h2><?php esc_html_e( 'Register', 'affiliates-for-woocommerce' ); ?></h2>
 
@@ -64,14 +64,14 @@ global $ddwcaf_configuration;
 
 					<p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
 						<label for="reg_username"><?php esc_html_e( 'Username', 'affiliates-for-woocommerce' ); ?>&nbsp;<span class="required">*</span></label>
-						<input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="username" id="reg_username" autocomplete="username" value="<?php echo ( ! empty( $_POST['username'] ) ) ? esc_attr( $_POST['username'] ) : ''; ?>" />
+						<input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="username" id="reg_username" autocomplete="username" value="<?php echo ( ! empty( $_POST['username'] ) ) ? esc_attr( wp_unslash( $_POST['username'] ) ) : ''; ?>" /><?php // @codingStandardsIgnoreLine ?>
 					</p>
 
 				<?php endif; ?>
 
 				<p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
 					<label for="reg_email"><?php esc_html_e( 'Email address', 'affiliates-for-woocommerce' ); ?>&nbsp;<span class="required">*</span></label>
-					<input type="email" class="woocommerce-Input woocommerce-Input--text input-text" name="email" id="reg_email" autocomplete="email" value="<?php echo ( ! empty( $_POST['email'] ) ) ? esc_attr( $_POST['email'] ) : ''; ?>" />
+					<input type="email" class="woocommerce-Input woocommerce-Input--text input-text" name="email" id="reg_email" autocomplete="email" value="<?php echo ( ! empty( $_POST['email'] ) ) ? esc_attr( wp_unslash( $_POST['email'] ) ) : ''; ?>" /><?php // @codingStandardsIgnoreLine ?>
 				</p>
 
 				<?php if ( 'no' === get_option( 'woocommerce_registration_generate_password' ) ) : ?>

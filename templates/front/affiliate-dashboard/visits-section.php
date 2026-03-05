@@ -35,83 +35,52 @@ $visit_helper = new DDWCAF_Visit_Helper( $ddwcaf_configuration );
 $total_count  = $visit_helper->ddwcaf_get_visits_count( $args );
 $visits       = $visit_helper->ddwcaf_get_visits( $args );
 ?>
-<div class="ddwcaf-list-wrapper">
+<div class="ddwcaf-table-container">
     <div class="ddwcaf-bulk-actions">
         <form method="get">
-            <select name="show" class="form-control">
+            <select name="show" class="form-control input-text">
                 <option value=""><?php esc_html_e( 'All', 'affiliates-for-woocommerce' ); ?></option>
                 <option value="converted" <?php echo esc_attr( 'converted' === $args[ 'show' ] ? 'selected="selected"' : '' ); ?>><?php esc_html_e( 'Converted', 'affiliates-for-woocommerce' ); ?></option>
                 <option value="not_converted" <?php echo esc_attr( 'not_converted' === $args[ 'show' ] ? 'selected="selected"' : '' ); ?>><?php esc_html_e( 'Not Converted', 'affiliates-for-woocommerce' ); ?></option>
             </select>
 
-            <label for="from-date"><?php esc_html_e( 'From:', 'affiliates-for-woocommerce' ); ?></label>
-            <input type="date" class="form-control" value="<?php echo esc_attr( $args[ 'from_date' ] ); ?>" name="from-date" id="from-date" class="ddwcaf-datepicker" placeholder="yyyy-mm-dd" autocomplete="off" />
+                <label for="from-date"><?php esc_html_e( 'From:', 'affiliates-for-woocommerce' ); ?></label>
+                <input type="date" class="form-control input-text" value="<?php echo esc_attr( $args[ 'from_date' ] ); ?>" name="from-date" id="from-date" class="ddwcaf-datepicker" placeholder="yyyy-mm-dd" autocomplete="off" />
 
             <label for="end-date"><?php esc_html_e( 'To:', 'affiliates-for-woocommerce' ); ?></label>
-            <input type="date" class="form-control" value="<?php echo esc_attr( $args[ 'end_date' ] ); ?>" name="end-date" id="end-date" class="ddwcaf-datepicker" placeholder="yyyy-mm-dd" autocomplete="off" />
+            <input type="date" class="form-control input-text" value="<?php echo esc_attr( $args[ 'end_date' ] ); ?>" name="end-date" id="end-date" class="ddwcaf-datepicker" placeholder="yyyy-mm-dd" autocomplete="off" />
 
             <input type="submit" value="<?php esc_attr_e( 'Filter', 'affiliates-for-woocommerce' ); ?>" name="ddwcaf_filter_submit" class="button" />
         </form>
     </div>
 
-    <table class="shop_table_responsive ddwcaf-table">
-        <thead>
-            <tr>
-                <th><?php esc_html_e( 'ID', 'affiliates-for-woocommerce' ); ?></th>
-                <th><?php esc_html_e( 'Referral URL', 'affiliates-for-woocommerce' ); ?></th>
-                <th><?php esc_html_e( 'Referrer/Origin URL', 'affiliates-for-woocommerce' ); ?></th>
-                <th><?php esc_html_e( 'Date', 'affiliates-for-woocommerce' ); ?></th>
-                <th><?php esc_html_e( 'Conversion Date', 'affiliates-for-woocommerce' ); ?></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            if ( ! empty( $visits ) ) {
-                $date_format = get_option( 'date_format' );
-                $time_format = get_option( 'time_format' );
-
-                foreach ( $visits as $key => $visit ) {
-                    $affiliate_id   = $visit[ 'affiliate_id' ];
-                    $affiliate_data = get_userdata( $affiliate_id );
-                    ?>
-                    <tr>
-                        <td><?php echo esc_html( $visit[ 'id' ] ); ?></td>
-                        <td>
-                            <a href="<?php echo esc_url( $visit[ 'url' ] ); ?>" target="_blank"><?php echo esc_url( $visit[ 'url' ] ); ?></a>
-                        </td>
-                        <td><?php echo wp_kses_post( ! empty( $visit[ 'referrer_url' ] ) ? '<a href="' . esc_url( $visit[ 'referrer_url' ] ) . '">' . esc_url( $visit[ 'referrer_url' ] ) . '</a>' : 'N/A' ); ?></td>
-                        <td><?php echo esc_html( date_i18n( "{$date_format} {$time_format}", strtotime( $visit[ 'date' ] ) ) ); ?></td>
-                        <td><?php echo esc_html( ! empty( $visit[ 'conversion_date' ] ) ? date_i18n( "{$date_format} {$time_format}", strtotime( $visit[ 'conversion_date' ] ) ) : 'N/A' ); ?></td>
-                    </tr>
-                    <?php
-                }
-            } else {
-                ?>
-                <tr>
-                    <td colspan="5"><center><?php esc_html_e( 'No visits yet.', 'affiliates-for-woocommerce' ); ?></center></td>
-                </tr>
-                <?php
-            }
-            ?>
-        </tbody>
-    </table>
-</div>
-<?php
-if ( 1 < $total_count ) {
-    ?>
-    <div class="woocommerce-pagination woocommerce-pagination--without-numbers woocommerce-Pagination ddwcaf-pagination">
-        <?php
-        if ( 1 !== $current_page && $current_page > 1 ) {
-            ?>
-            <a class="woocommerce-button woocommerce-button--previous woocommerce-Button woocommerce-Button--previous button" href="<?php echo esc_url( $affiliate_helper->ddwcaf_get_affiliate_dashboard_url( $endpoints[ 'visits' ][ 'endpoint' ], $current_page - 1 ) ); ?>"><?php esc_html_e( 'Previous', 'affiliates-for-woocommerce' ); ?></a>
-            <?php
-        }
-        if ( ceil( $total_count / $per_page ) > $current_page ) {
-            ?>
-            <a class="woocommerce-button woocommerce-button--next woocommerce-Button woocommerce-Button--next button" href="<?php echo esc_url( $affiliate_helper->ddwcaf_get_affiliate_dashboard_url( $endpoints[ 'visits' ][ 'endpoint' ], $current_page + 1 ) ); ?>"><?php esc_html_e( 'Next', 'affiliates-for-woocommerce' ); ?></a>
-            <?php
-        }
-        ?>
+    <div class="ddwcaf-table-loader-overlay">
+        <span class="ddwcaf-table-spinner"></span>
     </div>
-    <?php
-}
+
+    <div class="ddwcaf-table-wrapper">
+        <table class="my_account_orders shop_table_responsive ddwcaf-table">
+            <thead>
+                <tr>
+                    <th><?php esc_html_e( 'ID', 'affiliates-for-woocommerce' ); ?></th>
+                    <th><?php esc_html_e( 'Referral URL', 'affiliates-for-woocommerce' ); ?></th>
+                    <th><?php esc_html_e( 'Referrer/Origin URL', 'affiliates-for-woocommerce' ); ?></th>
+                    <th><?php esc_html_e( 'Date', 'affiliates-for-woocommerce' ); ?></th>
+                    <th><?php esc_html_e( 'Conversion Date', 'affiliates-for-woocommerce' ); ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php $visit_helper->ddwcaf_render_visits_table_rows( $visits ); ?>
+            </tbody>
+        </table>
+        <input type="hidden" class="ddwcaf-current-page" value="<?php echo esc_attr( $current_page ); ?>" />
+        <input type="hidden" class="ddwcaf-total-count" value="<?php echo esc_attr( $total_count ); ?>" />
+    </div>
+
+    <?php if ( ceil( $total_count / $per_page ) > 1 ) : ?>
+        <div class="woocommerce-pagination woocommerce-pagination--without-numbers woocommerce-Pagination ddwcaf-pagination">
+            <button class="ddwcaf-pagination-button button woocommerce-Button--previous" data-table="visits" data-perform="previous" <?php echo 1 === $current_page ? 'disabled' : ''; ?>><?php esc_html_e( 'Previous', 'affiliates-for-woocommerce' ); ?></button>
+            <button class="ddwcaf-pagination-button button woocommerce-Button--next" data-table="visits" data-perform="next" <?php echo ceil( $total_count / $per_page ) <= $current_page ? 'disabled' : ''; ?>><?php esc_html_e( 'Next', 'affiliates-for-woocommerce' ); ?></button>
+        </div>
+    <?php endif; ?>
+</div>

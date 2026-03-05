@@ -25,12 +25,12 @@ if ( ! class_exists( 'DDWCAF_Commission_Helper' ) ) {
 		 */
 		protected $wpdb;
 
-        /**
-         * Configuration Variable
-         *
-         * @var array
-         */
-        protected $ddwcaf_configuration;
+		/**
+		 * Configuration Variable
+		 *
+		 * @var array
+		 */
+		protected $ddwcaf_configuration;
 
 		/**
 		 * Construct
@@ -42,13 +42,13 @@ if ( ! class_exists( 'DDWCAF_Commission_Helper' ) ) {
 		}
 
 		/**
-         * Save Commission function
-         *
-         * @param array $args
-         * @return int
-         */
-        public function ddwcaf_save_commission( $args ) {
-            $default_args = [
+		 * Save Commission function
+		 *
+		 * @param array $args
+		 * @return int
+		 */
+		public function ddwcaf_save_commission( $args ) {
+			$default_args = [
 				'affiliate_id' => 0,
 				'order_id'     => 0,
 				'line_item_id' => 0,
@@ -64,39 +64,40 @@ if ( ! class_exists( 'DDWCAF_Commission_Helper' ) ) {
 
 			$args = wp_parse_args( $args, $default_args );
 
-            if ( ! empty( $args[ 'id' ] ) ) {
-                $id = $args[ 'id' ];
-                unset( $args[ 'id' ] );
+			if ( ! empty( $args[ 'id' ] ) ) {
+				$id = $args[ 'id' ];
+				unset( $args[ 'id' ] );
 				unset( $args[ 'created_at' ] );
 
-                $this->wpdb->update(
-                    $this->wpdb->ddwcaf_commissions,
-                    $args,
-                    [ 'id' => $id ],
-                    [ '%d', '%d', '%d', '%d', '%s', '%s', '%s', '%s', '%s', '%s' ],
-                    [ '%d' ]
-                );
+				$this->wpdb->update(
+					$this->wpdb->ddwcaf_commissions,
+					$args,
+					[ 'id' => $id ],
+					[ '%d', '%d', '%d', '%d', '%s', '%s', '%s', '%s', '%s', '%s' ],
+					[ '%d' ]
+				);
 
-                return $id;
-            } else {
-                $this->wpdb->insert(
-                    $this->wpdb->ddwcaf_commissions,
-                    $args,
-                    [ '%d', '%d', '%d', '%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s' ],
-                );
+				return $id;
+			} else {
+				$this->wpdb->insert(
+					$this->wpdb->ddwcaf_commissions,
+					$args,
+					[ '%d', '%d', '%d', '%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s' ],
+				);
 
-                return $this->wpdb->insert_id;
-            }
-        }
+				return $this->wpdb->insert_id;
+			}
+		}
 
 		/**
-         * Update Commission status function
-         *
-         * @param int $id
-         * @param string $status
-         * @return int
-         */
-        public function ddwcaf_update_commission_status( $id, $status ) {
+		 * Update Commission status function
+		 *
+		 * @param int $id
+		 * @param string $status
+		 * @param boolean $no_email
+		 * @return int
+		 */
+		public function ddwcaf_update_commission_status( $id, $status, $no_email = false ) {
 			$commission = $this->ddwcaf_get_commission_by_id( $id );
 
 			if ( ! $commission ) {
@@ -113,27 +114,27 @@ if ( ! class_exists( 'DDWCAF_Commission_Helper' ) ) {
 				[ '%s', '%s' ],
 				[ '%d' ]
 			);
-        }
+		}
 
 		/**
-         * Get commission by id function
-         *
+		 * Get commission by id function
+		 *
 		 * @param int $id
-         * @return array
-         */
-        public function ddwcaf_get_commission_by_id( $id ) {
-            return $this->wpdb->get_row( $this->wpdb->prepare( "SELECT * FROM {$this->wpdb->ddwcaf_commissions} WHERE id=%d", $id ), ARRAY_A );
-        }
+		 * @return array
+		 */
+		public function ddwcaf_get_commission_by_id( $id ) {
+			return $this->wpdb->get_row( $this->wpdb->prepare( "SELECT * FROM {$this->wpdb->ddwcaf_commissions} WHERE id=%d", $id ), ARRAY_A );
+		}
 
-        /**
-         * Prepare where conditions for commissions function
-         *
+		/**
+		 * Prepare where conditions for commissions function
+		 *
 		 * @param array $args
-         * @return string
-         */
-        public function ddwcaf_prepare_where_conditions_for_commissions( $args ) {
-            extract( $args );
-            $conditions = '';
+		 * @return string
+		 */
+		public function ddwcaf_prepare_where_conditions_for_commissions( $args ) {
+			extract( $args );
+			$conditions = '';
 
 			if ( ! empty( $affiliate_id ) ) {
 				$conditions .= $this->wpdb->prepare( " AND commissions.affiliate_id=%d", $affiliate_id );
@@ -149,7 +150,7 @@ if ( ! class_exists( 'DDWCAF_Commission_Helper' ) ) {
 			if ( ! empty( $search ) ) {
 				$conditions .= $this->wpdb->prepare( " AND commissions.id LIKE %s", '%' . $search . '%' );
 			}
-            if ( ! empty( $show ) ) {
+			if ( ! empty( $show ) ) {
 				$conditions .= $this->wpdb->prepare( " AND commissions.status=%s", $show );
 			}
 			if ( ! empty( $product_id ) ) {
@@ -162,81 +163,81 @@ if ( ! class_exists( 'DDWCAF_Commission_Helper' ) ) {
 				$conditions .= $this->wpdb->prepare( " AND commissions.id IN (SELECT commission_id FROM {$this->wpdb->ddwcaf_commissionsmeta} WHERE meta_key=%s AND meta_value=%s)", '_ddwcaf_payout_id', $payout_id );
 			}
 
-            return $conditions;
-        }
-
-        /**
-         * Get commissions function
-         *
-		 * @param array $args
-         * @return array
-         */
-        public function ddwcaf_get_commissions( $args ) {
-            extract( $args );
-
-            $conditions = $this->ddwcaf_prepare_where_conditions_for_commissions( $args );
-            $response   = $this->wpdb->get_results( $this->wpdb->prepare( "SELECT DISTINCT commissions.* FROM {$this->wpdb->ddwcaf_commissions} as commissions LEFT JOIN {$this->wpdb->users} as users ON commissions.affiliate_id=users.ID WHERE 1=1 $conditions ORDER BY id DESC LIMIT %d OFFSET %d", $per_page, $offset ), ARRAY_A );
-
-			return apply_filters( 'ddwcaf_modify_commissions_response', $response, $args );
-        }
-
-        /**
-         * Get all commissions count function
-         *
-		 * @param array $args
-         * @return int
-         */
-        public function ddwcaf_get_commissions_count( $args ) {
-            $conditions = $this->ddwcaf_prepare_where_conditions_for_commissions( $args );
-            $response   = $this->wpdb->get_var( "SELECT count(DISTINCT commissions.id) FROM {$this->wpdb->ddwcaf_commissions} as commissions LEFT JOIN {$this->wpdb->users} as users ON commissions.affiliate_id=users.ID WHERE 1=1 $conditions" );
-
-			return apply_filters( 'ddwcaf_modify_commissions_count', $response, $args );
-        }
+			return $conditions;
+		}
 
 		/**
-         * Prepare where conditions for top products function
-         *
+		 * Get commissions function
+		 *
 		 * @param array $args
-         * @return string
-         */
-        public function ddwcaf_prepare_where_conditions_for_top_products( $args ) {
-            extract( $args );
-            $conditions = '';
+		 * @return array
+		 */
+		public function ddwcaf_get_commissions( $args ) {
+			extract( $args );
+
+			$conditions = $this->ddwcaf_prepare_where_conditions_for_commissions( $args );
+			$response   = $this->wpdb->get_results( $this->wpdb->prepare( "SELECT DISTINCT commissions.* FROM {$this->wpdb->ddwcaf_commissions} as commissions LEFT JOIN {$this->wpdb->users} as users ON commissions.affiliate_id=users.ID WHERE 1=1 $conditions ORDER BY id DESC LIMIT %d OFFSET %d", $per_page, $offset ), ARRAY_A );
+
+			return apply_filters( 'ddwcaf_modify_commissions_response', $response, $args );
+		}
+
+		/**
+		 * Get all commissions count function
+		 *
+		 * @param array $args
+		 * @return int
+		 */
+		public function ddwcaf_get_commissions_count( $args ) {
+			$conditions = $this->ddwcaf_prepare_where_conditions_for_commissions( $args );
+			$response   = $this->wpdb->get_var( "SELECT count(DISTINCT commissions.id) FROM {$this->wpdb->ddwcaf_commissions} as commissions LEFT JOIN {$this->wpdb->users} as users ON commissions.affiliate_id=users.ID WHERE 1=1 $conditions" );
+
+			return apply_filters( 'ddwcaf_modify_commissions_count', $response, $args );
+		}
+
+		/**
+		 * Prepare where conditions for top products function
+		 *
+		 * @param array $args
+		 * @return string
+		 */
+		public function ddwcaf_prepare_where_conditions_for_top_products( $args ) {
+			extract( $args );
+			$conditions = '';
 
 			if ( ! empty( $affiliate_id ) ) {
 				$conditions .= $this->wpdb->prepare( " AND commissions.affiliate_id=%d", $affiliate_id );
 			}
 
-            return $conditions;
-        }
+			return $conditions;
+		}
 
 		/**
-         * Get top products function
-         *
+		 * Get top products function
+		 *
 		 * @param array $args
-         * @return array
-         */
-        public function ddwcaf_get_top_products( $args ) {
-            extract( $args );
+		 * @return array
+		 */
+		public function ddwcaf_get_top_products( $args ) {
+			extract( $args );
 
-            $conditions = $this->ddwcaf_prepare_where_conditions_for_top_products( $args );
-            $response   = $this->wpdb->get_results( $this->wpdb->prepare( "SELECT DISTINCT commissions.product_id as product, SUM( CASE WHEN quantity IS NOT NULL THEN quantity ELSE 0 END ) AS quantity, SUM( CASE WHEN line_total IS NOT NULL THEN line_total ELSE 0 END ) AS earnings, SUM( CASE WHEN commission IS NOT NULL THEN commission ELSE 0 END ) AS commission FROM {$this->wpdb->ddwcaf_commissions} as commissions LEFT JOIN {$this->wpdb->users} as users ON commissions.affiliate_id=users.ID WHERE 1=1 $conditions GROUP BY product_id ORDER BY $orderby $order LIMIT %d OFFSET %d", $per_page, $offset ), ARRAY_A );
+			$conditions = $this->ddwcaf_prepare_where_conditions_for_top_products( $args );
+			$response   = $this->wpdb->get_results( $this->wpdb->prepare( "SELECT DISTINCT commissions.product_id as product, SUM( CASE WHEN quantity IS NOT NULL THEN quantity ELSE 0 END ) AS quantity, SUM( CASE WHEN line_total IS NOT NULL THEN line_total ELSE 0 END ) AS earnings, SUM( CASE WHEN commission IS NOT NULL THEN commission ELSE 0 END ) AS commission FROM {$this->wpdb->ddwcaf_commissions} as commissions LEFT JOIN {$this->wpdb->users} as users ON commissions.affiliate_id=users.ID WHERE 1=1 $conditions GROUP BY product_id ORDER BY $orderby $order LIMIT %d OFFSET %d", $per_page, $offset ), ARRAY_A );
 
 			return apply_filters( 'ddwcaf_modify_top_products_response', $response, $args );
-        }
+		}
 
 		/**
-         * Get all top products count function
-         *
+		 * Get all top products count function
+		 *
 		 * @param array $args
-         * @return int
-         */
-        public function ddwcaf_get_top_products_count( $args ) {
-            $conditions = $this->ddwcaf_prepare_where_conditions_for_top_products( $args );
-            $response   = $this->wpdb->get_var( "SELECT count(DISTINCT commissions.product_id) FROM {$this->wpdb->ddwcaf_commissions} as commissions LEFT JOIN {$this->wpdb->users} as users ON commissions.affiliate_id=users.ID WHERE 1=1 $conditions ORDER BY quantity DESC" );
+		 * @return int
+		 */
+		public function ddwcaf_get_top_products_count( $args ) {
+			$conditions = $this->ddwcaf_prepare_where_conditions_for_top_products( $args );
+			$response   = $this->wpdb->get_var( "SELECT count(DISTINCT commissions.product_id) FROM {$this->wpdb->ddwcaf_commissions} as commissions LEFT JOIN {$this->wpdb->users} as users ON commissions.affiliate_id=users.ID WHERE 1=1 $conditions ORDER BY quantity DESC" );
 
 			return apply_filters( 'ddwcaf_modify_top_products_count', $response, $args );
-        }
+		}
 
 		/**
 		 * Get commission status by order status function
@@ -267,7 +268,9 @@ if ( ! class_exists( 'DDWCAF_Commission_Helper' ) ) {
 		 * Calculate commission amount function
 		 *
 		 * @param float $amount
+		 * @param int $product_id
 		 * @param int $affiliate_id
+		 * @param object $order
 		 * @return float
 		 */
 		public function ddwcaf_calculate_commission_amount( $amount, $affiliate_id ) {
@@ -333,17 +336,36 @@ if ( ! class_exists( 'DDWCAF_Commission_Helper' ) ) {
 			return $flag;
 		}
 
-        /**
-         * Get affiliate statitics function
-         *
-         * @param int $user_id
-         * @return array
-         */
-        public function ddwcaf_get_affiliate_statistics( $user_id ) {
+		/**
+		 * Get affiliate statitics function
+		 *
+		 * @param int $user_id
+		 * @return array
+		 */
+		public function ddwcaf_get_affiliate_statistics( $user_id ) {
 			return $this->wpdb->get_row( $this->wpdb->prepare( "SELECT ROUND( SUM( CASE WHEN status!='cancelled' THEN commission ELSE 0 END ), 2 ) AS total_earnings, ROUND( SUM( CASE WHEN status='paid' THEN commission ELSE 0 END ), 2 ) AS paid_earnings, ROUND( SUM( CASE WHEN status='pending' THEN commission ELSE 0 END ), 2 ) AS unpaid_earnings FROM {$this->wpdb->ddwcaf_commissions} WHERE affiliate_id=%d", $user_id ), ARRAY_A );
-        }
+		}
 
-        /**
+		/**
+		 * Get affiliate total earnings for period function
+		 *
+		 * @param int $user_id
+		 * @param string $reset_date
+		 * @return float
+		 */
+		public function ddwcaf_get_affiliate_total_earnings_for_period( $user_id, $reset_date = '' ) {
+			$sql    = "SELECT ROUND( SUM( CASE WHEN status!='cancelled' THEN commission ELSE 0 END ), 2 ) AS total_earnings FROM {$this->wpdb->ddwcaf_commissions} WHERE affiliate_id=%d";
+			$params = [ $user_id ];
+
+			if ( ! empty( $reset_date ) ) {
+				$sql     .= " AND created_at>=%s";
+				$params[] = $reset_date;
+			}
+
+			return floatval( $this->wpdb->get_var( $this->wpdb->prepare( $sql, $params ) ) );
+		}
+
+		/**
 		 * Get affiliate commission rate function
 		 *
 		 * @param int $user_id
@@ -354,17 +376,34 @@ if ( ! class_exists( 'DDWCAF_Commission_Helper' ) ) {
 				$user_id = get_current_user_id();
 			}
 
-			return wc_format_decimal( floatval( $this->ddwcaf_configuration[ 'default_commission_rate' ] ), wc_get_price_decimals() );
+			$commission_rate = get_user_meta( $user_id, '_ddwcaf_commission_rate', true );
+
+			if ( empty( $commission_rate ) ) {
+				$commission_rate = $this->ddwcaf_configuration[ 'default_commission_rate' ];
+			}
+
+			return wc_format_decimal( floatval( $commission_rate ), wc_get_price_decimals() );
 		}
 
 		/**
-         * Update commission meta function
-         *
-         * @param int $commission_id
-         * @param string $meta_key
-         * @param string $meta_value
-         * @return int
-         */
+		 * Update user affiliate commission rate function
+		 *
+		 * @param int $user_id
+		 * @param array $data
+		 * @return void
+		 */
+		public function ddwcaf_update_affiliate_commission_rate( $user_id, $data ) {
+			update_user_meta( $user_id, '_ddwcaf_commission_rate', $data );
+		}
+
+		/**
+		 * Update commission meta function
+		 *
+		 * @param int $commission_id
+		 * @param string $meta_key
+		 * @param string $meta_value
+		 * @return int
+		 */
 		public function ddwcaf_update_commission_meta( $commission_id, $meta_key, $meta_value ) {
 			$id = $this->wpdb->get_var( $this->wpdb->prepare( "SELECT id FROM {$this->wpdb->ddwcaf_commissionsmeta} WHERE commission_id=%d AND meta_key=%s", $commission_id, $meta_key ) );
 
@@ -372,40 +411,40 @@ if ( ! class_exists( 'DDWCAF_Commission_Helper' ) ) {
 
 			if ( $id ) {
 				$this->wpdb->update(
-                    $this->wpdb->ddwcaf_commissionsmeta,
-                    [
+					$this->wpdb->ddwcaf_commissionsmeta,
+					[
 						'commission_id' => $commission_id,
 						'meta_key'      => $meta_key,
 						'meta_value'    => $meta_value,
 					],
-                    [ 'id' => $id ],
-                    [ '%d', '%s', '%s' ],
-                    [ '%d' ]
-                );
+					[ 'id' => $id ],
+					[ '%d', '%s', '%s' ],
+					[ '%d' ]
+				);
 
 				return $id;
 			} else {
 				$this->wpdb->insert(
-                    $this->wpdb->ddwcaf_commissionsmeta,
-                    [
+					$this->wpdb->ddwcaf_commissionsmeta,
+					[
 						'commission_id' => $commission_id,
 						'meta_key'      => $meta_key,
 						'meta_value'    => $meta_value,
 					],
-                    [ '%d', '%s', '%s' ],
-                );
+					[ '%d', '%s', '%s' ],
+				);
 
 				return $this->wpdb->insert_id;
 			}
 		}
 
 		/**
-         * Get commission meta function
-         *
-         * @param int $commission_id
-         * @param string $meta_key
-         * @return mixed
-         */
+		 * Get commission meta function
+		 *
+		 * @param int $commission_id
+		 * @param string $meta_key
+		 * @return mixed
+		 */
 		public function ddwcaf_get_commission_meta( $commission_id, $meta_key ) {
 			$meta_value = $this->wpdb->get_var( $this->wpdb->prepare( "SELECT meta_value FROM {$this->wpdb->ddwcaf_commissionsmeta} WHERE commission_id=%d AND meta_key=%s", $commission_id, $meta_key ) );
 
@@ -413,11 +452,34 @@ if ( ! class_exists( 'DDWCAF_Commission_Helper' ) ) {
 		}
 
 		/**
-         * Get translation function
-         *
-         * @param string $word
-         * @return string
-         */
+		 * Get affiliate total pending commissions amount function
+		 *
+		 * @param array $args
+		 * @return float
+		 */
+		public function ddwcaf_get_affiliate_total_pending_commissions_amount( $args ) {
+			extract( $args );
+
+			$conditions = $this->wpdb->prepare( " AND commissions.affiliate_id=%d", $affiliate_id );
+			$conditions .= $this->wpdb->prepare( " AND commissions.status=%s", 'pending' );
+
+			if ( ! empty( $from_date ) ) {
+				$conditions .= $this->wpdb->prepare( " AND commissions.created_at>=%s", $from_date );
+			}
+
+			if ( ! empty( $end_date ) ) {
+				$conditions .= $this->wpdb->prepare( " AND commissions.created_at<=%s", $end_date );
+			}
+
+			return floatval( $this->wpdb->get_var( "SELECT ROUND( SUM( commission ), 2 ) FROM {$this->wpdb->ddwcaf_commissions} as commissions WHERE 1=1 $conditions" ) );
+		}
+
+		/**
+		 * Get translation function
+		 *
+		 * @param string $word
+		 * @return string
+		 */
 		public function ddwcaf_get_translation( $word ) {
 			$translation = [
 				'pending'         => esc_html__( 'Pending', 'affiliates-for-woocommerce' ),
@@ -428,23 +490,99 @@ if ( ! class_exists( 'DDWCAF_Commission_Helper' ) ) {
 				'refunded'        => esc_html__( 'Refunded', 'affiliates-for-woocommerce' ),
 			];
 
-            return ! empty( $translation[ $word ] ) ? $translation[ $word ] : $word;
+			return ! empty( $translation[ $word ] ) ? $translation[ $word ] : $word;
 		}
 
-        /**
+		/**
+		 * Render Commissions Table Rows function
+		 *
+		 * @param array $commissions
+		 * @return void
+		 */
+		public function ddwcaf_render_commissions_table_rows( $commissions ) {
+			if ( ! empty( $commissions ) ) {
+				$date_format = get_option( 'date_format' );
+				$time_format = get_option( 'time_format' );
+
+				foreach ( $commissions as $key => $commission ) {
+					$order = wc_get_order( $commission[ 'order_id' ] );
+
+					if ( ! $order ) {
+						continue;
+					}
+
+					$order_currency = $order->get_currency();
+					$product        = wc_get_product( $commission[ 'product_id' ] );
+
+					if ( ! $product ) {
+						continue;
+					}
+					?>
+					<tr>
+						<td><?php echo esc_html( '#' . $commission[ 'id' ] ); ?></td>
+						<td class="column column-product"><a href="<?php echo esc_url( $product->get_permalink() ); ?>" target="_blank"><?php echo wp_kses_post( $product->get_image( 'thumbnail' ) ); ?><div><?php echo esc_html( $product->get_name() ); ?></div></a></td>
+						<td><?php echo wc_price( $commission[ 'line_total' ], [ 'currency' => $order_currency ] ); ?></td>
+						<td><?php echo wc_price( $commission[ 'refund' ], [ 'currency' => $order_currency ] ); ?></td>
+						<td><?php echo wc_price( $commission[ 'commission' ], [ 'currency' => $order_currency ] ); ?></td>
+						<td><?php echo esc_html( date_i18n( "{$date_format} {$time_format}", strtotime( $commission[ 'created_at' ] ) ) ); ?></td>
+						<td><mark class="ddwcaf-status ddwcaf-commission-status-<?php echo esc_attr( $commission[ 'status' ] ); ?>"><?php echo esc_html( $this->ddwcaf_get_translation( $commission[ 'status' ] ) ); ?></mark></td>
+					</tr>
+					<?php
+				}
+			} else {
+				?>
+				<tr>
+					<td colspan="7"><center><?php esc_html_e( 'No commissions yet.', 'affiliates-for-woocommerce' ); ?></center></td>
+				</tr>
+				<?php
+			}
+		}
+
+		/**
+		 * Render Top Products Table Rows function
+		 *
+		 * @param array $top_products
+		 * @return void
+		 */
+		public function ddwcaf_render_top_products_table_rows( $top_products ) {
+			if ( ! empty( $top_products ) ) {
+				foreach ( $top_products as $key => $top_product ) {
+					$product = wc_get_product( $top_product[ 'product' ] );
+
+					if ( ! $product ) {
+						continue;
+					}
+					?>
+					<tr>
+						<td class="column column-product"><a href="<?php echo esc_url( $product->get_permalink() ); ?>" target="_blank"><?php echo wp_kses_post( $product->get_image( 'thumbnail' ) ); ?><div><?php echo esc_html( $product->get_name() ); ?></div></a></td>
+						<td><?php echo esc_html( $top_product[ 'quantity' ] ); ?></td>
+						<td><?php echo wc_price( $top_product[ 'commission' ] ); ?></td>
+					</tr>
+					<?php
+				}
+			} else {
+				?>
+				<tr>
+					<td colspan="3"><center><?php esc_html_e( 'No products yet.', 'affiliates-for-woocommerce' ); ?></center></td>
+				</tr>
+				<?php
+			}
+		}
+
+		/**
 		 * Delete commission function
 		 * 
 		 * @param int $id
 		 * @return int|bool
 		 */
-        public function ddwcaf_delete_commission( $id ) {
-            return $this->wpdb->delete(
+		public function ddwcaf_delete_commission( $id ) {
+			return $this->wpdb->delete(
 				$this->wpdb->ddwcaf_commissions,
 				[
 					'id' => $id
 				],
-                [ '%d' ]
-            );
-        }
+				[ '%d' ]
+			);
+		}
 	}
 }

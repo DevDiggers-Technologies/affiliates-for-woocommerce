@@ -19,7 +19,11 @@ if ( ! class_exists( 'DDWCAF_Install' ) ) {
 		 * @return void
 		 */
 		public static function ddwcaf_on_plugin_activation() {
-            if ( ! function_exists( 'dbDelta' ) ) {
+			if ( ! get_option( '_ddwcpr_installed_at' ) ) {
+				update_option( '_ddwcpr_installed_at', time() );
+			}
+
+			if ( ! function_exists( 'dbDelta' ) ) {
 				require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 			}
 
@@ -31,12 +35,12 @@ if ( ! class_exists( 'DDWCAF_Install' ) ) {
 			$charset_collate              = $wpdb->get_charset_collate();
 
 			// Visits table.
-            dbDelta( "CREATE TABLE {$wpdb->ddwcaf_visits} (
+			dbDelta( "CREATE TABLE {$wpdb->ddwcaf_visits} (
 				`id` bigint(20) NOT NULL AUTO_INCREMENT,
 				`affiliate_id` bigint(20) NOT NULL,
 				`url` varchar(255) NOT NULL,
 				`referrer_url` varchar(255) DEFAULT NULL,
-				`ip` varchar(15) NOT NULL,
+				`ip` varchar(50) NOT NULL,
 				`date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
 				`order_id` bigint(20) DEFAULT NULL,
 				`conversion_date` datetime DEFAULT NULL,
@@ -44,7 +48,7 @@ if ( ! class_exists( 'DDWCAF_Install' ) ) {
 			) $charset_collate;" );
 
 			// Commissions table.
-            dbDelta( "CREATE TABLE {$wpdb->ddwcaf_commissions} (
+			dbDelta( "CREATE TABLE {$wpdb->ddwcaf_commissions} (
 				`id` bigint(20) NOT NULL AUTO_INCREMENT,
 				`affiliate_id` bigint(20) NOT NULL,
 				`order_id` bigint(20) NOT NULL,
@@ -65,7 +69,7 @@ if ( ! class_exists( 'DDWCAF_Install' ) ) {
 				`id` bigint(20) NOT NULL AUTO_INCREMENT,
 				`commission_id` bigint(20) NOT NULL,
 				`meta_key` varchar(255) NOT NULL DEFAULT '',
-				`meta_value` longtext NOT NULL DEFAULT '',
+				`meta_value` longtext NOT NULL,
 				PRIMARY KEY (id)
 			) $charset_collate;";
 
@@ -123,7 +127,7 @@ if ( ! class_exists( 'DDWCAF_Install' ) ) {
 			}
 
 			$page = [
-				'name'    => 'affiliate-dashboard',
+				'name'    => 'affiliate-dashboard-page',
 				'title'   => esc_html_x( 'Affiliate Dashboard', '[GLOBAL] Dashboard page title', 'affiliates-for-woocommerce' ),
 				'content' => '<!-- wp:shortcode -->[ddwcaf_affiliate_dashboard_shortcode]<!-- /wp:shortcode -->',
 			];

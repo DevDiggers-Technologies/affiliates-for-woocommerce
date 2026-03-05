@@ -45,10 +45,10 @@ $shows = [
 ];
 
 ?>
-<div class="ddwcaf-list-wrapper">
+<div class="ddwcaf-table-container">
     <div class="ddwcaf-bulk-actions">
         <form method="get">
-            <select name="show" class="form-control">
+            <select name="show" class="form-control input-text">
                 <?php
                 foreach ( $shows as $key => $value ) {
                     ?>
@@ -59,90 +59,90 @@ $shows = [
             </select>
 
             <label for="from-date"><?php esc_html_e( 'From:', 'affiliates-for-woocommerce' ); ?></label>
-            <input type="date" class="form-control" value="<?php echo esc_attr( $args[ 'from_date' ] ); ?>" name="from-date" id="from-date" class="ddwcaf-datepicker" placeholder="yyyy-mm-dd" autocomplete="off" />
+            <input type="date" class="form-control input-text" value="<?php echo esc_attr( $args[ 'from_date' ] ); ?>" name="from-date" id="from-date" class="ddwcaf-datepicker" placeholder="yyyy-mm-dd" autocomplete="off" />
 
             <label for="end-date"><?php esc_html_e( 'To:', 'affiliates-for-woocommerce' ); ?></label>
-            <input type="date" class="form-control" value="<?php echo esc_attr( $args[ 'end_date' ] ); ?>" name="end-date" id="end-date" class="ddwcaf-datepicker" placeholder="yyyy-mm-dd" autocomplete="off" />
+            <input type="date" class="form-control input-text" value="<?php echo esc_attr( $args[ 'end_date' ] ); ?>" name="end-date" id="end-date" class="ddwcaf-datepicker" placeholder="yyyy-mm-dd" autocomplete="off" />
 
             <input type="submit" value="<?php esc_attr_e( 'Filter', 'affiliates-for-woocommerce' ); ?>" name="ddwcaf_filter_submit" class="button" />
         </form>
     </div>
 
-    <table class="shop_table_responsive ddwcaf-table ddwcaf-commissions-table">
-        <thead>
-            <tr>
-                <th><?php esc_html_e( 'ID', 'affiliates-for-woocommerce' ); ?></th>
-                <th><?php esc_html_e( 'Payment Method', 'affiliates-for-woocommerce' ); ?></th>
-                <th><?php esc_html_e( 'Amount', 'affiliates-for-woocommerce' ); ?></th>
-                <th><?php esc_html_e( 'Reference', 'affiliates-for-woocommerce' ); ?></th>
-                <th><?php esc_html_e( 'Created On', 'affiliates-for-woocommerce' ); ?></th>
-                <th><?php esc_html_e( 'Completed On', 'affiliates-for-woocommerce' ); ?></th>
-                <th><?php esc_html_e( 'Status', 'affiliates-for-woocommerce' ); ?></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            if ( ! empty( $payouts ) ) {
-                foreach ( $payouts as $key => $payout ) {
-                    $affiliate_id   = $payout[ 'affiliate_id' ];
-                    $affiliate_data = get_userdata( $affiliate_id );
-                    $date_format    = get_option( 'date_format' );
-                    $time_format    = get_option( 'time_format' );
+    <div class="ddwcaf-table-loader-overlay">
+        <span class="ddwcaf-table-spinner"></span>
+    </div>
+
+    <div class="ddwcaf-table-wrapper">
+        <table class="my_account_orders shop_table_responsive ddwcaf-table ddwcaf-commissions-table">
+            <thead>
+                <tr>
+                    <th><?php esc_html_e( 'ID', 'affiliates-for-woocommerce' ); ?></th>
+                    <th><?php esc_html_e( 'Payment Method', 'affiliates-for-woocommerce' ); ?></th>
+                    <th><?php esc_html_e( 'Amount', 'affiliates-for-woocommerce' ); ?></th>
+                    <th><?php esc_html_e( 'Transaction ID', 'affiliates-for-woocommerce' ); ?></th>
+                    <th><?php esc_html_e( 'Reference', 'affiliates-for-woocommerce' ); ?></th>
+                    <th><?php esc_html_e( 'Created On', 'affiliates-for-woocommerce' ); ?></th>
+                    <th><?php esc_html_e( 'Completed On', 'affiliates-for-woocommerce' ); ?></th>
+                    <th><?php esc_html_e( 'Status', 'affiliates-for-woocommerce' ); ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if ( ! empty( $payouts ) ) {
+                    foreach ( $payouts as $key => $payout ) {
+                        $affiliate_id   = $payout[ 'affiliate_id' ];
+                        $affiliate_data = get_userdata( $affiliate_id );
+                        $date_format    = get_option( 'date_format' );
+                        $time_format    = get_option( 'time_format' );
+                        ?>
+                        <tr>
+                            <td><?php echo esc_html( '#' . $payout[ 'id' ] ); ?></td>
+                            <td>
+                                <p><strong><?php echo esc_html( $affiliate_helper->ddwcaf_get_withdrawal_method_name( $payout[ 'payment_method' ] ) ); ?></strong></p>
+                                <small>
+                                    <?php
+                                    if ( 'bacs' === $payout[ 'payment_method' ] ) {
+                                        $payment_info = maybe_unserialize( $payout[ 'payment_info' ] );
+                                        echo sprintf( esc_html__( 'Account Name: %s', 'affiliates-for-woocommerce' ), ! empty( $payment_info[ 'account_name' ] ) ? $payment_info[ 'account_name' ] : '' ) . '<br />';
+                                        echo sprintf( esc_html__( 'IBAN: %s', 'affiliates-for-woocommerce' ), ! empty( $payment_info[ 'iban' ] ) ? $payment_info[ 'iban' ] : '' ) . '<br />';
+                                        echo sprintf( esc_html__( 'Swift Code: %s', 'affiliates-for-woocommerce' ), ! empty( $payment_info[ 'swift_code' ] ) ? $payment_info[ 'swift_code' ] : '' ) . '<br />';
+                                    } else {
+                                        echo apply_filters( 'ddwcaf_modify_display_payment_info', esc_html( ! empty( $payout[ 'payment_info' ] ) ? $payout[ 'payment_info' ] : 'N/A' ), $payout );
+                                    }
+                                    ?>
+                                </small>
+                            </td>
+                            <td><?php echo wc_price( $payout[ 'amount' ] ); ?></td>
+                            <td><?php echo esc_html( $payout[ 'transaction_id' ] ); ?></td>
+                            <td><?php echo esc_html( $payout_helper->ddwcaf_get_references( $payout[ 'reference' ] ) ); ?></td>
+                            <td><?php echo esc_html( date_i18n( "{$date_format} {$time_format}", strtotime( $payout[ 'created_at' ] ) ) ); ?></td>
+                            <td><?php echo esc_html( ! empty( $payout[ 'completed_at' ] ) ? date_i18n( "{$date_format} {$time_format}", strtotime( $payout[ 'completed_at' ] ) ) : 'N/A' ); ?></td>
+                            <td>
+                                <mark class="ddwcaf-status ddwcaf-commission-status-<?php echo esc_attr( $payout[ 'status' ] ); ?>"><?php echo esc_html( $payout_helper->ddwcaf_get_translation( $payout[ 'status' ] ) ); ?></mark>
+                            </td>
+                        </tr>
+                        <?php
+                    }
+                } else {
                     ?>
                     <tr>
-                        <td><?php echo esc_html( '#' . $payout[ 'id' ] ); ?></td>
-                        <td>
-                            <p><strong><?php echo esc_html( $affiliate_helper->ddwcaf_get_withdrawal_method_name( $payout[ 'payment_method' ] ) ); ?></strong></p>
-                            <small>
-                                <?php
-                                if ( 'bacs' === $payout[ 'payment_method' ] ) {
-                                    $payment_info = maybe_unserialize( $payout[ 'payment_info' ] );
-                                    echo sprintf( esc_html__( 'Account Name: %s', 'affiliates-for-woocommerce' ), $payment_info[ 'account_name' ] ) . '<br />';
-                                    echo sprintf( esc_html__( 'IBAN: %s', 'affiliates-for-woocommerce' ), $payment_info[ 'iban' ] ) . '<br />';
-                                    echo sprintf( esc_html__( 'Swift Code: %s', 'affiliates-for-woocommerce' ), $payment_info[ 'swift_code' ] ) . '<br />';
-                                } else {
-                                    echo esc_html( ! empty( $payment_info ) ? $payment_info : 'N/A' );
-                                }
-                                ?>
-                            </small>
-                        </td>
-                        <td><?php echo wc_price( $payout[ 'amount' ] ); ?></td>
-                        <td><?php echo esc_html( $payout_helper->ddwcaf_get_references( $payout[ 'reference' ] ) ); ?></td>
-                        <td><?php echo esc_html( date_i18n( "{$date_format} {$time_format}", strtotime( $payout[ 'created_at' ] ) ) ); ?></td>
-                        <td><?php echo esc_html( ! empty( $payout[ 'completed_at' ] ) ? date_i18n( "{$date_format} {$time_format}", strtotime( $payout[ 'completed_at' ] ) ) : 'N/A' ); ?></td>
-                        <td>
-                            <mark class="ddwcaf-status ddwcaf-commission-status-<?php echo esc_attr( $payout[ 'status' ] ); ?>"><span><?php echo esc_html( $payout_helper->ddwcaf_get_translation( $payout[ 'status' ] ) ); ?></span></mark>
-                        </td>
+                        <td colspan="8"><center><?php esc_html_e( 'No payouts yet.', 'affiliates-for-woocommerce' ); ?></center></td>
                     </tr>
                     <?php
                 }
-            } else {
                 ?>
-                <tr>
-                    <td colspan="8"><center><?php esc_html_e( 'No payouts yet.', 'affiliates-for-woocommerce' ); ?></center></td>
-                </tr>
-                <?php
-            }
-            ?>
-        </tbody>
-    </table>
-</div>
-<?php
-if ( 1 < $total_count ) {
-    ?>
-    <div class="woocommerce-pagination woocommerce-pagination--without-numbers woocommerce-Pagination ddwcaf-pagination">
-        <?php
-        if ( 1 !== $current_page && $current_page > 1 ) {
-            ?>
-            <a class="woocommerce-button woocommerce-button--previous woocommerce-Button woocommerce-Button--previous button" href="<?php echo esc_url( $affiliate_helper->ddwcaf_get_affiliate_dashboard_url( $endpoints[ 'payouts' ][ 'endpoint' ], $current_page - 1 ) ); ?>"><?php esc_html_e( 'Previous', 'affiliates-for-woocommerce' ); ?></a>
-            <?php
-        }
-        if ( ceil( $total_count / $per_page ) > $current_page ) {
-            ?>
-            <a class="woocommerce-button woocommerce-button--next woocommerce-Button woocommerce-Button--next button" href="<?php echo esc_url( $affiliate_helper->ddwcaf_get_affiliate_dashboard_url( $endpoints[ 'payouts' ][ 'endpoint' ], $current_page + 1 ) ); ?>"><?php esc_html_e( 'Next', 'affiliates-for-woocommerce' ); ?></a>
-            <?php
-        }
-        ?>
+            </tbody>
+        </table>
     </div>
-    <?php
-}
+
+    <?php if ( 1 < $total_count ) : ?>
+        <div class="woocommerce-pagination woocommerce-pagination--without-numbers woocommerce-Pagination ddwcaf-pagination">
+            <?php if ( 1 !== $current_page && $current_page > 1 ) : ?>
+                <a class="woocommerce-button woocommerce-button--previous woocommerce-Button woocommerce-Button--previous button" href="<?php echo esc_url( $affiliate_helper->ddwcaf_get_affiliate_dashboard_url( $endpoints[ 'payouts' ][ 'endpoint' ], $current_page - 1 ) ); ?>"><?php esc_html_e( 'Previous', 'affiliates-for-woocommerce' ); ?></a>
+            <?php endif; ?>
+            <?php if ( ceil( $total_count / $per_page ) > $current_page ) : ?>
+                <a class="woocommerce-button woocommerce-button--next woocommerce-Button woocommerce-Button--next button" href="<?php echo esc_url( $affiliate_helper->ddwcaf_get_affiliate_dashboard_url( $endpoints[ 'payouts' ][ 'endpoint' ], $current_page + 1 ) ); ?>"><?php esc_html_e( 'Next', 'affiliates-for-woocommerce' ); ?></a>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
+</div>

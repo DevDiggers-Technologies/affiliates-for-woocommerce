@@ -1,0 +1,539 @@
+// Dashboard Variables - Reusing framework variables where possible
+@import '../styles/variables.less';
+@import '../styles/components.less';
+
+// Common Base Classes - Reused from components.less
+
+.ddwcaf-widget-base {
+    .ddwcaf-card-base();
+
+    h3 {
+        margin: 0 0 @spacing-lg 0;
+        font-size: 16px;
+        font-weight: 600;
+        color: @text-primary;
+        display: flex;
+        align-items: center;
+        gap: @spacing-sm;
+    }
+}
+
+.ddwcaf-grid-responsive {
+    display: grid;
+    gap: @spacing-lg;
+    margin-bottom: @spacing-lg;
+
+    @media (max-width: 1200px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.ddwcaf-no-data {
+    text-align: center;
+    color: @text-muted;
+    font-style: italic;
+    padding: @spacing-lg;
+}
+
+// Empty State Styles
+.ddwcaf-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: @spacing-3xl;
+    text-align: center;
+    height: 100%;
+    min-height: 300px;
+
+    .ddwcaf-empty-illustration {
+        margin-bottom: @spacing-xl;
+        opacity: 0.8;
+
+        svg {
+            max-width: 120px;
+            height: auto;
+        }
+    }
+
+    .ddwcaf-empty-content {
+        max-width: 280px;
+
+        .ddwcaf-empty-title {
+            margin: 0 0 @spacing-md 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: @text-primary;
+            line-height: 1.4;
+        }
+
+        .ddwcaf-empty-description {
+            margin: 0;
+            font-size: 14px;
+            color: @text-secondary;
+            line-height: 1.5;
+        }
+    }
+}
+
+// Dashboard Styles
+.ddwcaf-dashboard {
+    // Enhanced Dashboard Header
+    .ddwcaf-dashboard-header {
+        .ddwcaf-header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: @spacing-lg;
+            gap: @spacing-lg;
+
+            .ddwcaf-header-left {
+                flex: 1;
+                min-width: 0;
+
+                .ddwcaf-welcome-section {
+                    .ddwcaf-welcome-content {
+                        display: flex;
+                        align-items: center;
+                        gap: @spacing-lg;
+
+                        .ddwcaf-admin-avatar {
+                            position: relative;
+                            flex-shrink: 0;
+
+                            .ddwcaf-avatar-image {
+                                width: 48px;
+                                height: 48px;
+                                border-radius: 50%;
+                                border: 3px solid @background-white;
+                                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                                object-fit: cover;
+                            }
+                        }
+
+                        .ddwcaf-welcome-message {
+                            flex: 1;
+                            min-width: 0;
+
+                            h1 {
+								padding: 0;
+                                font-size: 21px;
+                                font-weight: 600;
+                                color: @text-primary;
+                            }
+
+                            .ddwcaf-welcome-subtitle {
+                                margin: 0;
+                                font-size: 14px;
+                                color: @text-secondary;
+                                line-height: 1.4;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .ddwcaf-header-right {
+                flex-shrink: 0;
+            }
+        }
+
+        .ddwcaf-header-right {
+			.ddwcaf-dashboard-filters {
+				.ddwcaf-date-filter-form {
+					.ddwcaf-date-range-container {
+						position: relative;
+						z-index: 1;
+
+                        .ddwcaf-date-range-picker {
+                            padding: @spacing-xs @spacing-xl;
+                            border: 1px solid @border-color;
+                            border-radius: @radius-md;
+                            font-size: 14px;
+                            font-weight: 500;
+                            min-width: 200px;
+                            background: @background-white;
+                            cursor: pointer;
+                            transition: all 0.2s ease;
+                            position: relative;
+                            color: @text-secondary;
+
+                            &:focus {
+                                outline: none;
+                                border-color: @primary-color;
+                            }
+
+                            &:hover {
+                                border-color: @primary-color;
+                            }
+                        }
+
+                        .ddwcaf-date-range-dropdown {
+                            position: absolute;
+                            background: @background-white;
+                            border: 1px solid @border-color;
+                            border-radius: @radius-md;
+                            box-shadow: 0 20px 40px -12px rgba(14, 18, 27, 0.15);
+                            display: none;
+                            transform: translateY(-10px);
+                            transition: all 0.2s ease-out;
+							right: 0;
+                            z-index: 1000;
+
+                            &.show {
+                                display: block;
+                                transform: translateY(0);
+                                opacity: 1;
+                            }
+
+                            .ddwcaf-dropdown-content {
+                                display: flex;
+                                min-height: 280px;
+                                max-height: 100%;
+                                overflow-y: auto;
+								border-radius: @radius-md;
+
+                                .ddwcaf-date-presets {
+                                    flex: 0 0 200px;
+                                    padding: 0;
+                                    border-right: 1px solid @border-light;
+                                    background: @background-white;
+
+                                    .ddwcaf-presets-header {
+                                        padding: @spacing-lg @spacing-xl @spacing-md;
+                                        background: @background-light;
+                                        border-bottom: 1px solid @border-light;
+
+                                        h4 {
+                                            margin: 0;
+                                            font-size: 12px;
+                                            font-weight: 600;
+                                            color: @text-primary;
+                                            text-transform: uppercase;
+                                            letter-spacing: 0.8px;
+                                        }
+                                    }
+
+                                    .ddwcaf-date-preset {
+                                        display: block;
+                                        width: 100%;
+                                        padding: @spacing-md @spacing-xl;
+                                        border: none;
+                                        background: none;
+                                        text-align: left;
+                                        font-size: 13px;
+                                        font-weight: 500;
+                                        color: @text-secondary;
+                                        cursor: pointer;
+                                        transition: all 0.2s ease;
+                                        position: relative;
+
+                                        &:hover {
+                                            background: @background-light;
+                                            color: @primary-color;
+                                        }
+
+                                        &:active {
+                                            background: @border-light;
+                                        }
+
+                                        &.active {
+                                            background: rgba(2, 86, 255, 0.05);
+                                            color: @primary-color;
+                                            border-left: 3px solid @primary-color;
+                                            font-weight: 600;
+                                        }
+
+                                        &:first-child {
+                                            border-radius: @radius-md 0 0 0;
+                                        }
+                                    }
+                                }
+
+                                .ddwcaf-custom-date-range {
+                                    flex: 1;
+                                    padding: @spacing-xl;
+                                    background: @background-white;
+
+                                    .ddwcaf-custom-header {
+                                        margin-bottom: @spacing-lg;
+                                        text-align: center;
+
+                                        h4 {
+                                            margin: 0 0 @spacing-xs 0;
+                                            font-size: 14px;
+                                            font-weight: 600;
+                                            color: @text-primary;
+                                        }
+
+                                        p {
+                                            margin: 0;
+                                            font-size: 12px;
+                                            color: @text-secondary;
+                                            line-height: 1.4;
+                                        }
+                                    }
+
+                                    .ddwcaf-date-inputs {
+                                        display: flex;
+                                        gap: @spacing-md;
+                                        margin-bottom: @spacing-xl;
+
+                                        .ddwcaf-date-input-group {
+                                            flex: 1;
+                                            display: flex;
+                                            flex-direction: column;
+                                            gap: @spacing-xs;
+
+                                            label {
+                                                font-size: 11px;
+                                                font-weight: 600;
+                                                color: @text-secondary;
+                                                text-transform: uppercase;
+                                                letter-spacing: 0.5px;
+                                            }
+
+                                            input[type="date"] {
+                                                padding: @spacing-xs @spacing-md;
+                                                font-size: 13px;
+                                                transition: all 0.2s ease;
+                                            }
+                                        }
+                                    }
+
+                                    .ddwcaf-apply-custom-range {
+                                        width: 100%;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Top Section - Summary Cards
+    .ddwcaf-dashboard-top-section {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: @spacing-lg;
+        margin-bottom: @spacing-lg;
+
+        @media (max-width: 1400px) {
+            grid-template-columns: 1fr;
+        }
+
+        .ddwcaf-summary-cards {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: @spacing-lg;
+
+            @media (max-width: 1400px) {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            @media (max-width: 1200px) {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            @media (max-width: 768px) {
+                grid-template-columns: 1fr;
+            }
+        }
+    }
+
+	// Summary Card component styles removed (reused from components.less)
+
+    // Charts Section - 2 Column Layout
+    .ddwcaf-dashboard-charts-section {
+        .ddwcaf-grid-responsive();
+        grid-template-columns: 1fr 1fr;
+        &.ddwcaf-dashboard-charts-section-full-width {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    // Tables Section - 2 Column Layout
+    .ddwcaf-dashboard-tables-section {
+        .ddwcaf-grid-responsive();
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 40px;
+    }
+
+    // Chart Container (using base widget styles)
+    .ddwcaf-chart-container {
+        .ddwcaf-widget-base();
+
+        .ddwcaf-chart-date-range {
+            margin-left: auto;
+            font-size: 12px;
+            color: @text-secondary;
+            font-weight: 400;
+        }
+
+        .ddwcaf-chart {
+            height: 350px;
+            position: relative;
+
+            canvas {
+                max-height: 100%;
+            }
+        }
+    }
+
+    // Sidebar Widgets (using base widget styles)
+    .ddwcaf-sidebar-widget {
+        .ddwcaf-widget-base();
+    }
+
+    // Recent Activities List
+    .ddwcaf-recent-items {
+        .ddwcaf-recent-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: @spacing-md 0;
+            border-bottom: 1px solid @border-light;
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            .ddwcaf-recent-info {
+                flex: 1;
+
+                .ddwcaf-recent-customer {
+                    font-size: 14px;
+                    color: @text-primary;
+                    margin-bottom: 2px;
+                }
+
+                .ddwcaf-recent-action {
+                    font-size: 12px;
+                    color: @text-secondary;
+
+                    .ddwcaf-recent-date {
+                        font-size: 11px;
+                        color: @text-muted;
+                        font-weight: 400;
+                    }
+                }
+            }
+
+            .ddwcaf-recent-points {
+                .ddwcaf-added {
+                    color: @success-color;
+                    font-weight: 600;
+                    font-size: 14px;
+                }
+
+                .ddwcaf-deducted {
+                    color: @error-color;
+                    font-weight: 600;
+                    font-size: 14px;
+                }
+            }
+        }
+
+    }
+
+    // Top Customers List (Affiliates)
+    .ddwcaf-customers-items {
+        .ddwcaf-customer-item {
+            display: flex;
+            align-items: center;
+            gap: @spacing-md;
+            padding: @spacing-md 0;
+            border-bottom: 1px solid @border-light;
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            .ddwcaf-customer-avatar {
+                img {
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 50%;
+                }
+            }
+
+            .ddwcaf-customer-info {
+                flex: 1;
+
+                .ddwcaf-customer-name {
+                    font-size: 14px;
+                    color: @text-primary;
+                    margin-bottom: 2px;
+                }
+
+                .ddwcaf-customer-balance {
+                    font-size: 12px;
+                    color: @text-secondary;
+                }
+            }
+        }
+    }
+
+    // Responsive Design
+    @media (max-width: 1200px) {
+        .ddwcaf-dashboard-header {
+            .ddwcaf-header-top {
+                flex-direction: column;
+                gap: @spacing-lg;
+                align-items: stretch;
+
+                .ddwcaf-header-right {
+                    align-self: flex-start;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        padding: @spacing-lg;
+
+        .ddwcaf-dashboard-header {
+            padding: @spacing-lg;
+            margin-bottom: @spacing-lg;
+
+            .ddwcaf-header-top {
+                .ddwcaf-welcome-section {
+                    .ddwcaf-welcome-content {
+                        gap: @spacing-md;
+
+                        .ddwcaf-admin-avatar {
+                            .ddwcaf-avatar-image {
+                                width: 40px;
+                                height: 40px;
+                            }
+                        }
+
+                        .ddwcaf-welcome-message {
+                            h1 {
+                                font-size: 21px;
+                            }
+                        }
+                    }
+                }
+
+                .ddwcaf-header-right {
+                    .ddwcaf-dashboard-filters {
+                        .ddwcaf-date-filter-form {
+                            .ddwcaf-date-range-container {
+                                .ddwcaf-date-range-picker {
+                                    min-width: 100%;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .ddwcaf-summary-cards {
+            grid-template-columns: 1fr;
+        }
+    }
+}

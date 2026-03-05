@@ -9,7 +9,7 @@ module.exports = function( grunt ) {
 			target: {
 				options: {
 					domainPath: '/i18n',
-					exclude: [ '\.git/*', 'bin/*', 'node_modules/*', 'tests/*' ],
+					exclude: [ '\.git/*', 'bin/*', 'node_modules/*', 'tests/*', 'devdiggers-framework/*' ],
 					mainFile: 'affiliates-for-woocommerce.php',
 					potFilename: 'affiliates-for-woocommerce.pot',
 					potHeaders: {
@@ -48,7 +48,8 @@ module.exports = function( grunt ) {
 					'!node_modules/**',       // Exclude node_modules/
 					'!tests/**',              // Exclude tests/
 					'!vendor/**',             // Exclude vendor/
-					'!tmp/**'                 // Exclude tmp/
+					'!tmp/**',                // Exclude tmp/
+					'!devdiggers-framework/**' // Exclude devdiggers-framework/
 				],
 				expand: true
 			}

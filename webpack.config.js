@@ -67,8 +67,10 @@ wcAdminPackages.forEach( name => {
 const webpackConfig = {
 	mode: NODE_ENV,
 	entry: {
-		'admin'  : './src/admin/index.js',
-		'front'  : './src/front/index.js',
+		'admin'             : './src/admin/index.js',
+		'front'             : './src/front/index.js',
+		'dashboard'         : './src/dashboard/index.js',
+		'manage-affiliate'  : './src/manage-affiliate/index.js',
 	},
 	output: {
 		filename     : './assets/js/[name].js',
@@ -76,7 +78,7 @@ const webpackConfig = {
 		libraryTarget: 'this',
 		chunkFilename: `./assets/js/chunks/[name].js`,
 	},
-	// externals,
+	externals,
 	module: {
 		rules: [
 			{

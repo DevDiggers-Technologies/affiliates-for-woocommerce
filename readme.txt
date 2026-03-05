@@ -1,33 +1,38 @@
 === Affiliates for WooCommerce - Boost your Earnings with Affiliate Marketing Program ===
-Contributors: devdiggers
+Contributors: DevDiggers
+Plugin URI: https://devdiggers.com/product/woocommerce-affiliates/
+Author: DevDiggers
+Author URI: https://devdiggers.com/
 Tags: Affiliates for WooCommerce, WooCommerce Affiliate Marketing, Affiliate Program, WooCommerce Partner Program, Affiliate Networking
-Requires at least: 5.8
-Tested up to: 6.7.1
-Requires PHP: 7.2
-Stable tag: 1.1.1
-License: GNU/GPL for more info see license.txt included with plugin
-License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+Requires at least: 6.5
+Tested up to: 6.9
+Requires PHP: 7.4
+WC requires at least: 9.0.0
+WC tested up to: 10.4.4
+Stable tag: 2.0.0
+License: GNU General Public License v3.0
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-== Short Description ==
-Affiliates for WooCommerce is a plugin that allows site owners to create an affiliate marketing program for their online store. The plugin allows affiliates to promote the store and earn a commission on sales made through their unique affiliate links.
+Affiliates for WooCommerce is a plugin that allows site owners to create an affiliate marketing program for their online store.
 
 == Description ==
 
-Affiliates for WooCommerce is a plugin that allows site owners to create an affiliate marketing program for their online store. The plugin allows affiliates to promote the store and earn a commission on sales made through their unique affiliate links.
+Affiliates for WooCommerce is a powerful partnership and referral marketing solution for your online store. The plugin allows affiliates to promote the store and earn a commission on sales made through their unique affiliate links.
 
 Affiliate marketing is a type of performance-based marketing where businesses pay affiliates for each customer they bring to their website. The affiliate promotes the business's products or services through various channels, such as social media, email marketing, or their website, and earns a commission for each sale made through their unique affiliate link.
 
-With Affiliates for WooCommerce, site owners can easily set up an affiliate program and recruit affiliates to promote their products. The plugin provides a dashboard where affiliates can view their earnings, track clicks and sales, and access marketing materials such as banners and text links. Affiliates can also generate their unique affiliate links, which they can share with their audience to earn commissions on any sales made through those links.
+With Affiliates for WooCommerce, site owners can easily set up an affiliate program and recruit affiliates to promote their products. The plugin provides a dashboard where affiliates can view their earnings and track clicks and sales. Affiliates can also generate their unique affiliate links, which they can share with their audience to earn commissions on any sales made through those links.
 
-Site owners have complete control over their affiliate program, including setting commission rates, defining cookie expiration periods, and setting minimum payout thresholds. They can also view reports on affiliate activity, including the number of clicks, impressions, and conversions.
+Site owners have complete control over their affiliate program, including setting global commission rates, defining cookie expiration periods, and viewing reports on affiliate activity.
 
-👉 <a href="https://demo.devdiggers.com/woocommerce/woocommerce-affiliates-free/" title="Live Demo">Affiliates for WooCommerce Live Demo</a>
+👉 <a href="https://demo.devdiggers.com/woocommerce-affiliates-free/" title="Live Demo">Affiliates for WooCommerce Live Demo</a>
 👉 <a href="https://devdiggers.com/affiliates-for-woocommerce/" title="Documentation">Affiliates for WooCommerce Documentation</a>
-👉 <a href="https://devdiggers.com/product/woocommerce-affiliates/" title="Premium Version">Affiliates for WooCommerce Premium Version</a>
+👉 <a href="https://devdiggers.com/product/woocommerce-affiliates/" title="Pro Version">Affiliates for WooCommerce Pro Version</a>
 👉 <a href="https://devdiggers.com/woocommerce-extensions/" title="WooCommerce Extensions">WooCommerce Extensions</a>
 
 ###⚡️ FEATURES OF THE AFFILIATES FOR WOOCOMMERCE FREE VERSION
 
+* Premium and highly responsive admin dashboard powered by the DevDiggers Framework Super UI.
 * Module can be enabled or disabled by the admin.
 * Allow other user roles to be able to converted into affiliates.
 * Default registration form can be used for the affiliate registration and for existing users to become an affiliate.
@@ -35,17 +40,11 @@ Site owners have complete control over their affiliate program, including settin
 * Use the affiliate registration form shortcode to create a custom page for your affiliates registration.
 * Set the affiliate dashboard page which contains the shortcode.
 * Styling color can be set for the affiliate dashboard.
-* Sidebar widgets can be enabled or disabled for the affiliate dashboard.
 * Choose to show Affiliate dashboard menu on the my accounts page.
-* Enable/disable the sidebar widgets on the Affiliate dashboard menu on the My Accounts page.
 * Query variable name can be dynamically configured.
 * Referral cookie name can be dynamically configured.
 * Set the number of days for the referral cookie expiration.
 * Enable or disable the visits registration for the referral links.
-* Social share options are available for sharing referral links.
-* Set the title for twitter and pinterest social share for referral links.
-* Set the text for social share of referral links.
-* Pinterest image url can be set for the social share.
 * Set a global or default commission rate for all affiliates.
 * Taxes and discounts can be included or excluded for commission calculations.
 * Configure withdrawal or payout methods for the earnings.
@@ -62,54 +61,50 @@ Site owners have complete control over their affiliate program, including settin
 * Various filters are given in affiliates, commissions, payouts, top products and visits list.
 * Prevent affiliates from getting commissions by their own purchases.
 * Affiliates can view the list of their commissions, payouts, visits and top products.
-* Affiliates can generate links with their referral tokens and can share them on various social platforms in order to earn money.
+* Affiliates can generate links with their referral tokens and share them.
 * Affiliates can save their withdrawal info.
-* Default withdrawal method can be chosen by affiliates.
-* Affiliates can earn commissions for both registered and non-registered customers' successful purchases.
+* Dual-drawer mobile navigation layout for seamless settings management across devices.
 * Multilingual is supported with the given .pot file in the plugin.
 * And much more...
 
-<p><a href="https://demo.devdiggers.com/woocommerce/woocommerce-affiliates-free/">Check The Live Demo of the Affiliates for WooCommerce Free Version &gt;</a></p>
+<p><a href="https://demo.devdiggers.com/woocommerce-affiliates-free/">Check The Live Demo of the Affiliates for WooCommerce Free Version &gt;</a></p>
 
-###⚡️ FEATURES OF THE AFFILIATES FOR WOOCOMMERCE PREMIUM VERSION
+###⚡️ FEATURES OF THE AFFILIATES FOR WOOCOMMERCE PRO VERSION
 
-* Automatically approve all affiliates after their registration or when existing user become an affiliate.
-* Choose the default status as pending, approved, rejected or banned for new affiliate.
-* Set the endpoint of the affiliate dashboard menu on the My Accounts page.
-* Set the title of the affiliate dashboard menu on the My Accounts page.
-* Set the default referral token for affiliates as username or user ID.
-* Allow affiliates to change their referral token so they can use their brand name as well.
-* Allow overriding of referral cookie by visiting the new referral URL.
-* Delete the referral cookie on the checkout so commissions will not get calculated for future orders.
-* Assign coupons to affiliates so they can use the coupon for promotion and can generate commissions.
-* Allow displaying the coupons section on the affiliate dashboard.
-* Mail will get sent to affiliates on assigning the coupon.
-* Set the time after which the same referral visits gets registered or saved again.
-* Affiliate self refer functionality can be enabled or disabled.
-* Exclude products and categories for commission calculations.
-* Create bulk payouts for affiliate pending commissions.
-* Choose the withdrawal or payout type for affiliates such as manually by admin, manually requested by affiliate or automatic payout creation for affiliates on any specific day of the month.
-* Set the withdrawal day for automatic payout creation withdrawal type.
-* Set the payout or withdrawal threshold that affiliate must meet in order to get paid.
-* Set the minimum number of days that should pass since the commission's creation to allow it for the automatic payout.
-* Email notifications are there for affiliate active status, commission status and payout status.
-* Set the heading, subject and mail content for all emails.
-* Various placholders are provided to use the dynamic data in emails.
-* Configure endpoints and titles of all sections provided on the affiliate dashboard.
-* Advanced analytics and reports are provided.
-* <a href="https://devdiggers.com/product/woocommerce-wallet-management/" target="_blank">WooCommerce Wallet Management plugin</a> can be used to credit the payouts in the affiliate's wallet.
-* Set different commission rates for different affiliates.
-* View the visit user IP address.
-* Configure advanced commission rules for specific products, categories and user roles.
-* Configure multi-level affiliate commission rules.
-* Create advanced affiliate registration form by adding unlimited fields.
-* Choose which fields can be edited by the affiliate later.
-* Advanced analytics and reports provided in the affiliate dashboard.
-* Allow Affiliates to change their account info.
-* Affiliates can enable/disable their email notifications for commissions.
+* Premium Affiliate Dashboard: A modern, fully responsive dashboard for affiliates to track their performance, earnings, and marketing tools.
+* Interactive Analytics & Charts: Visual reports for earnings, visits, and conversions with month-over-month comparisons.
+* Real-time Performance Stats: Get instant insights into Total Earnings, Paid Earnings, Unpaid Earnings, and Conversion Rates.
+* Top Products Analysis: See exactly which products are driving the most revenue for your affiliate program.
+* Multi-tier (MLM) Commissions: Create complex referral structures with unlimited levels to build a powerful affiliate network.
+* Rule-Based Commissions: Define specific commission rates for individual Products, Categories, and User Roles.
+* Performance-Based Incentives: Automatically upgrade affiliate commission rates based on their lifetime earning milestones.
+* Custom Affiliate Rates: Assign unique, personalized commission rates to your top-performing partners.
+* Smart Commission Calculations: Flexible options to exclude taxes and discounts from commission subtotals.
+* Step-by-Step Payout Wizard: Quickly filter, review, and process thousands of commissions in minutes with an intuitive workflow.
+* Multiple Payment Methods: Integrated support for Direct Bank Transfer (BACS), PayPal, and WooCommerce Wallet.
+* Scheduled Payout Automation: Set the system to automatically generate payouts on specific days of the month.
+* Withdrawal Thresholds: Define minimum account balances required before an affiliate can request or receive a payout.
+* Commission Age Requirement: Set a delay period for commissions to ensure they are only paid after the refund window has closed.
+* Creatives Management: Upload and provide Banners and Text links for affiliates to use in their marketing campaigns.
+* Social Promotion Engine: One-click sharing tools for 10+ platforms including Facebook, WhatsApp, LinkedIn, Twitter/X, Email, etc.
+* Dedicated Pinterest Integration: Upload specific images for Pinterest to optimize visual social sharing.
+* Pre-filled Social Content: Customize default sharing titles and messages to maintain consistent brand messaging.
+* Advanced Registration Form Builder: Add unlimited custom fields (Text, Select, Radio, Checkbox, etc.) to your signup form.
+* Editable Profile Control: Choose which profile fields affiliates can update themselves from their dashboard.
+* Mandatory Terms & Conditions: Require affiliates to agree to your program's terms during the registration process.
+* Customizable Referral Links: Brand your referral tokens and customize dashboard endpoints to match your store's URL structure.
+* Robust Anti-Fraud Tracking: Time-gated visit registration and anti-spam measures to prevent referral fraud.
+* Comprehensive Activity Logging: Track Guest IP addresses and original referrer URLs for every affiliate click.
+* Cookie Lifecycle Management: Set custom cookie expiry terms and choose if cookies should be cleared upon checkout.
+* Referral Overriding Control: Decide whether new referral links should overwrite existing affiliate cookies.
+* Export Capability: Export commissions, payouts, and affiliate data to CSV for external accounting and reporting.
+* Shortcode Support: Use specialized shortcodes to display registration forms or dashboards anywhere on your site.
+* Responsive Admin Interface: Manage your entire affiliate program on the go with a mobile-ready admin dashboard.
+* HPOS Compatibility: Fully compatible with WooCommerce High-Performance Order Storage for maximum performance.
+* Seamless WooCommerce Integration: Deeply integrated with WooCommerce core, including the My Account page and Store API.
 * And much more...
 
-<p><a href="https://demo.devdiggers.com/woocommerce/woocommerce-affiliates/">Check The Live Demo of the Affiliates for WooCommerce Premium Version &gt;</a></p>
+<p><a href="https://demo.devdiggers.com/woocommerce-affiliates/">Check The Live Demo of the Affiliates for WooCommerce Pro Version &gt;</a></p>
 
 == Installation ==
 
@@ -119,27 +114,28 @@ Site owners have complete control over their affiliate program, including settin
 
 == Screenshots ==
 
-1. General configuration page.
-2. Referrals configuration page.
-3. Commissions configuration page.
-4. Shortcodes configuration page.
-5. Affiliates list page.
-6. Affiliate details page.
-7. Commissions list page.
-8. Payouts list page.
-9. Top products list page.
-10. Visits list page.
-11. Registration fields list page.
-12. Affiliate login/registration page.
-13. Become an affiliate page.
-14. Affiliate dashboard page.
-15. Affiliate commissions page.
-16. Affiliate payouts page.
-17. Affiliate visits page.
-18. Affiliate top products page.
-19. Affiliate link generator page.
-20. Affiliate settings page.
-21. Affiliate dashboard on my accounts page.
+1. Affiliates Dashboard Page
+2. Affiliates List
+3. View Affiliate Page
+4. Commissions List
+5. Payouts List
+6. Top Products List
+7. Visits List
+8. Registration Fields List Page
+9. General Configuration Page
+10. Referrals Configuration Page
+11. Commissions Configuration Page
+12. Payouts Configuration Page
+13. Shortcodes Configuration Page
+14. Layout Configuration Page
+15. Affiliate Registration Page
+16. Affiliate's Dashboard Page
+17. Affiliate's Commissions Page
+18. Affiliate's Payouts Page
+19. Affiliate's Visits Page
+20. Affiliate's Top Products Page
+21. Affiliate's Link Generator Page
+22. Affiliate's Settings Page
 
 == Frequently Asked Questions ==
 
@@ -153,7 +149,7 @@ You can pay via bank transfer or PayPal.
 Yes, it register or saves the referral visits and can be seen at the admin or affiliate end.
 
 = Do you offer support? =
-Of course! We offer support in the forums here on WordPress.org and if you have a premium version we offer priority email support.
+Of course! We offer support in the forums here on WordPress.org and if you have a pro version we offer priority email support.
 
 = For complete documentation =
 Visit [Affiliates for WooCommerce Documentation](https://devdiggers.com/affiliates-for-woocommerce/)
@@ -162,6 +158,14 @@ Visit [Affiliates for WooCommerce Documentation](https://devdiggers.com/affiliat
 For any queries, kindly connect with us from [DevDiggers Contact](https://devdiggers.com/contact/)
 
 == Changelog ==
+
+= 2.0.0 =
+Added DevDiggers plugin framework integration for a centralized and modern admin experience.
+Redesigned the affiliate dashboard with new modern Super UI.
+Improved the admin dashboard with a completely redesigned, responsive UI.
+Added dual-drawer mobile navigation support for robust admin settings on smaller screens.
+Refactored backend architecture to utilize object-oriented principles.
+Added new SVG icons for the affiliate dashboard.
 
 = 1.1.1 =
 Added compatibility with latest WordPress and WooCommerce.

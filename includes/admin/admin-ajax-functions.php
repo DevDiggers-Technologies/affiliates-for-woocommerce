@@ -35,106 +35,90 @@ if ( ! class_exists( 'DDWCAF_Admin_Ajax_Functions' ) ) {
         }
 
 		/**
-		 * Get Products List
+		 * Fetch affiliates for creating payout function
 		 *
 		 * @return void
 		 */
-		public function ddwcaf_get_products_list() {
+		public function ddwcaf_create_payout_for_affiliates() {
 			$response = [];
+
 			if ( check_ajax_referer( 'ddwcaf-nonce', 'nonce', false ) ) {
+				if ( ! empty( $_POST[ 'ddwcaf_response' ] ) ) {
+					$response = json_decode( stripslashes( $_POST[ 'ddwcaf_response' ] ), true );
+				} else {
+					$response = [
+						'total_affiliates'      => 0,
+						'current_page'          => 1,
+						'percentage_completed'  => 0,
+						'affiliates_count_done' => 0,
+					];
+				}
 
-                $search_results = new \WP_Query( [
-                    's'                   => sanitize_text_field( wp_unslash( $_POST[ 'query' ] ) ),
-                    'post_type'           => [ 'product', 'product_variation' ],
-                    'post_status'         => 'publish',
-                    'ignore_sticky_posts' => 1,
-                    'posts_per_page'      => 10,
-                    'search_columns'      => [ 'post_title' ],
-					'fields'              => [ 'ID', 'post_title' ],
-                ] );
+				// Log entry.
+				if ( 1 === $response[ 'current_page' ] ) {
+					$log = [
+						'done'    => [],
+						'failed'  => [],
+						'skipped' => [],
+					];
+				} else {
+					$log = get_user_option( 'ddwcaf_create_payout_log' );
+				}
 
-                if ( $search_results->have_posts() ) {
-					while ( $search_results->have_posts() ) {
-						$search_results->the_post();
+				$per_page       = 20;
+				$affiliate_ids  = ! empty( $_POST[ 'ddwcaf_affiliates' ] ) ? array_map( 'sanitize_text_field', $_POST[ 'ddwcaf_affiliates' ] ) : [];
+				$all_affiliates = ! empty( $_POST[ 'ddwcaf_all_affiliates' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'ddwcaf_all_affiliates' ] ) ) : '';
+				$offset         = ( $response[ 'current_page' ] - 1 ) * $per_page;
 
-						$product_id = $search_results->post->ID;
-						$product    = wc_get_product( $product_id );
+				$args = [
+					'per_page'              => $per_page,
+					'offset'                => $offset,
+					'reference'             => ! empty( $_POST[ 'ddwcaf_reference' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'ddwcaf_reference' ] ) ) : '',
+					'from_date'             => ! empty( $_POST[ 'ddwcaf_from_date' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'ddwcaf_from_date' ] ) ) : '',
+					'end_date'              => ! empty( $_POST[ 'ddwcaf_end_date' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'ddwcaf_end_date' ] ) ) : '',
+					'include_affiliate_ids' => $affiliate_ids,
+					'all_affiliates'        => $all_affiliates,
+				];
 
-						if ( 'variable' !== $product->get_type() ) {
-							$response[] = [
-								'ID'    => $product_id,
-								'title' => rawurldecode( wp_strip_all_tags( $product->get_formatted_name() ) ),
-							];
+				$affiliate_helper = new DDWCAF_Affiliate_Helper( $this->ddwcaf_configuration );
+				$affiliates       = $affiliate_helper->ddwcaf_get_all_affiliates_having_pending_commissions( $args );
+
+				++$response[ 'current_page' ];
+
+				if ( ! empty( $affiliates ) ) {
+					if ( empty( $response[ 'total_affiliates' ] ) ) {
+						$response[ 'total_affiliates' ] = $affiliate_helper->ddwcaf_get_all_affiliates_count_having_pending_commissions( $args );
+					}
+
+					$payout_helper = new DDWCAF_Payout_Helper( $this->ddwcaf_configuration );
+
+					foreach ( $affiliates as $affiliate ) {
+						++$response[ 'affiliates_count_done' ];
+
+						$args[ 'affiliate_id' ]            = intval( $affiliate[ 'affiliate_id' ] );
+						$args[ 'total_commission_amount' ] = floatval( $affiliate[ 'total_commission_amount' ] );
+
+						if ( $payout_helper->ddwcaf_pay_affiliate_unpaid_amount( $args ) ) {
+							$log[ 'done' ][] = $affiliate[ 'user_login' ];
+						} else {
+							$log[ 'skipped' ][] = new \WP_Error(
+								'ddwcaf_create_payout_error',
+								esc_html__( 'No pending commissions to pay for the affiliate.', 'affiliates-for-woocommerce' ),
+								[
+									'username' => $affiliate[ 'user_login' ],
+									'data'     => sprintf( esc_html__( 'Affiliate username: %s, From Date: %s, To Date: %s', 'affiliates-for-woocommerce' ), $affiliate[ 'user_login' ], $args[ 'from_date' ], $args[ 'end_date' ] ),
+								]
+							);
 						}
 					}
 				}
 
-				wp_reset_postdata();
+				update_user_option( get_current_user_id(), 'ddwcaf_create_payout_log', $log );
 
+				$response[ 'percentage_completed' ] = $response[ 'total_affiliates' ] ? floor( ( $response[ 'affiliates_count_done' ] / $response[ 'total_affiliates' ] ) * 100 ) : 100;
 			} else {
 				$response = [
-					'success' => false,
-					'message' => esc_html__( 'Security check failed!', 'affiliates-for-woocommerce' ),
-				];
-			}
-			wp_send_json( $response );
-        }
-
-		/**
-		 * Get categories list function
-		 *
-		 * @return void
-		 */
-		public function ddwcaf_get_categories_list() {
-			$response = [];
-			if ( check_ajax_referer( 'ddwcaf-nonce', 'nonce', false ) ) {
-				$query = isset( $_POST[ 'query' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'query' ] ) ) : ''; // wpcs: input var okay.
-
-				$categories = get_terms( [
-					'taxonomy' => 'product_cat',
-					'search'   => esc_attr( $query ),
-				] );
-
-				$response = [
-					'success'    => true,
-					'message'    => '',
-					'categories' => $categories,
-				];
-			} else {
-				$response = [
-					'success' => false,
-					'message' => esc_html__( 'Security check failed!', 'affiliates-for-woocommerce' ),
-				];
-			}
-			wp_send_json( $response );
-		}
-
-		/**
-		 * Get Users
-		 *
-		 * @return void
-		 */
-		public function ddwcaf_get_affiliates_list() {
-			$response = [];
-			if ( check_ajax_referer( 'ddwcaf-nonce', 'nonce', false ) ) {
-				$query = isset( $_POST[ 'query' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'query' ] ) ) : ''; // wpcs: input var okay.
-
-				$query = new \WP_User_Query( [
-					'role'           => 'ddwcaf_affiliate',
-					'search'         => '*' . esc_attr( $query ) . '*',
-					'search_columns' => [ 'user_login', 'user_email', 'display_name', 'ID' ],
-					'fields'         => [ 'user_email', 'user_login', 'ID' ],
-					'number'         => 20,
-				] );
-
-				$response = [
-					'success' => true,
-					'message' => esc_html__( 'Successfully fetched!', 'affiliates-for-woocommerce' ),
-					'users'   => $query->get_results(),
-				];
-			} else {
-				$response = [
-					'success' => false,
+					'error'   => true,
 					'message' => esc_html__( 'Security check failed!', 'affiliates-for-woocommerce' ),
 				];
 			}

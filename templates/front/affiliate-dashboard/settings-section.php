@@ -7,6 +7,7 @@
  */
 
 use DDWCAffiliates\Helper\Affiliate\DDWCAF_Affiliate_Helper;
+use DevDiggers\Framework\Includes\DDFW_Form_Field;
 
 defined( 'ABSPATH' ) || exit();
 
@@ -36,7 +37,7 @@ $default_withdrawal_method = $affiliate_helper->ddwcaf_get_affiliate_default_wit
             }
         }
 
-        ddwcaf_form_field( [
+        DDFW_Form_Field::display_form_field( [
             'type'    => 'select',
             'label'   => esc_html__( 'Default Withdrawal Method', 'affiliates-for-woocommerce' ),
             'id'      => 'ddwcaf-default-withdrawal-method',
@@ -51,7 +52,7 @@ $default_withdrawal_method = $affiliate_helper->ddwcaf_get_affiliate_default_wit
             <hr />
 
             <?php
-            ddwcaf_form_field( [
+            DDFW_Form_Field::display_form_field( [
                 'type'        => 'text',
                 'label'       => esc_html__( 'Account Name', 'affiliates-for-woocommerce' ),
                 'id'          => 'ddwcaf-withdrawal-account-name',
@@ -60,7 +61,7 @@ $default_withdrawal_method = $affiliate_helper->ddwcaf_get_affiliate_default_wit
                 'value'       => ! empty( $withdrawal_methods[ 'bacs' ][ 'account_name' ] ) ? $withdrawal_methods[ 'bacs' ][ 'account_name' ] : '',
             ] );
 
-            ddwcaf_form_field( [
+            DDFW_Form_Field::display_form_field( [
                 'type'        => 'text',
                 'label'       => esc_html__( 'IBAN', 'affiliates-for-woocommerce' ),
                 'id'          => 'ddwcaf-withdrawal-iban',
@@ -69,7 +70,7 @@ $default_withdrawal_method = $affiliate_helper->ddwcaf_get_affiliate_default_wit
                 'value'       => ! empty( $withdrawal_methods[ 'bacs' ][ 'iban' ] ) ? $withdrawal_methods[ 'bacs' ][ 'iban' ] : '',
             ] );
 
-            ddwcaf_form_field( [
+            DDFW_Form_Field::display_form_field( [
                 'type'        => 'text',
                 'label'       => esc_html__( 'Swift Code', 'affiliates-for-woocommerce' ),
                 'id'          => 'ddwcaf-withdrawal-swift-code',
@@ -79,13 +80,15 @@ $default_withdrawal_method = $affiliate_helper->ddwcaf_get_affiliate_default_wit
             ] );
         }
 
+        do_action( 'ddwcaf_add_fields_before_paypal_email_for_affiliate', $affiliate_id );
+
         if ( array_key_exists( 'paypal_email', $available_withdrawal_methods ) ) {
             ?>
             <h4><?php esc_html_e( 'PayPal Email', 'affiliates-for-woocommerce' ); ?></h4>
             <hr />
 
             <?php
-            ddwcaf_form_field( [
+            DDFW_Form_Field::display_form_field( [
                 'type'        => 'text',
                 'label'       => esc_html__( 'PayPal Email', 'affiliates-for-woocommerce' ),
                 'id'          => 'ddwcaf-withdrawal-paypal-email',
@@ -96,6 +99,8 @@ $default_withdrawal_method = $affiliate_helper->ddwcaf_get_affiliate_default_wit
         }
         ?>
     </div>
+
+    <?php do_action( 'ddwcaf_add_fields_before_submit_button_settings_page' ); ?>
 
     <p class="woocommerce-form-row form-row">
         <?php wp_nonce_field( 'ddwcaf_nonce_action', 'ddwcaf_nonce' ); ?>

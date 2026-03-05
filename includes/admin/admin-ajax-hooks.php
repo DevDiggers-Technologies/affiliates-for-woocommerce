@@ -22,9 +22,7 @@ if ( ! class_exists( 'DDWCAF_Admin_Ajax_Hooks' ) ) {
         public function __construct( $ddwcaf_configuration ) {
             parent::__construct( $ddwcaf_configuration );
 
-            add_action( 'wp_ajax_ddwcaf_get_products_list', [ $this, 'ddwcaf_get_products_list' ] );
-            add_action( 'wp_ajax_ddwcaf_get_categories_list', [ $this, 'ddwcaf_get_categories_list' ] );
-            add_action( 'wp_ajax_ddwcaf_get_affiliates_list', [ $this, 'ddwcaf_get_affiliates_list' ] );
+            add_action( 'wp_ajax_ddwcaf_create_payout_for_affiliates', [ $this, 'ddwcaf_create_payout_for_affiliates' ] );
         }
     }
 }
