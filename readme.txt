@@ -114,27 +114,28 @@ Site owners have complete control over their affiliate program, including settin
 
 == Screenshots ==
 
-1. General configuration page.
-2. Referrals configuration page.
-3. Commissions configuration page.
-4. Shortcodes configuration page.
-5. Affiliates list page.
-6. Affiliate details page.
-7. Commissions list page.
-8. Payouts list page.
-9. Top products list page.
-10. Visits list page.
-11. Registration fields list page.
-12. Affiliate login/registration page.
-13. Become an affiliate page.
-14. Affiliate dashboard page.
-15. Affiliate commissions page.
-16. Affiliate payouts page.
-17. Affiliate visits page.
-18. Affiliate top products page.
-19. Affiliate link generator page.
-20. Affiliate settings page.
-21. Affiliate dashboard on my accounts page.
+1. Affiliates Dashboard Page
+2. Affiliates List
+3. View Affiliate Page
+4. Commissions List
+5. Payouts List
+6. Top Products List
+7. Visits List
+8. Registration Fields List Page
+9. General Configuration Page
+10. Referrals Configuration Page
+11. Commissions Configuration Page
+12. Payouts Configuration Page
+13. Shortcodes Configuration Page
+14. Layout Configuration Page
+15. Affiliate Registration Page
+16. Affiliate's Dashboard Page
+17. Affiliate's Commissions Page
+18. Affiliate's Payouts Page
+19. Affiliate's Visits Page
+20. Affiliate's Top Products Page
+21. Affiliate's Link Generator Page
+22. Affiliate's Settings Page
 
 == Frequently Asked Questions ==
 

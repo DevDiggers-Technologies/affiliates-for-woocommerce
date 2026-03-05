@@ -67,14 +67,14 @@ if ( ! class_exists( 'DDWCAF_File_Handler' ) ) {
 			$withdrawal_methods = [
 				'bacs' => [
 					'name'      => esc_html__( 'Direct Bank/Wire Transfer', 'affiliates-for-woocommerce' ),
-					'available' => $withdrawal_methods_saved['bacs']['available'],
-					'status'    => $withdrawal_methods_saved['bacs']['status'],
+					'available' => ! empty( $withdrawal_methods_saved['bacs']['available'] ) ? $withdrawal_methods_saved['bacs']['available'] : true,
+					'status'    => ! empty( $withdrawal_methods_saved['bacs']['status'] ) ? $withdrawal_methods_saved['bacs']['status'] : true,
 					'url'       => '',
 				],
 				'paypal_email' => [
 					'name'      => esc_html__( 'PayPal', 'affiliates-for-woocommerce' ),
-					'available' => $withdrawal_methods_saved['paypal_email']['available'],
-					'status'    => $withdrawal_methods_saved['paypal_email']['status'],
+					'available' => ! empty( $withdrawal_methods_saved['paypal_email']['available'] ) ? $withdrawal_methods_saved['paypal_email']['available'] : true,
+					'status'    => ! empty( $withdrawal_methods_saved['paypal_email']['status'] ) ? $withdrawal_methods_saved['paypal_email']['status'] : true,
 					'url'       => '',
 				],
 				'ddwcwm_wallet' => [

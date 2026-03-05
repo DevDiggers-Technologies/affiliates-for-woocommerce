@@ -9,6 +9,7 @@
 namespace DDWCAffiliates\Templates\Admin\Dashboard;
 
 use DDWCAffiliates\Helper\Affiliate\DDWCAF_Dashboard_Helper;
+use DDWCAffiliates\Helper\Commission\DDWCAF_Commission_Helper;
 
 defined( 'ABSPATH' ) || exit();
 
@@ -46,6 +47,7 @@ if ( ! class_exists( 'DDWCAF_Dashboard_Template' ) ) {
 		public function __construct( $ddwcaf_configuration ) {
 			$this->ddwcaf_configuration = $ddwcaf_configuration;
 			$this->dashboard_helper     = new DDWCAF_Dashboard_Helper( $ddwcaf_configuration );
+			$this->commission_helper    = new DDWCAF_Commission_Helper( $ddwcaf_configuration );
 			$this->dashboard_data       = $this->dashboard_helper->get_dashboard_data();
 
 			$this->render();
@@ -336,7 +338,7 @@ if ( ! class_exists( 'DDWCAF_Dashboard_Template' ) ) {
 									<strong><?php echo esc_html( $commission['display_name'] ?: __( 'Guest', 'affiliates-for-woocommerce' ) ); ?></strong>
 								</div>
 								<div class="ddwcaf-recent-action">
-									<?php echo esc_html( $commission['status'] ); ?>
+									<?php echo esc_html( $this->commission_helper->ddwcaf_get_translation( $commission['status'] ) ); ?>
 									<span class="ddwcaf-recent-date">• <?php echo esc_html( date_i18n( get_option( 'date_format' ), strtotime( $commission['created_at'] ) ) ); ?></span>
 								</div>
 							</div>
