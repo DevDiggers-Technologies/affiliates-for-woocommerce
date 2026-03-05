@@ -11,7 +11,7 @@
  * WC requires at least: 5.0.0
  * WC tested up to: 10.4.4
  * WP requires at least: 5.0.0
- * WP tested up to: 6.9.0
+ * WP tested up to: 6.9.1
  * DevDiggersPrefix: ddwcaf
  * Requires Plugins: woocommerce
  * License: GNU General Public License v3.0
