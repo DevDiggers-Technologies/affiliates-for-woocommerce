@@ -33,6 +33,13 @@ if ( ! class_exists( 'DDWCAF_Dashboard_Template' ) ) {
 		protected $dashboard_helper;
 
 		/**
+		 * Commission Helper Variable
+		 *
+		 * @var array
+		 */
+		protected $commission_helper;
+
+		/**
 		 * Dashboard Data Variable
 		 *
 		 * @var array

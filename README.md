@@ -5,11 +5,11 @@
 
 **WordPress**
   * `Requires at least: 6.5.0`
-  * `Tested up to: 6.9.1`
+  * `Tested up to: 6.9.4`
 
 **WooCommerce**
   * `Requires at least: 9.0.0`
-  * `Tested up to: 10.4.4`
+  * `Tested up to: 10.6.0`
 
 ## Description
 
@@ -104,6 +104,10 @@ With Affiliates for WooCommerce, site owners can easily set up an affiliate prog
 For any Queries, kindly contact us at [DevDiggers](https://devdiggers.com/contact/)
 
 ## Changelog
+
+**2.0.1**
+Resolved the error caused with Affiliates for WooCommerce below v2.0.0.
+Added compatibility with latest WordPress and WooCommerce versions.
 
 **2.0.0**
 * Added DevDiggers plugin framework integration for a centralized and modern admin experience.
