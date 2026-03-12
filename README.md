@@ -106,7 +106,7 @@ For any Queries, kindly contact us at [DevDiggers](https://devdiggers.com/contac
 ## Changelog
 
 **2.0.1**
-Resolved the error caused with Affiliates for WooCommerce below v2.0.0.
+Resolved the error caused with Affiliates for WooCommerce Pro below v2.0.0.
 Added compatibility with latest WordPress and WooCommerce versions.
 
 **2.0.0**
