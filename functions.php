@@ -5,13 +5,13 @@
  * Plugin URI: https://devdiggers.com/woocommerce-extensions/?utm_source=Affiliates for WooCommerce Plugin&utm_medium=Plugins List&utm_campaign=WooCommerce Extensions
  * Author: DevDiggers
  * Author URI: https://devdiggers.com/
- * Version: 2.0.0
+ * Version: 2.0.1
  * Text Domain: affiliates-for-woocommerce
  * Domain Path: /i18n
  * WC requires at least: 5.0.0
- * WC tested up to: 10.4.4
+ * WC tested up to: 10.6.0
  * WP requires at least: 5.0.0
- * WP tested up to: 6.9.1
+ * WP tested up to: 6.9.4
  * DevDiggersPrefix: ddwcaf
  * Requires Plugins: woocommerce
  * License: GNU General Public License v3.0
@@ -27,8 +27,6 @@ use DDWCAffiliates\Includes\DDWCAF_File_Handler;
 defined( 'ABSPATH' ) || exit();
 
 // Define Constants.
-defined( 'DDWCAF_PLUGIN_FILE' ) || define( 'DDWCAF_PLUGIN_FILE', plugin_dir_path( __FILE__ ) );
-defined( 'DDWCAF_PLUGIN_URL' ) || define( 'DDWCAF_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 defined( 'DEVDIGGERS_FREE_PLUGIN' ) || define( 'DEVDIGGERS_FREE_PLUGIN', true );
 
 if ( ! class_exists( 'DDWCAF_Free_Init' ) ) {
@@ -147,9 +145,14 @@ if ( ! class_exists( 'DDWCAF_Free_Init' ) ) {
 	}
 }
 
+if ( ! class_exists( 'DDWCAF_Init' ) ) {
+
+}
 // Load DevDiggers Framework if not loaded already.
 add_action( 'plugins_loaded', function() {
 	if ( ! class_exists( 'DDWCAF_Init' ) ) {
+		defined( 'DDWCAF_PLUGIN_FILE' ) || define( 'DDWCAF_PLUGIN_FILE', plugin_dir_path( __FILE__ ) );
+		defined( 'DDWCAF_PLUGIN_URL' ) || define( 'DDWCAF_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 		// Load Free version.
 		DDWCAF_Free_Init::get_instance();
 
@@ -175,6 +178,7 @@ add_action( 'plugins_loaded', function() {
 	}
 }, 10 );
 
+
 // For HPOS Compatibility
 add_action( 'before_woocommerce_init', function() {
 	if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
@@ -182,5 +186,5 @@ add_action( 'before_woocommerce_init', function() {
 	}
 } );
 
-require_once DDWCAF_PLUGIN_FILE . 'includes/install.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/install.php';
 register_activation_hook( __FILE__, [ 'DDWCAF_Install', 'ddwcaf_on_plugin_activation' ] );
