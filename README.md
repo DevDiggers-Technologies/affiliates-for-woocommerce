@@ -105,6 +105,9 @@ For any Queries, kindly contact us at [DevDiggers](https://devdiggers.com/contac
 
 ## Changelog
 
+**2.0.2**
+Resolved the issue of plugin conflict with other DevDiggers plugins.
+
 **2.0.1**
 Resolved the error caused with Affiliates for WooCommerce Pro below v2.0.0.
 Added compatibility with latest WordPress and WooCommerce versions.

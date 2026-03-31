@@ -9,7 +9,7 @@ Tested up to: 6.9.4
 Requires PHP: 7.4
 WC requires at least: 9.0.0
 WC tested up to: 10.6.0
-Stable tag: 2.0.1
+Stable tag: 2.0.2
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Tags: woocommerce affiliate, affiliate program, affiliate marketing, woocommerce partner program, affiliate networking
@@ -321,6 +321,9 @@ Post in the support forum here on WordPress.org for free version questions. Full
 21. Layout configuration panel with color and icon style controls for the affiliate dashboard
 
 == Changelog ==
+
+= 2.0.2 =
+* Resolved the issue of plugin conflict with other DevDiggers plugins.
 
 = 2.0.1 =
 * Resolved compatibility issue when used alongside Affiliates for WooCommerce Pro below v2.0.0
