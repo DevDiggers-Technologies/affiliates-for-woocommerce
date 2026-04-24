@@ -59,23 +59,6 @@ if ( ! class_exists( 'DDFW_Assets' ) ) {
 		 * @return void
 		 */
 		public function register_styles_and_scripts() {
-			// Enqueue inline style
-			wp_enqueue_style( 'ddfw-admin-inline', true );
-			wp_add_inline_style( 'ddfw-admin-inline', '
-				.ddfw-dashicon-external {
-					font-size: 14px;
-					vertical-align: -2px;
-					height: 10px;
-				}
-			' );
-
-			// Enqueue inline script
-			wp_add_inline_script( 'jquery', '
-				jQuery( document ).ready( function( $ ) {
-					$( "ul#adminmenu a[href*=\'devdiggers.com\']" ).attr( \'target\', \'_blank\' );
-				} );
-			' );
-
 			wp_register_style( 'select2', DDFW_URL . 'assets/css/select2.css', [], filemtime( DDFW_FILE . 'assets/css/select2.css' ) );
 			wp_register_script( 'select2', DDFW_URL . 'assets/js/select2.js', [], filemtime( DDFW_FILE . 'assets/js/select2.js' ) );
 

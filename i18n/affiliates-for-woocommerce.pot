@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/affiliates-for-woocommerce\n"
-"POT-Creation-Date: 2026-03-05 10:10:31+00:00\n"
+"POT-Creation-Date: 2026-03-15 21:31:15+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -30,39 +30,39 @@ msgstr ""
 msgid "The file attempting to be loaded at %s does not exist."
 msgstr ""
 
-#: functions.php:89
+#: functions.php:87
 #. translators: %s for a opening tag and %s for a closing tag
 msgid ""
 "Affiliates for WooCommerce is activated but not effective. It requires "
 "%sWooCommerce Plugin%s in order to use its functionalities."
 msgstr ""
 
-#: functions.php:101 includes/admin-dashboard.php:77
+#: functions.php:99 includes/admin-dashboard.php:77
 msgid "Affiliates for WooCommerce"
 msgstr ""
 
-#: functions.php:117 helper/affiliate/affiliate-helper.php:560
+#: functions.php:115 helper/affiliate/affiliate-helper.php:560
 #: includes/admin-dashboard.php:85
 msgid "Dashboard"
 msgstr ""
 
-#: functions.php:119 includes/admin-dashboard.php:135
+#: functions.php:117 includes/admin-dashboard.php:135
 msgid "Configuration"
 msgstr ""
 
-#: functions.php:121
+#: functions.php:119
 msgid "Upgrade to Pro"
 msgstr ""
 
-#: functions.php:138
+#: functions.php:136
 msgid "Support"
 msgstr ""
 
-#: functions.php:139
+#: functions.php:137
 msgid "Documentation"
 msgstr ""
 
-#: functions.php:140 includes/admin-dashboard.php:912
+#: functions.php:138 includes/admin-dashboard.php:912
 msgid "Review"
 msgstr ""
 
@@ -118,7 +118,7 @@ msgstr ""
 
 #: helper/affiliate/affiliate-helper.php:564 includes/admin-dashboard.php:95
 #: includes/admin-dashboard.php:157 includes/admin-dashboard.php:377
-#: templates/admin/dashboard/dashboard-template.php:175
+#: templates/admin/dashboard/dashboard-template.php:182
 msgid "Commissions"
 msgstr ""
 
@@ -130,7 +130,7 @@ msgstr ""
 #: helper/affiliate/affiliate-helper.php:572 includes/admin-dashboard.php:110
 #: includes/admin-dashboard.php:531
 #: templates/admin/affiliates/manage-affiliate-template.php:120
-#: templates/admin/dashboard/dashboard-template.php:74
+#: templates/admin/dashboard/dashboard-template.php:81
 msgid "Visits"
 msgstr ""
 
@@ -235,7 +235,7 @@ msgstr ""
 
 #: helper/affiliate/dashboard-helper.php:561
 #: templates/admin/affiliates/manage-affiliate-template.php:153
-#: templates/admin/dashboard/dashboard-template.php:122
+#: templates/admin/dashboard/dashboard-template.php:129
 msgid "Today"
 msgstr ""
 
@@ -245,7 +245,7 @@ msgstr ""
 
 #: helper/affiliate/dashboard-helper.php:575
 #: templates/admin/affiliates/manage-affiliate-template.php:155
-#: templates/admin/dashboard/dashboard-template.php:124
+#: templates/admin/dashboard/dashboard-template.php:131
 msgid "Last Week"
 msgstr ""
 
@@ -256,37 +256,37 @@ msgstr ""
 
 #: helper/affiliate/dashboard-helper.php:589
 #: templates/admin/affiliates/manage-affiliate-template.php:157
-#: templates/admin/dashboard/dashboard-template.php:126
+#: templates/admin/dashboard/dashboard-template.php:133
 msgid "Last Month"
 msgstr ""
 
 #: helper/affiliate/dashboard-helper.php:596
 #: templates/admin/affiliates/manage-affiliate-template.php:158
-#: templates/admin/dashboard/dashboard-template.php:127
+#: templates/admin/dashboard/dashboard-template.php:134
 msgid "Last 3 Months"
 msgstr ""
 
 #: helper/affiliate/dashboard-helper.php:603
 #: templates/admin/affiliates/manage-affiliate-template.php:159
-#: templates/admin/dashboard/dashboard-template.php:128
+#: templates/admin/dashboard/dashboard-template.php:135
 msgid "Last 6 Months"
 msgstr ""
 
 #: helper/affiliate/dashboard-helper.php:610
 #: templates/admin/affiliates/manage-affiliate-template.php:160
-#: templates/admin/dashboard/dashboard-template.php:129
+#: templates/admin/dashboard/dashboard-template.php:136
 msgid "Year to Date"
 msgstr ""
 
 #: helper/affiliate/dashboard-helper.php:617
 #: templates/admin/affiliates/manage-affiliate-template.php:161
-#: templates/admin/dashboard/dashboard-template.php:130
+#: templates/admin/dashboard/dashboard-template.php:137
 msgid "Last Year"
 msgstr ""
 
 #: helper/affiliate/dashboard-helper.php:624
 #: templates/admin/affiliates/manage-affiliate-template.php:162
-#: templates/admin/dashboard/dashboard-template.php:131
+#: templates/admin/dashboard/dashboard-template.php:138
 msgid "All Time"
 msgstr ""
 
@@ -839,7 +839,7 @@ msgstr ""
 
 #: templates/admin/affiliates/affiliates-list-template.php:369
 #: templates/admin/affiliates/manage-affiliate-template.php:119
-#: templates/admin/dashboard/dashboard-template.php:73
+#: templates/admin/dashboard/dashboard-template.php:80
 msgid "Earnings"
 msgstr ""
 
@@ -927,7 +927,7 @@ msgid "Kindly fill all the mandatory fields."
 msgstr ""
 
 #: templates/admin/affiliates/manage-affiliate-template.php:121
-#: templates/admin/dashboard/dashboard-template.php:78
+#: templates/admin/dashboard/dashboard-template.php:85
 msgid "No performance data available"
 msgstr ""
 
@@ -941,37 +941,37 @@ msgid "← Back"
 msgstr ""
 
 #: templates/admin/affiliates/manage-affiliate-template.php:151
-#: templates/admin/dashboard/dashboard-template.php:120
+#: templates/admin/dashboard/dashboard-template.php:127
 msgid "Quick Select"
 msgstr ""
 
 #: templates/admin/affiliates/manage-affiliate-template.php:154
-#: templates/admin/dashboard/dashboard-template.php:123
+#: templates/admin/dashboard/dashboard-template.php:130
 msgid "Last 7 Days"
 msgstr ""
 
 #: templates/admin/affiliates/manage-affiliate-template.php:156
-#: templates/admin/dashboard/dashboard-template.php:125
+#: templates/admin/dashboard/dashboard-template.php:132
 msgid "Last 30 Days"
 msgstr ""
 
 #: templates/admin/affiliates/manage-affiliate-template.php:167
-#: templates/admin/dashboard/dashboard-template.php:136
+#: templates/admin/dashboard/dashboard-template.php:143
 msgid "Custom Range"
 msgstr ""
 
 #: templates/admin/affiliates/manage-affiliate-template.php:168
-#: templates/admin/dashboard/dashboard-template.php:137
+#: templates/admin/dashboard/dashboard-template.php:144
 msgid "Select a start and end date"
 msgstr ""
 
 #: templates/admin/affiliates/manage-affiliate-template.php:172
-#: templates/admin/dashboard/dashboard-template.php:141
+#: templates/admin/dashboard/dashboard-template.php:148
 msgid "From Date"
 msgstr ""
 
 #: templates/admin/affiliates/manage-affiliate-template.php:176
-#: templates/admin/dashboard/dashboard-template.php:145
+#: templates/admin/dashboard/dashboard-template.php:152
 msgid "To Date"
 msgstr ""
 
@@ -989,7 +989,7 @@ msgid "Copy URL"
 msgstr ""
 
 #: templates/admin/affiliates/manage-affiliate-template.php:232
-#: templates/admin/dashboard/dashboard-template.php:166
+#: templates/admin/dashboard/dashboard-template.php:173
 #: templates/admin/payouts/manage-payout-template.php:219
 #: templates/admin/top-products/top-products-list-template.php:157
 #: templates/front/affiliate-dashboard/dashboard-section.php:39
@@ -1027,7 +1027,7 @@ msgid "Conversion"
 msgstr ""
 
 #: templates/admin/affiliates/manage-affiliate-template.php:278
-#: templates/admin/dashboard/dashboard-template.php:257
+#: templates/admin/dashboard/dashboard-template.php:264
 msgid "Performance Overview"
 msgstr ""
 
@@ -2072,87 +2072,87 @@ msgstr ""
 msgid "Default: [ddwcaf_affiliate_dashboard_shortcode]"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard-template.php:75
+#: templates/admin/dashboard/dashboard-template.php:82
 msgid "Affiliate Revenue"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard-template.php:76
+#: templates/admin/dashboard/dashboard-template.php:83
 msgid "Store Revenue"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard-template.php:77
+#: templates/admin/dashboard/dashboard-template.php:84
 msgid "Conversions"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard-template.php:96
+#: templates/admin/dashboard/dashboard-template.php:103
 msgid "Welcome back, %s! 👋🏻"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard-template.php:97
+#: templates/admin/dashboard/dashboard-template.php:104
 msgid "Here's what's happening with your affiliate program"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard-template.php:149
+#: templates/admin/dashboard/dashboard-template.php:156
 msgid "Apply Custom Range"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard-template.php:183
+#: templates/admin/dashboard/dashboard-template.php:190
 msgid "Total Sales"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard-template.php:192
+#: templates/admin/dashboard/dashboard-template.php:199
 msgid "Total Visits"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard-template.php:200
+#: templates/admin/dashboard/dashboard-template.php:207
 msgid "Conversion Rate"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard-template.php:209
+#: templates/admin/dashboard/dashboard-template.php:216
 msgid "New Affiliates"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard-template.php:217
+#: templates/admin/dashboard/dashboard-template.php:224
 msgid "Active Affiliates"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard-template.php:225
+#: templates/admin/dashboard/dashboard-template.php:232
 msgid "Total Payouts"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard-template.php:234
+#: templates/admin/dashboard/dashboard-template.php:241
 msgid "Pending Earnings"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard-template.php:243
+#: templates/admin/dashboard/dashboard-template.php:250
 msgid "Avg Commission"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard-template.php:268
+#: templates/admin/dashboard/dashboard-template.php:275
 msgid "Revenue Impact"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard-template.php:275
+#: templates/admin/dashboard/dashboard-template.php:282
 msgid "Conversion Sources"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard-template.php:284
+#: templates/admin/dashboard/dashboard-template.php:291
 msgid "Recent Commissions"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard-template.php:289
+#: templates/admin/dashboard/dashboard-template.php:296
 msgid "Top Affiliates"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard-template.php:338
+#: templates/admin/dashboard/dashboard-template.php:345
 msgid "Guest"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard-template.php:351
+#: templates/admin/dashboard/dashboard-template.php:358
 msgid "No recent commissions"
 msgstr ""
 
-#: templates/admin/dashboard/dashboard-template.php:378
+#: templates/admin/dashboard/dashboard-template.php:385
 msgid "No affiliate data"
 msgstr ""
 

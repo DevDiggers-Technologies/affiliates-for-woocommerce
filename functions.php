@@ -5,7 +5,7 @@
  * Plugin URI: https://devdiggers.com/woocommerce-extensions/?utm_source=Affiliates for WooCommerce Plugin&utm_medium=Plugins List&utm_campaign=WooCommerce Extensions
  * Author: DevDiggers
  * Author URI: https://devdiggers.com/
- * Version: 2.0.1
+ * Version: 2.0.2
  * Text Domain: affiliates-for-woocommerce
  * Domain Path: /i18n
  * WC requires at least: 5.0.0
@@ -165,7 +165,10 @@ add_action( 'plugins_loaded', function() {
 				$prefix       = explode( '-', $current_page )[0];
 
 				if ( 0 === strpos( $prefix, 'ddwc' ) || 0 === strpos( $prefix, 'ddwp' ) ) {
-					if ( 'ddwcaf' !== $prefix ) {
+					$pro_class  = strtoupper( $prefix ) . '_Init';
+					$free_class = strtoupper( $prefix ) . '_Free_Init';
+
+					if ( class_exists( $free_class ) && ! class_exists( $pro_class ) && 'ddwcaf' !== $prefix ) {
 						$should_load = false;
 					}
 				}
