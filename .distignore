@@ -17,3 +17,4 @@ webpack.config.js
 babel.config.js
 *.tar.gz
 *.zip
+landing-page
