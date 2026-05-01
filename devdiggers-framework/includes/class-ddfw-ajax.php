@@ -35,6 +35,7 @@ if ( ! class_exists( 'DDFW_Ajax' ) ) {
 		 */
 		public function __construct() {
 			add_action( 'wp_ajax_ddfw_verify_license', [ $this, 'ddfw_verify_license' ] );
+			add_action( 'wp_ajax_ddfw_license_heartbeat_check', [ $this, 'ddfw_license_heartbeat_check' ] );
 			add_action( 'wp_ajax_ddfw_get_products_list', [ $this, 'ddfw_get_products_list' ] );
 			add_action( 'wp_ajax_ddfw_get_categories_list', [ $this, 'ddfw_get_categories_list' ] );
 			add_action( 'wp_ajax_ddfw_get_users_list', [ $this, 'ddfw_get_users_list' ] );
@@ -81,7 +82,9 @@ if ( ! class_exists( 'DDFW_Ajax' ) ) {
 					update_option( "_{$prefix}_purchase_email", $purchase_email );
 
 					if ( 'activate' === $status ) {
-						update_option( "_{$prefix}_license_activated", 'yes' );
+						// Store a hashed activation token instead of plain 'yes'.
+						$token = ddfw_generate_activation_token( $purchase_code, $prefix );
+						update_option( "_{$prefix}_license_activated", $token );
 					} else {
 						delete_option( "_{$prefix}_license_activated" );
 					}
@@ -91,6 +94,57 @@ if ( ! class_exists( 'DDFW_Ajax' ) ) {
 			} else {
 				wp_send_json_error( esc_html__( 'Security check failed!', 'devdiggers-framework' ) );
 			}
+		}
+
+		/**
+		 * License Heartbeat Check via AJAX.
+		 * Routes the license check through WP-AJAX so the JS
+		 * doesn't need to call devdiggers.com directly.
+		 * This defeats the JavaScript fetch monkey-patching attack.
+		 *
+		 * @return void
+		 */
+		public function ddfw_license_heartbeat_check() {
+			if ( ! check_ajax_referer( 'ddfw-nonce', 'nonce', false ) ) {
+				wp_send_json_error( esc_html__( 'Security check failed!', 'devdiggers-framework' ) );
+			}
+
+			$purchase_code = ! empty( $_POST['purchase_code'] ) ? sanitize_text_field( wp_unslash( $_POST['purchase_code'] ) ) : '';
+			$prefix        = ! empty( $_POST['prefix'] ) ? sanitize_text_field( wp_unslash( $_POST['prefix'] ) ) : '';
+
+			if ( empty( $purchase_code ) || empty( $prefix ) ) {
+				wp_send_json_error( 'Missing parameters.' );
+			}
+
+			// Use direct cURL call to bypass pre_http_request filters.
+			$response = ddfw_direct_license_check( $purchase_code, site_url(), $prefix );
+
+			if ( false === $response ) {
+				// Network issue - don't deactivate, just report error.
+				wp_send_json_error( 'Unable to verify license. Please try again.' );
+			}
+
+			// Verify the HMAC signature to ensure authenticity.
+			if ( ! ddfw_verify_license_signature( $response ) ) {
+				// Forged response detected - deactivate.
+				delete_option( "_{$prefix}_license_activated" );
+				wp_send_json( [
+					'success'  => true,
+					'status'   => 'deactivated',
+					'verified' => false,
+				] );
+			}
+
+			// If license is deactivated/deleted/expired, clean up local options.
+			if ( ! empty( $response['status'] ) && in_array( $response['status'], [ 'deactivated', 'deleted', 'expired' ], true ) ) {
+				delete_option( "_{$prefix}_license_activated" );
+			}
+
+			wp_send_json( [
+				'success'  => ! empty( $response['success'] ),
+				'status'   => $response['status'] ?? 'unknown',
+				'verified' => true,
+			] );
 		}
 
 		/**
