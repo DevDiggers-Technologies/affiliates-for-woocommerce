@@ -15,7 +15,7 @@ global $ddwcaf_configuration;
 $user_id          = get_current_user_id();
 $affiliate_helper = new DDWCAF_Affiliate_Helper( $ddwcaf_configuration );
 
-$wp_button_class = wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '';
+$wp_button_class = function_exists( 'wc_wp_theme_get_element_class_name' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '';
 
 if ( $affiliate_helper->ddwcaf_is_user_affiliate( $user_id ) ) {
 	$affiliate_status = $affiliate_helper->ddwcaf_get_affiliate_status( $user_id );
@@ -92,7 +92,7 @@ if ( $affiliate_helper->ddwcaf_is_user_affiliate( $user_id ) ) {
 			?>
 			<p class="woocommerce-form-row form-row">
 				<?php wp_nonce_field( 'ddwcaf_nonce_action', 'ddwcaf_nonce' ); ?>
-				<button type="submit" class="woocommerce-Button woocommerce-button button<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?> woocommerce-form-register__submit" name="ddwcaf_affiliate_info_submit" value="<?php esc_attr_e( 'Become an Affiliate', 'affiliates-for-woocommerce' ); ?>"><?php esc_html_e( 'Become an Affiliate', 'affiliates-for-woocommerce' ); ?></button>
+				<button type="submit" class="woocommerce-Button woocommerce-button button<?php echo esc_attr( function_exists( 'wc_wp_theme_get_element_class_name' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?> woocommerce-form-register__submit" name="ddwcaf_affiliate_info_submit" value="<?php esc_attr_e( 'Become an Affiliate', 'affiliates-for-woocommerce' ); ?>"><?php esc_html_e( 'Become an Affiliate', 'affiliates-for-woocommerce' ); ?></button>
 			</p>
 		</form>
 	</div>

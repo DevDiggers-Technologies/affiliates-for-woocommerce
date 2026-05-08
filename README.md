@@ -105,6 +105,9 @@ For any Queries, kindly contact us at [DevDiggers](https://devdiggers.com/contac
 
 ## Changelog
 
+**2.0.3**
+Resolved the compatibility issue of plugin with other themes.
+
 **2.0.2**
 Resolved the issue of plugin conflict with other DevDiggers plugins.
 
