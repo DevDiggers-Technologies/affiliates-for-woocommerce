@@ -31,7 +31,7 @@ settings_errors();
 					[ 'size' => 15 ]
 				);
 				?>
-				<?php esc_html_e( 'Save Changes', 'devdiggers-framework' ); ?>
+				<?php esc_html_e( 'Save Changes', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?>
 			</button>
 		</p>
 		<?php
@@ -41,14 +41,14 @@ settings_errors();
 		?>
 		<p class="submit <?php echo esc_attr( $form_submit_button[ 'button_parent_class' ] ?? '' ); ?>">
 			<?php wp_nonce_field( "{$form_submit_button['name']}_nonce_action", "{$form_submit_button['name']}_nonce" ); ?>
-			<button type="submit" id="<?php echo esc_attr( $arg[ 'id' ] ?? '' ) ?>" name="<?php echo esc_attr( $form_submit_button['name'] ); ?>" class="button button-primary <?php echo esc_attr( $arg[ 'class' ] ?? '' ) ?>" value="<?php echo esc_attr( ! empty( $form_submit_button[ 'value' ] ? $form_submit_button[ 'value' ] : __( 'Save', 'devdiggers-framework' ) ) ); ?>">
+			<button type="submit" id="<?php echo esc_attr( $arg[ 'id' ] ?? '' ) ?>" name="<?php echo esc_attr( $form_submit_button['name'] ); ?>" class="button button-primary <?php echo esc_attr( $arg[ 'class' ] ?? '' ) ?>" value="<?php echo esc_attr( ! empty( $form_submit_button[ 'value' ] ? $form_submit_button[ 'value' ] : __( 'Save', 'loyaltyx-points-and-rewards-for-woocommerce' ) ) ); ?>">
 				<?php
 				DDFW_SVG::get_svg_icon(
 					'circle-check',
 					false,
 					[ 'size' => 15 ]
 				);
-				echo esc_html( ! empty( $form_submit_button[ 'value' ] ) ? $form_submit_button[ 'value' ] : __( 'Save', 'devdiggers-framework' ) );
+				echo esc_html( ! empty( $form_submit_button[ 'value' ] ) ? $form_submit_button[ 'value' ] : __( 'Save', 'loyaltyx-points-and-rewards-for-woocommerce' ) );
 				?>
 			</button>
 		</p>

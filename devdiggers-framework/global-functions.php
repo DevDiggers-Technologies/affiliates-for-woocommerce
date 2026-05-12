@@ -178,7 +178,7 @@ if ( ! function_exists( 'ddfw_pro_tag' ) ) {
 	 */
 	function ddfw_pro_tag() {
 		?>
-		<span class="ddfw-pro-tag"><span class="dashicons dashicons-lock"></span> <?php esc_html_e( 'PRO', 'devdiggers-framework' ); ?></span>
+		<span class="ddfw-pro-tag"><span class="dashicons dashicons-lock"></span> <?php esc_html_e( 'PRO', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></span>
 		<?php
 	}
 }
@@ -282,13 +282,13 @@ if ( ! function_exists( 'ddfw_handle_license_deactivation' ) ) {
 					delete_option( $license_activated_option );
 
 					/* translators: %s: Plugin Prefix */
-					wp_die( sprintf( esc_html__( "License Deactivated for %s", 'devdiggers-framework' ), esc_html( $prefix ) ), 'License Deactivated', [ 'response' => 200 ] );
+					wp_die( sprintf( esc_html__( "License Deactivated for %s", 'loyaltyx-points-and-rewards-for-woocommerce' ), esc_html( $prefix ) ), 'License Deactivated', [ 'response' => 200 ] );
 				}
 			}
 		}
 
 		// If we reach here, no matching license was found or deactivation failed
-		wp_die( esc_html__( 'License not found or deactivation failed', 'devdiggers-framework' ), esc_html__( 'Deactivation Failed', 'devdiggers-framework' ), [ 'response' => 404 ] );
+		wp_die( esc_html__( 'License not found or deactivation failed', 'loyaltyx-points-and-rewards-for-woocommerce' ), esc_html__( 'Deactivation Failed', 'loyaltyx-points-and-rewards-for-woocommerce' ), [ 'response' => 404 ] );
 	}
 }
 

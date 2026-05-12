@@ -44,8 +44,8 @@ if ( ! class_exists( 'DDFW_Plugin_Dashboard' ) ) {
 			if ( ! empty( $args ) ) {
 				$default_args = [
 					'parent_slug' => ddfw_get_parent_menu_slug(),
-					'page_title'  => __( 'Plugin Dashboard', 'devdiggers-framework' ),
-					'menu_title'  => __( 'Plugin', 'devdiggers-framework' ),
+					'page_title'  => __( 'Plugin Dashboard', 'loyaltyx-points-and-rewards-for-woocommerce' ),
+					'menu_title'  => __( 'Plugin', 'loyaltyx-points-and-rewards-for-woocommerce' ),
 					'capability'  => ddfw_get_menu_capability(),
 					'icon_url'    => '',
 					'position'    => null,
@@ -181,12 +181,17 @@ if ( ! class_exists( 'DDFW_Plugin_Dashboard' ) ) {
 			$page         = ! empty( $_GET[ 'page' ] ) ? sanitize_title( wp_unslash( $_GET[ 'page' ] ) ) : '';
 			$current_menu = ! empty( $_GET[ 'menu' ] ) ? sanitize_title( wp_unslash( $_GET[ 'menu' ] ) ) : array_key_first( $menus ); // Default to the first menu if none is set.
 
+			// Check if setup wizard is requested via URL parameter.
+			$is_setup_wizard = ! empty( $_GET['setup-wizard'] );
+
 			?>
 			<div class="wrap devdiggers-wrap">
 				<?php
 				include DDFW_FILE . 'templates/header/header.php';
 
-				if ( ! empty( $this->args[ 'menus' ][ $current_menu ] ) && is_array( $this->args[ 'menus' ][ $current_menu ] ) ) {
+				if ( $is_setup_wizard ) {
+					$this->render_setup_wizard( $page );
+				} elseif ( ! empty( $this->args[ 'menus' ][ $current_menu ] ) && is_array( $this->args[ 'menus' ][ $current_menu ] ) ) {
 					$current_menu_data = $this->args[ 'menus' ][ $current_menu ];
 					$layout            = $current_menu_data[ 'layout' ] ?? 'default';  // Load the template for the current menu.
 
@@ -202,6 +207,21 @@ if ( ! class_exists( 'DDFW_Plugin_Dashboard' ) ) {
 				?>
 			</div>
 			<?php
+		}
+
+		/**
+		 * Render the setup wizard within the dashboard layout.
+		 *
+		 * @param string $page The current page slug.
+		 * @return void
+		 */
+		private function render_setup_wizard( $page ) {
+			if ( has_action( 'ddfw_render_setup_wizard' ) ) {
+				do_action( 'ddfw_render_setup_wizard', $page );
+			} else {
+				// Fallback if no wizard matches this dashboard page.
+				echo '<div class="notice notice-error"><p>' . esc_html__( 'Setup wizard not found for this plugin.', 'loyaltyx-points-and-rewards-for-woocommerce' ) . '</p></div>';
+			}
 		}
 	}
 }

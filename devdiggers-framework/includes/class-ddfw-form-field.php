@@ -81,6 +81,11 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 				$args[ 'checkbox_label' ] = $args[ 'label' ];
 			}
 
+			if ( empty( $args[ 'id' ] ) ) {
+				$args[ 'id' ] = str_replace( [ '[', ']', '_' ], [ '-', '', '-' ], $name );
+				$args[ 'id' ] = trim( $args[ 'id' ], '-' );
+			}
+
 			$args = apply_filters( 'ddfw_form_field_args', $args, $name, $value );
 
 			if ( is_string( $args['class'] ) ) {
@@ -93,7 +98,7 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 
 			if ( $args['required'] ) {
 				$args['class'][] = 'validate-required';
-				$required        = '&nbsp;<abbr class="required" title="' . esc_attr__( 'required', 'devdiggers-framework' ) . '">*</abbr>';
+				$required        = '&nbsp;<abbr class="required" title="' . esc_attr__( 'required', 'loyaltyx-points-and-rewards-for-woocommerce' ) . '">*</abbr>';
 			} else {
 				$required = '';
 			}
@@ -147,7 +152,7 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 			}
 
 			if ( $is_admin ) {
-				$field_container = '<tr valign="top" class="' . esc_attr( implode( ' ', $args['field_class'] ) ) . '">%1$s</tr>';
+				$field_container = '<tr valign="top" ' . ( ! empty( $args['field_class'] ) ? 'class="' . esc_attr( implode( ' ', $args['field_class'] ) ) . '"' : '' ) . '>%1$s</tr>';
 			} else {
 				$field_container = '<p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide ' . esc_attr( implode( ' ', $args['field_class'] ) ) . '">%1$s</p>';
 			}
@@ -167,15 +172,15 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 					} else {
 						$data_label = ! empty( $args['label'] ) ? 'data-label="' . esc_attr( $args['label'] ) . '"' : '';
 						?>
-						<select id="billing_country" name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" class="country_to_state country_select <?php echo esc_attr( $default_input_class ); ?> <?php echo esc_attr( implode( ' ', $args['input_class'] ) ); ?>" <?php echo implode( ' ', $custom_attributes ); ?> data-placeholder="<?php echo esc_attr( $args['placeholder'] ? $args['placeholder'] : esc_attr__( 'Select a country / region&hellip;', 'devdiggers-framework' ) ); ?>" <?php echo wp_kses_post( $data_label ); ?>>
-							<option value=""><?php esc_html_e( 'Select a country / region&hellip;', 'devdiggers-framework' ); ?></option>
+						<select id="billing_country" name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" class="country_to_state country_select <?php echo esc_attr( $default_input_class ); ?> <?php echo esc_attr( implode( ' ', $args['input_class'] ) ); ?>" <?php echo implode( ' ', $custom_attributes ); ?> data-placeholder="<?php echo esc_attr( $args['placeholder'] ? $args['placeholder'] : esc_attr__( 'Select a country / region&hellip;', 'loyaltyx-points-and-rewards-for-woocommerce' ) ); ?>" <?php echo wp_kses_post( $data_label ); ?>>
+							<option value=""><?php esc_html_e( 'Select a country / region&hellip;', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></option>
 							<?php foreach ( $countries as $ckey => $cvalue ) : ?>
 								<option value="<?php echo esc_attr( $ckey ); ?>" <?php selected( $value, $ckey ); ?>><?php echo esc_html( $cvalue ); ?></option>
 							<?php endforeach; ?>
 						</select>
 						<noscript>
-							<button type="submit" name="woocommerce_checkout_update_totals" value="<?php esc_attr_e( 'Update country / region', 'devdiggers-framework' ); ?>">
-								<?php esc_html_e( 'Update country / region', 'devdiggers-framework' ); ?>
+							<button type="submit" name="woocommerce_checkout_update_totals" value="<?php esc_attr_e( 'Update country / region', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?>">
+								<?php esc_html_e( 'Update country / region', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?>
 							</button>
 						</noscript>
 						<?php
@@ -246,7 +251,7 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 							foreach ( $args['options'] as $option_key => $option_text ) {
 								if ( '' === $option_key ) {
 									if ( empty( $args['placeholder'] ) ) {
-										$args['placeholder'] = $option_text ? $option_text : esc_html__( 'Choose an option', 'devdiggers-framework' );
+										$args['placeholder'] = $option_text ? $option_text : esc_html__( 'Choose an option', 'loyaltyx-points-and-rewards-for-woocommerce' );
 									}
 									$custom_attributes[] = 'data-allow_clear="true"';
 								}
@@ -322,22 +327,22 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 								<div class="ddfw-image-preview-wrapper">
 									<img src="<?php echo esc_url( $image_url ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>-preview" />
 									<div class="ddfw-image-actions">
-										<span class="ddfw-upload-image-button" data-id="<?php echo esc_attr( $args['id'] ); ?>" title="<?php esc_attr_e( 'Replace Image', 'devdiggers-framework' ); ?>">
+										<span class="ddfw-upload-image-button" data-id="<?php echo esc_attr( $args['id'] ); ?>" title="<?php esc_attr_e( 'Replace Image', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?>">
 											<span class="dashicons dashicons-edit"></span>
 										</span>
-										<span class="ddfw-remove-image-button <?php echo esc_attr( $args['default_image'] && ! $value ? 'ddfw-hide' : '' ); ?>" data-id="<?php echo esc_attr( $args['id'] ); ?>" title="<?php esc_attr_e( 'Remove Image', 'devdiggers-framework' ); ?>">
+										<span class="ddfw-remove-image-button <?php echo esc_attr( $args['default_image'] && ! $value ? 'ddfw-hide' : '' ); ?>" data-id="<?php echo esc_attr( $args['id'] ); ?>" title="<?php esc_attr_e( 'Remove Image', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?>">
 											<span class="dashicons dashicons-trash"></span>
 										</span>
 									</div>
 								</div>
-								<p><?php esc_html_e( 'Hover on the image to replace or remove', 'devdiggers-framework' ); ?></p>
+								<p><?php esc_html_e( 'Hover on the image to replace or remove', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></p>
 							</div>
 							<div class="ddfw-image-upload-wrapper <?php echo esc_attr( $value || $args['default_image'] ? 'ddfw-hide' : '' ); ?>">
 								<div class="ddfw-upload-icon-wrapper">
 									<?php DDFW_SVG::get_svg_icon( 'upload', false ); ?>
 								</div>
-								<h3><?php esc_html_e( 'Upload Image', 'devdiggers-framework' ); ?></h3>
-								<p><?php esc_html_e( 'Click the upload button to select an image from your media library or upload a new one.', 'devdiggers-framework' ); ?></p>
+								<h3><?php esc_html_e( 'Upload Image', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></h3>
+								<p><?php esc_html_e( 'Click the upload button to select an image from your media library or upload a new one.', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></p>
 								<input type="hidden" name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" value="<?php echo esc_attr( $value ); ?>" />
 								<input type="hidden" id="<?php echo esc_attr( $args['id'] ); ?>-default-image" value="<?php echo esc_attr( $args['default_image'] ? $args['default_image'] : '' ); ?>" />
 								<button type="button" class="button ddfw-upload-image-button" data-id="<?php echo esc_attr( $args['id'] ); ?>" <?php echo implode( ' ', $custom_attributes ); ?>>
@@ -347,7 +352,7 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 										false,
 										[ 'size' => 15 ]
 									);
-									esc_html_e( 'Choose Image', 'devdiggers-framework' );
+									esc_html_e( 'Choose Image', 'loyaltyx-points-and-rewards-for-woocommerce' );
 									?>
 								</button>
 							</div>
@@ -368,7 +373,7 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 				case 'products':
 					ob_start();
 					?>
-					<select name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" class="<?php echo esc_attr( $default_input_class ); ?> ddfw-products" <?php echo implode( ' ', $custom_attributes ); ?> data-placeholder="<?php esc_attr_e( 'Search by name', 'devdiggers-framework' ); ?>">
+					<select name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" class="<?php echo esc_attr( $default_input_class ); ?> ddfw-products" <?php echo implode( ' ', $custom_attributes ); ?> data-placeholder="<?php esc_attr_e( 'Search by name', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?>">
 						<?php
 						if ( ! empty( $value ) ) {
 							if ( is_array( $value ) ) {
@@ -398,7 +403,7 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 				case 'categories':
 					ob_start();
 					?>
-					<select name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" class="<?php echo esc_attr( $default_input_class ); ?> ddfw-categories" <?php echo implode( ' ', $custom_attributes ); ?> data-placeholder="<?php esc_attr_e( 'Search by name', 'devdiggers-framework' ); ?>">
+					<select name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" class="<?php echo esc_attr( $default_input_class ); ?> ddfw-categories" <?php echo implode( ' ', $custom_attributes ); ?> data-placeholder="<?php esc_attr_e( 'Search by name', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?>">
 						<?php
 						if ( ! empty( $value ) ) {
 							if ( is_array( $value ) ) {
@@ -427,7 +432,7 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 				case 'users':
 					ob_start();
 					?>
-					<select name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" class="<?php echo esc_attr( $default_input_class ); ?> ddfw-users" <?php echo implode( ' ', $custom_attributes ); ?> data-placeholder="<?php esc_attr_e( 'Search Users', 'devdiggers-framework' ); ?>">
+					<select name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" class="<?php echo esc_attr( $default_input_class ); ?> ddfw-users" <?php echo implode( ' ', $custom_attributes ); ?> data-placeholder="<?php esc_attr_e( 'Search Users', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?>">
 						<?php
 						if ( ! empty( $value ) ) {
 							if ( is_array( $value ) ) {
@@ -461,7 +466,7 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 						if ( ! empty( $args['columns'] ) ) {
 							foreach ( $args['columns'] as $column ) {
 								if ( empty( $column[ 'name' ] ) ) {
-									$column[ 'name' ] = '_' . str_replace( '-', '_', $column[ 'id' ] );
+									$column[ 'name' ] = '_' . str_replace( '-', '_', $column[ 'id' ] ?? uniqid() );
 								}
 								$wrapper = ! empty( $column['wrapper'] ) ? $column['wrapper'] : 'span'; ?>
 								<<?php echo esc_attr( $wrapper ); ?>>
@@ -469,8 +474,8 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 									<input
 										type="<?php echo esc_attr( $column['type'] ); ?>"
 										name="<?php echo esc_attr( $column['name'] ); ?>"
-										id="<?php echo esc_attr( $column['id'] ); ?>"
-										value="<?php echo esc_attr( $column['value'] ); ?>"
+										id="<?php echo esc_attr( $column['id'] ?? uniqid() ); ?>"
+										value="<?php echo esc_attr( $column['value'] ?? '' ); ?>"
 										<?php echo ! empty( $column['class'] ) ? 'class="' . esc_attr( implode( ' ', (array) $column['class'] ) ) . '"' : ''; ?>
 										<?php echo ! empty( $column['placeholder'] ) ? 'placeholder="' . esc_attr( $column['placeholder'] ) . '"' : ''; ?>
 										<?php echo isset( $column['min'] ) ? 'min="' . esc_attr( $column['min'] ) . '"' : ''; ?>
@@ -497,7 +502,7 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 						class="regular-text"
 						name="<?php echo esc_attr( $args['name'] ); ?>"
 						multiple
-						data-placeholder="<?php esc_attr_e( 'Search by role', 'devdiggers-framework' ); ?>"
+						data-placeholder="<?php esc_attr_e( 'Search by role', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?>"
 					>
 						<?php
 						if ( ! empty( $all_roles ) ) {
@@ -527,7 +532,7 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 						ob_start();
 						?>
 						<th>
-							<label for="<?php echo esc_attr( $label_id ); ?>" class="<?php echo esc_attr( implode( ' ', $args['label_class'] ) ); ?>">
+							<label <?php echo ! empty( $label_id ) ? 'for="' . esc_attr( $label_id ) . '"' : ''; ?> <?php echo ! empty( $args['label_class'] ) ? 'class="' . esc_attr( implode( ' ', $args['label_class'] ) ) . '"' : ''; ?>>
 								<?php echo wp_kses_post( $args['label'] . $required ); ?>
 							</label>
 						</th>
@@ -536,7 +541,7 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 					} else {
 						ob_start();
 						?>
-						<label for="<?php echo esc_attr( $label_id ); ?>" class="<?php echo esc_attr( implode( ' ', $args['label_class'] ) ); ?>">
+						<label <?php echo ! empty( $label_id ) ? 'for="' . esc_attr( $label_id ) . '"' : ''; ?> <?php echo ! empty( $args['label_class'] ) ? 'class="' . esc_attr( implode( ' ', $args['label_class'] ) ) . '"' : ''; ?>>
 							<?php echo wp_kses_post( $args['label'] . $required ); ?>
 						</label>
 						<?php

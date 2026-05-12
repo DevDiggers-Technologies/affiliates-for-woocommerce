@@ -54,8 +54,8 @@ function ddfw_namespace_class_autoload( $class ) {
 	} else {
 		wp_die(
 			/* translators: %1$s: class name, %2$s: file path */
-			sprintf( esc_html__( 'Autoloader error: The file for class %1$s was expected at path %2$s but was not found.', 'devdiggers-framework' ), esc_html( $class ), esc_html( $file ) ),
-			esc_html__( 'Autoloader Error', 'devdiggers-framework' )
+			sprintf( esc_html__( 'Autoloader error: The file for class %1$s was expected at path %2$s but was not found.', 'loyaltyx-points-and-rewards-for-woocommerce' ), esc_html( $class ), esc_html( $file ) ),
+			esc_html__( 'Autoloader Error', 'loyaltyx-points-and-rewards-for-woocommerce' )
 		);
 	}
 }

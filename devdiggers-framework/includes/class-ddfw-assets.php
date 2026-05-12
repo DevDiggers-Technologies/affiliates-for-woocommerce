@@ -78,10 +78,10 @@ if ( ! class_exists( 'DDFW_Assets' ) ) {
 							'ajaxNonce' => wp_create_nonce( 'ddfw-nonce' ),
 						],
 						'i18n' => [
-							'subscribing'         => esc_html__( 'Subscribing...', 'devdiggers-framework' ),
-							'subscribe'           => esc_html__( 'Subscribe', 'devdiggers-framework' ),
-							'subscriptionSuccess' => esc_html__( 'Thank you for subscribing!', 'devdiggers-framework' ),
-							'subscriptionError'   => esc_html__( 'An error occurred. Please try again.', 'devdiggers-framework' ),
+							'subscribing'         => esc_html__( 'Subscribing...', 'loyaltyx-points-and-rewards-for-woocommerce' ),
+							'subscribe'           => esc_html__( 'Subscribe', 'loyaltyx-points-and-rewards-for-woocommerce' ),
+							'subscriptionSuccess' => esc_html__( 'Thank you for subscribing!', 'loyaltyx-points-and-rewards-for-woocommerce' ),
+							'subscriptionError'   => esc_html__( 'An error occurred. Please try again.', 'loyaltyx-points-and-rewards-for-woocommerce' ),
 						],
 					]
 				);
@@ -99,12 +99,12 @@ if ( ! class_exists( 'DDFW_Assets' ) ) {
 						'ajaxNonce' => wp_create_nonce( 'ddfw-nonce' ),
 					],
 					'i18n' => [
-						'selectImage'         => esc_html__( 'Select Image', 'devdiggers-framework' ),
-						'useImage'            => esc_html__( 'Use Image', 'devdiggers-framework' ),
-						'pleaseEnter'         => esc_html__( 'Please enter', 'devdiggers-framework' ),
-						'moreCharacter'       => esc_html__( 'or more character', 'devdiggers-framework' ),
-						'noResult'            => esc_html__( 'No result Found', 'devdiggers-framework' ),
-						'deleteConfirm'       => esc_html__( 'Are you sure you want to delete?', 'devdiggers-framework' ),
+						'selectImage'         => esc_html__( 'Select Image', 'loyaltyx-points-and-rewards-for-woocommerce' ),
+						'useImage'            => esc_html__( 'Use Image', 'loyaltyx-points-and-rewards-for-woocommerce' ),
+						'pleaseEnter'         => esc_html__( 'Please enter', 'loyaltyx-points-and-rewards-for-woocommerce' ),
+						'moreCharacter'       => esc_html__( 'or more character', 'loyaltyx-points-and-rewards-for-woocommerce' ),
+						'noResult'            => esc_html__( 'No result Found', 'loyaltyx-points-and-rewards-for-woocommerce' ),
+						'deleteConfirm'       => esc_html__( 'Are you sure you want to delete?', 'loyaltyx-points-and-rewards-for-woocommerce' ),
 					],
 					'site_url'          => site_url(),
 					'devdiggers_plugin' => $devdiggers_plugin,

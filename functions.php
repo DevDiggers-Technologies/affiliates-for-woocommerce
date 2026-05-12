@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: Affiliates for WooCommerce
- * Description: <code><strong>Affiliates for WooCommerce</strong></code> is a plugin for the eCommerce platform that allows website owners to set up an affiliate program for their online store. The plugin allows affiliates to promote the store and earn a commission on sales made through their unique affiliate links.
- * Plugin URI: https://devdiggers.com/woocommerce-extensions/?utm_source=Affiliates for WooCommerce Plugin&utm_medium=Plugins List&utm_campaign=WooCommerce Extensions
+ * Description: Launch a complete WooCommerce affiliate program in minutes. Track referrals, automate commissions, and manage payouts — no SaaS fees.
+ * Plugin URI: https://devdiggers.com/product/woocommerce-affiliates/?utm_source=plugin_link&utm_medium=upgrade_button&utm_campaign=plugin_upgrade
  * Author: DevDiggers
  * Author URI: https://devdiggers.com/
- * Version: 2.0.3
+ * Version: 2.0.4
  * Text Domain: affiliates-for-woocommerce
  * Domain Path: /i18n
  * WC requires at least: 5.0.0

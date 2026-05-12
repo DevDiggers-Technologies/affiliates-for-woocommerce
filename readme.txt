@@ -9,7 +9,7 @@ Tested up to: 6.9.4
 Requires PHP: 7.4
 WC requires at least: 9.0.0
 WC tested up to: 10.7.0
-Stable tag: 2.0.3
+Stable tag: 2.0.4
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Tags: woocommerce affiliate, affiliate program, affiliate marketing, referral program, affiliate networking
@@ -267,8 +267,11 @@ Free version questions: post in the support forum here on WordPress.org. Full do
 
 == Changelog ==
 
+= 2.0.4 =
+* Resolve the license issue occured in the last update.
+
 = 2.0.3 =
-Resolved the compatibility issue of plugin with other themes.
+* Resolved the compatibility issue of plugin with other themes.
 
 = 2.0.2 =
 * Resolved the issue of plugin conflict with other DevDiggers plugins.
