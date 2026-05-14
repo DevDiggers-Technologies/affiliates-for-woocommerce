@@ -29,6 +29,8 @@ if ( ! class_exists( 'DDWCAF_Admin_Hooks' ) ) {
 
             // handle refunds.
 			add_action( 'woocommerce_refund_created', [ $this, 'ddwcaf_handle_refund_created' ] );
+
+            add_action( 'admin_notices', [ $this, 'ddwcaf_show_pro_upgrade_notice' ] );
         }
     }
 }
