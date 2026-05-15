@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: DevDiggers Framework 1.0.0\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/devdiggers-framework\n"
-"POT-Creation-Date: 2026-05-11 11:13:44+00:00\n"
+"POT-Creation-Date: 2026-05-15 12:35:56+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -36,20 +36,20 @@ msgstr ""
 msgid "Autoloader Error"
 msgstr ""
 
-#: devdiggers-framework/global-functions.php:181 global-functions.php:181
+#: devdiggers-framework/global-functions.php:182 global-functions.php:187
 msgid "PRO"
 msgstr ""
 
-#: devdiggers-framework/global-functions.php:285 global-functions.php:285
+#: devdiggers-framework/global-functions.php:286 global-functions.php:291
 #. translators: %s: Plugin Prefix
 msgid "License Deactivated for %s"
 msgstr ""
 
-#: devdiggers-framework/global-functions.php:291 global-functions.php:291
+#: devdiggers-framework/global-functions.php:292 global-functions.php:297
 msgid "License not found or deactivation failed"
 msgstr ""
 
-#: devdiggers-framework/global-functions.php:291 global-functions.php:291
+#: devdiggers-framework/global-functions.php:292 global-functions.php:297
 msgid "Deactivation Failed"
 msgstr ""
 
@@ -720,13 +720,13 @@ msgstr ""
 msgid "Step %1$s of %2$s"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/setup-wizard.php:81
-#: templates/layout/setup-wizard.php:81
+#: devdiggers-framework/templates/layout/setup-wizard.php:80
+#: templates/layout/setup-wizard.php:80
 msgid "Skip Setup"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/setup-wizard.php:90
-#: templates/layout/setup-wizard.php:90
+#: devdiggers-framework/templates/layout/setup-wizard.php:91
+#: templates/layout/setup-wizard.php:91
 msgid "Go Back"
 msgstr ""
 

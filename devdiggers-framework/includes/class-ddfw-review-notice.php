@@ -99,13 +99,13 @@ if ( ! class_exists( 'DDFW_Review_Notice' ) ) {
 				<p>
 					<?php
 					/* translators: %s: Plugin Name */
-					echo sprintf( esc_html__( 'Enjoying %s? We would love to hear your feedback! Could you take a moment to leave a review?', 'loyaltyx-points-and-rewards-for-woocommerce' ), '<strong>' . esc_html( $plugin_name ) . '</strong>' );
+					echo sprintf( esc_html__( 'Enjoying %s? We would love to hear your feedback! Could you take a moment to leave a review?', 'affiliates-for-woocommerce' ), '<strong>' . esc_html( $plugin_name ) . '</strong>' );
 					?>
 				</p>
 				<p>
-					<a href="<?php echo esc_url( $review_url ); ?>" class="button button-primary ddfw-review-notice-action" data-action="already-did" target="_blank"><?php esc_html_e( 'Leave a Review', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></a>
-					<button class="button button-secondary ddfw-review-notice-action" data-action="maybe-later"><?php esc_html_e( 'Maybe Later', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></button>
-					<button class="button button-link ddfw-review-notice-action" data-action="already-did"><?php esc_html_e( 'Already Did', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></button>
+					<a href="<?php echo esc_url( $review_url ); ?>" class="button button-primary ddfw-review-notice-action" data-action="already-did" target="_blank"><?php esc_html_e( 'Leave a Review', 'affiliates-for-woocommerce' ); ?></a>
+					<button class="button button-secondary ddfw-review-notice-action" data-action="maybe-later"><?php esc_html_e( 'Maybe Later', 'affiliates-for-woocommerce' ); ?></button>
+					<button class="button button-link ddfw-review-notice-action" data-action="already-did"><?php esc_html_e( 'Already Did', 'affiliates-for-woocommerce' ); ?></button>
 				</p>
 				<script>
 					( function() {

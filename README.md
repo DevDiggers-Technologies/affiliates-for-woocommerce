@@ -9,7 +9,7 @@
 
 **WooCommerce**
   * `Requires at least: 9.0.0`
-  * `Tested up to: 10.6.0`
+  * `Tested up to: 10.7.0`
 
 ## Description
 
@@ -105,10 +105,17 @@ For any Queries, kindly contact us at [DevDiggers](https://devdiggers.com/contac
 
 ## Changelog
 
-**2.0.3**
+**= 2.1.0 =**
+```
+Added the plugin setup wizard for a smoother onboarding experience.
+Updated the framework to make the plugin faster and more stable.
+General performance improvements and code cleanup.
+```
+
+**= 2.0.3 =**
 Resolved the compatibility issue of plugin with other themes.
 
-**2.0.2**
+**= 2.0.2 =**
 Resolved the issue of plugin conflict with other DevDiggers plugins.
 
 **2.0.1**

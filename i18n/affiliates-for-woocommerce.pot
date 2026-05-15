@@ -1,11 +1,11 @@
-# Copyright (C) 2026
-# This file is distributed under the same license as the  package.
+# Copyright (C) 2026 DevDiggers
+# This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: Affiliates for WooCommerce 2.1.0\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/affiliates-for-woocommerce\n"
-"POT-Creation-Date: 2026-05-12 08:40:34+00:00\n"
+"POT-Creation-Date: 2026-05-15 12:37:38+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -30,39 +30,43 @@ msgstr ""
 msgid "The file attempting to be loaded at %s does not exist."
 msgstr ""
 
-#: functions.php:87
+#: functions.php:88
 #. translators: %s for a opening tag and %s for a closing tag
 msgid ""
 "Affiliates for WooCommerce is activated but not effective. It requires "
 "%sWooCommerce Plugin%s in order to use its functionalities."
 msgstr ""
 
-#: functions.php:99 includes/admin-dashboard.php:77
+#. Plugin Name of the plugin/theme
 msgid "Affiliates for WooCommerce"
 msgstr ""
 
-#: functions.php:115 helper/affiliate/affiliate-helper.php:560
-#: includes/admin-dashboard.php:85
+#: functions.php:117 helper/affiliate/affiliate-helper.php:560
+#: includes/admin-dashboard.php:92
 msgid "Dashboard"
 msgstr ""
 
-#: functions.php:117 includes/admin-dashboard.php:135
+#: functions.php:119
+msgid "Setup Wizard"
+msgstr ""
+
+#: functions.php:121 includes/admin-dashboard.php:142
 msgid "Configuration"
 msgstr ""
 
-#: functions.php:119
+#: functions.php:123
 msgid "Upgrade to Pro"
 msgstr ""
 
-#: functions.php:136
+#: functions.php:140
 msgid "Support"
 msgstr ""
 
-#: functions.php:137
+#: functions.php:141
 msgid "Documentation"
 msgstr ""
 
-#: functions.php:138 includes/admin-dashboard.php:912
+#: functions.php:142 includes/admin-dashboard.php:919
 msgid "Review"
 msgstr ""
 
@@ -116,26 +120,27 @@ msgstr ""
 msgid "Terms and Conditions"
 msgstr ""
 
-#: helper/affiliate/affiliate-helper.php:564 includes/admin-dashboard.php:95
-#: includes/admin-dashboard.php:157 includes/admin-dashboard.php:377
+#: helper/affiliate/affiliate-helper.php:564 includes/admin/setup-wizard.php:75
+#: includes/admin-dashboard.php:102 includes/admin-dashboard.php:164
+#: includes/admin-dashboard.php:384
 #: templates/admin/dashboard/dashboard-template.php:182
 msgid "Commissions"
 msgstr ""
 
-#: helper/affiliate/affiliate-helper.php:568 includes/admin-dashboard.php:100
-#: includes/admin-dashboard.php:166 includes/admin-dashboard.php:447
+#: helper/affiliate/affiliate-helper.php:568 includes/admin-dashboard.php:107
+#: includes/admin-dashboard.php:173 includes/admin-dashboard.php:454
 msgid "Payouts"
 msgstr ""
 
-#: helper/affiliate/affiliate-helper.php:572 includes/admin-dashboard.php:110
-#: includes/admin-dashboard.php:531
+#: helper/affiliate/affiliate-helper.php:572 includes/admin-dashboard.php:117
+#: includes/admin-dashboard.php:538
 #: templates/admin/affiliates/manage-affiliate-template.php:120
 #: templates/admin/dashboard/dashboard-template.php:81
 msgid "Visits"
 msgstr ""
 
-#: helper/affiliate/affiliate-helper.php:576 includes/admin-dashboard.php:105
-#: includes/admin-dashboard.php:498
+#: helper/affiliate/affiliate-helper.php:576 includes/admin-dashboard.php:112
+#: includes/admin-dashboard.php:505
 msgid "Top Products"
 msgstr ""
 
@@ -194,8 +199,8 @@ msgstr ""
 
 #: helper/affiliate/affiliate-helper.php:796
 #: helper/commission/commission-helper.php:485
-#: helper/payout/payout-helper.php:405 includes/admin-dashboard.php:367
-#: includes/admin-dashboard.php:440
+#: helper/payout/payout-helper.php:405 includes/admin-dashboard.php:374
+#: includes/admin-dashboard.php:447
 #: templates/admin/affiliates/affiliates-list-template.php:464
 #: templates/admin/configuration/general-configuration-template.php:31
 #: templates/front/affiliate-dashboard/commissions-section.php:42
@@ -294,30 +299,30 @@ msgstr ""
 msgid "%s to %s"
 msgstr ""
 
-#: helper/commission/commission-helper.php:486 includes/admin-dashboard.php:368
+#: helper/commission/commission-helper.php:486 includes/admin-dashboard.php:375
 #: templates/front/affiliate-dashboard/commissions-section.php:43
 msgid "Pending Payment"
 msgstr ""
 
-#: helper/commission/commission-helper.php:487 includes/admin-dashboard.php:369
+#: helper/commission/commission-helper.php:487 includes/admin-dashboard.php:376
 #: templates/front/affiliate-dashboard/commissions-section.php:44
 msgid "Paid"
 msgstr ""
 
-#: helper/commission/commission-helper.php:488 includes/admin-dashboard.php:370
+#: helper/commission/commission-helper.php:488 includes/admin-dashboard.php:377
 #: templates/front/affiliate-dashboard/commissions-section.php:45
 msgid "Not Confirmed"
 msgstr ""
 
 #: helper/commission/commission-helper.php:489
-#: helper/payout/payout-helper.php:407 includes/admin-dashboard.php:371
-#: includes/admin-dashboard.php:442
+#: helper/payout/payout-helper.php:407 includes/admin-dashboard.php:378
+#: includes/admin-dashboard.php:449
 #: templates/front/affiliate-dashboard/commissions-section.php:46
 #: templates/front/affiliate-dashboard/payouts-section.php:44
 msgid "Cancelled"
 msgstr ""
 
-#: helper/commission/commission-helper.php:490 includes/admin-dashboard.php:372
+#: helper/commission/commission-helper.php:490 includes/admin-dashboard.php:379
 #: templates/front/affiliate-dashboard/commissions-section.php:47
 msgid "Refunded"
 msgstr ""
@@ -330,7 +335,7 @@ msgstr ""
 msgid "No products yet."
 msgstr ""
 
-#: helper/payout/payout-helper.php:406 includes/admin-dashboard.php:441
+#: helper/payout/payout-helper.php:406 includes/admin-dashboard.php:448
 #: templates/front/affiliate-dashboard/payouts-section.php:43
 msgid "Completed"
 msgstr ""
@@ -365,370 +370,508 @@ msgstr ""
 msgid "Security check failed!"
 msgstr ""
 
-#: includes/admin-dashboard.php:72 includes/admin-dashboard.php:78
-#: includes/admin-dashboard.php:90 includes/admin-dashboard.php:328
+#: includes/admin/admin-functions.php:227
+#. translators: %1$s: opening strong tag, %2$s: closing strong tag, %3$s:
+#. opening anchor tag, %4$s: closing anchor tag
+msgid ""
+"Want to take your affiliate program to the next level? %1$sUpgrade to "
+"Affiliates for WooCommerce Pro%2$s now to unlock advanced features like "
+"Tier-Based Commission, Product-wise Commission, Advanced Reports, and more! "
+"%3$sGet Pro Version &gt;%4$s"
+msgstr ""
+
+#: includes/admin/setup-wizard.php:44 includes/admin-dashboard.php:79
+#: includes/admin-dashboard.php:85 includes/admin-dashboard.php:97
+#: includes/admin-dashboard.php:335
 msgid "Affiliates"
 msgstr ""
 
-#: includes/admin-dashboard.php:115
+#: includes/admin/setup-wizard.php:45
+msgid ""
+"Welcome to Affiliates for WooCommerce! Let's quickly set up your affiliate "
+"network so you can start growing your sales."
+msgstr ""
+
+#: includes/admin/setup-wizard.php:57
+msgid "Welcome"
+msgstr ""
+
+#: includes/admin/setup-wizard.php:61
+#: templates/admin/configuration/general-configuration-template.php:49
+msgid "General Settings"
+msgstr ""
+
+#: includes/admin/setup-wizard.php:62
+msgid "Basic Configuration"
+msgstr ""
+
+#: includes/admin/setup-wizard.php:63
+msgid "Start by enabling the affiliate system and defining your base settings."
+msgstr ""
+
+#: includes/admin/setup-wizard.php:68
+msgid "Referral Settings"
+msgstr ""
+
+#: includes/admin/setup-wizard.php:69
+msgid "Referral Tracking"
+msgstr ""
+
+#: includes/admin/setup-wizard.php:70
+msgid "Define how referrals are tracked and how long the cookies should last."
+msgstr ""
+
+#: includes/admin/setup-wizard.php:76
+msgid "Commission Rates"
+msgstr ""
+
+#: includes/admin/setup-wizard.php:77
+msgid "Set the default commission structure for your affiliates."
+msgstr ""
+
+#: includes/admin/setup-wizard.php:82
+msgid "Ready!"
+msgstr ""
+
+#: includes/admin/setup-wizard.php:83
+msgid "Congratulations! Your affiliate network is ready."
+msgstr ""
+
+#: includes/admin/setup-wizard.php:84
+msgid ""
+"You can always adjust these settings and configure more advanced rules from "
+"the plugin dashboard."
+msgstr ""
+
+#: includes/admin/setup-wizard.php:108
+msgid "Welcome to Affiliates for WooCommerce!"
+msgstr ""
+
+#: includes/admin/setup-wizard.php:110
+msgid ""
+"Supercharge your sales with a professional affiliate network. Let's quickly "
+"set up the core features so you can start recruiting partners and growing "
+"your sales."
+msgstr ""
+
+#: includes/admin/setup-wizard.php:139
+#: templates/admin/configuration/general-configuration-template.php:55
+msgid "Enable Affiliate System"
+msgstr ""
+
+#: includes/admin/setup-wizard.php:143
+#: templates/admin/configuration/general-configuration-template.php:58
+msgid "Toggle the entire affiliate system on or off."
+msgstr ""
+
+#: includes/admin/setup-wizard.php:147
+#: templates/admin/configuration/general-configuration-template.php:87
+msgid "Affiliate Dashboard Page"
+msgstr ""
+
+#: includes/admin/setup-wizard.php:152
+#: templates/admin/configuration/general-configuration-template.php:91
+msgid "Select the page that will be used as the affiliate dashboard."
+msgstr ""
+
+#: includes/admin/setup-wizard.php:180
+#: templates/admin/configuration/referrals-configuration-template.php:35
+msgid "URL Parameter"
+msgstr ""
+
+#: includes/admin/setup-wizard.php:184
+#: templates/admin/configuration/referrals-configuration-template.php:38
+msgid "Default: ref"
+msgstr ""
+
+#: includes/admin/setup-wizard.php:185
+#: templates/admin/configuration/referrals-configuration-template.php:39
+msgid "The query string used to identify a referral (e.g., %s?ref=123)."
+msgstr ""
+
+#: includes/admin/setup-wizard.php:189
+#: templates/admin/configuration/referrals-configuration-template.php:83
+msgid "Cookie Life (Days)"
+msgstr ""
+
+#: includes/admin/setup-wizard.php:193
+#: templates/admin/configuration/referrals-configuration-template.php:86
+msgid ""
+"How long the tracking cookie remains active. Leave empty for session-only "
+"tracking."
+msgstr ""
+
+#: includes/admin/setup-wizard.php:221
+#: templates/admin/configuration/commissions-configuration-template.php:46
+msgid "Default Commission (%)"
+msgstr ""
+
+#: includes/admin/setup-wizard.php:226
+#: templates/admin/configuration/commissions-configuration-template.php:50
+msgid ""
+"The default percentage awarded for successful referrals. This can be "
+"overridden by specific rules or per-affiliate settings."
+msgstr ""
+
+#: includes/admin-dashboard.php:122
 msgid "Reports"
 msgstr ""
 
-#: includes/admin-dashboard.php:120
+#: includes/admin-dashboard.php:127
 msgid "Rules"
 msgstr ""
 
-#: includes/admin-dashboard.php:125
+#: includes/admin-dashboard.php:132
 msgid "Registration Fields"
 msgstr ""
 
-#: includes/admin-dashboard.php:130
+#: includes/admin-dashboard.php:137
 msgid "Creatives"
 msgstr ""
 
-#: includes/admin-dashboard.php:139
+#: includes/admin-dashboard.php:146
 msgid "General"
 msgstr ""
 
-#: includes/admin-dashboard.php:148
+#: includes/admin-dashboard.php:155
 msgid "Referrals"
 msgstr ""
 
-#: includes/admin-dashboard.php:175
+#: includes/admin-dashboard.php:182
 msgid "Shortcodes"
 msgstr ""
 
-#: includes/admin-dashboard.php:184
+#: includes/admin-dashboard.php:191
 msgid "Social Promotion"
 msgstr ""
 
-#: includes/admin-dashboard.php:193
+#: includes/admin-dashboard.php:200
 msgid "Emails"
 msgstr ""
 
-#: includes/admin-dashboard.php:202
+#: includes/admin-dashboard.php:209
 msgid "Endpoints"
 msgstr ""
 
-#: includes/admin-dashboard.php:211
+#: includes/admin-dashboard.php:218
 msgid "Layout"
 msgstr ""
 
-#: includes/admin-dashboard.php:246
+#: includes/admin-dashboard.php:253
 msgid "Affiliates Per Page"
 msgstr ""
 
-#: includes/admin-dashboard.php:251
+#: includes/admin-dashboard.php:258
 msgid "Commissions Per Page"
 msgstr ""
 
-#: includes/admin-dashboard.php:256
+#: includes/admin-dashboard.php:263
 msgid "Payouts Per Page"
 msgstr ""
 
-#: includes/admin-dashboard.php:261
+#: includes/admin-dashboard.php:268
 msgid "Top Products Per Page"
 msgstr ""
 
-#: includes/admin-dashboard.php:266
+#: includes/admin-dashboard.php:273
 msgid "Visits Per Page"
 msgstr ""
 
-#: includes/admin-dashboard.php:271
+#: includes/admin-dashboard.php:278
 msgid "Registration Fields Per Page"
 msgstr ""
 
-#: includes/admin-dashboard.php:300
+#: includes/admin-dashboard.php:307
 msgid "Advanced Affiliate Analytics"
 msgstr ""
 
-#: includes/admin-dashboard.php:301
+#: includes/admin-dashboard.php:308
 msgid ""
 "Get deep insights into your affiliate program performance with "
 "comprehensive reports and real-time data visualization."
 msgstr ""
 
-#: includes/admin-dashboard.php:303
+#: includes/admin-dashboard.php:310
 msgid "Detailed Revenue and Commission Overviews"
 msgstr ""
 
-#: includes/admin-dashboard.php:304
+#: includes/admin-dashboard.php:311
 msgid "Top Performing Affiliates and Products Tracking"
 msgstr ""
 
-#: includes/admin-dashboard.php:305
+#: includes/admin-dashboard.php:312
 msgid "Visit and Conversion Rate Analysis"
 msgstr ""
 
-#: includes/admin-dashboard.php:306
+#: includes/admin-dashboard.php:313
 msgid "Custom Date Range Filtering"
 msgstr ""
 
-#: includes/admin-dashboard.php:323
+#: includes/admin-dashboard.php:330
 msgid "Affiliate saved successfully."
 msgstr ""
 
-#: includes/admin-dashboard.php:336 includes/admin-dashboard.php:639
+#: includes/admin-dashboard.php:343 includes/admin-dashboard.php:646
 msgid "Add New"
 msgstr ""
 
-#: includes/admin-dashboard.php:348 includes/admin-dashboard.php:655
+#: includes/admin-dashboard.php:355 includes/admin-dashboard.php:662
 msgid "Search"
 msgstr ""
 
-#: includes/admin-dashboard.php:366 includes/admin-dashboard.php:439
-#: includes/admin-dashboard.php:524
+#: includes/admin-dashboard.php:373 includes/admin-dashboard.php:446
+#: includes/admin-dashboard.php:531
 #: templates/front/affiliate-dashboard/commissions-section.php:41
 #: templates/front/affiliate-dashboard/payouts-section.php:41
 #: templates/front/affiliate-dashboard/visits-section.php:42
 msgid "All"
 msgstr ""
 
-#: includes/admin-dashboard.php:401 includes/admin-dashboard.php:482
-#: includes/admin-dashboard.php:555
+#: includes/admin-dashboard.php:408 includes/admin-dashboard.php:489
+#: includes/admin-dashboard.php:562
 msgid "Search by ID"
 msgstr ""
 
-#: includes/admin-dashboard.php:421
+#: includes/admin-dashboard.php:428
 msgid "Advanced Payout Wizard"
 msgstr ""
 
-#: includes/admin-dashboard.php:422
+#: includes/admin-dashboard.php:429
 msgid ""
 "Streamline your payout process with a powerful, step-by-step wizard "
 "designed for efficiency and accuracy."
 msgstr ""
 
-#: includes/admin-dashboard.php:424
+#: includes/admin-dashboard.php:431
 msgid "Fast and Efficient Bulk Payout Creation"
 msgstr ""
 
-#: includes/admin-dashboard.php:425
+#: includes/admin-dashboard.php:432
 msgid "Filter Commissions by Custom Date Ranges"
 msgstr ""
 
-#: includes/admin-dashboard.php:426
+#: includes/admin-dashboard.php:433
 msgid "Support for Multiple Payment References"
 msgstr ""
 
-#: includes/admin-dashboard.php:427
+#: includes/admin-dashboard.php:434
 msgid "Real-time Payout Processing with Progress Bar"
 msgstr ""
 
-#: includes/admin-dashboard.php:428
+#: includes/admin-dashboard.php:435
 msgid "Automated Affiliate Selection for Pending Commissions"
 msgstr ""
 
-#: includes/admin-dashboard.php:429
+#: includes/admin-dashboard.php:436
 msgid "Detailed Payout Success and Error Reports"
 msgstr ""
 
-#: includes/admin-dashboard.php:456
+#: includes/admin-dashboard.php:463
 msgid "Create"
 msgstr ""
 
-#: includes/admin-dashboard.php:525
+#: includes/admin-dashboard.php:532
 #: templates/front/affiliate-dashboard/visits-section.php:43
 msgid "Converted"
 msgstr ""
 
-#: includes/admin-dashboard.php:526
+#: includes/admin-dashboard.php:533
 #: templates/front/affiliate-dashboard/visits-section.php:44
 msgid "Not Converted"
 msgstr ""
 
-#: includes/admin-dashboard.php:571
+#: includes/admin-dashboard.php:578
 msgid "Smart Commission Rules"
 msgstr ""
 
-#: includes/admin-dashboard.php:572
+#: includes/admin-dashboard.php:579
 msgid ""
 "Automate your commission structures with advanced rules based on products, "
 "categories, or user roles."
 msgstr ""
 
-#: includes/admin-dashboard.php:574
+#: includes/admin-dashboard.php:581
 msgid "Product-Specific Commission Rates"
 msgstr ""
 
-#: includes/admin-dashboard.php:575
+#: includes/admin-dashboard.php:582
 msgid "Category-Based Commission Logic"
 msgstr ""
 
-#: includes/admin-dashboard.php:576
+#: includes/admin-dashboard.php:583
 msgid "User Role Based Commission Overrides"
 msgstr ""
 
-#: includes/admin-dashboard.php:577
+#: includes/admin-dashboard.php:584
 msgid "Tiered & Multi-Level Commission Support"
 msgstr ""
 
-#: includes/admin-dashboard.php:594
+#: includes/admin-dashboard.php:601
 msgid "Custom Registration Fields"
 msgstr ""
 
-#: includes/admin-dashboard.php:595
+#: includes/admin-dashboard.php:602
 msgid ""
 "Gather specific data from your affiliates with a fully customizable "
 "registration form."
 msgstr ""
 
-#: includes/admin-dashboard.php:597
+#: includes/admin-dashboard.php:604
 msgid "Multiple Field Types (Text, Select, Checkbox, etc.)"
 msgstr ""
 
-#: includes/admin-dashboard.php:598
+#: includes/admin-dashboard.php:605
 msgid "Mandatory & Optional Field Controls"
 msgstr ""
 
-#: includes/admin-dashboard.php:599
+#: includes/admin-dashboard.php:606
 msgid "User Meta Integration"
 msgstr ""
 
-#: includes/admin-dashboard.php:600
+#: includes/admin-dashboard.php:607
 msgid "Custom Labeling and Tooltips"
 msgstr ""
 
-#: includes/admin-dashboard.php:607
+#: includes/admin-dashboard.php:614
 msgid "Field saved successfully."
 msgstr ""
 
-#: includes/admin-dashboard.php:611
+#: includes/admin-dashboard.php:618
 msgid "Registration fields are reset to default now."
 msgstr ""
 
-#: includes/admin-dashboard.php:621
+#: includes/admin-dashboard.php:628
 msgid "How to Show the Form?"
 msgstr ""
 
-#: includes/admin-dashboard.php:622
+#: includes/admin-dashboard.php:629
 msgid ""
 "To show this form anywhere on the front end, use this shortcode %s. Also, "
 "registration form will get displayed on the affiliate dashboard page as "
 "well."
 msgstr ""
 
-#: includes/admin-dashboard.php:631
+#: includes/admin-dashboard.php:638
 msgid "Affiliates Registration Fields"
 msgstr ""
 
-#: includes/admin-dashboard.php:645
+#: includes/admin-dashboard.php:652
 msgid "Restore Defaults"
 msgstr ""
 
-#: includes/admin-dashboard.php:670
+#: includes/admin-dashboard.php:677
 msgid "Marketing Assets for Affiliates"
 msgstr ""
 
-#: includes/admin-dashboard.php:671
+#: includes/admin-dashboard.php:678
 msgid ""
 "Provide your affiliates with professional banners and text links to improve "
 "their marketing efforts."
 msgstr ""
 
-#: includes/admin-dashboard.php:673
+#: includes/admin-dashboard.php:680
 msgid "Visual Banner Ads Management"
 msgstr ""
 
-#: includes/admin-dashboard.php:674
+#: includes/admin-dashboard.php:681
 msgid "Custom Text Link Distribution"
 msgstr ""
 
-#: includes/admin-dashboard.php:675
+#: includes/admin-dashboard.php:682
 msgid "Easy Copy-to-Clipboard Links"
 msgstr ""
 
-#: includes/admin-dashboard.php:676
+#: includes/admin-dashboard.php:683
 msgid "Organized Asset Categories"
 msgstr ""
 
-#: includes/admin-dashboard.php:710
+#: includes/admin-dashboard.php:717
 msgid "Social Media Sharing"
 msgstr ""
 
-#: includes/admin-dashboard.php:711
+#: includes/admin-dashboard.php:718
 msgid ""
 "Enable affiliates to share their referral links across major social "
 "networks with a single click."
 msgstr ""
 
-#: includes/admin-dashboard.php:713
+#: includes/admin-dashboard.php:720
 msgid "Facebook, Twitter/X, WhatsApp and Various Social Networks Support"
 msgstr ""
 
-#: includes/admin-dashboard.php:714
+#: includes/admin-dashboard.php:721
 msgid "Custom Share Titles and Content"
 msgstr ""
 
-#: includes/admin-dashboard.php:715
+#: includes/admin-dashboard.php:722
 msgid "Social Media Preview Optimization"
 msgstr ""
 
-#: includes/admin-dashboard.php:716
+#: includes/admin-dashboard.php:723
 msgid "Pinterest Image Integration"
 msgstr ""
 
-#: includes/admin-dashboard.php:759
+#: includes/admin-dashboard.php:766
 msgid "Affiliate Email Notifications"
 msgstr ""
 
-#: includes/admin-dashboard.php:760
+#: includes/admin-dashboard.php:767
 msgid ""
 "Keep your affiliates informed with automated emails for registration, "
 "approvals, and commission updates."
 msgstr ""
 
-#: includes/admin-dashboard.php:762
+#: includes/admin-dashboard.php:769
 msgid "Fully Customizable Email Templates"
 msgstr ""
 
-#: includes/admin-dashboard.php:763
+#: includes/admin-dashboard.php:770
 msgid "Support for Multiple Event Triggers"
 msgstr ""
 
-#: includes/admin-dashboard.php:764
+#: includes/admin-dashboard.php:771
 msgid "Dynamic Placeholders for Personalization"
 msgstr ""
 
-#: includes/admin-dashboard.php:765
+#: includes/admin-dashboard.php:772
 msgid "Admin and Affiliate Specific Notifications"
 msgstr ""
 
-#: includes/admin-dashboard.php:781
+#: includes/admin-dashboard.php:788
 msgid "Customizable Affiliate Dashboard Endpoints"
 msgstr ""
 
-#: includes/admin-dashboard.php:782
+#: includes/admin-dashboard.php:789
 msgid ""
 "Customize your affiliate dashboard structure by defining unique URL "
 "endpoints for each section."
 msgstr ""
 
-#: includes/admin-dashboard.php:784
+#: includes/admin-dashboard.php:791
 msgid "Custom Slug Names for All Dashboard Tabs"
 msgstr ""
 
-#: includes/admin-dashboard.php:785
+#: includes/admin-dashboard.php:792
 msgid "Enable/Disable Specific Dashboard Sections"
 msgstr ""
 
-#: includes/admin-dashboard.php:786
+#: includes/admin-dashboard.php:793
 msgid "Unique Page Title Customization"
 msgstr ""
 
-#: includes/admin-dashboard.php:787
+#: includes/admin-dashboard.php:794
 msgid "Seamless Integration with WooCommerce Endpoints"
 msgstr ""
 
-#: includes/admin-dashboard.php:788
+#: includes/admin-dashboard.php:795
 msgid "SEO-Friendly Affiliate Link Structure"
 msgstr ""
 
-#: includes/admin-dashboard.php:857 includes/admin-dashboard.php:877
+#: includes/admin-dashboard.php:864 includes/admin-dashboard.php:884
 msgid "You need to select affiliates first!!"
 msgstr ""
 
-#: includes/admin-dashboard.php:912
+#: includes/admin-dashboard.php:919
 #. translators: %s for a tag
 msgid ""
 "If you really like our plugin, please leave us a %s rating, we'll really "
@@ -1371,16 +1514,6 @@ msgid ""
 "their own referral links or coupons."
 msgstr ""
 
-#: templates/admin/configuration/commissions-configuration-template.php:46
-msgid "Default Commission (%)"
-msgstr ""
-
-#: templates/admin/configuration/commissions-configuration-template.php:50
-msgid ""
-"The default percentage awarded for successful referrals. This can be "
-"overridden by specific rules or per-affiliate settings."
-msgstr ""
-
 #: templates/admin/configuration/commissions-configuration-template.php:54
 msgid "Excluded Products [Pro]"
 msgstr ""
@@ -1467,20 +1600,8 @@ msgstr ""
 msgid "Add Row"
 msgstr ""
 
-#: templates/admin/configuration/general-configuration-template.php:49
-msgid "General Settings"
-msgstr ""
-
 #: templates/admin/configuration/general-configuration-template.php:50
 msgid "Manage general settings of the plugin."
-msgstr ""
-
-#: templates/admin/configuration/general-configuration-template.php:55
-msgid "Enable Affiliate System"
-msgstr ""
-
-#: templates/admin/configuration/general-configuration-template.php:58
-msgid "Toggle the entire affiliate system on or off."
 msgstr ""
 
 #: templates/admin/configuration/general-configuration-template.php:62
@@ -1509,14 +1630,6 @@ msgstr ""
 msgid ""
 "Display affiliate registration fields on the standard WooCommerce "
 "registration page."
-msgstr ""
-
-#: templates/admin/configuration/general-configuration-template.php:87
-msgid "Affiliate Dashboard Page"
-msgstr ""
-
-#: templates/admin/configuration/general-configuration-template.php:91
-msgid "Select the page that will be used as the affiliate dashboard."
 msgstr ""
 
 #: templates/admin/configuration/general-configuration-template.php:95
@@ -1856,18 +1969,6 @@ msgid ""
 "variables and set the default token format for your affiliates."
 msgstr ""
 
-#: templates/admin/configuration/referrals-configuration-template.php:35
-msgid "URL Parameter"
-msgstr ""
-
-#: templates/admin/configuration/referrals-configuration-template.php:38
-msgid "Default: ref"
-msgstr ""
-
-#: templates/admin/configuration/referrals-configuration-template.php:39
-msgid "The query string used to identify a referral (e.g., %s?ref=123)."
-msgstr ""
-
 #: templates/admin/configuration/referrals-configuration-template.php:43
 msgid "Default Referral Token [Pro]"
 msgstr ""
@@ -1921,16 +2022,6 @@ msgstr ""
 msgid ""
 "Warning: if you change this setting, all cookies created previously will no "
 "longer be valid."
-msgstr ""
-
-#: templates/admin/configuration/referrals-configuration-template.php:83
-msgid "Cookie Life (Days)"
-msgstr ""
-
-#: templates/admin/configuration/referrals-configuration-template.php:86
-msgid ""
-"How long the tracking cookie remains active. Leave empty for session-only "
-"tracking."
 msgstr ""
 
 #: templates/admin/configuration/referrals-configuration-template.php:90
@@ -2575,7 +2666,27 @@ msgstr ""
 msgid "A link to set a new password will be sent to your email address."
 msgstr ""
 
-#: includes/install.php:131
+#. Plugin URI of the plugin/theme
+msgid ""
+"https://devdiggers.com/product/woocommerce-affiliates/?utm_source=plugin_"
+"link&utm_medium=upgrade_button&utm_campaign=plugin_upgrade"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Launch a complete WooCommerce affiliate program in minutes. Track "
+"referrals, automate commissions, and manage payouts — no SaaS fees."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "DevDiggers"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://devdiggers.com/"
+msgstr ""
+
+#: includes/install.php:134
 msgctxt "[GLOBAL] Dashboard page title"
 msgid "Affiliate Dashboard"
 msgstr ""

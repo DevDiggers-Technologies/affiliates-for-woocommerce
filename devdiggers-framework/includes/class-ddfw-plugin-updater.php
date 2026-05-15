@@ -243,8 +243,8 @@ if ( ! class_exists( 'DDFW_Plugin_Updater' ) ) {
 			// If no download URL (expired license), add a notice to the description.
 			if ( empty( $update_data['download_url'] ) ) {
 				$license_notice = '<div style="background: #fff3cd; border: 1px solid #ffc107; border-radius: 4px; padding: 12px 16px; margin-bottom: 16px;">';
-				$license_notice .= '<strong style="color: #856404;">' . esc_html__( 'License Required', 'loyaltyx-points-and-rewards-for-woocommerce' ) . '</strong><br>';
-				$license_notice .= esc_html__( 'A valid license key is required to install this update. Please activate or renew your license at ', 'loyaltyx-points-and-rewards-for-woocommerce' );
+				$license_notice .= '<strong style="color: #856404;">' . esc_html__( 'License Required', 'affiliates-for-woocommerce' ) . '</strong><br>';
+				$license_notice .= esc_html__( 'A valid license key is required to install this update. Please activate or renew your license at ', 'affiliates-for-woocommerce' );
 				$license_notice .= '<a href="https://devdiggers.com" target="_blank">devdiggers.com</a>.';
 				$license_notice .= '</div>';
 
@@ -292,9 +292,9 @@ if ( ! class_exists( 'DDFW_Plugin_Updater' ) ) {
 			if ( ! empty( $update_data ) && empty( $update_data['download_url'] ) ) {
 				printf(
 					'&nbsp;<span style="color: #dc3232; font-weight: 600;">%s</span> <a href="%s" target="_blank">%s</a>',
-					esc_html__( 'A valid license is required to install this update.', 'loyaltyx-points-and-rewards-for-woocommerce' ),
+					esc_html__( 'A valid license is required to install this update.', 'affiliates-for-woocommerce' ),
 					esc_url( 'https://devdiggers.com' ),
-					esc_html__( 'Renew your license', 'loyaltyx-points-and-rewards-for-woocommerce' )
+					esc_html__( 'Renew your license', 'affiliates-for-woocommerce' )
 				);
 			}
 		}

@@ -30,16 +30,16 @@ $show_form = isset( $args['show_form'] ) ? $args['show_form'] : true;
 				</svg>
 			</div>
 			<div class="ddfw-license-input-title">
-				<h3><?php esc_html_e( 'License Activation', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></h3>
-				<p><?php echo esc_html__( "Enter your license key and email to activate your plugin. You'll not be able to use the plugin until you activate the license.", 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></p>
+				<h3><?php esc_html_e( 'License Activation', 'affiliates-for-woocommerce' ); ?></h3>
+				<p><?php echo esc_html__( "Enter your license key and email to activate your plugin. You'll not be able to use the plugin until you activate the license.", 'affiliates-for-woocommerce' ); ?></p>
 			</div>
 		</div>
 		<div class="ddfw-license-input-section <?php echo esc_attr( ! empty( $license_activated ) ? 'ddfw-hide' : '' ); ?>">
 			<div class="ddfw-license-input-fields">
 				<div class="ddfw-license-field-group">
 					<label for="ddfw-purchase-code" class="ddfw-license-field-label">
-						<?php esc_html_e( 'License Key', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?>
-						<abbr title="<?php esc_html_e( 'Required', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?>" class="required">*</abbr>
+						<?php esc_html_e( 'License Key', 'affiliates-for-woocommerce' ); ?>
+						<abbr title="<?php esc_html_e( 'Required', 'affiliates-for-woocommerce' ); ?>" class="required">*</abbr>
 					</label>
 					<div class="ddfw-license-input-wrapper">
 						<input type="text" 
@@ -47,7 +47,7 @@ $show_form = isset( $args['show_form'] ) ? $args['show_form'] : true;
 							class="regular-text ddfw-license-input" 
 							id="ddfw-purchase-code" 
 							value="<?php echo esc_attr( $purchase_code ); ?>" 
-							placeholder="<?php esc_attr_e( 'Enter your license key', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?>" 
+							placeholder="<?php esc_attr_e( 'Enter your license key', 'affiliates-for-woocommerce' ); ?>" 
 							required />
 						<div class="ddfw-license-input-icon-right">
 							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -57,16 +57,16 @@ $show_form = isset( $args['show_form'] ) ? $args['show_form'] : true;
 					</div>
 					<p class="ddfw-license-field-description">
 						<i>
-							<?php esc_html_e( 'Enter the license key you received after purchase.', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?>
-							<a href="<?php echo esc_url( '//devdiggers.com/license-activation/' ); ?>" target="__blank"><?php esc_html_e( 'How to find your license key?', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></a>
+							<?php esc_html_e( 'Enter the license key you received after purchase.', 'affiliates-for-woocommerce' ); ?>
+							<a href="<?php echo esc_url( '//devdiggers.com/license-activation/' ); ?>" target="__blank"><?php esc_html_e( 'How to find your license key?', 'affiliates-for-woocommerce' ); ?></a>
 						</i>
 					</p>
 				</div>
 
 				<div class="ddfw-license-field-group">
 					<label for="ddfw-purchase-email" class="ddfw-license-field-label">
-						<?php esc_html_e( 'Purchase Email', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?>
-						<abbr title="<?php esc_html_e( 'Required', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?>" class="required">*</abbr>
+						<?php esc_html_e( 'Purchase Email', 'affiliates-for-woocommerce' ); ?>
+						<abbr title="<?php esc_html_e( 'Required', 'affiliates-for-woocommerce' ); ?>" class="required">*</abbr>
 					</label>
 					<div class="ddfw-license-input-wrapper">
 						<input type="email" 
@@ -74,7 +74,7 @@ $show_form = isset( $args['show_form'] ) ? $args['show_form'] : true;
 							class="regular-text ddfw-license-input" 
 							id="ddfw-purchase-email" 
 							value="<?php echo esc_attr( $purchase_email ); ?>" 
-							placeholder="<?php esc_attr_e( 'Enter your purchase email', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?>" 
+							placeholder="<?php esc_attr_e( 'Enter your purchase email', 'affiliates-for-woocommerce' ); ?>" 
 							required />
 						<div class="ddfw-license-input-icon-right">
 							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -85,14 +85,14 @@ $show_form = isset( $args['show_form'] ) ? $args['show_form'] : true;
 					</div>
 					<p class="ddfw-license-field-description">
 						<i>
-							<?php esc_html_e( 'Enter the email address used for the purchase.', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?>
+							<?php esc_html_e( 'Enter the email address used for the purchase.', 'affiliates-for-woocommerce' ); ?>
 						</i>
 					</p>
 				</div>
 			</div>
 
 			<div class="ddfw-license-input-actions">
-				<button class="button button-primary ddfw-verify-license" data-action="activate" data-prefix="<?php echo esc_attr( $prefix ); ?>" data-product-id="<?php echo esc_attr( $product_id ); ?>" data-fetching="<?php esc_attr_e( 'Activating...', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?>">
+				<button class="button button-primary ddfw-verify-license" data-action="activate" data-prefix="<?php echo esc_attr( $prefix ); ?>" data-product-id="<?php echo esc_attr( $product_id ); ?>" data-fetching="<?php esc_attr_e( 'Activating...', 'affiliates-for-woocommerce' ); ?>">
 					<?php
 					DDFW_SVG::get_svg_icon(
 						'circle-check',
@@ -100,7 +100,7 @@ $show_form = isset( $args['show_form'] ) ? $args['show_form'] : true;
 						[ 'size' => 15 ]
 					);
 					?>
-					<?php esc_html_e( 'Activate License', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?>
+					<?php esc_html_e( 'Activate License', 'affiliates-for-woocommerce' ); ?>
 				</button>
 			</div>
 		</div>
@@ -116,11 +116,11 @@ $show_form = isset( $args['show_form'] ) ? $args['show_form'] : true;
 				</svg>
 			</div>
 			<div class="ddfw-license-status-content">
-				<h3><?php esc_html_e( 'License Active', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></h3>
-				<p><?php esc_html_e( 'Your license is active and you can enjoy all premium features.', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></p>
+				<h3><?php esc_html_e( 'License Active', 'affiliates-for-woocommerce' ); ?></h3>
+				<p><?php esc_html_e( 'Your license is active and you can enjoy all premium features.', 'affiliates-for-woocommerce' ); ?></p>
 			</div>
 			<div class="ddfw-license-status-actions">
-				<button class="button button-red ddfw-verify-license" data-action="deactivate" data-prefix="<?php echo esc_attr( $prefix ); ?>" data-product-id="<?php echo esc_attr( $product_id ); ?>" data-fetching="<?php esc_attr_e( 'Deactivating...', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?>">
+				<button class="button button-red ddfw-verify-license" data-action="deactivate" data-prefix="<?php echo esc_attr( $prefix ); ?>" data-product-id="<?php echo esc_attr( $product_id ); ?>" data-fetching="<?php esc_attr_e( 'Deactivating...', 'affiliates-for-woocommerce' ); ?>">
 					<?php
 					DDFW_SVG::get_svg_icon(
 						'circle-x',
@@ -128,7 +128,7 @@ $show_form = isset( $args['show_form'] ) ? $args['show_form'] : true;
 						[ 'size' => 15 ]
 					);
 					?>
-					<?php esc_html_e( 'Deactivate License', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?>
+					<?php esc_html_e( 'Deactivate License', 'affiliates-for-woocommerce' ); ?>
 				</button>
 			</div>
 		</div>

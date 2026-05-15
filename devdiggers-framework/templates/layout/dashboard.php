@@ -65,10 +65,10 @@ $current_user = wp_get_current_user();
 				<h1>
 					<?php
 					/* translators: %s: current user display name */
-					printf( esc_html__( 'Welcome to DevDiggers, %s! 👋🏻', 'loyaltyx-points-and-rewards-for-woocommerce' ), esc_html( $current_user->display_name ) );
+					printf( esc_html__( 'Welcome to DevDiggers, %s! 👋🏻', 'affiliates-for-woocommerce' ), esc_html( $current_user->display_name ) );
 					?>
 				</h1>
-				<p><?php esc_html_e( 'Manage all your DevDiggers plugins from one central dashboard', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></p>
+				<p><?php esc_html_e( 'Manage all your DevDiggers plugins from one central dashboard', 'affiliates-for-woocommerce' ); ?></p>
 			</div>
 		</div>
 
@@ -80,14 +80,14 @@ $current_user = wp_get_current_user();
 			<div class="ddfw-dashboard-section ddfw-newsletter-section">
 				<div class="ddfw-newsletter-content">
 					<div class="ddfw-newsletter-text">
-						<h2><?php esc_html_e( 'Stay Updated with DevDiggers', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></h2>
-						<p><?php esc_html_e( 'Subscribe to our newsletter for the latest updates, tips and exclusive offers on WooCommerce plugins.', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></p>
+						<h2><?php esc_html_e( 'Stay Updated with DevDiggers', 'affiliates-for-woocommerce' ); ?></h2>
+						<p><?php esc_html_e( 'Subscribe to our newsletter for the latest updates, tips and exclusive offers on WooCommerce plugins.', 'affiliates-for-woocommerce' ); ?></p>
 					</div>
 					<form class="ddfw-newsletter-form" method="post">
 						<div class="ddfw-form-row">
-							<input type="email" name="email" id="ddfw-newsletter-email" placeholder="<?php esc_attr_e( 'Enter your email address', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?>" required />
+							<input type="email" name="email" id="ddfw-newsletter-email" placeholder="<?php esc_attr_e( 'Enter your email address', 'affiliates-for-woocommerce' ); ?>" required />
 							<button type="submit" class="ddfw-button ddfw-button-primary" id="ddfw-newsletter-submit">
-								<?php esc_html_e( 'Subscribe', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?>
+								<?php esc_html_e( 'Subscribe', 'affiliates-for-woocommerce' ); ?>
 							</button>
 						</div>
 						<div id="ddfw-newsletter-message" class="ddfw-newsletter-message"></div>
@@ -101,8 +101,8 @@ $current_user = wp_get_current_user();
 							</svg>
 						</div>
 						<div class="ddfw-feature-text">
-							<h4><?php esc_html_e( 'Latest Updates', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></h4>
-							<p><?php esc_html_e( 'Get notified about new features and improvements', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></p>
+							<h4><?php esc_html_e( 'Latest Updates', 'affiliates-for-woocommerce' ); ?></h4>
+							<p><?php esc_html_e( 'Get notified about new features and improvements', 'affiliates-for-woocommerce' ); ?></p>
 						</div>
 					</div>
 					<div class="ddfw-feature-item">
@@ -112,8 +112,8 @@ $current_user = wp_get_current_user();
 							</svg>
 						</div>
 						<div class="ddfw-feature-text">
-							<h4><?php esc_html_e( 'Expert Tips', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></h4>
-							<p><?php esc_html_e( 'Learn best practices and optimization techniques', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></p>
+							<h4><?php esc_html_e( 'Expert Tips', 'affiliates-for-woocommerce' ); ?></h4>
+							<p><?php esc_html_e( 'Learn best practices and optimization techniques', 'affiliates-for-woocommerce' ); ?></p>
 						</div>
 					</div>
 					<div class="ddfw-feature-item">
@@ -123,8 +123,8 @@ $current_user = wp_get_current_user();
 							</svg>
 						</div>
 						<div class="ddfw-feature-text">
-							<h4><?php esc_html_e( 'Special Offers', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></h4>
-							<p><?php esc_html_e( 'Exclusive discounts and promotional deals', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></p>
+							<h4><?php esc_html_e( 'Special Offers', 'affiliates-for-woocommerce' ); ?></h4>
+							<p><?php esc_html_e( 'Exclusive discounts and promotional deals', 'affiliates-for-woocommerce' ); ?></p>
 						</div>
 					</div>
 					<div class="ddfw-feature-item">
@@ -134,8 +134,8 @@ $current_user = wp_get_current_user();
 							</svg>
 						</div>
 						<div class="ddfw-feature-text">
-							<h4><?php esc_html_e( 'Community', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></h4>
-							<p><?php esc_html_e( 'Connect with other WooCommerce developers', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></p>
+							<h4><?php esc_html_e( 'Community', 'affiliates-for-woocommerce' ); ?></h4>
+							<p><?php esc_html_e( 'Connect with other WooCommerce developers', 'affiliates-for-woocommerce' ); ?></p>
 						</div>
 					</div>
 				</div>
@@ -156,7 +156,7 @@ $current_user = wp_get_current_user();
 				</div>
 				<div class="ddfw-stat-content">
 					<h3><?php echo esc_html( $total_installed ); ?></h3>
-					<p><?php esc_html_e( 'Installed Plugins', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></p>
+					<p><?php esc_html_e( 'Installed Plugins', 'affiliates-for-woocommerce' ); ?></p>
 				</div>
 			</div>
 			<div class="ddfw-stat-card">
@@ -168,7 +168,7 @@ $current_user = wp_get_current_user();
 				</div>
 				<div class="ddfw-stat-content">
 					<h3><?php echo esc_html( $total_active ); ?></h3>
-					<p><?php esc_html_e( 'Active Plugins', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></p>
+					<p><?php esc_html_e( 'Active Plugins', 'affiliates-for-woocommerce' ); ?></p>
 				</div>
 			</div>
 			<div class="ddfw-stat-card">
@@ -180,7 +180,7 @@ $current_user = wp_get_current_user();
 				</div>
 				<div class="ddfw-stat-content">
 					<h3><?php echo esc_html( $total_installed - $total_active ); ?></h3>
-					<p><?php esc_html_e( 'Inactive Plugins', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></p>
+					<p><?php esc_html_e( 'Inactive Plugins', 'affiliates-for-woocommerce' ); ?></p>
 				</div>
 			</div>
 			<div class="ddfw-stat-card">
@@ -191,7 +191,7 @@ $current_user = wp_get_current_user();
 				</div>
 				<div class="ddfw-stat-content">
 					<h3><?php echo esc_html( $total_installed > 0 ? round( ( $total_active / $total_installed ) * 100 ) : 0 ); ?>%</h3>
-					<p><?php esc_html_e( 'Activation Rate', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></p>
+					<p><?php esc_html_e( 'Activation Rate', 'affiliates-for-woocommerce' ); ?></p>
 				</div>
 			</div>
 		</div>
@@ -199,8 +199,8 @@ $current_user = wp_get_current_user();
 		<!-- Installed DevDiggers Plugins Section -->
 		<div class="ddfw-dashboard-section">
 			<div class="ddfw-section-header">
-				<h2><?php esc_html_e( 'Installed DevDiggers Plugins', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></h2>
-				<p><?php esc_html_e( 'Manage your installed DevDiggers WooCommerce extensions', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></p>
+				<h2><?php esc_html_e( 'Installed DevDiggers Plugins', 'affiliates-for-woocommerce' ); ?></h2>
+				<p><?php esc_html_e( 'Manage your installed DevDiggers WooCommerce extensions', 'affiliates-for-woocommerce' ); ?></p>
 			</div>
 			<div class="ddfw-plugins-grid">
 				<?php foreach ( $devdiggers_plugins as $plugin_file => $plugin_data ) : ?>
@@ -221,11 +221,11 @@ $current_user = wp_get_current_user();
 							<div class="ddfw-plugin-status">
 								<?php if ( $is_active ) { ?>
 									<span class="ddfw-status-badge ddfw-status-active">
-										<?php esc_html_e( 'Active', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?>
+										<?php esc_html_e( 'Active', 'affiliates-for-woocommerce' ); ?>
 									</span>
 								<?php } else { ?>
 									<span class="ddfw-status-badge ddfw-status-inactive">
-										<?php esc_html_e( 'Inactive', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?>
+										<?php esc_html_e( 'Inactive', 'affiliates-for-woocommerce' ); ?>
 									</span>
 								<?php } ?>
 							</div>
@@ -249,11 +249,11 @@ $current_user = wp_get_current_user();
 							<div class="ddfw-plugin-actions">
 								<?php if ( $is_active ) { ?>
 									<a href="<?php echo esc_url( $admin_url ); ?>" class="ddfw-button ddfw-button-primary">
-										<?php esc_html_e( 'Visit', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?>
+										<?php esc_html_e( 'Visit', 'affiliates-for-woocommerce' ); ?>
 									</a>
 								<?php } else { ?>
 									<a href="<?php echo esc_url( admin_url( 'plugins.php' ) ); ?>" class="ddfw-button ddfw-button-secondary">
-										<?php esc_html_e( 'Activate', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?>
+										<?php esc_html_e( 'Activate', 'affiliates-for-woocommerce' ); ?>
 									</a>
 								<?php } ?>
 							</div>
@@ -266,25 +266,25 @@ $current_user = wp_get_current_user();
 		<!-- System Information Section -->
 		<div class="ddfw-dashboard-section">
 			<div class="ddfw-section-header">
-				<h2><?php esc_html_e( 'System Information', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></h2>
-				<p><?php esc_html_e( 'Your WordPress environment details', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></p>
+				<h2><?php esc_html_e( 'System Information', 'affiliates-for-woocommerce' ); ?></h2>
+				<p><?php esc_html_e( 'Your WordPress environment details', 'affiliates-for-woocommerce' ); ?></p>
 			</div>
 			<div class="ddfw-system-info">
 				<div class="ddfw-info-grid">
 					<div class="ddfw-info-item">
-						<div class="ddfw-info-label"><?php esc_html_e( 'WordPress Version', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></div>
+						<div class="ddfw-info-label"><?php esc_html_e( 'WordPress Version', 'affiliates-for-woocommerce' ); ?></div>
 						<div class="ddfw-info-value"><?php echo esc_html( $wp_version ); ?></div>
 					</div>
 					<div class="ddfw-info-item">
-						<div class="ddfw-info-label"><?php esc_html_e( 'PHP Version', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></div>
+						<div class="ddfw-info-label"><?php esc_html_e( 'PHP Version', 'affiliates-for-woocommerce' ); ?></div>
 						<div class="ddfw-info-value"><?php echo esc_html( $php_version ); ?></div>
 					</div>
 					<div class="ddfw-info-item">
-						<div class="ddfw-info-label"><?php esc_html_e( 'Memory Limit', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></div>
+						<div class="ddfw-info-label"><?php esc_html_e( 'Memory Limit', 'affiliates-for-woocommerce' ); ?></div>
 						<div class="ddfw-info-value"><?php echo esc_html( $memory_limit ); ?></div>
 					</div>
 					<div class="ddfw-info-item">
-						<div class="ddfw-info-label"><?php esc_html_e( 'Max Execution Time', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></div>
+						<div class="ddfw-info-label"><?php esc_html_e( 'Max Execution Time', 'affiliates-for-woocommerce' ); ?></div>
 						<div class="ddfw-info-value"><?php echo esc_html( $max_execution_time ); ?>s</div>
 					</div>
 				</div>
@@ -294,8 +294,8 @@ $current_user = wp_get_current_user();
 		<!-- Support Section -->
 		<div class="ddfw-dashboard-section">
 			<div class="ddfw-section-header">
-				<h2><?php esc_html_e( 'Need Help?', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></h2>
-				<p><?php esc_html_e( 'Get support and resources for your DevDiggers plugins', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></p>
+				<h2><?php esc_html_e( 'Need Help?', 'affiliates-for-woocommerce' ); ?></h2>
+				<p><?php esc_html_e( 'Get support and resources for your DevDiggers plugins', 'affiliates-for-woocommerce' ); ?></p>
 			</div>
 			<div class="ddfw-support-grid">
 				<div class="ddfw-support-card">
@@ -307,10 +307,10 @@ $current_user = wp_get_current_user();
 							<path d="M12 19.5C12 18.1193 13.1193 17 14.5 17H19.5C20.8807 17 22 18.1193 22 19.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
 					</div>
-					<h3><?php esc_html_e( 'Documentation', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></h3>
-					<p><?php esc_html_e( 'Comprehensive guides and tutorials', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></p>
+					<h3><?php esc_html_e( 'Documentation', 'affiliates-for-woocommerce' ); ?></h3>
+					<p><?php esc_html_e( 'Comprehensive guides and tutorials', 'affiliates-for-woocommerce' ); ?></p>
 					<a href="<?php echo esc_url( '//devdiggers.com/knowledge-base/' ); ?>" target="_blank" class="ddfw-button ddfw-button-secondary">
-						<?php esc_html_e( 'View Docs', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?>
+						<?php esc_html_e( 'View Docs', 'affiliates-for-woocommerce' ); ?>
 					</a>
 				</div>
 				<div class="ddfw-support-card">
@@ -321,10 +321,10 @@ $current_user = wp_get_current_user();
 							<path d="M21 7L12 13L3 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
 					</div>
-					<h3><?php esc_html_e( 'Support', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></h3>
-					<p><?php esc_html_e( 'Get help from our support team', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></p>
+					<h3><?php esc_html_e( 'Support', 'affiliates-for-woocommerce' ); ?></h3>
+					<p><?php esc_html_e( 'Get help from our support team', 'affiliates-for-woocommerce' ); ?></p>
 					<a href="<?php echo esc_url( '//devdiggers.com/contact/' ); ?>" class="ddfw-button ddfw-button-secondary">
-						<?php esc_html_e( 'Contact Us', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?>
+						<?php esc_html_e( 'Contact Us', 'affiliates-for-woocommerce' ); ?>
 					</a>
 				</div>
 				<div class="ddfw-support-card">
@@ -333,10 +333,10 @@ $current_user = wp_get_current_user();
 							<path d="M12 2C6.48 2 2 6.48 2 12c0 5.52 4.48 10 10 10s10-4.48 10-10c0-5.52-4.48-10-10-10zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm1-13h-2v6h6v-2h-4V7zm-1 8h2v2h-2v-2z" fill="currentColor"/>
 						</svg>
 					</div>
-					<h3><?php esc_html_e( 'Want Extra Features?', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></h3>
-					<p><?php esc_html_e( 'Contact us for custom development', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></p>
+					<h3><?php esc_html_e( 'Want Extra Features?', 'affiliates-for-woocommerce' ); ?></h3>
+					<p><?php esc_html_e( 'Contact us for custom development', 'affiliates-for-woocommerce' ); ?></p>
 					<a href="<?php echo esc_url( '//devdiggers.com/contact/' ); ?>" target="_blank" class="ddfw-button ddfw-button-secondary">
-						<?php esc_html_e( 'Hire Us', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?>
+						<?php esc_html_e( 'Hire Us', 'affiliates-for-woocommerce' ); ?>
 					</a>
 				</div>
 			</div>

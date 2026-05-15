@@ -23,6 +23,9 @@ if ( ! class_exists( 'DDWCAF_Install' ) ) {
 				update_option( '_ddwcpr_installed_at', time() );
 			}
 
+			// Trigger setup wizard for new installations.
+			set_transient( 'ddfw_activation_redirect_affiliates-for-woocommerce', true, 30 );
+
 			if ( ! function_exists( 'dbDelta' ) ) {
 				require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 			}

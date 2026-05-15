@@ -6,14 +6,14 @@
  * Author: DevDiggers
  * Author URI: https://devdiggers.com/
  * Version: 1.0.0
- * Text Domain: loyaltyx-points-and-rewards-for-woocommerce
+ * Text Domain: affiliates-for-woocommerce
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * Requires at least: 5.0
  * Requires PHP: 7.0
  * Tested up to: 6.x.x
  * Stable tag: 1.0.0
- * Text Domain: loyaltyx-points-and-rewards-for-woocommerce
+ * Text Domain: affiliates-for-woocommerce
  * Framework Domain Path - /i18n
  *
  * @author  DevDiggers
@@ -45,7 +45,6 @@ if ( is_admin() ) {
 	require_once DDFW_FILE . 'includes/class-ddfw-ajax.php';
 	require_once DDFW_FILE . 'includes/class-ddfw-review-notice.php';
 	require_once DDFW_FILE . 'includes/class-devdiggers-notifications.php';
-	require_once DDFW_FILE . 'includes/class-ddfw-setup-wizard.php';
 }
 
-load_textdomain( 'loyaltyx-points-and-rewards-for-woocommerce', dirname( __FILE__ ) . '/i18n/loyaltyx-points-and-rewards-for-woocommerce-' . apply_filters( 'plugin_locale', determine_locale(), 'loyaltyx-points-and-rewards-for-woocommerce' ) . '.mo' );
+load_textdomain( 'affiliates-for-woocommerce', dirname( __FILE__ ) . '/i18n/affiliates-for-woocommerce-' . apply_filters( 'plugin_locale', determine_locale(), 'affiliates-for-woocommerce' ) . '.mo' );

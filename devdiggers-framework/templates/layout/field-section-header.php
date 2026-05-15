@@ -25,7 +25,7 @@ $args = wp_parse_args( $args, $defaults );
 		if ( $args[ 'back_button_enabled' ] ) {
 			?>
 			&nbsp;
-			<a href="<?php echo esc_url( $args[ 'back_button_url' ] ); ?>">← &nbsp;<?php esc_html_e( 'Back', 'loyaltyx-points-and-rewards-for-woocommerce' ); ?></a>
+			<a href="<?php echo esc_url( $args[ 'back_button_url' ] ); ?>">← &nbsp;<?php esc_html_e( 'Back', 'affiliates-for-woocommerce' ); ?></a>
 		<?php
 		}
 		?>

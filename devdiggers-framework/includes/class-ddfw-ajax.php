@@ -91,7 +91,7 @@ if ( ! class_exists( 'DDFW_Ajax' ) ) {
 
 				wp_send_json( $response );
 			} else {
-				wp_send_json_error( esc_html__( 'Security check failed!', 'loyaltyx-points-and-rewards-for-woocommerce' ) );
+				wp_send_json_error( esc_html__( 'Security check failed!', 'affiliates-for-woocommerce' ) );
 			}
 		}
 
@@ -105,7 +105,7 @@ if ( ! class_exists( 'DDFW_Ajax' ) ) {
 		 */
 		public function ddfw_license_heartbeat_check() {
 			if ( ! check_ajax_referer( 'ddfw-nonce', 'nonce', false ) ) {
-				wp_send_json_error( esc_html__( 'Security check failed!', 'loyaltyx-points-and-rewards-for-woocommerce' ) );
+				wp_send_json_error( esc_html__( 'Security check failed!', 'affiliates-for-woocommerce' ) );
 			}
 
 			$purchase_code = ! empty( $_POST['purchase_code'] ) ? sanitize_text_field( wp_unslash( $_POST['purchase_code'] ) ) : '';
@@ -186,7 +186,7 @@ if ( ! class_exists( 'DDFW_Ajax' ) ) {
 			} else {
 				$response = [
 					'success' => false,
-					'message' => esc_html__( 'Security check failed!', 'loyaltyx-points-and-rewards-for-woocommerce' ),
+					'message' => esc_html__( 'Security check failed!', 'affiliates-for-woocommerce' ),
 				];
 			}
 			wp_send_json( $response );
@@ -216,7 +216,7 @@ if ( ! class_exists( 'DDFW_Ajax' ) ) {
 			} else {
 				$response = [
 					'success' => false,
-					'message' => esc_html__( 'Security check failed!', 'loyaltyx-points-and-rewards-for-woocommerce' ),
+					'message' => esc_html__( 'Security check failed!', 'affiliates-for-woocommerce' ),
 				];
 			}
 			wp_send_json( $response );
@@ -248,7 +248,7 @@ if ( ! class_exists( 'DDFW_Ajax' ) ) {
 			} else {
 				$response = [
 					'error'   => true,
-					'message' => esc_html__( 'Security check failed!', 'loyaltyx-points-and-rewards-for-woocommerce' ),
+					'message' => esc_html__( 'Security check failed!', 'affiliates-for-woocommerce' ),
 				];
 			}
 			wp_send_json( $response );
@@ -261,24 +261,24 @@ if ( ! class_exists( 'DDFW_Ajax' ) ) {
 		 */
 		public function ddfw_newsletter_subscribe() {
 			if ( ! check_ajax_referer( 'ddfw-nonce', 'nonce', false ) ) {
-				wp_send_json_error( [ 'message' => esc_html__( 'Security check failed.', 'loyaltyx-points-and-rewards-for-woocommerce' ) ] );
+				wp_send_json_error( [ 'message' => esc_html__( 'Security check failed.', 'affiliates-for-woocommerce' ) ] );
 			}
 
 			$email = sanitize_email( wp_unslash( $_POST['email'] ?? '' ) );
 
 			if ( ! is_email( $email ) ) {
-				wp_send_json_error( [ 'message' => esc_html__( 'Please enter a valid email address.', 'loyaltyx-points-and-rewards-for-woocommerce' ) ] );
+				wp_send_json_error( [ 'message' => esc_html__( 'Please enter a valid email address.', 'affiliates-for-woocommerce' ) ] );
 			}
 
 			$user_id = get_current_user_id();
 			if ( ! $user_id ) {
-				wp_send_json_error( [ 'message' => esc_html__( 'You must be logged in to subscribe.', 'loyaltyx-points-and-rewards-for-woocommerce' ) ] );
+				wp_send_json_error( [ 'message' => esc_html__( 'You must be logged in to subscribe.', 'affiliates-for-woocommerce' ) ] );
 			}
 
 			// Check if already subscribed
 			$already_subscribed = get_option( 'ddfw_newsletter_subscribed' );
 			if ( $already_subscribed ) {
-				wp_send_json_error( [ 'message' => esc_html__( 'You are already subscribed to our newsletter.', 'loyaltyx-points-and-rewards-for-woocommerce' ) ] );
+				wp_send_json_error( [ 'message' => esc_html__( 'You are already subscribed to our newsletter.', 'affiliates-for-woocommerce' ) ] );
 			}
 
 			// Prepare data for FluentCRM webhook
@@ -299,7 +299,7 @@ if ( ! class_exists( 'DDFW_Ajax' ) ) {
 			] );
 
 			if ( is_wp_error( $response ) ) {
-				wp_send_json_error( [ 'message' => esc_html__( 'Failed to connect to newsletter service. Please try again.', 'loyaltyx-points-and-rewards-for-woocommerce' ) ] );
+				wp_send_json_error( [ 'message' => esc_html__( 'Failed to connect to newsletter service. Please try again.', 'affiliates-for-woocommerce' ) ] );
 			}
 
 			$body = wp_remote_retrieve_body( $response );
@@ -310,9 +310,9 @@ if ( ! class_exists( 'DDFW_Ajax' ) ) {
 				update_option( 'ddfw_newsletter_subscribed', true );
 				update_option( 'ddfw_newsletter_email', $email );
 
-				wp_send_json_success( [ 'message' => esc_html__( 'Thank you for subscribing!', 'loyaltyx-points-and-rewards-for-woocommerce' ) ] );
+				wp_send_json_success( [ 'message' => esc_html__( 'Thank you for subscribing!', 'affiliates-for-woocommerce' ) ] );
 			} else {
-				$error_message = $data['message'] ?? esc_html__( 'Subscription failed. Please try again.', 'loyaltyx-points-and-rewards-for-woocommerce' );
+				$error_message = $data['message'] ?? esc_html__( 'Subscription failed. Please try again.', 'affiliates-for-woocommerce' );
 				wp_send_json_error( [ 'message' => $error_message ] );
 			}
 		}

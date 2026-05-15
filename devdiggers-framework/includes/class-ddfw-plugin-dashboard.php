@@ -44,8 +44,8 @@ if ( ! class_exists( 'DDFW_Plugin_Dashboard' ) ) {
 			if ( ! empty( $args ) ) {
 				$default_args = [
 					'parent_slug' => ddfw_get_parent_menu_slug(),
-					'page_title'  => __( 'Plugin Dashboard', 'loyaltyx-points-and-rewards-for-woocommerce' ),
-					'menu_title'  => __( 'Plugin', 'loyaltyx-points-and-rewards-for-woocommerce' ),
+					'page_title'  => __( 'Plugin Dashboard', 'affiliates-for-woocommerce' ),
+					'menu_title'  => __( 'Plugin', 'affiliates-for-woocommerce' ),
 					'capability'  => ddfw_get_menu_capability(),
 					'icon_url'    => '',
 					'position'    => null,
@@ -220,7 +220,7 @@ if ( ! class_exists( 'DDFW_Plugin_Dashboard' ) ) {
 				do_action( 'ddfw_render_setup_wizard', $page );
 			} else {
 				// Fallback if no wizard matches this dashboard page.
-				echo '<div class="notice notice-error"><p>' . esc_html__( 'Setup wizard not found for this plugin.', 'loyaltyx-points-and-rewards-for-woocommerce' ) . '</p></div>';
+				echo '<div class="notice notice-error"><p>' . esc_html__( 'Setup wizard not found for this plugin.', 'affiliates-for-woocommerce' ) . '</p></div>';
 			}
 		}
 	}

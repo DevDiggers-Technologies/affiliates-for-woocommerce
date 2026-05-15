@@ -63,7 +63,7 @@ if ( ! class_exists( 'DDFW_Assets' ) ) {
 			wp_register_script( 'select2', DDFW_URL . 'assets/js/select2.js', [], filemtime( DDFW_FILE . 'assets/js/select2.js' ) );
 
 			wp_register_style( self::$framework_css_handle, DDFW_URL . 'assets/css/framework.css', [ 'select2' ], filemtime( DDFW_FILE . 'assets/css/framework.css' ) );
-			wp_register_script( self::$framework_js_handle, DDFW_URL . 'assets/js/framework.js', [ 'select2', 'wp-color-picker' ], filemtime( DDFW_FILE . 'assets/js/framework.js' ) );
+			wp_register_script( self::$framework_js_handle, DDFW_URL . 'assets/js/framework.js', [ 'select2', 'wp-color-picker', 'wp-mediaelement' ], filemtime( DDFW_FILE . 'assets/js/framework.js' ) );
 
 			if ( ! empty( $_GET['page'] ) && in_array( $_GET['page'], [ 'devdiggers-plugins', 'devdiggers-extensions' ], true ) ) {
 				wp_enqueue_style( 'ddfw-dashboard-style', DDFW_URL . 'assets/css/dashboard.css', [], filemtime( DDFW_FILE . 'assets/css/dashboard.css' ) );
@@ -78,10 +78,10 @@ if ( ! class_exists( 'DDFW_Assets' ) ) {
 							'ajaxNonce' => wp_create_nonce( 'ddfw-nonce' ),
 						],
 						'i18n' => [
-							'subscribing'         => esc_html__( 'Subscribing...', 'loyaltyx-points-and-rewards-for-woocommerce' ),
-							'subscribe'           => esc_html__( 'Subscribe', 'loyaltyx-points-and-rewards-for-woocommerce' ),
-							'subscriptionSuccess' => esc_html__( 'Thank you for subscribing!', 'loyaltyx-points-and-rewards-for-woocommerce' ),
-							'subscriptionError'   => esc_html__( 'An error occurred. Please try again.', 'loyaltyx-points-and-rewards-for-woocommerce' ),
+							'subscribing'         => esc_html__( 'Subscribing...', 'affiliates-for-woocommerce' ),
+							'subscribe'           => esc_html__( 'Subscribe', 'affiliates-for-woocommerce' ),
+							'subscriptionSuccess' => esc_html__( 'Thank you for subscribing!', 'affiliates-for-woocommerce' ),
+							'subscriptionError'   => esc_html__( 'An error occurred. Please try again.', 'affiliates-for-woocommerce' ),
 						],
 					]
 				);
@@ -99,12 +99,12 @@ if ( ! class_exists( 'DDFW_Assets' ) ) {
 						'ajaxNonce' => wp_create_nonce( 'ddfw-nonce' ),
 					],
 					'i18n' => [
-						'selectImage'         => esc_html__( 'Select Image', 'loyaltyx-points-and-rewards-for-woocommerce' ),
-						'useImage'            => esc_html__( 'Use Image', 'loyaltyx-points-and-rewards-for-woocommerce' ),
-						'pleaseEnter'         => esc_html__( 'Please enter', 'loyaltyx-points-and-rewards-for-woocommerce' ),
-						'moreCharacter'       => esc_html__( 'or more character', 'loyaltyx-points-and-rewards-for-woocommerce' ),
-						'noResult'            => esc_html__( 'No result Found', 'loyaltyx-points-and-rewards-for-woocommerce' ),
-						'deleteConfirm'       => esc_html__( 'Are you sure you want to delete?', 'loyaltyx-points-and-rewards-for-woocommerce' ),
+						'selectImage'         => esc_html__( 'Select Image', 'affiliates-for-woocommerce' ),
+						'useImage'            => esc_html__( 'Use Image', 'affiliates-for-woocommerce' ),
+						'pleaseEnter'         => esc_html__( 'Please enter', 'affiliates-for-woocommerce' ),
+						'moreCharacter'       => esc_html__( 'or more character', 'affiliates-for-woocommerce' ),
+						'noResult'            => esc_html__( 'No result Found', 'affiliates-for-woocommerce' ),
+						'deleteConfirm'       => esc_html__( 'Are you sure you want to delete?', 'affiliates-for-woocommerce' ),
 					],
 					'site_url'          => site_url(),
 					'devdiggers_plugin' => $devdiggers_plugin,
