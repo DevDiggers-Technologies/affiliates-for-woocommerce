@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-old": "webpack",
-    "example": "webpack --config extensions/extensions.config.js --watch",
-    "watch": "webpack --watch",
-    "build": "cross-env NODE_ENV=production webpack",
-    "production": "cross-env NODE_ENV=production webpack",
+    "build-old": "cross-env NODE_OPTIONS=--openssl-legacy-provider webpack",
+    "example": "cross-env NODE_OPTIONS=--openssl-legacy-provider webpack --config extensions/extensions.config.js --watch",
+    "watch": "cross-env NODE_OPTIONS=--openssl-legacy-provider webpack --watch",
+    "build": "cross-env NODE_ENV=production NODE_OPTIONS=--openssl-legacy-provider webpack",
+    "production": "cross-env NODE_ENV=production NODE_OPTIONS=--openssl-legacy-provider webpack",
     "build:release": "sh ./bin/build-plugin-zip.sh",
     "postbuild": "npm run replace-textdomain && npm run i18n",
     "replace-textdomain": "node bin/replace-textdomain.js",
@@ -19,7 +19,7 @@
     "i18n:js": "cross-env NODE_ENV=production babel src -o /dev/null",
     "i18n:json": "sh ./bin/make-i18n-json.sh",
     "i18n:pot": "grunt makepot",
-    "start": "webpack --watch"
+    "start": "cross-env NODE_OPTIONS=--openssl-legacy-provider webpack --watch"
   },
   "author": "devdiggers",
   "license": "ISC",
