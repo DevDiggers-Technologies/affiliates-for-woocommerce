@@ -34,116 +34,10 @@ if ( ! class_exists( 'DDFW_Ajax' ) ) {
 		 * Constructor to initialize hooks.
 		 */
 		public function __construct() {
-			add_action( 'wp_ajax_ddfw_verify_license', [ $this, 'ddfw_verify_license' ] );
-			add_action( 'wp_ajax_ddfw_license_heartbeat_check', [ $this, 'ddfw_license_heartbeat_check' ] );
 			add_action( 'wp_ajax_ddfw_get_products_list', [ $this, 'ddfw_get_products_list' ] );
 			add_action( 'wp_ajax_ddfw_get_categories_list', [ $this, 'ddfw_get_categories_list' ] );
 			add_action( 'wp_ajax_ddfw_get_users_list', [ $this, 'ddfw_get_users_list' ] );
 			add_action( 'wp_ajax_ddfw_newsletter_subscribe', [ $this, 'ddfw_newsletter_subscribe' ] );
-		}
-
-		/**
-		 * Verify License function
-		 *
-		 * @return void
-		 */
-		public function ddfw_verify_license() {
-			if ( check_ajax_referer( 'ddfw-nonce', 'nonce', false ) ) {
-				$purchase_code  = ! empty( $_POST[ 'purchase_code' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'purchase_code' ] ) ) : '';
-				$purchase_email = ! empty( $_POST[ 'purchase_email' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'purchase_email' ] ) ) : '';
-				$status         = ! empty( $_POST[ 'status' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'status' ] ) ) : '';
-				$prefix         = ! empty( $_POST[ 'prefix' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'prefix' ] ) ) : '';
-				$product_id     = ! empty( $_POST[ 'product_id' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'product_id' ] ) ) : '';
-
-				$args = [
-					'purchase_code'     => $purchase_code,
-					'purchase_email'    => $purchase_email,
-					'action'            => $status,
-					'plugin_prefix'     => $prefix,
-					'plugin_product_id' => $product_id,
-					'user_agent'        => site_url(),
-					'multisite'         => is_multisite(),
-					'network_site_url'  => network_site_url(),
-				];
-
-				$response = wp_remote_post( 'https://devdiggers.com/wp-json/ddelv/v1/verify-purchase', [
-					'body' => json_encode( $args )
-				] );
-
-				if ( is_wp_error( $response ) ) {
-					wp_send_json_error( 'API request failed: ' . $response->get_error_message() );
-				}
-
-				$response = json_decode( wp_remote_retrieve_body( $response ) );
-
-				if ( $response->success ) {
-					update_option( "_{$prefix}_purchase_code", $purchase_code );
-					update_option( "_{$prefix}_purchase_email", $purchase_email );
-
-					if ( 'activate' === $status ) {
-						// Store a hashed activation token instead of plain 'yes'.
-						$token = ddfw_generate_activation_token( $purchase_code, $prefix );
-						update_option( "_{$prefix}_license_activated", $token );
-					} else {
-						delete_option( "_{$prefix}_license_activated" );
-					}
-				}
-
-				wp_send_json( $response );
-			} else {
-				wp_send_json_error( esc_html__( 'Security check failed!', 'affiliates-for-woocommerce' ) );
-			}
-		}
-
-		/**
-		 * License Heartbeat Check via AJAX.
-		 * Routes the license check through WP-AJAX so the JS
-		 * doesn't need to call devdiggers.com directly.
-		 * This defeats the JavaScript fetch monkey-patching attack.
-		 *
-		 * @return void
-		 */
-		public function ddfw_license_heartbeat_check() {
-			if ( ! check_ajax_referer( 'ddfw-nonce', 'nonce', false ) ) {
-				wp_send_json_error( esc_html__( 'Security check failed!', 'affiliates-for-woocommerce' ) );
-			}
-
-			$purchase_code = ! empty( $_POST['purchase_code'] ) ? sanitize_text_field( wp_unslash( $_POST['purchase_code'] ) ) : '';
-			$prefix        = ! empty( $_POST['prefix'] ) ? sanitize_text_field( wp_unslash( $_POST['prefix'] ) ) : '';
-
-			if ( empty( $purchase_code ) || empty( $prefix ) ) {
-				wp_send_json_error( 'Missing parameters.' );
-			}
-
-			// Use direct cURL call to bypass pre_http_request filters.
-			$response = ddfw_direct_license_check( $purchase_code, site_url(), $prefix );
-
-			if ( false === $response ) {
-				// Network issue - don't deactivate, just report error.
-				wp_send_json_error( 'Unable to verify license. Please try again.' );
-			}
-
-			// Verify the HMAC signature to ensure authenticity.
-			if ( ! ddfw_verify_license_signature( $response ) ) {
-				// Forged response detected - deactivate.
-				delete_option( "_{$prefix}_license_activated" );
-				wp_send_json( [
-					'success'  => true,
-					'status'   => 'deactivated',
-					'verified' => false,
-				] );
-			}
-
-			// If license is deactivated/deleted/expired, clean up local options.
-			if ( ! empty( $response['status'] ) && in_array( $response['status'], [ 'deactivated', 'deleted', 'expired' ], true ) ) {
-				delete_option( "_{$prefix}_license_activated" );
-			}
-
-			wp_send_json( [
-				'success'  => ! empty( $response['success'] ),
-				'status'   => $response['status'] ?? 'unknown',
-				'verified' => true,
-			] );
 		}
 
 		/**
@@ -153,7 +47,7 @@ if ( ! class_exists( 'DDFW_Ajax' ) ) {
 		 */
 		public function ddfw_get_products_list() {
 			$response = [];
-			if ( check_ajax_referer( 'ddfw-nonce', 'nonce', false ) ) {
+			if ( check_ajax_referer( 'ddfw-nonce', 'nonce', false ) && $this->ddfw_current_user_can_manage() ) {
 
 				$search_results = new \WP_Query( [
 					's'                   => ! empty( $_POST['query'] ) ? sanitize_text_field( wp_unslash( $_POST['query'] ) ) : '',
@@ -199,7 +93,7 @@ if ( ! class_exists( 'DDFW_Ajax' ) ) {
 		 */
 		public function ddfw_get_categories_list() {
 			$response = [];
-			if ( check_ajax_referer( 'ddfw-nonce', 'nonce', false ) ) {
+			if ( check_ajax_referer( 'ddfw-nonce', 'nonce', false ) && $this->ddfw_current_user_can_manage() ) {
 				$query = isset( $_POST[ 'query' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'query' ] ) ) : ''; // wpcs: input var okay.
 
 				$categories = get_terms( [
@@ -229,7 +123,7 @@ if ( ! class_exists( 'DDFW_Ajax' ) ) {
 		 */
 		public function ddfw_get_users_list() {
 			$response = [];
-			if ( check_ajax_referer( 'ddfw-nonce', 'nonce', false ) ) {
+			if ( check_ajax_referer( 'ddfw-nonce', 'nonce', false ) && $this->ddfw_current_user_can_manage() ) {
 				$query = isset( $_POST[ 'query' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'query' ] ) ) : ''; // wpcs: input var okay.
 				$role  = isset( $_POST[ 'role' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'role' ] ) ) : ''; // wpcs: input var okay.
 
@@ -262,6 +156,10 @@ if ( ! class_exists( 'DDFW_Ajax' ) ) {
 		public function ddfw_newsletter_subscribe() {
 			if ( ! check_ajax_referer( 'ddfw-nonce', 'nonce', false ) ) {
 				wp_send_json_error( [ 'message' => esc_html__( 'Security check failed.', 'affiliates-for-woocommerce' ) ] );
+			}
+
+			if ( ! $this->ddfw_current_user_can_manage() ) {
+				wp_send_json_error( [ 'message' => esc_html__( 'Insufficient permissions.', 'affiliates-for-woocommerce' ) ] );
 			}
 
 			$email = sanitize_email( wp_unslash( $_POST['email'] ?? '' ) );
@@ -315,6 +213,15 @@ if ( ! class_exists( 'DDFW_Ajax' ) ) {
 				$error_message = $data['message'] ?? esc_html__( 'Subscription failed. Please try again.', 'affiliates-for-woocommerce' );
 				wp_send_json_error( [ 'message' => $error_message ] );
 			}
+		}
+
+		/**
+		 * Check whether the current user can access framework AJAX helpers.
+		 *
+		 * @return bool
+		 */
+		protected function ddfw_current_user_can_manage() {
+			return current_user_can( 'manage_options' ) || current_user_can( 'manage_woocommerce' );
 		}
 	}
 }

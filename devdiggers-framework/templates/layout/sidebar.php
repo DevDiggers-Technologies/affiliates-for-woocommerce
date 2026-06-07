@@ -9,11 +9,13 @@
 
 defined( 'ABSPATH' ) || exit(); // Exit if accessed directly.
 
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Template scope variables are local include variables.
 $tabs = $current_menu_data[ 'tabs' ];
 ?>
 <div class="ddfw-template-container">
 	<?php
 	if ( ! empty( $tabs ) && is_array( $tabs ) ) {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only tab routing parameter.
 		$current_tab = ! empty( $_GET[ 'tab' ] ) ? sanitize_title( wp_unslash( $_GET[ 'tab' ] ) ) : array_key_first( $tabs );
 
 		$callback = $tabs[ $current_tab ][ 'callback' ] ?? null;  // Get the callback for the current tab

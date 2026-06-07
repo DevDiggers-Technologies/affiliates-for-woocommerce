@@ -8,10 +8,10 @@
  * Version: 2.1.0
  * Text Domain: affiliates-for-woocommerce
  * Domain Path: /i18n
- * WC requires at least: 5.0.0
- * WC tested up to: 10.7.0
- * WP requires at least: 5.0.0
- * WP tested up to: 6.9.4
+ * WC requires at least: 8.5
+ * WC tested up to: 10.8.1
+ * WP requires at least: 6.0.0
+ * WP tested up to: 7.0
  * DevDiggersPrefix: ddwcaf
  * Requires Plugins: woocommerce
  * License: GNU General Public License v3.0

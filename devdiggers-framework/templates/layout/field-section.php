@@ -12,6 +12,7 @@ use DevDiggers\Framework\Includes\DDFW_SVG;
 
 defined( 'ABSPATH' ) || exit(); // Exit if accessed directly.
 
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Template scope variables are local include variables.
 if ( ! empty( $args ) && is_array( $args ) ) {
 	foreach ( $args as $key => $arg ) {
 		?>
@@ -22,7 +23,8 @@ if ( ! empty( $args ) && is_array( $args ) ) {
 			}
 
 			if ( ! empty( $arg[ 'after_header_html' ] ) ) {
-				echo ( $arg[ 'after_header_html' ] );
+				// after_header_html may contain form controls (inputs/selects), so allow form HTML, not just post HTML.
+				echo wp_kses( $arg[ 'after_header_html' ], ddfw_kses_allowed_form_html() );
 			}
 
 			if ( ! empty( $arg[ 'fields' ] ) && is_array( $arg[ 'fields' ] ) ) {

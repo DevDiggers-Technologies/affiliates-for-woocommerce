@@ -5,11 +5,11 @@
 
 **WordPress**
   * `Requires at least: 6.5.0`
-  * `Tested up to: 6.9.4`
+  * `Tested up to: 7.0`
 
 **WooCommerce**
   * `Requires at least: 9.0.0`
-  * `Tested up to: 10.7.0`
+  * `Tested up to: 10.8.1`
 
 ## Description
 

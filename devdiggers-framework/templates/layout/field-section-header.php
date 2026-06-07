@@ -9,6 +9,7 @@
 
 defined( 'ABSPATH' ) || exit(); // Exit if accessed directly.
 
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Template scope variables are local include variables.
 $defaults = [
 	'heading'             => '',
 	'description'         => '',

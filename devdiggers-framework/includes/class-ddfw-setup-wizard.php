@@ -52,8 +52,14 @@ if ( ! class_exists( 'DDFW_Setup_Wizard' ) ) {
 				return;
 			}
 
-			// Handle manual skip action
+			// Handle manual skip action.
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce is sanitized and verified before updating the option.
 			if ( isset( $_GET['page'] ) && $_GET['page'] === $config['dashboard_page'] && ! empty( $_GET['setup-wizard-skipped'] ) ) {
+				$nonce = ! empty( $_GET['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ) : '';
+				if ( ( ! current_user_can( 'manage_options' ) && ! current_user_can( 'manage_woocommerce' ) ) || ! wp_verify_nonce( $nonce, 'ddfw_skip_setup_wizard_' . $slug ) ) {
+					wp_die( esc_html__( 'Security check failed.', 'affiliates-for-woocommerce' ) );
+				}
+
 				update_option( 'ddfw_setup_wizard_completed_' . $slug, true );
 				wp_safe_redirect( admin_url( 'admin.php?page=' . $config['dashboard_page'] ) );
 				exit;
@@ -70,7 +76,8 @@ if ( ! class_exists( 'DDFW_Setup_Wizard' ) ) {
 				}
 			}
 
-			// Force wizard on first visit to dashboard if not completed
+			// Force wizard on first visit to dashboard if not completed.
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only routing parameter; no form processing here.
 			if ( isset( $_GET['page'] ) && $_GET['page'] === $config['dashboard_page'] && empty( $_GET['setup-wizard'] ) && empty( $_GET['setup-wizard-skipped'] ) ) {
 				if ( ! get_option( 'ddfw_setup_wizard_completed_' . $slug, false ) ) {
 					wp_safe_redirect( admin_url( 'admin.php?page=' . $config['dashboard_page'] . '&setup-wizard=true' ) );
@@ -86,8 +93,10 @@ if ( ! class_exists( 'DDFW_Setup_Wizard' ) ) {
 		 * @return void
 		 */
 		public function enqueue_scripts( $hook ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only routing parameters used to decide whether assets load.
 			$is_dashboard_wizard = ( ! empty( $_GET['setup-wizard'] ) && ! empty( $_GET['page'] ) );
 
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only routing parameter used to match current admin page.
 			if ( ! $is_dashboard_wizard || $_GET['page'] !== $this->args['dashboard_page'] ) {
 				return;
 			}
@@ -109,16 +118,21 @@ if ( ! class_exists( 'DDFW_Setup_Wizard' ) ) {
 		 * AJAX handler to save wizard step
 		 */
 		public function ajax_save_wizard_step() {
+			check_ajax_referer( 'ddfw-wizard-nonce', 'nonce' );
+
+			if ( ! current_user_can( 'manage_options' ) && ! current_user_can( 'manage_woocommerce' ) ) {
+				wp_send_json_error( [ 'message' => esc_html__( 'Insufficient permissions.', 'affiliates-for-woocommerce' ) ] );
+			}
+
+			$plugin_slug = isset( $_POST['plugin_slug'] ) ? sanitize_text_field( wp_unslash( $_POST['plugin_slug'] ) ) : '';
+
 			// Early exit if the action doesn't belong to this wizard instance
-			if ( ! isset( $_POST['plugin_slug'] ) || $_POST['plugin_slug'] !== $this->args['plugin_slug'] ) {
+			if ( $plugin_slug !== $this->args['plugin_slug'] ) {
 				return; 
 			}
 
-			check_ajax_referer( 'ddfw-wizard-nonce', 'nonce' );
-
-			$plugin_slug = sanitize_text_field( wp_unslash( $_POST['plugin_slug'] ) );
 			$step_id     = isset( $_POST['step_id'] ) ? sanitize_text_field( wp_unslash( $_POST['step_id'] ) ) : '';
-			$form_data   = isset( $_POST['form_data'] ) ? $_POST['form_data'] : [];
+			$form_data   = isset( $_POST['form_data'] ) ? map_deep( wp_unslash( $_POST['form_data'] ), 'sanitize_text_field' ) : [];
 
 			if ( empty( $plugin_slug ) || empty( $step_id ) ) {
 				wp_send_json_error( [ 'message' => esc_html__( 'Invalid request.', 'affiliates-for-woocommerce' ) ] );
@@ -179,7 +193,7 @@ if ( ! class_exists( 'DDFW_Setup_Wizard' ) ) {
 				<div class="ddfw-success-icon-wrap">
 					<div style="background:#eef2ff; border-radius:50%; width:80px; height:80px; display:flex; align-items:center; justify-content:center;">
 						<svg class="ddfw-success-svg" width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path class="ddfw-check-path" d="M5 13L9 17L19 7" stroke="#2563eb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+							<path class="ddfw-check-path" d="M5 13L9 17L19 7" stroke="#0256ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
 					</div>
 				</div>

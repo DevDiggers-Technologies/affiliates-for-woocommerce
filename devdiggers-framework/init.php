@@ -37,14 +37,12 @@ require_once DDFW_FILE . 'autoload/autoload.php';
 // Load the framework files.
 require_once DDFW_FILE . 'global-functions.php';
 require_once DDFW_FILE . 'includes/class-ddfw-plugins-api.php';
-require_once DDFW_FILE . 'includes/class-ddfw-plugin-updater.php';
 
 if ( is_admin() ) {
 	require_once DDFW_FILE . 'includes/class-ddfw-assets.php';
 	require_once DDFW_FILE . 'includes/class-ddfw-admin.php';
 	require_once DDFW_FILE . 'includes/class-ddfw-ajax.php';
 	require_once DDFW_FILE . 'includes/class-ddfw-review-notice.php';
-	require_once DDFW_FILE . 'includes/class-devdiggers-notifications.php';
 }
 
-load_textdomain( 'affiliates-for-woocommerce', dirname( __FILE__ ) . '/i18n/affiliates-for-woocommerce-' . apply_filters( 'plugin_locale', determine_locale(), 'affiliates-for-woocommerce' ) . '.mo' );
+load_textdomain( 'affiliates-for-woocommerce', dirname( __FILE__ ) . '/i18n/affiliates-for-woocommerce-' . apply_filters( 'plugin_locale', determine_locale(), 'affiliates-for-woocommerce' ) . '.mo' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Core WordPress hook.

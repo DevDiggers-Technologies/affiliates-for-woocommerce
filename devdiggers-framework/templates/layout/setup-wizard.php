@@ -5,12 +5,15 @@
 
 defined( 'ABSPATH' ) || exit();
 
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Template scope variables are local include variables.
+// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only wizard step routing parameter.
 $current_step = isset( $_GET['step'] ) ? sanitize_text_field( wp_unslash( $_GET['step'] ) ) : array_key_first( $steps );
 $step_keys    = array_keys( $steps );
 $step_index   = 1;
 $total_steps  = count( $steps );
 $current_num  = array_search( $current_step, $step_keys, true ) + 1;
 $progress     = ( $current_num / $total_steps ) * 100;
+// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only admin page routing parameter.
 $dashboard_page = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
 ?>
 
@@ -52,7 +55,9 @@ $dashboard_page = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GE
                     <form id="ddfw-setup-wizard-form" method="post">
                         <?php foreach ( $steps as $id => $step ) : ?>
                             <div class="ddfw-setup-wizard-step-content <?php echo $current_step === $id ? '' : 'ddfw-hide'; ?>" data-step="<?php echo esc_attr( $id ); ?>">
-                                <hr class="wp-header-end" />
+                                <?php if ( 'license' === $id ) : ?>
+                                    <hr class="wp-header-end" />
+                                <?php endif; ?>
 
                                 <?php if ( ! empty( $step['title'] ) || ! empty( $step['description'] ) ) : ?>
                                     <div class="ddfw-setup-wizard-step-intro">
@@ -77,7 +82,7 @@ $dashboard_page = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GE
 
                                 <div class="ddfw-setup-wizard-actions">
                                     <div class="ddfw-setup-wizard-actions-left">
-                                        <a href="<?php echo esc_url( admin_url( 'admin.php?page=' . $dashboard_page . '&setup-wizard-skipped=true' ) ); ?>" class="ddfw-setup-wizard-skip"><?php esc_html_e( 'Skip Setup', 'affiliates-for-woocommerce' ); ?></a>
+                                        <a href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin.php?page=' . $dashboard_page . '&setup-wizard-skipped=true' ), 'ddfw_skip_setup_wizard_' . $plugin_slug ) ); ?>" class="ddfw-setup-wizard-skip"><?php esc_html_e( 'Skip Setup', 'affiliates-for-woocommerce' ); ?></a>
                                     </div>
                                     <div class="ddfw-setup-wizard-actions-right">
                                         <?php if ( array_key_first( $steps ) !== $id ) : ?>

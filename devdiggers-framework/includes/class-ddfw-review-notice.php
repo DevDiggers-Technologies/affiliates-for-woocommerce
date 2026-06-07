@@ -93,9 +93,12 @@ if ( ! class_exists( 'DDFW_Review_Notice' ) ) {
 			$prefix      = $this->args['plugin_prefix'];
 			$plugin_name = $this->args['plugin_name'];
 			$review_url  = $this->args['review_url'];
+			$script_path = DDFW_FILE . 'assets/js/review-notice.js';
+
+			wp_enqueue_script( 'ddfw-review-notice', DDFW_URL . 'assets/js/review-notice.js', [], filemtime( $script_path ), true );
 
 			?>
-			<div class="notice notice-info ddfw-review-notice" data-prefix="<?php echo esc_attr( $prefix ); ?>">
+			<div class="notice notice-info ddfw-review-notice" data-prefix="<?php echo esc_attr( $prefix ); ?>" data-nonce="<?php echo esc_attr( wp_create_nonce( 'ddfw-review-notice-nonce' ) ); ?>">
 				<p>
 					<?php
 					/* translators: %s: Plugin Name */
@@ -107,51 +110,6 @@ if ( ! class_exists( 'DDFW_Review_Notice' ) ) {
 					<button class="button button-secondary ddfw-review-notice-action" data-action="maybe-later"><?php esc_html_e( 'Maybe Later', 'affiliates-for-woocommerce' ); ?></button>
 					<button class="button button-link ddfw-review-notice-action" data-action="already-did"><?php esc_html_e( 'Already Did', 'affiliates-for-woocommerce' ); ?></button>
 				</p>
-				<script>
-					( function() {
-						document.addEventListener( 'DOMContentLoaded', function() {
-							var notice = document.querySelector( '.ddfw-review-notice[data-prefix="<?php echo esc_js( $prefix ); ?>"]' );
-							if ( ! notice ) {
-								return;
-							}
-
-							var buttons = notice.querySelectorAll( '.ddfw-review-notice-action' );
-							buttons.forEach( function( btn ) {
-								btn.addEventListener( 'click', function( e ) {
-									var action = this.getAttribute( 'data-action' );
-									var prefix = notice.getAttribute( 'data-prefix' );
-
-									if ( action !== 'already-did' || this.tagName.toLowerCase() === 'button' ) {
-										e.preventDefault();
-									}
-
-									var formData = new FormData();
-									formData.append( 'action', 'ddfw_dismiss_review_notice' );
-									formData.append( 'dismiss_action', action );
-									formData.append( 'prefix', prefix );
-									formData.append( 'nonce', '<?php echo esc_js( wp_create_nonce( 'ddfw-review-notice-nonce' ) ); ?>' );
-
-									fetch( ajaxurl, {
-										method: 'POST',
-										body: formData
-									} )
-									.then( function( response ) {
-										return response.json();
-									} )
-									.then( function( data ) {
-										if ( data.success ) {
-											notice.style.transition = 'opacity 0.5s';
-											notice.style.opacity = '0';
-											setTimeout( function() {
-												notice.remove();
-											}, 500 );
-										}
-									} );
-								} );
-							} );
-						} );
-					} )();
-				</script>
 			</div>
 			<?php
 		}
@@ -163,6 +121,10 @@ if ( ! class_exists( 'DDFW_Review_Notice' ) ) {
 		 */
 		public function dismiss_review_notice() {
 			check_ajax_referer( 'ddfw-review-notice-nonce', 'nonce' );
+
+			if ( ! current_user_can( 'manage_options' ) && ! current_user_can( 'manage_woocommerce' ) ) {
+				wp_send_json_error();
+			}
 
 			$prefix = ! empty( $_POST['prefix'] ) ? sanitize_text_field( wp_unslash( $_POST['prefix'] ) ) : '';
 			$dismiss_action = ! empty( $_POST['dismiss_action'] ) ? sanitize_text_field( wp_unslash( $_POST['dismiss_action'] ) ) : '';

@@ -52,9 +52,15 @@ function ddfw_namespace_class_autoload( $class ) {
 	if ( file_exists( $file ) ) {
 		require_once $file;
 	} else {
+		$message = sprintf(
+			/* translators: %1$s: class name, %2$s: file path. */
+			esc_html__( 'Autoloader error: The file for class %1$s was expected at path %2$s but was not found.', 'affiliates-for-woocommerce' ),
+			esc_html( $class ),
+			esc_html( $file )
+		);
+
 		wp_die(
-			/* translators: %1$s: class name, %2$s: file path */
-			sprintf( esc_html__( 'Autoloader error: The file for class %1$s was expected at path %2$s but was not found.', 'affiliates-for-woocommerce' ), esc_html( $class ), esc_html( $file ) ),
+			wp_kses_post( $message ),
 			esc_html__( 'Autoloader Error', 'affiliates-for-woocommerce' )
 		);
 	}

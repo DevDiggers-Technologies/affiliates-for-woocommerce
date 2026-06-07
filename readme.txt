@@ -5,10 +5,10 @@ Author: DevDiggers
 Author URI: https://devdiggers.com/
 Tags: Affiliates for WooCommerce, WooCommerce Affiliate Marketing, Affiliate Program, WooCommerce Partner Program, Affiliate Networking
 Requires at least: 6.5
-Tested up to: 6.9.4
+Tested up to: 7.0
 Requires PHP: 7.4
 WC requires at least: 9.0.0
-WC tested up to: 10.7.0
+WC tested up to: 10.8.1
 Stable tag: 2.1.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html

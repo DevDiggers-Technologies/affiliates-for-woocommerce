@@ -65,6 +65,7 @@ if ( ! class_exists( 'DDFW_Assets' ) ) {
 			wp_register_style( self::$framework_css_handle, DDFW_URL . 'assets/css/framework.css', [ 'select2' ], filemtime( DDFW_FILE . 'assets/css/framework.css' ) );
 			wp_register_script( self::$framework_js_handle, DDFW_URL . 'assets/js/framework.js', [ 'select2', 'wp-color-picker', 'wp-mediaelement' ], filemtime( DDFW_FILE . 'assets/js/framework.js' ) );
 
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only admin page routing parameter.
 			if ( ! empty( $_GET['page'] ) && in_array( $_GET['page'], [ 'devdiggers-plugins', 'devdiggers-extensions' ], true ) ) {
 				wp_enqueue_style( 'ddfw-dashboard-style', DDFW_URL . 'assets/css/dashboard.css', [], filemtime( DDFW_FILE . 'assets/css/dashboard.css' ) );
 				wp_enqueue_script( 'ddfw-dashboard-script', DDFW_URL . 'assets/js/dashboard.js', [], filemtime( DDFW_FILE . 'assets/js/dashboard.js' ) );
@@ -119,13 +120,13 @@ if ( ! class_exists( 'DDFW_Assets' ) ) {
 		 */
 		private function get_current_devdiggers_plugin() {
 			$plugin = [];
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only admin page routing parameter.
 			$current_page = ! empty( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
 
 			if ( strpos( $current_page, 'dd' ) !== false ) {
 				$prefix = str_replace( '-dashboard', '', $current_page );
 				$plugin = [
 					'page_slug'          => $current_page,
-					'purchase_code'      => get_option( '_' . $prefix . '_purchase_code' ),
 					'configuration_menu' => 'configuration',
 					'plugin_prefix'      => $prefix,
 				];

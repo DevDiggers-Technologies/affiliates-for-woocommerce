@@ -167,12 +167,12 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 					if ( 1 === count( $countries ) ) {
 						?>
 						<strong><?php echo esc_html( current( array_values( $countries ) ) ); ?></strong>
-						<input type="hidden" name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" value="<?php echo esc_attr( current( array_keys( $countries ) ) ); ?>" <?php echo implode( ' ', $custom_attributes ); ?> class="country_to_state" readonly="readonly" />
+						<input type="hidden" name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" value="<?php echo esc_attr( current( array_keys( $countries ) ) ); ?>" <?php echo wp_kses_data( implode( ' ', $custom_attributes ) ); ?> class="country_to_state" readonly="readonly" />
 						<?php
 					} else {
 						$data_label = ! empty( $args['label'] ) ? 'data-label="' . esc_attr( $args['label'] ) . '"' : '';
 						?>
-						<select id="billing_country" name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" class="country_to_state country_select <?php echo esc_attr( $default_input_class ); ?> <?php echo esc_attr( implode( ' ', $args['input_class'] ) ); ?>" <?php echo implode( ' ', $custom_attributes ); ?> data-placeholder="<?php echo esc_attr( $args['placeholder'] ? $args['placeholder'] : esc_attr__( 'Select a country / region&hellip;', 'affiliates-for-woocommerce' ) ); ?>" <?php echo wp_kses_post( $data_label ); ?>>
+						<select id="billing_country" name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" class="country_to_state country_select <?php echo esc_attr( $default_input_class ); ?> <?php echo esc_attr( implode( ' ', $args['input_class'] ) ); ?>" <?php echo wp_kses_data( implode( ' ', $custom_attributes ) ); ?> data-placeholder="<?php echo esc_attr( $args['placeholder'] ? $args['placeholder'] : esc_attr__( 'Select a country / region&hellip;', 'affiliates-for-woocommerce' ) ); ?>" <?php echo wp_kses_post( $data_label ); ?>>
 							<option value=""><?php esc_html_e( 'Select a country / region&hellip;', 'affiliates-for-woocommerce' ); ?></option>
 							<?php foreach ( $countries as $ckey => $cvalue ) : ?>
 								<option value="<?php echo esc_attr( $ckey ); ?>" <?php selected( $value, $ckey ); ?>><?php echo esc_html( $cvalue ); ?></option>
@@ -191,7 +191,7 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 				case 'state':
 					ob_start();
 					?>
-					<input type="text" class="<?php echo esc_attr( $default_input_class ); ?> <?php echo esc_attr( implode( ' ', $args['input_class'] ) ); ?>" value="<?php echo esc_attr( $value ); ?>"  placeholder="<?php echo esc_attr( $args['placeholder'] ); ?>" name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" <?php echo implode( ' ', $custom_attributes ); ?> data-input-classes="<?php echo esc_attr( implode( ' ', $args['input_class'] ) ); ?>"/>
+					<input type="text" class="<?php echo esc_attr( $default_input_class ); ?> <?php echo esc_attr( implode( ' ', $args['input_class'] ) ); ?>" value="<?php echo esc_attr( $value ); ?>"  placeholder="<?php echo esc_attr( $args['placeholder'] ); ?>" name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" <?php echo wp_kses_data( implode( ' ', $custom_attributes ) ); ?> data-input-classes="<?php echo esc_attr( implode( ' ', $args['input_class'] ) ); ?>"/>
 					<?php
 					$field .= ob_get_clean();
 					break;
@@ -199,7 +199,7 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 				case 'textarea':
 					ob_start();
 					?>
-					<textarea name="<?php echo esc_attr( $name ); ?>" class="<?php echo esc_attr( $default_input_class ); ?> <?php echo esc_attr( implode( ' ', $args['input_class'] ) ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" placeholder="<?php echo esc_attr( $args['placeholder'] ); ?>" <?php echo ( empty( $args['custom_attributes']['rows'] ) ? ' rows="4"' : '' ); ?> <?php echo ( empty( $args['custom_attributes']['cols'] ) ? ' cols="5"' : '' ); ?> <?php echo implode( ' ', $custom_attributes ); ?>><?php echo esc_textarea( $value ); ?></textarea>
+					<textarea name="<?php echo esc_attr( $name ); ?>" class="<?php echo esc_attr( $default_input_class ); ?> <?php echo esc_attr( implode( ' ', $args['input_class'] ) ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" placeholder="<?php echo esc_attr( $args['placeholder'] ); ?>" <?php echo ( empty( $args['custom_attributes']['rows'] ) ? ' rows="4"' : '' ); ?> <?php echo ( empty( $args['custom_attributes']['cols'] ) ? ' cols="5"' : '' ); ?> <?php echo wp_kses_data( implode( ' ', $custom_attributes ) ); ?>><?php echo esc_textarea( $value ); ?></textarea>
 					<?php
 					$field .= ob_get_clean();
 					break;
@@ -208,7 +208,7 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 					ob_start();
 					?>
 					<label class="checkbox <?php echo esc_attr( implode( ' ', $args['label_class'] ) ); ?>">
-						<input type="<?php echo esc_attr( $args['type'] ); ?>" class="input-checkbox <?php echo esc_attr( implode( ' ', $args['input_class'] ) ); ?>" name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" value="<?php echo esc_attr( $args['checkbox_value'] ); ?>" <?php checked( $value, $args['checkbox_value'] ); ?> <?php echo implode( ' ', $custom_attributes ); ?> />
+						<input type="<?php echo esc_attr( $args['type'] ); ?>" class="input-checkbox <?php echo esc_attr( implode( ' ', $args['input_class'] ) ); ?>" name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" value="<?php echo esc_attr( $args['checkbox_value'] ); ?>" <?php checked( $value, $args['checkbox_value'] ); ?> <?php echo wp_kses_data( implode( ' ', $custom_attributes ) ); ?> />
 						<?php echo wp_kses_post( $args['checkbox_label'] . $required ); ?>
 					</label>
 					<?php
@@ -229,7 +229,7 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 				case 'tel':
 					ob_start();
 					?>
-					<input type="<?php echo esc_attr( $args['type'] ); ?>" class="<?php echo esc_attr( $default_input_class ); ?> <?php echo esc_attr( implode( ' ', $args['input_class'] ) ); ?>" name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" placeholder="<?php echo esc_attr( $args['placeholder'] ); ?>" value="<?php echo esc_attr( $value ); ?>" <?php echo implode( ' ', $custom_attributes ); ?> />
+					<input type="<?php echo esc_attr( $args['type'] ); ?>" class="<?php echo esc_attr( $default_input_class ); ?> <?php echo esc_attr( implode( ' ', $args['input_class'] ) ); ?>" name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" placeholder="<?php echo esc_attr( $args['placeholder'] ); ?>" value="<?php echo esc_attr( $value ); ?>" <?php echo wp_kses_data( implode( ' ', $custom_attributes ) ); ?> />
 					<?php
 					$field .= ob_get_clean();
 					break;
@@ -237,7 +237,7 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 				case 'hidden':
 					ob_start();
 					?>
-					<input type="<?php echo esc_attr( $args['type'] ); ?>" class="input-hidden <?php echo esc_attr( implode( ' ', $args['input_class'] ) ); ?>" name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" value="<?php echo esc_attr( $value ); ?>" <?php echo implode( ' ', $custom_attributes ); ?> />
+					<input type="<?php echo esc_attr( $args['type'] ); ?>" class="input-hidden <?php echo esc_attr( implode( ' ', $args['input_class'] ) ); ?>" name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" value="<?php echo esc_attr( $value ); ?>" <?php echo wp_kses_data( implode( ' ', $custom_attributes ) ); ?> />
 					<?php
 					$field .= ob_get_clean();
 					break;
@@ -245,7 +245,7 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 				case 'select':
 					ob_start();
 					?>
-					<select name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" class="<?php echo esc_attr( $default_input_class ) . ' ' . esc_attr( implode( ' ', $args['input_class'] ) ); ?>" <?php echo implode( ' ', $custom_attributes ); ?> data-placeholder="<?php echo esc_attr( $args['placeholder'] ); ?>" data-show-fields='<?php echo esc_attr( ! empty( $args['show_fields'] ) ? json_encode( $args['show_fields'] ) : 'false' ); ?>' data-only-hide-fields='<?php echo esc_attr( ! empty( $args['only_hide_fields'] ) ? json_encode( $args['only_hide_fields'] ) : 'false' ); ?>'>
+					<select name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" class="<?php echo esc_attr( $default_input_class ) . ' ' . esc_attr( implode( ' ', $args['input_class'] ) ); ?>" <?php echo wp_kses_data( implode( ' ', $custom_attributes ) ); ?> data-placeholder="<?php echo esc_attr( $args['placeholder'] ); ?>" data-show-fields='<?php echo esc_attr( ! empty( $args['show_fields'] ) ? wp_json_encode( $args['show_fields'] ) : 'false' ); ?>' data-only-hide-fields='<?php echo esc_attr( ! empty( $args['only_hide_fields'] ) ? wp_json_encode( $args['only_hide_fields'] ) : 'false' ); ?>'>
 						<?php
 						if ( ! empty( $args['options'] ) ) {
 							foreach ( $args['options'] as $option_key => $option_text ) {
@@ -281,7 +281,7 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 								?><p><?php
 							}
 							?>
-							<input type="radio" class="<?php echo esc_attr( implode( ' ', $args['input_class'] ) ); ?>" value="<?php echo esc_attr( $option_key ); ?>" name="<?php echo esc_attr( $name ); ?>" <?php echo implode( ' ', $custom_attributes ); ?> id="<?php echo esc_attr( $args['id'] ) . '_' . esc_attr( $option_key ); ?>" <?php checked( $value, $option_key ); ?> data-show-fields='<?php echo esc_attr( ! empty( $args['show_fields'] ) ? json_encode( $args['show_fields'] ) : 'false' ); ?>' data-only-hide-fields='<?php echo esc_attr( ! empty( $args['only_hide_fields'] ) ? json_encode( $args['only_hide_fields'] ) : 'false' ); ?>' />
+							<input type="radio" class="<?php echo esc_attr( implode( ' ', $args['input_class'] ) ); ?>" value="<?php echo esc_attr( $option_key ); ?>" name="<?php echo esc_attr( $name ); ?>" <?php echo wp_kses_data( implode( ' ', $custom_attributes ) ); ?> id="<?php echo esc_attr( $args['id'] ) . '_' . esc_attr( $option_key ); ?>" <?php checked( $value, $option_key ); ?> data-show-fields='<?php echo esc_attr( ! empty( $args['show_fields'] ) ? wp_json_encode( $args['show_fields'] ) : 'false' ); ?>' data-only-hide-fields='<?php echo esc_attr( ! empty( $args['only_hide_fields'] ) ? wp_json_encode( $args['only_hide_fields'] ) : 'false' ); ?>' />
 							<label for="<?php echo esc_attr( $args['id'] ) . '_' . esc_attr( $option_key ); ?>" class="radio <?php echo esc_attr( implode( ' ', $args['label_class'] ) ); ?>"><?php echo esc_html( $option_text ); ?></label>
 							<?php
 							if ( ! $args['radio_single_line'] ) {
@@ -345,7 +345,7 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 								<p><?php esc_html_e( 'Click the upload button to select an image from your media library or upload a new one.', 'affiliates-for-woocommerce' ); ?></p>
 								<input type="hidden" name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" value="<?php echo esc_attr( $value ); ?>" />
 								<input type="hidden" id="<?php echo esc_attr( $args['id'] ); ?>-default-image" value="<?php echo esc_attr( $args['default_image'] ? $args['default_image'] : '' ); ?>" />
-								<button type="button" class="button ddfw-upload-image-button" data-id="<?php echo esc_attr( $args['id'] ); ?>" <?php echo implode( ' ', $custom_attributes ); ?>>
+								<button type="button" class="button ddfw-upload-image-button" data-id="<?php echo esc_attr( $args['id'] ); ?>" <?php echo wp_kses_data( implode( ' ', $custom_attributes ) ); ?>>
 									<?php
 									DDFW_SVG::get_svg_icon(
 										'file',
@@ -365,7 +365,7 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 				case 'colorpicker':
 					ob_start();
 					?>
-					<input type="<?php echo esc_attr( $args['type'] ); ?>" class="ddfw-color-picker <?php echo esc_attr( $default_input_class ); ?> <?php echo esc_attr( implode( ' ', $args['input_class'] ) ); ?>" name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" placeholder="<?php echo esc_attr( $args['placeholder'] ); ?>" value="<?php echo esc_attr( $value ); ?>" <?php echo implode( ' ', $custom_attributes ); ?> data-default-value="<?php echo esc_attr( $value ); ?>" />
+					<input type="<?php echo esc_attr( $args['type'] ); ?>" class="ddfw-color-picker <?php echo esc_attr( $default_input_class ); ?> <?php echo esc_attr( implode( ' ', $args['input_class'] ) ); ?>" name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" placeholder="<?php echo esc_attr( $args['placeholder'] ); ?>" value="<?php echo esc_attr( $value ); ?>" <?php echo wp_kses_data( implode( ' ', $custom_attributes ) ); ?> data-default-value="<?php echo esc_attr( $value ); ?>" />
 					<?php
 					$field .= ob_get_clean();
 					break;
@@ -373,7 +373,7 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 				case 'products':
 					ob_start();
 					?>
-					<select name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" class="<?php echo esc_attr( $default_input_class ); ?> ddfw-products" <?php echo implode( ' ', $custom_attributes ); ?> data-placeholder="<?php esc_attr_e( 'Search by name', 'affiliates-for-woocommerce' ); ?>">
+					<select name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" class="<?php echo esc_attr( $default_input_class ); ?> ddfw-products" <?php echo wp_kses_data( implode( ' ', $custom_attributes ) ); ?> data-placeholder="<?php esc_attr_e( 'Search by name', 'affiliates-for-woocommerce' ); ?>">
 						<?php
 						if ( ! empty( $value ) ) {
 							if ( is_array( $value ) ) {
@@ -403,7 +403,7 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 				case 'categories':
 					ob_start();
 					?>
-					<select name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" class="<?php echo esc_attr( $default_input_class ); ?> ddfw-categories" <?php echo implode( ' ', $custom_attributes ); ?> data-placeholder="<?php esc_attr_e( 'Search by name', 'affiliates-for-woocommerce' ); ?>">
+					<select name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" class="<?php echo esc_attr( $default_input_class ); ?> ddfw-categories" <?php echo wp_kses_data( implode( ' ', $custom_attributes ) ); ?> data-placeholder="<?php esc_attr_e( 'Search by name', 'affiliates-for-woocommerce' ); ?>">
 						<?php
 						if ( ! empty( $value ) ) {
 							if ( is_array( $value ) ) {
@@ -432,7 +432,7 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 				case 'users':
 					ob_start();
 					?>
-					<select name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" class="<?php echo esc_attr( $default_input_class ); ?> ddfw-users" <?php echo implode( ' ', $custom_attributes ); ?> data-placeholder="<?php esc_attr_e( 'Search Users', 'affiliates-for-woocommerce' ); ?>">
+					<select name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" class="<?php echo esc_attr( $default_input_class ); ?> ddfw-users" <?php echo wp_kses_data( implode( ' ', $custom_attributes ) ); ?> data-placeholder="<?php esc_attr_e( 'Search Users', 'affiliates-for-woocommerce' ); ?>">
 						<?php
 						if ( ! empty( $value ) ) {
 							if ( is_array( $value ) ) {
@@ -588,8 +588,7 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 			if ( $args[ 'return' ] ) {
 				return $field;
 			} else {
-				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				echo $field;
+				echo wp_kses( $field, ddfw_kses_allowed_form_html() );
 			}
 		}
 	}

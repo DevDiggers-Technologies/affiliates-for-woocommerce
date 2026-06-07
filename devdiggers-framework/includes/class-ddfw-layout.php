@@ -17,15 +17,6 @@ if ( ! class_exists( 'DDFW_Layout' ) ) {
 	 */
 	class DDFW_Layout {
 		/**
-		 * Get the license layout.
-		 *
-		 * @return void
-		 */
-		public function get_license_layout( $args ) {
-			include DDFW_FILE . 'templates/layout/license.php';
-		}
-
-		/**
 		 * Get the form section layout.
 		 *
 		 * #param array $args The arguments for the form section.

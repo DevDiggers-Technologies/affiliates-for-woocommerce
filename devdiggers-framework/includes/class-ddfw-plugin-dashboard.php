@@ -84,6 +84,7 @@ if ( ! class_exists( 'DDFW_Plugin_Dashboard' ) ) {
 		 * @return bool
 		 */
 		public function is_a_plugin_page() {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only admin page routing parameter.
 			$page = ! empty( $_GET[ 'page' ] ) ? sanitize_title( wp_unslash( $_GET[ 'page' ] ) ) : '';
 
 			return $this->plugin_dashboard_slug === $page;
@@ -178,10 +179,13 @@ if ( ! class_exists( 'DDFW_Plugin_Dashboard' ) ) {
 		 */
 		public function ddfw_plugin_dashboard() {
 			$menus        = $this->args[ 'menus' ];
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only admin routing parameter.
 			$page         = ! empty( $_GET[ 'page' ] ) ? sanitize_title( wp_unslash( $_GET[ 'page' ] ) ) : '';
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only admin routing parameter.
 			$current_menu = ! empty( $_GET[ 'menu' ] ) ? sanitize_title( wp_unslash( $_GET[ 'menu' ] ) ) : array_key_first( $menus ); // Default to the first menu if none is set.
 
 			// Check if setup wizard is requested via URL parameter.
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only admin routing parameter.
 			$is_setup_wizard = ! empty( $_GET['setup-wizard'] );
 
 			?>

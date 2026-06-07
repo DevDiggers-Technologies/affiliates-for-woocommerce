@@ -36,11 +36,6 @@ if ( ! class_exists( 'DDWCAF_File_Handler' ) ) {
 				new DDWCAF_Admin_Dashboard( $this->ddwcaf_configuration );
 				new Admin\DDWCAF_Admin_Hooks( $this->ddwcaf_configuration );
 				new Admin\DDWCAF_Admin_Ajax_Hooks( $this->ddwcaf_configuration );
-
-				// Initialize the notifications
-				new \DevDiggers_Notifications( [
-					'plugin_slug' => 'affiliates-for-woocommerce',
-				] );
 			} else {
 				if ( ! empty( $this->ddwcaf_configuration[ 'enabled' ] ) ) {
 					new Front\DDWCAF_Front_Hooks( $this->ddwcaf_configuration );

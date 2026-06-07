@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: DevDiggers Framework 1.0.0\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/devdiggers-framework\n"
-"POT-Creation-Date: 2026-05-15 12:35:56+00:00\n"
+"POT-Creation-Date: 2026-06-06 13:17:30+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -26,31 +26,18 @@ msgstr ""
 "X-Generator: grunt-wp-i18n 1.0.3\n"
 
 #: autoload/autoload.php:57 devdiggers-framework/autoload/autoload.php:57
-#. translators: %1$s: class name, %2$s: file path
+#. translators: %1$s: class name, %2$s: file path.
 msgid ""
 "Autoloader error: The file for class %1$s was expected at path %2$s but was "
 "not found."
 msgstr ""
 
-#: autoload/autoload.php:58 devdiggers-framework/autoload/autoload.php:58
+#: autoload/autoload.php:64 devdiggers-framework/autoload/autoload.php:64
 msgid "Autoloader Error"
 msgstr ""
 
-#: devdiggers-framework/global-functions.php:182 global-functions.php:187
+#: devdiggers-framework/global-functions.php:257 global-functions.php:257
 msgid "PRO"
-msgstr ""
-
-#: devdiggers-framework/global-functions.php:286 global-functions.php:291
-#. translators: %s: Plugin Prefix
-msgid "License Deactivated for %s"
-msgstr ""
-
-#: devdiggers-framework/global-functions.php:292 global-functions.php:297
-msgid "License not found or deactivation failed"
-msgstr ""
-
-#: devdiggers-framework/global-functions.php:292 global-functions.php:297
-msgid "Deactivation Failed"
 msgstr ""
 
 #: devdiggers-framework/includes/class-ddfw-admin.php:57
@@ -68,96 +55,101 @@ msgstr ""
 msgid "Extensions"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-ajax.php:94
-#: devdiggers-framework/includes/class-ddfw-ajax.php:108
-#: devdiggers-framework/includes/class-ddfw-ajax.php:189
-#: devdiggers-framework/includes/class-ddfw-ajax.php:219
-#: devdiggers-framework/includes/class-ddfw-ajax.php:251
+#: devdiggers-framework/includes/class-ddfw-ajax.php:83
+#: devdiggers-framework/includes/class-ddfw-ajax.php:113
+#: devdiggers-framework/includes/class-ddfw-ajax.php:145
 #: includes/class-ddfw-ajax.php:94 includes/class-ddfw-ajax.php:108
 #: includes/class-ddfw-ajax.php:189 includes/class-ddfw-ajax.php:219
 #: includes/class-ddfw-ajax.php:251
 msgid "Security check failed!"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-ajax.php:264
-#: includes/class-ddfw-ajax.php:264
+#: devdiggers-framework/includes/class-ddfw-ajax.php:158
+#: devdiggers-framework/includes/class-ddfw-setup-wizard.php:60
+#: includes/class-ddfw-ajax.php:264 includes/class-ddfw-setup-wizard.php:60
 msgid "Security check failed."
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-ajax.php:270
-#: includes/class-ddfw-ajax.php:270
+#: devdiggers-framework/includes/class-ddfw-ajax.php:162
+#: devdiggers-framework/includes/class-ddfw-setup-wizard.php:124
+#: includes/class-ddfw-ajax.php:268 includes/class-ddfw-setup-wizard.php:124
+msgid "Insufficient permissions."
+msgstr ""
+
+#: devdiggers-framework/includes/class-ddfw-ajax.php:168
+#: includes/class-ddfw-ajax.php:274
 msgid "Please enter a valid email address."
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-ajax.php:275
-#: includes/class-ddfw-ajax.php:275
+#: devdiggers-framework/includes/class-ddfw-ajax.php:173
+#: includes/class-ddfw-ajax.php:279
 msgid "You must be logged in to subscribe."
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-ajax.php:281
-#: includes/class-ddfw-ajax.php:281
+#: devdiggers-framework/includes/class-ddfw-ajax.php:179
+#: includes/class-ddfw-ajax.php:285
 msgid "You are already subscribed to our newsletter."
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-ajax.php:302
-#: includes/class-ddfw-ajax.php:302
+#: devdiggers-framework/includes/class-ddfw-ajax.php:200
+#: includes/class-ddfw-ajax.php:306
 msgid "Failed to connect to newsletter service. Please try again."
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-ajax.php:313
-#: devdiggers-framework/includes/class-ddfw-assets.php:83
-#: includes/class-ddfw-ajax.php:313 includes/class-ddfw-assets.php:83
+#: devdiggers-framework/includes/class-ddfw-ajax.php:211
+#: devdiggers-framework/includes/class-ddfw-assets.php:84
+#: includes/class-ddfw-ajax.php:317 includes/class-ddfw-assets.php:84
 msgid "Thank you for subscribing!"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-ajax.php:315
-#: includes/class-ddfw-ajax.php:315
+#: devdiggers-framework/includes/class-ddfw-ajax.php:213
+#: includes/class-ddfw-ajax.php:319
 msgid "Subscription failed. Please try again."
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-assets.php:81
-#: includes/class-ddfw-assets.php:81
+#: devdiggers-framework/includes/class-ddfw-assets.php:82
+#: includes/class-ddfw-assets.php:82
 msgid "Subscribing..."
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-assets.php:82
-#: devdiggers-framework/templates/layout/dashboard.php:90
-#: includes/class-ddfw-assets.php:82 templates/layout/dashboard.php:90
+#: devdiggers-framework/includes/class-ddfw-assets.php:83
+#: devdiggers-framework/templates/layout/dashboard.php:91
+#: includes/class-ddfw-assets.php:83 templates/layout/dashboard.php:91
 msgid "Subscribe"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-assets.php:84
-#: includes/class-ddfw-assets.php:84
+#: devdiggers-framework/includes/class-ddfw-assets.php:85
+#: includes/class-ddfw-assets.php:85
 msgid "An error occurred. Please try again."
-msgstr ""
-
-#: devdiggers-framework/includes/class-ddfw-assets.php:102
-#: includes/class-ddfw-assets.php:102
-msgid "Select Image"
 msgstr ""
 
 #: devdiggers-framework/includes/class-ddfw-assets.php:103
 #: includes/class-ddfw-assets.php:103
-msgid "Use Image"
+msgid "Select Image"
 msgstr ""
 
 #: devdiggers-framework/includes/class-ddfw-assets.php:104
 #: includes/class-ddfw-assets.php:104
-msgid "Please enter"
+msgid "Use Image"
 msgstr ""
 
 #: devdiggers-framework/includes/class-ddfw-assets.php:105
 #: includes/class-ddfw-assets.php:105
-msgid "or more character"
+msgid "Please enter"
 msgstr ""
 
 #: devdiggers-framework/includes/class-ddfw-assets.php:106
 #: includes/class-ddfw-assets.php:106
-msgid "No result Found"
+msgid "or more character"
 msgstr ""
 
 #: devdiggers-framework/includes/class-ddfw-assets.php:107
 #: includes/class-ddfw-assets.php:107
+msgid "No result Found"
+msgstr ""
+
+#: devdiggers-framework/includes/class-ddfw-assets.php:108
+#: includes/class-ddfw-assets.php:108
 msgid "Are you sure you want to delete?"
 msgstr ""
 
@@ -244,302 +236,280 @@ msgstr ""
 msgid "Plugin"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-plugin-dashboard.php:223
-#: includes/class-ddfw-plugin-dashboard.php:223
+#: devdiggers-framework/includes/class-ddfw-plugin-dashboard.php:227
+#: includes/class-ddfw-plugin-dashboard.php:227
 msgid "Setup wizard not found for this plugin."
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-plugin-updater.php:246
-#: includes/class-ddfw-plugin-updater.php:246
-msgid "License Required"
-msgstr ""
-
-#: devdiggers-framework/includes/class-ddfw-plugin-updater.php:247
-#: includes/class-ddfw-plugin-updater.php:247
-msgid ""
-"A valid license key is required to install this update. Please activate or "
-"renew your license at "
-msgstr ""
-
-#: devdiggers-framework/includes/class-ddfw-plugin-updater.php:295
-#: includes/class-ddfw-plugin-updater.php:295
-msgid "A valid license is required to install this update."
-msgstr ""
-
-#: devdiggers-framework/includes/class-ddfw-plugin-updater.php:297
-#: includes/class-ddfw-plugin-updater.php:297
-msgid "Renew your license"
-msgstr ""
-
-#: devdiggers-framework/includes/class-ddfw-review-notice.php:102
-#: includes/class-ddfw-review-notice.php:102
+#: devdiggers-framework/includes/class-ddfw-review-notice.php:105
+#: includes/class-ddfw-review-notice.php:105
 #. translators: %s: Plugin Name
 msgid ""
 "Enjoying %s? We would love to hear your feedback! Could you take a moment "
 "to leave a review?"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-review-notice.php:106
-#: includes/class-ddfw-review-notice.php:106
+#: devdiggers-framework/includes/class-ddfw-review-notice.php:109
+#: includes/class-ddfw-review-notice.php:109
 msgid "Leave a Review"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-review-notice.php:107
-#: includes/class-ddfw-review-notice.php:107
+#: devdiggers-framework/includes/class-ddfw-review-notice.php:110
+#: includes/class-ddfw-review-notice.php:110
 msgid "Maybe Later"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-review-notice.php:108
-#: includes/class-ddfw-review-notice.php:108
+#: devdiggers-framework/includes/class-ddfw-review-notice.php:111
+#: includes/class-ddfw-review-notice.php:111
 msgid "Already Did"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-setup-wizard.php:124
-#: includes/class-ddfw-setup-wizard.php:124
+#: devdiggers-framework/includes/class-ddfw-setup-wizard.php:138
+#: includes/class-ddfw-setup-wizard.php:138
 msgid "Invalid request."
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-setup-wizard.php:128
-#: includes/class-ddfw-setup-wizard.php:128
+#: devdiggers-framework/includes/class-ddfw-setup-wizard.php:142
+#: includes/class-ddfw-setup-wizard.php:142
 msgid "Step not found."
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-setup-wizard.php:175
-#: includes/class-ddfw-setup-wizard.php:175
+#: devdiggers-framework/includes/class-ddfw-setup-wizard.php:189
+#: includes/class-ddfw-setup-wizard.php:189
 msgid "Congratulations! You are all set."
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-setup-wizard.php:176
-#: includes/class-ddfw-setup-wizard.php:176
+#: devdiggers-framework/includes/class-ddfw-setup-wizard.php:190
+#: includes/class-ddfw-setup-wizard.php:190
 msgid ""
 "You can now start using the plugin and configure more advanced settings "
 "from the dashboard."
 msgstr ""
 
-#: devdiggers-framework/templates/header/header.php:29
-#: templates/header/header.php:29
+#: devdiggers-framework/templates/header/header.php:31
+#: templates/header/header.php:31
 msgid "Open navigation menu"
 msgstr ""
 
-#: devdiggers-framework/templates/header/header.php:45
-#: templates/header/header.php:45
+#: devdiggers-framework/templates/header/header.php:47
+#: templates/header/header.php:47
 msgid "More"
 msgstr ""
 
-#: devdiggers-framework/templates/header/header.php:77
-#: devdiggers-framework/templates/layout/upgrade-to-pro.php:18
-#: templates/header/header.php:77 templates/layout/upgrade-to-pro.php:18
+#: devdiggers-framework/templates/header/header.php:79
+#: devdiggers-framework/templates/layout/upgrade-to-pro.php:19
+#: templates/header/header.php:79 templates/layout/upgrade-to-pro.php:19
 msgid "Upgrade to Pro"
 msgstr ""
 
-#: devdiggers-framework/templates/header/header.php:95
-#: templates/header/header.php:95
+#: devdiggers-framework/templates/header/header.php:97
+#: templates/header/header.php:97
 msgid "Close navigation menu"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/dashboard.php:68
-#: templates/layout/dashboard.php:68
+#: devdiggers-framework/templates/layout/dashboard.php:69
+#: templates/layout/dashboard.php:69
 #. translators: %s: current user display name
 msgid "Welcome to DevDiggers, %s! 👋🏻"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/dashboard.php:71
-#: templates/layout/dashboard.php:71
+#: devdiggers-framework/templates/layout/dashboard.php:72
+#: templates/layout/dashboard.php:72
 msgid "Manage all your DevDiggers plugins from one central dashboard"
-msgstr ""
-
-#: devdiggers-framework/templates/layout/dashboard.php:83
-#: templates/layout/dashboard.php:83
-msgid "Stay Updated with DevDiggers"
 msgstr ""
 
 #: devdiggers-framework/templates/layout/dashboard.php:84
 #: templates/layout/dashboard.php:84
+msgid "Stay Updated with DevDiggers"
+msgstr ""
+
+#: devdiggers-framework/templates/layout/dashboard.php:85
+#: templates/layout/dashboard.php:85
 msgid ""
 "Subscribe to our newsletter for the latest updates, tips and exclusive "
 "offers on WooCommerce plugins."
 msgstr ""
 
-#: devdiggers-framework/templates/layout/dashboard.php:88
-#: templates/layout/dashboard.php:88
+#: devdiggers-framework/templates/layout/dashboard.php:89
+#: templates/layout/dashboard.php:89
 msgid "Enter your email address"
-msgstr ""
-
-#: devdiggers-framework/templates/layout/dashboard.php:104
-#: templates/layout/dashboard.php:104
-msgid "Latest Updates"
 msgstr ""
 
 #: devdiggers-framework/templates/layout/dashboard.php:105
 #: templates/layout/dashboard.php:105
-msgid "Get notified about new features and improvements"
+msgid "Latest Updates"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/dashboard.php:115
-#: templates/layout/dashboard.php:115
-msgid "Expert Tips"
+#: devdiggers-framework/templates/layout/dashboard.php:106
+#: templates/layout/dashboard.php:106
+msgid "Get notified about new features and improvements"
 msgstr ""
 
 #: devdiggers-framework/templates/layout/dashboard.php:116
 #: templates/layout/dashboard.php:116
-msgid "Learn best practices and optimization techniques"
+msgid "Expert Tips"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/dashboard.php:126
-#: templates/layout/dashboard.php:126
-msgid "Special Offers"
+#: devdiggers-framework/templates/layout/dashboard.php:117
+#: templates/layout/dashboard.php:117
+msgid "Learn best practices and optimization techniques"
 msgstr ""
 
 #: devdiggers-framework/templates/layout/dashboard.php:127
 #: templates/layout/dashboard.php:127
-msgid "Exclusive discounts and promotional deals"
+msgid "Special Offers"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/dashboard.php:137
-#: templates/layout/dashboard.php:137
-msgid "Community"
+#: devdiggers-framework/templates/layout/dashboard.php:128
+#: templates/layout/dashboard.php:128
+msgid "Exclusive discounts and promotional deals"
 msgstr ""
 
 #: devdiggers-framework/templates/layout/dashboard.php:138
 #: templates/layout/dashboard.php:138
+msgid "Community"
+msgstr ""
+
+#: devdiggers-framework/templates/layout/dashboard.php:139
+#: templates/layout/dashboard.php:139
 msgid "Connect with other WooCommerce developers"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/dashboard.php:159
-#: templates/layout/dashboard.php:159
+#: devdiggers-framework/templates/layout/dashboard.php:160
+#: templates/layout/dashboard.php:160
 msgid "Installed Plugins"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/dashboard.php:171
-#: templates/layout/dashboard.php:171
+#: devdiggers-framework/templates/layout/dashboard.php:172
+#: templates/layout/dashboard.php:172
 msgid "Active Plugins"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/dashboard.php:183
-#: templates/layout/dashboard.php:183
+#: devdiggers-framework/templates/layout/dashboard.php:184
+#: templates/layout/dashboard.php:184
 msgid "Inactive Plugins"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/dashboard.php:194
-#: templates/layout/dashboard.php:194
+#: devdiggers-framework/templates/layout/dashboard.php:195
+#: templates/layout/dashboard.php:195
 msgid "Activation Rate"
-msgstr ""
-
-#: devdiggers-framework/templates/layout/dashboard.php:202
-#: templates/layout/dashboard.php:202
-msgid "Installed DevDiggers Plugins"
 msgstr ""
 
 #: devdiggers-framework/templates/layout/dashboard.php:203
 #: templates/layout/dashboard.php:203
+msgid "Installed DevDiggers Plugins"
+msgstr ""
+
+#: devdiggers-framework/templates/layout/dashboard.php:204
+#: templates/layout/dashboard.php:204
 msgid "Manage your installed DevDiggers WooCommerce extensions"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/dashboard.php:224
-#: templates/layout/dashboard.php:224
+#: devdiggers-framework/templates/layout/dashboard.php:225
+#: templates/layout/dashboard.php:225
 msgid "Active"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/dashboard.php:228
-#: templates/layout/dashboard.php:228
+#: devdiggers-framework/templates/layout/dashboard.php:229
+#: templates/layout/dashboard.php:229
 msgid "Inactive"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/dashboard.php:252
-#: templates/layout/dashboard.php:252
+#: devdiggers-framework/templates/layout/dashboard.php:253
+#: templates/layout/dashboard.php:253
 msgid "Visit"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/dashboard.php:256
-#: templates/layout/dashboard.php:256
+#: devdiggers-framework/templates/layout/dashboard.php:257
+#: templates/layout/dashboard.php:257
 msgid "Activate"
-msgstr ""
-
-#: devdiggers-framework/templates/layout/dashboard.php:269
-#: templates/layout/dashboard.php:269
-msgid "System Information"
 msgstr ""
 
 #: devdiggers-framework/templates/layout/dashboard.php:270
 #: templates/layout/dashboard.php:270
+msgid "System Information"
+msgstr ""
+
+#: devdiggers-framework/templates/layout/dashboard.php:271
+#: templates/layout/dashboard.php:271
 msgid "Your WordPress environment details"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/dashboard.php:275
-#: templates/layout/dashboard.php:275
+#: devdiggers-framework/templates/layout/dashboard.php:276
+#: templates/layout/dashboard.php:276
 msgid "WordPress Version"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/dashboard.php:279
-#: templates/layout/dashboard.php:279
+#: devdiggers-framework/templates/layout/dashboard.php:280
+#: templates/layout/dashboard.php:280
 msgid "PHP Version"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/dashboard.php:283
-#: templates/layout/dashboard.php:283
+#: devdiggers-framework/templates/layout/dashboard.php:284
+#: templates/layout/dashboard.php:284
 msgid "Memory Limit"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/dashboard.php:287
-#: templates/layout/dashboard.php:287
+#: devdiggers-framework/templates/layout/dashboard.php:288
+#: templates/layout/dashboard.php:288
 msgid "Max Execution Time"
-msgstr ""
-
-#: devdiggers-framework/templates/layout/dashboard.php:297
-#: templates/layout/dashboard.php:297
-msgid "Need Help?"
 msgstr ""
 
 #: devdiggers-framework/templates/layout/dashboard.php:298
 #: templates/layout/dashboard.php:298
+msgid "Need Help?"
+msgstr ""
+
+#: devdiggers-framework/templates/layout/dashboard.php:299
+#: templates/layout/dashboard.php:299
 msgid "Get support and resources for your DevDiggers plugins"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/dashboard.php:310
-#: devdiggers-framework/templates/layout/extensions.php:126
-#: devdiggers-framework/templates/layout/extensions.php:168
-#: templates/layout/dashboard.php:310 templates/layout/extensions.php:126
-#: templates/layout/extensions.php:168
+#: devdiggers-framework/templates/layout/dashboard.php:311
+#: devdiggers-framework/templates/layout/extensions.php:130
+#: devdiggers-framework/templates/layout/extensions.php:172
+#: templates/layout/dashboard.php:311 templates/layout/extensions.php:130
+#: templates/layout/extensions.php:172
 msgid "Documentation"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/dashboard.php:311
-#: templates/layout/dashboard.php:311
+#: devdiggers-framework/templates/layout/dashboard.php:312
+#: templates/layout/dashboard.php:312
 msgid "Comprehensive guides and tutorials"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/dashboard.php:313
-#: templates/layout/dashboard.php:313
+#: devdiggers-framework/templates/layout/dashboard.php:314
+#: templates/layout/dashboard.php:314
 msgid "View Docs"
-msgstr ""
-
-#: devdiggers-framework/templates/layout/dashboard.php:324
-#: templates/layout/dashboard.php:324
-msgid "Support"
 msgstr ""
 
 #: devdiggers-framework/templates/layout/dashboard.php:325
 #: templates/layout/dashboard.php:325
+msgid "Support"
+msgstr ""
+
+#: devdiggers-framework/templates/layout/dashboard.php:326
+#: templates/layout/dashboard.php:326
 msgid "Get help from our support team"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/dashboard.php:327
-#: templates/layout/dashboard.php:327
+#: devdiggers-framework/templates/layout/dashboard.php:328
+#: templates/layout/dashboard.php:328
 msgid "Contact Us"
-msgstr ""
-
-#: devdiggers-framework/templates/layout/dashboard.php:336
-#: templates/layout/dashboard.php:336
-msgid "Want Extra Features?"
 msgstr ""
 
 #: devdiggers-framework/templates/layout/dashboard.php:337
 #: templates/layout/dashboard.php:337
+msgid "Want Extra Features?"
+msgstr ""
+
+#: devdiggers-framework/templates/layout/dashboard.php:338
+#: templates/layout/dashboard.php:338
 msgid "Contact us for custom development"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/dashboard.php:339
-#: templates/layout/dashboard.php:339
+#: devdiggers-framework/templates/layout/dashboard.php:340
+#: templates/layout/dashboard.php:340
 msgid "Hire Us"
 msgstr ""
 
@@ -550,73 +520,79 @@ msgid ""
 "item."
 msgstr ""
 
-#: devdiggers-framework/templates/layout/extensions.php:32
-#: templates/layout/extensions.php:32
+#: devdiggers-framework/templates/layout/extensions.php:36
+#: templates/layout/extensions.php:36
+#. translators: %s: Current user's display name.
 msgid "Hello, %s!"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/extensions.php:33
-#: templates/layout/extensions.php:33
+#: devdiggers-framework/templates/layout/extensions.php:39
+#: templates/layout/extensions.php:39
 msgid "Browse and explore our premium extensions for your WooCommerce store."
 msgstr ""
 
-#: devdiggers-framework/templates/layout/extensions.php:51
-#: templates/layout/extensions.php:51
+#: devdiggers-framework/templates/layout/extensions.php:57
+#: templates/layout/extensions.php:57
 msgid "Total Extensions"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/extensions.php:64
-#: templates/layout/extensions.php:64
+#: devdiggers-framework/templates/layout/extensions.php:70
+#: templates/layout/extensions.php:70
 msgid "Years Experience"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/extensions.php:75
-#: templates/layout/extensions.php:75
-msgid "Excellent"
+#: devdiggers-framework/templates/layout/extensions.php:81
+#: templates/layout/extensions.php:81
+msgid "500+"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/extensions.php:89
-#: templates/layout/extensions.php:89
+#: devdiggers-framework/templates/layout/extensions.php:82
+#: templates/layout/extensions.php:82
+msgid "5 Star Reviews"
+msgstr ""
+
+#: devdiggers-framework/templates/layout/extensions.php:93
+#: templates/layout/extensions.php:93
 msgid "Online"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/extensions.php:90
-#: templates/layout/extensions.php:90
+#: devdiggers-framework/templates/layout/extensions.php:94
+#: templates/layout/extensions.php:94
 msgid "24/7 Support"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/extensions.php:99
-#: templates/layout/extensions.php:99
+#: devdiggers-framework/templates/layout/extensions.php:103
+#: templates/layout/extensions.php:103
 msgid "Featured Extensions"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/extensions.php:116
-#: devdiggers-framework/templates/layout/extensions.php:158
-#: templates/layout/extensions.php:116 templates/layout/extensions.php:158
+#: devdiggers-framework/templates/layout/extensions.php:120
+#: devdiggers-framework/templates/layout/extensions.php:162
+#: templates/layout/extensions.php:120 templates/layout/extensions.php:162
 msgid "Buy Now"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/extensions.php:121
-#: devdiggers-framework/templates/layout/extensions.php:163
-#: templates/layout/extensions.php:121 templates/layout/extensions.php:163
+#: devdiggers-framework/templates/layout/extensions.php:125
+#: devdiggers-framework/templates/layout/extensions.php:167
+#: templates/layout/extensions.php:125 templates/layout/extensions.php:167
 msgid "Live Demo"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/extensions.php:140
-#: templates/layout/extensions.php:140
+#: devdiggers-framework/templates/layout/extensions.php:144
+#: templates/layout/extensions.php:144
 msgid "All Extensions"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/field-section-header.php:28
-#: templates/layout/field-section-header.php:28
+#: devdiggers-framework/templates/layout/field-section-header.php:29
+#: templates/layout/field-section-header.php:29
 msgid "Back"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/field-section.php:47
-#: devdiggers-framework/templates/layout/field-section.php:54
+#: devdiggers-framework/templates/layout/field-section.php:48
+#: devdiggers-framework/templates/layout/field-section.php:55
 #: devdiggers-framework/templates/layout/form-section.php:44
 #: devdiggers-framework/templates/layout/form-section.php:51
-#: templates/layout/field-section.php:47 templates/layout/field-section.php:54
+#: templates/layout/field-section.php:49 templates/layout/field-section.php:56
 #: templates/layout/form-section.php:44 templates/layout/form-section.php:51
 msgid "Save"
 msgstr ""
@@ -626,128 +602,142 @@ msgstr ""
 msgid "Save Changes"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/license.php:33
-#: templates/layout/license.php:33
+#: devdiggers-framework/templates/layout/setup-wizard.php:34
+#: templates/layout/setup-wizard.php:34
+msgid "Onboarding"
+msgstr ""
+
+#: devdiggers-framework/templates/layout/setup-wizard.php:40
+#: templates/layout/setup-wizard.php:40
+#. translators: 1: current step number, 2: total steps
+msgid "Step %1$s of %2$s"
+msgstr ""
+
+#: devdiggers-framework/templates/layout/setup-wizard.php:85
+#: templates/layout/setup-wizard.php:85
+msgid "Skip Setup"
+msgstr ""
+
+#: devdiggers-framework/templates/layout/setup-wizard.php:96
+#: templates/layout/setup-wizard.php:96
+msgid "Go Back"
+msgstr ""
+
+#: devdiggers-framework/templates/layout/setup-wizard.php:101
+#: templates/layout/setup-wizard.php:101
+msgid "Finish"
+msgstr ""
+
+#: devdiggers-framework/templates/layout/setup-wizard.php:106
+#: templates/layout/setup-wizard.php:106
+msgid "Continue"
+msgstr ""
+
+#: devdiggers-framework/templates/layout/sidebar.php:25
+#: templates/layout/sidebar.php:25
+msgid "Toggle Settings"
+msgstr ""
+
+#: devdiggers-framework/templates/layout/sidebar.php:36
+#: templates/layout/sidebar.php:36
+msgid "Close Settings"
+msgstr ""
+
+#: global-functions.php:364
+#. translators: %s: Plugin Prefix
+msgid "License Deactivated for %s"
+msgstr ""
+
+#: global-functions.php:370
+msgid "License not found or deactivation failed"
+msgstr ""
+
+#: global-functions.php:370
+msgid "Deactivation Failed"
+msgstr ""
+
+#: includes/class-ddfw-plugin-updater.php:246
+msgid "License Required"
+msgstr ""
+
+#: includes/class-ddfw-plugin-updater.php:247
+msgid ""
+"A valid license key is required to install this update. Please activate or "
+"renew your license at "
+msgstr ""
+
+#: includes/class-ddfw-plugin-updater.php:295
+msgid "A valid license is required to install this update."
+msgstr ""
+
+#: includes/class-ddfw-plugin-updater.php:297
+msgid "Renew your license"
+msgstr ""
+
+#: templates/layout/license.php:34
 msgid "License Activation"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/license.php:34
-#: templates/layout/license.php:34
+#: templates/layout/license.php:35
 msgid ""
 "Enter your license key and email to activate your plugin. You'll not be "
 "able to use the plugin until you activate the license."
 msgstr ""
 
-#: devdiggers-framework/templates/layout/license.php:41
-#: templates/layout/license.php:41
+#: templates/layout/license.php:42
 msgid "License Key"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/license.php:42
-#: devdiggers-framework/templates/layout/license.php:69
-#: templates/layout/license.php:42 templates/layout/license.php:69
+#: templates/layout/license.php:43 templates/layout/license.php:70
 msgid "Required"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/license.php:50
-#: templates/layout/license.php:50
+#: templates/layout/license.php:51
 msgid "Enter your license key"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/license.php:60
-#: templates/layout/license.php:60
+#: templates/layout/license.php:61
 msgid "Enter the license key you received after purchase."
 msgstr ""
 
-#: devdiggers-framework/templates/layout/license.php:61
-#: templates/layout/license.php:61
+#: templates/layout/license.php:62
 msgid "How to find your license key?"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/license.php:68
-#: templates/layout/license.php:68
+#: templates/layout/license.php:69
 msgid "Purchase Email"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/license.php:77
-#: templates/layout/license.php:77
+#: templates/layout/license.php:78
 msgid "Enter your purchase email"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/license.php:88
-#: templates/layout/license.php:88
+#: templates/layout/license.php:89
 msgid "Enter the email address used for the purchase."
 msgstr ""
 
-#: devdiggers-framework/templates/layout/license.php:95
-#: templates/layout/license.php:95
+#: templates/layout/license.php:96
 msgid "Activating..."
 msgstr ""
 
-#: devdiggers-framework/templates/layout/license.php:103
-#: templates/layout/license.php:103
+#: templates/layout/license.php:104
 msgid "Activate License"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/license.php:119
-#: templates/layout/license.php:119
+#: templates/layout/license.php:120
 msgid "License Active"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/license.php:120
-#: templates/layout/license.php:120
+#: templates/layout/license.php:121
 msgid "Your license is active and you can enjoy all premium features."
 msgstr ""
 
-#: devdiggers-framework/templates/layout/license.php:123
-#: templates/layout/license.php:123
+#: templates/layout/license.php:124
 msgid "Deactivating..."
 msgstr ""
 
-#: devdiggers-framework/templates/layout/license.php:131
-#: templates/layout/license.php:131
+#: templates/layout/license.php:132
 msgid "Deactivate License"
-msgstr ""
-
-#: devdiggers-framework/templates/layout/setup-wizard.php:31
-#: templates/layout/setup-wizard.php:31
-msgid "Onboarding"
-msgstr ""
-
-#: devdiggers-framework/templates/layout/setup-wizard.php:37
-#: templates/layout/setup-wizard.php:37
-#. translators: 1: current step number, 2: total steps
-msgid "Step %1$s of %2$s"
-msgstr ""
-
-#: devdiggers-framework/templates/layout/setup-wizard.php:80
-#: templates/layout/setup-wizard.php:80
-msgid "Skip Setup"
-msgstr ""
-
-#: devdiggers-framework/templates/layout/setup-wizard.php:91
-#: templates/layout/setup-wizard.php:91
-msgid "Go Back"
-msgstr ""
-
-#: devdiggers-framework/templates/layout/setup-wizard.php:96
-#: templates/layout/setup-wizard.php:96
-msgid "Finish"
-msgstr ""
-
-#: devdiggers-framework/templates/layout/setup-wizard.php:101
-#: templates/layout/setup-wizard.php:101
-msgid "Continue"
-msgstr ""
-
-#: devdiggers-framework/templates/layout/sidebar.php:23
-#: templates/layout/sidebar.php:23
-msgid "Toggle Settings"
-msgstr ""
-
-#: devdiggers-framework/templates/layout/sidebar.php:34
-#: templates/layout/sidebar.php:34
-msgid "Close Settings"
 msgstr ""
 
 #. Plugin Name of the plugin/theme
