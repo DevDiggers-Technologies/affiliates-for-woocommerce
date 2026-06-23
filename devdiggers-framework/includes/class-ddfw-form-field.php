@@ -293,7 +293,10 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 					break;
 
 				case 'editor':
-					ob_start();
+					// Defer the wp_editor() render to output time. Its core markup
+					// (TinyMCE container + inline init scripts) must never be passed
+					// through the ddfw_form_field filters or wp_kses(), so a plain-text
+					// placeholder is stored here and replaced with direct core output.
 					$editor_args = wp_parse_args(
 						$args,
 						[
@@ -307,13 +310,12 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 							'teeny'         => false,   // Output the minimal editor config used in Press This.
 							'dfw'           => false,   // Replace the default fullscreen with DFW (needs specific DOM elements and css).
 							'quicktags'     => true,    // Load Quicktags, can be used to pass settings directly to Quicktags using an array().
-							'tinymce'       => [ 
+							'tinymce'       => [
 								'content_css' => ''
 							],
 						]
 					);
-					wp_editor( $value, $args['id'], $editor_args );
-					$field .= ob_get_clean();
+					$field .= '%%DDFW_EDITOR_FIELD%%';
 					break;
 
 				case 'image':
@@ -585,11 +587,34 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 			$field = apply_filters( 'ddfw_form_field_' . $args[ 'type' ], $field, $name, $args, $value );
 			$field = apply_filters( 'ddfw_form_field', $field, $name, $args, $value );
 
+			if ( 'editor' === $args[ 'type' ] ) {
+				// The surrounding wrapper went through the ddfw_form_field filters, so
+				// it is escaped with wp_kses() on output. The editor itself is rendered
+				// straight from wp_editor() (core escapes its own markup, which wp_kses
+				// would otherwise strip), so no filtered/untrusted string is echoed.
+				$parts = explode( '%%DDFW_EDITOR_FIELD%%', $field, 2 );
+
+				if ( $args[ 'return' ] ) {
+					ob_start();
+					wp_editor( $value, $args[ 'id' ], $editor_args );
+					$editor_html = ob_get_clean();
+
+					return wp_kses( $parts[0], ddfw_kses_allowed_form_html() ) . $editor_html . ( isset( $parts[1] ) ? wp_kses( $parts[1], ddfw_kses_allowed_form_html() ) : '' );
+				}
+
+				echo wp_kses( $parts[0], ddfw_kses_allowed_form_html() );
+				wp_editor( $value, $args[ 'id' ], $editor_args );
+				if ( isset( $parts[1] ) ) {
+					echo wp_kses( $parts[1], ddfw_kses_allowed_form_html() );
+				}
+				return;
+			}
+
 			if ( $args[ 'return' ] ) {
 				return $field;
-			} else {
-				echo wp_kses( $field, ddfw_kses_allowed_form_html() );
 			}
+
+			echo wp_kses( $field, ddfw_kses_allowed_form_html() );
 		}
 	}
 }

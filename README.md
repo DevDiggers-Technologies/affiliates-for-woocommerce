@@ -105,6 +105,12 @@ For any Queries, kindly contact us at [DevDiggers](https://devdiggers.com/contac
 
 ## Changelog
 
+**= 2.1.1 =**
+```
+Updated the framework to make the plugin faster and more stable.
+Fix fatal error occured in manage affiliate page.
+```
+
 **= 2.1.0 =**
 ```
 Added the plugin setup wizard for a smoother onboarding experience.

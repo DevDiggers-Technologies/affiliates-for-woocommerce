@@ -56,7 +56,14 @@ if ( ! class_exists( 'DDFW_Setup_Wizard' ) ) {
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce is sanitized and verified before updating the option.
 			if ( isset( $_GET['page'] ) && $_GET['page'] === $config['dashboard_page'] && ! empty( $_GET['setup-wizard-skipped'] ) ) {
 				$nonce = ! empty( $_GET['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ) : '';
-				if ( ( ! current_user_can( 'manage_options' ) && ! current_user_can( 'manage_woocommerce' ) ) || ! wp_verify_nonce( $nonce, 'ddfw_skip_setup_wizard_' . $slug ) ) {
+
+				// Capability check first, kept separate so the condition cannot be bypassed.
+				if ( ! current_user_can( 'manage_options' ) && ! current_user_can( 'manage_woocommerce' ) ) {
+					wp_die( esc_html__( 'Security check failed.', 'affiliates-for-woocommerce' ) );
+				}
+
+				// Then verify the nonce on its own.
+				if ( ! wp_verify_nonce( $nonce, 'ddfw_skip_setup_wizard_' . $slug ) ) {
 					wp_die( esc_html__( 'Security check failed.', 'affiliates-for-woocommerce' ) );
 				}
 
@@ -189,7 +196,7 @@ if ( ! class_exists( 'DDFW_Setup_Wizard' ) ) {
 			$title = $step['ready_title'] ?? esc_html__( 'Congratulations! You are all set.', 'affiliates-for-woocommerce' );
 			$desc  = $step['ready_description'] ?? esc_html__( 'You can now start using the plugin and configure more advanced settings from the dashboard.', 'affiliates-for-woocommerce' );
 			?>
-			<div class="ddfw-setup-wizard-ready ddwcpr-onboarding-welcome">
+			<div class="ddfw-setup-wizard-ready ddfw-setup-wizard-onboarding">
 				<div class="ddfw-success-icon-wrap">
 					<div style="background:#eef2ff; border-radius:50%; width:80px; height:80px; display:flex; align-items:center; justify-content:center;">
 						<svg class="ddfw-success-svg" width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

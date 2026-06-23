@@ -222,6 +222,7 @@ if ( ! function_exists( 'ddfw_kses_allowed_form_html' ) ) {
 		$allowed['fieldset'] = $global_attrs;
 		$allowed['legend']   = $global_attrs;
 		$allowed['datalist'] = $global_attrs;
+		$allowed['noscript'] = $global_attrs;
 
 		/**
 		 * Filter the allowed HTML used to escape framework form-field markup.

@@ -15,6 +15,7 @@ $defaults = [
 	'description'         => '',
 	'back_button_enabled' => false,
 	'back_button_url'     => '',
+	'header_buttons'      => [],
 ];
 
 $args = wp_parse_args( $args, $defaults );
@@ -35,6 +36,24 @@ $args = wp_parse_args( $args, $defaults );
 	if ( ! empty( $args[ 'description' ] ) ) {
 		?>
 		<p><?php echo wp_kses_post( $args[ 'description' ] ); ?></p>
+		<?php
+	}
+
+	if ( ! empty( $args[ 'header_buttons' ] ) ) {
+		?>
+		<div class="ddfw-fields-section-header-actions">
+			<?php
+			foreach ( $args[ 'header_buttons' ] as $header_button ) {
+				if ( empty( $header_button[ 'label' ] ) || empty( $header_button[ 'url' ] ) ) {
+					continue;
+				}
+				$button_class = ! empty( $header_button[ 'class' ] ) ? $header_button[ 'class' ] : 'button';
+				?>
+				<a href="<?php echo esc_url( $header_button[ 'url' ] ); ?>" class="<?php echo esc_attr( $button_class ); ?>" <?php if ( ! empty( $header_button[ 'target' ] ) ) { echo 'target="' . esc_attr( $header_button[ 'target' ] ) . '" rel="noopener noreferrer"'; } ?>><?php echo esc_html( $header_button[ 'label' ] ); ?></a>
+				<?php
+			}
+			?>
+		</div>
 		<?php
 	}
 	?>

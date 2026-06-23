@@ -94,7 +94,7 @@ class DDWCAF_Setup_Wizard {
      */
     public function welcome_view() {
         ?>
-        <div class="ddfw-setup-wizard-ready ddwcpr-onboarding-welcome">
+        <div class="ddfw-setup-wizard-ready ddfw-setup-wizard-onboarding">
             <div class="ddfw-success-icon-wrap">
                 <svg class="ddfw-success-svg" width="100" height="100" viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="16" cy="16" r="15" fill="var(--ddfw-tab-background-color)"/>
@@ -105,8 +105,8 @@ class DDWCAF_Setup_Wizard {
                     <circle cx="22" cy="15" r="2.5" fill="var(--ddfw-primary-color)" fill-opacity="0.5"/>
                 </svg>
             </div>
-            <h2 class="ddwcpr-onboarding-welcome-title"><?php esc_html_e( 'Welcome to Affiliates for WooCommerce!', 'affiliates-for-woocommerce' ); ?></h2>
-            <p class="ddwcpr-onboarding-welcome-desc">
+            <h2 class="ddfw-setup-wizard-ready-title"><?php esc_html_e( 'Welcome to Affiliates for WooCommerce!', 'affiliates-for-woocommerce' ); ?></h2>
+            <p class="ddfw-setup-wizard-ready-desc">
                 <?php esc_html_e( 'Supercharge your sales with a professional affiliate network. Let\'s quickly set up the core features so you can start recruiting partners and growing your sales.', 'affiliates-for-woocommerce' ); ?>
             </p>
         </div>

@@ -9,7 +9,7 @@ Tested up to: 7.0
 Requires PHP: 7.4
 WC requires at least: 9.0.0
 WC tested up to: 10.8.1
-Stable tag: 2.1.0
+Stable tag: 2.1.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Tags: woocommerce affiliate, affiliate program, affiliate marketing, referral program, affiliate networking
@@ -266,6 +266,10 @@ Free version questions: post in the support forum here on WordPress.org. Full do
 15. Registration fields configuration panel
 
 == Changelog ==
+
+= 2.1.1 =
+* Updated the framework to make the plugin faster and more stable.
+* Fix fatal error occured in manage affiliate page.
 
 = 2.1.0 =
 * Added the plugin setup wizard for a smoother onboarding experience.

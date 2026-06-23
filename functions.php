@@ -5,7 +5,7 @@
  * Plugin URI: https://devdiggers.com/product/woocommerce-affiliates/?utm_source=plugin_link&utm_medium=upgrade_button&utm_campaign=plugin_upgrade
  * Author: DevDiggers
  * Author URI: https://devdiggers.com/
- * Version: 2.1.0
+ * Version: 2.1.1
  * Text Domain: affiliates-for-woocommerce
  * Domain Path: /i18n
  * WC requires at least: 8.5
@@ -26,9 +26,6 @@ use DDWCAffiliates\Includes\DDWCAF_File_Handler;
 use DDWCAffiliates\Includes\Admin\DDWCAF_Setup_Wizard;
 
 defined( 'ABSPATH' ) || exit();
-
-// Define Constants.
-defined( 'DEVDIGGERS_FREE_PLUGIN' ) || define( 'DEVDIGGERS_FREE_PLUGIN', true );
 
 if ( ! class_exists( 'DDWCAF_Free_Init' ) ) {
 	/**

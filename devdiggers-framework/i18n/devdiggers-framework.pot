@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: DevDiggers Framework 1.0.0\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/devdiggers-framework\n"
-"POT-Creation-Date: 2026-06-06 13:17:30+00:00\n"
+"POT-Creation-Date: 2026-06-23 09:55:11+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -36,7 +36,7 @@ msgstr ""
 msgid "Autoloader Error"
 msgstr ""
 
-#: devdiggers-framework/global-functions.php:257 global-functions.php:257
+#: devdiggers-framework/global-functions.php:258 global-functions.php:258
 msgid "PRO"
 msgstr ""
 
@@ -65,14 +65,16 @@ msgid "Security check failed!"
 msgstr ""
 
 #: devdiggers-framework/includes/class-ddfw-ajax.php:158
-#: devdiggers-framework/includes/class-ddfw-setup-wizard.php:60
-#: includes/class-ddfw-ajax.php:264 includes/class-ddfw-setup-wizard.php:60
+#: devdiggers-framework/includes/class-ddfw-setup-wizard.php:62
+#: devdiggers-framework/includes/class-ddfw-setup-wizard.php:67
+#: includes/class-ddfw-ajax.php:264 includes/class-ddfw-setup-wizard.php:62
+#: includes/class-ddfw-setup-wizard.php:67
 msgid "Security check failed."
 msgstr ""
 
 #: devdiggers-framework/includes/class-ddfw-ajax.php:162
-#: devdiggers-framework/includes/class-ddfw-setup-wizard.php:124
-#: includes/class-ddfw-ajax.php:268 includes/class-ddfw-setup-wizard.php:124
+#: devdiggers-framework/includes/class-ddfw-setup-wizard.php:131
+#: includes/class-ddfw-ajax.php:268 includes/class-ddfw-setup-wizard.php:131
 msgid "Insufficient permissions."
 msgstr ""
 
@@ -97,8 +99,8 @@ msgid "Failed to connect to newsletter service. Please try again."
 msgstr ""
 
 #: devdiggers-framework/includes/class-ddfw-ajax.php:211
-#: devdiggers-framework/includes/class-ddfw-assets.php:84
-#: includes/class-ddfw-ajax.php:317 includes/class-ddfw-assets.php:84
+#: devdiggers-framework/includes/class-ddfw-assets.php:89
+#: includes/class-ddfw-ajax.php:317 includes/class-ddfw-assets.php:89
 msgid "Thank you for subscribing!"
 msgstr ""
 
@@ -107,50 +109,174 @@ msgstr ""
 msgid "Subscription failed. Please try again."
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-assets.php:82
-#: includes/class-ddfw-assets.php:82
+#: devdiggers-framework/includes/class-ddfw-assets.php:87
+#: includes/class-ddfw-assets.php:87
 msgid "Subscribing..."
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-assets.php:83
+#: devdiggers-framework/includes/class-ddfw-assets.php:88
 #: devdiggers-framework/templates/layout/dashboard.php:91
-#: includes/class-ddfw-assets.php:83 templates/layout/dashboard.php:91
+#: includes/class-ddfw-assets.php:88 templates/layout/dashboard.php:91
 msgid "Subscribe"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-assets.php:85
-#: includes/class-ddfw-assets.php:85
+#: devdiggers-framework/includes/class-ddfw-assets.php:90
+#: includes/class-ddfw-assets.php:90
 msgid "An error occurred. Please try again."
-msgstr ""
-
-#: devdiggers-framework/includes/class-ddfw-assets.php:103
-#: includes/class-ddfw-assets.php:103
-msgid "Select Image"
-msgstr ""
-
-#: devdiggers-framework/includes/class-ddfw-assets.php:104
-#: includes/class-ddfw-assets.php:104
-msgid "Use Image"
-msgstr ""
-
-#: devdiggers-framework/includes/class-ddfw-assets.php:105
-#: includes/class-ddfw-assets.php:105
-msgid "Please enter"
-msgstr ""
-
-#: devdiggers-framework/includes/class-ddfw-assets.php:106
-#: includes/class-ddfw-assets.php:106
-msgid "or more character"
-msgstr ""
-
-#: devdiggers-framework/includes/class-ddfw-assets.php:107
-#: includes/class-ddfw-assets.php:107
-msgid "No result Found"
 msgstr ""
 
 #: devdiggers-framework/includes/class-ddfw-assets.php:108
 #: includes/class-ddfw-assets.php:108
+msgid "Select Image"
+msgstr ""
+
+#: devdiggers-framework/includes/class-ddfw-assets.php:109
+#: includes/class-ddfw-assets.php:109
+msgid "Use Image"
+msgstr ""
+
+#: devdiggers-framework/includes/class-ddfw-assets.php:110
+#: includes/class-ddfw-assets.php:110
+msgid "Please enter"
+msgstr ""
+
+#: devdiggers-framework/includes/class-ddfw-assets.php:111
+#: includes/class-ddfw-assets.php:111
+msgid "or more character"
+msgstr ""
+
+#: devdiggers-framework/includes/class-ddfw-assets.php:112
+#: includes/class-ddfw-assets.php:112
+msgid "No result Found"
+msgstr ""
+
+#: devdiggers-framework/includes/class-ddfw-assets.php:113
+#: includes/class-ddfw-assets.php:113
 msgid "Are you sure you want to delete?"
+msgstr ""
+
+#: devdiggers-framework/includes/class-ddfw-dashboard-data.php:46
+#: devdiggers-framework/includes/class-ddfw-dashboard-data.php:275
+#: includes/class-ddfw-dashboard-data.php:46
+#: includes/class-ddfw-dashboard-data.php:275
+msgid "Today"
+msgstr ""
+
+#: devdiggers-framework/includes/class-ddfw-dashboard-data.php:53
+#: devdiggers-framework/includes/class-ddfw-dashboard-data.php:276
+#: includes/class-ddfw-dashboard-data.php:53
+#: includes/class-ddfw-dashboard-data.php:276
+msgid "This Week"
+msgstr ""
+
+#: devdiggers-framework/includes/class-ddfw-dashboard-data.php:60
+#: devdiggers-framework/includes/class-ddfw-dashboard-data.php:277
+#: includes/class-ddfw-dashboard-data.php:60
+#: includes/class-ddfw-dashboard-data.php:277
+msgid "Last Week"
+msgstr ""
+
+#: devdiggers-framework/includes/class-ddfw-dashboard-data.php:67
+#: devdiggers-framework/includes/class-ddfw-dashboard-data.php:129
+#: devdiggers-framework/includes/class-ddfw-dashboard-data.php:278
+#: includes/class-ddfw-dashboard-data.php:67
+#: includes/class-ddfw-dashboard-data.php:129
+#: includes/class-ddfw-dashboard-data.php:278
+msgid "This Month"
+msgstr ""
+
+#: devdiggers-framework/includes/class-ddfw-dashboard-data.php:74
+#: devdiggers-framework/includes/class-ddfw-dashboard-data.php:279
+#: includes/class-ddfw-dashboard-data.php:74
+#: includes/class-ddfw-dashboard-data.php:279
+msgid "Last Month"
+msgstr ""
+
+#: devdiggers-framework/includes/class-ddfw-dashboard-data.php:81
+#: devdiggers-framework/includes/class-ddfw-dashboard-data.php:280
+#: includes/class-ddfw-dashboard-data.php:81
+#: includes/class-ddfw-dashboard-data.php:280
+msgid "Last 3 Months"
+msgstr ""
+
+#: devdiggers-framework/includes/class-ddfw-dashboard-data.php:88
+#: devdiggers-framework/includes/class-ddfw-dashboard-data.php:281
+#: includes/class-ddfw-dashboard-data.php:88
+#: includes/class-ddfw-dashboard-data.php:281
+msgid "Last 6 Months"
+msgstr ""
+
+#: devdiggers-framework/includes/class-ddfw-dashboard-data.php:95
+#: devdiggers-framework/includes/class-ddfw-dashboard-data.php:282
+#: includes/class-ddfw-dashboard-data.php:95
+#: includes/class-ddfw-dashboard-data.php:282
+msgid "Year to Date"
+msgstr ""
+
+#: devdiggers-framework/includes/class-ddfw-dashboard-data.php:102
+#: devdiggers-framework/includes/class-ddfw-dashboard-data.php:283
+#: includes/class-ddfw-dashboard-data.php:102
+#: includes/class-ddfw-dashboard-data.php:283
+msgid "Last Year"
+msgstr ""
+
+#: devdiggers-framework/includes/class-ddfw-dashboard-data.php:109
+#: devdiggers-framework/includes/class-ddfw-dashboard-data.php:284
+#: includes/class-ddfw-dashboard-data.php:109
+#: includes/class-ddfw-dashboard-data.php:284
+msgid "All Time"
+msgstr ""
+
+#: devdiggers-framework/includes/class-ddfw-dashboard-data.php:121
+#: includes/class-ddfw-dashboard-data.php:121
+#. translators: 1: from date, 2: to date.
+msgid "%1$s to %2$s"
+msgstr ""
+
+#: devdiggers-framework/includes/class-ddfw-dashboard.php:121
+#: includes/class-ddfw-dashboard.php:121
+msgid "Welcome back!"
+msgstr ""
+
+#: devdiggers-framework/includes/class-ddfw-dashboard.php:186
+#: includes/class-ddfw-dashboard.php:186
+msgid "Quick Select"
+msgstr ""
+
+#: devdiggers-framework/includes/class-ddfw-dashboard.php:195
+#: includes/class-ddfw-dashboard.php:195
+msgid "Custom Range"
+msgstr ""
+
+#: devdiggers-framework/includes/class-ddfw-dashboard.php:196
+#: includes/class-ddfw-dashboard.php:196
+msgid "Select specific start and end dates for your analysis"
+msgstr ""
+
+#: devdiggers-framework/includes/class-ddfw-dashboard.php:200
+#: includes/class-ddfw-dashboard.php:200
+msgid "From Date"
+msgstr ""
+
+#: devdiggers-framework/includes/class-ddfw-dashboard.php:204
+#: includes/class-ddfw-dashboard.php:204
+msgid "To Date"
+msgstr ""
+
+#: devdiggers-framework/includes/class-ddfw-dashboard.php:208
+#: includes/class-ddfw-dashboard.php:208
+msgid "Apply Custom Range"
+msgstr ""
+
+#: devdiggers-framework/includes/class-ddfw-dashboard.php:375
+#: devdiggers-framework/includes/class-ddfw-dashboard.php:448
+#: includes/class-ddfw-dashboard.php:375 includes/class-ddfw-dashboard.php:448
+msgid "No data available"
+msgstr ""
+
+#: devdiggers-framework/includes/class-ddfw-dashboard.php:376
+#: includes/class-ddfw-dashboard.php:376
+msgid "Data will appear here once activity is recorded."
 msgstr ""
 
 #: devdiggers-framework/includes/class-ddfw-form-field.php:101
@@ -177,52 +303,52 @@ msgstr ""
 msgid "Choose an option"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-form-field.php:330
-#: includes/class-ddfw-form-field.php:330
+#: devdiggers-framework/includes/class-ddfw-form-field.php:332
+#: includes/class-ddfw-form-field.php:332
 msgid "Replace Image"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-form-field.php:333
-#: includes/class-ddfw-form-field.php:333
+#: devdiggers-framework/includes/class-ddfw-form-field.php:335
+#: includes/class-ddfw-form-field.php:335
 msgid "Remove Image"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-form-field.php:338
-#: includes/class-ddfw-form-field.php:338
+#: devdiggers-framework/includes/class-ddfw-form-field.php:340
+#: includes/class-ddfw-form-field.php:340
 msgid "Hover on the image to replace or remove"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-form-field.php:344
-#: includes/class-ddfw-form-field.php:344
+#: devdiggers-framework/includes/class-ddfw-form-field.php:346
+#: includes/class-ddfw-form-field.php:346
 msgid "Upload Image"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-form-field.php:345
-#: includes/class-ddfw-form-field.php:345
+#: devdiggers-framework/includes/class-ddfw-form-field.php:347
+#: includes/class-ddfw-form-field.php:347
 msgid ""
 "Click the upload button to select an image from your media library or "
 "upload a new one."
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-form-field.php:355
-#: includes/class-ddfw-form-field.php:355
+#: devdiggers-framework/includes/class-ddfw-form-field.php:357
+#: includes/class-ddfw-form-field.php:357
 msgid "Choose Image"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-form-field.php:376
-#: devdiggers-framework/includes/class-ddfw-form-field.php:406
-#: includes/class-ddfw-form-field.php:376
-#: includes/class-ddfw-form-field.php:406
+#: devdiggers-framework/includes/class-ddfw-form-field.php:378
+#: devdiggers-framework/includes/class-ddfw-form-field.php:408
+#: includes/class-ddfw-form-field.php:378
+#: includes/class-ddfw-form-field.php:408
 msgid "Search by name"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-form-field.php:435
-#: includes/class-ddfw-form-field.php:435
+#: devdiggers-framework/includes/class-ddfw-form-field.php:437
+#: includes/class-ddfw-form-field.php:437
 msgid "Search Users"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-form-field.php:505
-#: includes/class-ddfw-form-field.php:505
+#: devdiggers-framework/includes/class-ddfw-form-field.php:507
+#: includes/class-ddfw-form-field.php:507
 msgid "Search by role"
 msgstr ""
 
@@ -241,46 +367,46 @@ msgstr ""
 msgid "Setup wizard not found for this plugin."
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-review-notice.php:105
-#: includes/class-ddfw-review-notice.php:105
+#: devdiggers-framework/includes/class-ddfw-review-notice.php:118
+#: includes/class-ddfw-review-notice.php:118
 #. translators: %s: Plugin Name
 msgid ""
 "Enjoying %s? We would love to hear your feedback! Could you take a moment "
 "to leave a review?"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-review-notice.php:109
-#: includes/class-ddfw-review-notice.php:109
+#: devdiggers-framework/includes/class-ddfw-review-notice.php:122
+#: includes/class-ddfw-review-notice.php:122
 msgid "Leave a Review"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-review-notice.php:110
-#: includes/class-ddfw-review-notice.php:110
+#: devdiggers-framework/includes/class-ddfw-review-notice.php:124
+#: includes/class-ddfw-review-notice.php:124
 msgid "Maybe Later"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-review-notice.php:111
-#: includes/class-ddfw-review-notice.php:111
-msgid "Already Did"
+#: devdiggers-framework/includes/class-ddfw-review-notice.php:126
+#: includes/class-ddfw-review-notice.php:126
+msgid "I Already Did"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-setup-wizard.php:138
-#: includes/class-ddfw-setup-wizard.php:138
+#: devdiggers-framework/includes/class-ddfw-setup-wizard.php:145
+#: includes/class-ddfw-setup-wizard.php:145
 msgid "Invalid request."
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-setup-wizard.php:142
-#: includes/class-ddfw-setup-wizard.php:142
+#: devdiggers-framework/includes/class-ddfw-setup-wizard.php:149
+#: includes/class-ddfw-setup-wizard.php:149
 msgid "Step not found."
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-setup-wizard.php:189
-#: includes/class-ddfw-setup-wizard.php:189
+#: devdiggers-framework/includes/class-ddfw-setup-wizard.php:196
+#: includes/class-ddfw-setup-wizard.php:196
 msgid "Congratulations! You are all set."
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-setup-wizard.php:190
-#: includes/class-ddfw-setup-wizard.php:190
+#: devdiggers-framework/includes/class-ddfw-setup-wizard.php:197
+#: includes/class-ddfw-setup-wizard.php:197
 msgid ""
 "You can now start using the plugin and configure more advanced settings "
 "from the dashboard."
@@ -583,13 +709,13 @@ msgstr ""
 msgid "All Extensions"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/field-section-header.php:29
-#: templates/layout/field-section-header.php:29
+#: devdiggers-framework/templates/layout/field-section-header.php:30
+#: templates/layout/field-section-header.php:30
 msgid "Back"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/field-section.php:48
-#: devdiggers-framework/templates/layout/field-section.php:55
+#: devdiggers-framework/templates/layout/field-section.php:49
+#: devdiggers-framework/templates/layout/field-section.php:56
 #: devdiggers-framework/templates/layout/form-section.php:44
 #: devdiggers-framework/templates/layout/form-section.php:51
 #: templates/layout/field-section.php:49 templates/layout/field-section.php:56
@@ -643,17 +769,55 @@ msgstr ""
 msgid "Close Settings"
 msgstr ""
 
-#: global-functions.php:364
+#: global-functions.php:365
 #. translators: %s: Plugin Prefix
 msgid "License Deactivated for %s"
 msgstr ""
 
-#: global-functions.php:370
+#: global-functions.php:371
 msgid "License not found or deactivation failed"
 msgstr ""
 
-#: global-functions.php:370
+#: global-functions.php:371
 msgid "Deactivation Failed"
+msgstr ""
+
+#: includes/class-ddfw-plugin-dependency.php:189
+#. translators: 1: dependency name, 2: error detail
+msgid "Could not fetch \"%1$s\" from WordPress.org: %2$s"
+msgstr ""
+
+#: includes/class-ddfw-plugin-dependency.php:191
+msgid "no download link returned."
+msgstr ""
+
+#: includes/class-ddfw-plugin-dependency.php:206
+#. translators: 1: dependency name, 2: error detail
+msgid "Failed to install \"%1$s\": %2$s"
+msgstr ""
+
+#: includes/class-ddfw-plugin-dependency.php:208
+msgid "unknown installer error."
+msgstr ""
+
+#: includes/class-ddfw-plugin-dependency.php:225
+#. translators: %s: dependency name
+msgid "\"%s\" was installed successfully."
+msgstr ""
+
+#: includes/class-ddfw-plugin-dependency.php:249
+#. translators: 1: dependency name, 2: error detail
+msgid "Failed to activate \"%1$s\": %2$s"
+msgstr ""
+
+#: includes/class-ddfw-plugin-dependency.php:262
+#. translators: %s: dependency name
+msgid "\"%s\" was installed and activated successfully."
+msgstr ""
+
+#: includes/class-ddfw-plugin-dependency.php:267
+#. translators: %s: dependency name
+msgid "\"%s\" was activated successfully."
 msgstr ""
 
 #: includes/class-ddfw-plugin-updater.php:246
@@ -745,9 +909,7 @@ msgid "DevDiggers Framework"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
-msgid ""
-"https://devdiggers.com/woocommerce-extensions/?utm_source=DevDiggers Plugin "
-"Framework&utm_medium=Plugins List&utm_campaign=WooCommerce Extensions"
+msgid "https://devdiggers.com/woocommerce-extensions/"
 msgstr ""
 
 #. Description of the plugin/theme

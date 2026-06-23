@@ -2,7 +2,7 @@
 /**
  * Framework Name - DevDiggers Framework
  * Framework Description - <code><strong>DevDiggers Framework Plugin</strong></code> is a powerful and flexible framework designed to help developers create WordPress plugins for DevDiggers with ease. It provides a set of tools and features that streamline the development process, allowing for rapid plugin creation and customization.
- * Framework URI - https://devdiggers.com/woocommerce-extensions/?utm_source=DevDiggers Plugin Framework&utm_medium=Plugins List&utm_campaign=WooCommerce Extensions
+ * Framework URI - https://devdiggers.com/woocommerce-extensions/
  * Author: DevDiggers
  * Author URI: https://devdiggers.com/
  * Version: 1.0.0
