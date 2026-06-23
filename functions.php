@@ -23,7 +23,6 @@
 // ddwcaf: Affiliates for WooCommerce.
 
 use DDWCAffiliates\Includes\DDWCAF_File_Handler;
-use DDWCAffiliates\Includes\Admin\DDWCAF_Setup_Wizard;
 
 defined( 'ABSPATH' ) || exit();
 
@@ -91,7 +90,6 @@ if ( ! class_exists( 'DDWCAF_Free_Init' ) ) {
 			} else {
 				require_once DDWCAF_PLUGIN_FILE . 'autoload/autoload.php';
 				new DDWCAF_File_Handler();
-				new DDWCAF_Setup_Wizard();
 
 				// Initialize review notice if framework is available.
 				new \DevDiggers\Framework\Includes\DDFW_Review_Notice( [
