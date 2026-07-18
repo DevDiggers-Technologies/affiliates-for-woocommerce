@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Affiliates for WooCommerce 2.1.1\n"
+"Project-Id-Version: Affiliates for WooCommerce 2.1.2\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/affiliates-for-woocommerce\n"
-"POT-Creation-Date: 2026-06-23 09:58:16+00:00\n"
+"POT-Creation-Date: 2026-06-30 06:43:24+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -30,7 +30,7 @@ msgstr ""
 msgid "The file attempting to be loaded at %s does not exist."
 msgstr ""
 
-#: functions.php:85
+#: functions.php:84
 #. translators: %s for a opening tag and %s for a closing tag
 msgid ""
 "Affiliates for WooCommerce is activated but not effective. It requires "
@@ -41,46 +41,46 @@ msgstr ""
 msgid "Affiliates for WooCommerce"
 msgstr ""
 
-#: functions.php:114 helper/affiliate/affiliate-helper.php:560
+#: functions.php:112 helper/affiliate/affiliate-helper.php:560
 #: includes/admin-dashboard.php:92
 msgid "Dashboard"
 msgstr ""
 
-#: functions.php:116
+#: functions.php:114
 msgid "Setup Wizard"
 msgstr ""
 
-#: functions.php:118 includes/admin-dashboard.php:142
+#: functions.php:116 includes/admin-dashboard.php:142
 msgid "Configuration"
 msgstr ""
 
-#: functions.php:120
+#: functions.php:118
 msgid "Upgrade to Pro"
 msgstr ""
 
-#: functions.php:137
+#: functions.php:135
 msgid "Support"
 msgstr ""
 
-#: functions.php:138
+#: functions.php:136
 msgid "Documentation"
 msgstr ""
 
-#: functions.php:139 includes/admin-dashboard.php:913
+#: functions.php:137 includes/admin-dashboard.php:913
 msgid "Review"
 msgstr ""
 
-#: helper/affiliate/affiliate-helper.php:222 includes/file-handler.php:64
+#: helper/affiliate/affiliate-helper.php:222 includes/file-handler.php:65
 #: templates/admin/affiliates/manage-affiliate-template.php:377
 #: templates/front/affiliate-dashboard/settings-section.php:51
 msgid "Direct Bank/Wire Transfer"
 msgstr ""
 
-#: helper/affiliate/affiliate-helper.php:223 includes/file-handler.php:70
+#: helper/affiliate/affiliate-helper.php:223 includes/file-handler.php:71
 msgid "PayPal"
 msgstr ""
 
-#: helper/affiliate/affiliate-helper.php:224 includes/file-handler.php:76
+#: helper/affiliate/affiliate-helper.php:224 includes/file-handler.php:77
 msgid "WooCommerce Wallet Management [Pro]"
 msgstr ""
 
@@ -817,7 +817,7 @@ msgid ""
 "appreciate it."
 msgstr ""
 
-#: includes/file-handler.php:94
+#: includes/file-handler.php:95
 msgid "Affiliate Dashboard"
 msgstr ""
 

@@ -5,11 +5,11 @@
  * Plugin URI: https://devdiggers.com/product/woocommerce-affiliates/?utm_source=plugin_link&utm_medium=upgrade_button&utm_campaign=plugin_upgrade
  * Author: DevDiggers
  * Author URI: https://devdiggers.com/
- * Version: 2.1.1
+ * Version: 2.1.2
  * Text Domain: affiliates-for-woocommerce
  * Domain Path: /i18n
  * WC requires at least: 8.5
- * WC tested up to: 10.8.1
+ * WC tested up to: 10.9.1
  * WP requires at least: 6.0.0
  * WP tested up to: 7.0
  * DevDiggersPrefix: ddwcaf

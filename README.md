@@ -9,7 +9,7 @@
 
 **WooCommerce**
   * `Requires at least: 9.0.0`
-  * `Tested up to: 10.8.1`
+  * `Tested up to: 10.9.1`
 
 ## Description
 
@@ -105,10 +105,15 @@ For any Queries, kindly contact us at [DevDiggers](https://devdiggers.com/contac
 
 ## Changelog
 
+**= 2.1.2 =**
+```
+Fix fatal error occured in the plugin dashboard.
+
+```
+
 **= 2.1.1 =**
 ```
 Updated the framework to make the plugin faster and more stable.
-Fix fatal error occured in manage affiliate page.
 ```
 
 **= 2.1.0 =**
