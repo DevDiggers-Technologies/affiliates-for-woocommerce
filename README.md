@@ -125,13 +125,13 @@ The free version covers a single global commission rate and manual payouts. Pro 
 * Self referral blocking
 * Visit debounce time, and control over whether a newer referral link overwrites an existing cookie
 * Clear the referral cookie after purchase
-* CAPTCHA on the signup form via DevDiggers Advanced CAPTCHA
+* CAPTCHA on the signup form via the [WooCommerce Advanced CAPTCHA](https://devdiggers.com/product/woocommerce-advanced-captcha/) plugin by DevDiggers, sold separately
 * Automated emails for registration, approval, and commission updates
 * Charts for earnings, visits, and conversions with month on month comparison
 * Top products report filtered by affiliate
 * Custom URL endpoints and titles for each dashboard section and the My Account tab
 
-[Pro demo](https://demo.devdiggers.com/woocommerce-affiliates/) | [Free vs Pro comparison](https://devdiggers.com/product/woocommerce-affiliates/#free-vs-pro/)
+[Pro demo](https://demo.devdiggers.com/woocommerce-affiliates/) | [Free vs Pro comparison](https://devdiggers.com/product/woocommerce-affiliates/#free-vs-pro)
 
 ## Installation
 

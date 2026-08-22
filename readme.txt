@@ -17,7 +17,7 @@ Run your own affiliate marketing program in WooCommerce. Track referral links, c
 
 == Description ==
 
-Affiliates for WooCommerce turns your store into a self hosted affiliate program. People sign up as affiliates, share a referral link, and earn a commission when someone buys through it. You approve the affiliates, set the rate, and pay them when you are ready.
+Affiliates for WooCommerce is a [WooCommerce affiliate plugin](https://devdiggers.com/product/woocommerce-affiliates/) that turns your store into a self hosted affiliate program. People sign up as affiliates, share a referral link, and earn a commission when someone buys through it. You approve the affiliates, set the rate, and pay them when you are ready.
 
 Everything runs inside WordPress. There is no external affiliate network taking a cut of each sale, and no monthly platform fee on top of what you already pay your affiliates.
 
@@ -28,7 +28,7 @@ Affiliates get their own dashboard inside the WooCommerce My Account page, so th
 * [Free demo](https://demo.devdiggers.com/woocommerce-affiliates-free/)
 * [Pro demo](https://demo.devdiggers.com/woocommerce-affiliates/)
 * [Documentation](https://docs.devdiggers.com/woocommerce-affiliates/)
-* [Free vs Pro comparison](https://devdiggers.com/product/woocommerce-affiliates/#free-vs-pro/)
+* [Free vs Pro comparison](https://devdiggers.com/product/woocommerce-affiliates/#free-vs-pro)
 
 = How the referral tracking works =
 
@@ -172,7 +172,7 @@ The free version covers a single global commission rate and manual payouts. Pro 
 * Set a debounce time so repeated clicks from the same visitor are not counted as separate visits
 * Decide whether a newer referral link overwrites an existing affiliate cookie
 * Clear the referral cookie after a purchase
-* CAPTCHA on the signup form through the DevDiggers Advanced CAPTCHA plugin
+* CAPTCHA on the signup form through the [WooCommerce Advanced CAPTCHA](https://devdiggers.com/product/woocommerce-advanced-captcha/) plugin by DevDiggers, sold separately
 
 = Email notifications =
 
@@ -189,7 +189,7 @@ The free version covers a single global commission rate and manual payouts. Pro 
 * Custom URL endpoints and titles for each affiliate dashboard section
 * Custom endpoint slug and title for the My Account affiliate tab
 
-[Try the Pro demo](https://demo.devdiggers.com/woocommerce-affiliates/) or [see the full comparison](https://devdiggers.com/product/woocommerce-affiliates/#free-vs-pro/)
+[Try the Pro demo](https://demo.devdiggers.com/woocommerce-affiliates/) or [see the full comparison](https://devdiggers.com/product/woocommerce-affiliates/#free-vs-pro)
 
 == Installation ==
 
