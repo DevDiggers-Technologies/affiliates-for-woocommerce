@@ -1,57 +1,50 @@
 <?php
 /**
  * Dynamically loads classes
- * 
+ *
  * @package Affiliates for WooCommerce
  */
 
-namespace DDWCAffiliates;
-
 defined( 'ABSPATH' ) || exit();
 
-spl_autoload_register( 'DDWCAffiliates\ddwcaf_namespace_class_autoload' );
-
-/**
- * @param string $class_name The name of the class to load.
+/*
+ * Registered as a closure so more than one active plugin can autoload the same
+ * namespace without a "Cannot redeclare" fatal.
  */
-function ddwcaf_namespace_class_autoload( $class_name ) {
-    if ( false === strpos( $class_name, 'DDWCAffiliates' ) ) {
-        return;
-    }
-
-    $file_parts = explode( '\\', $class_name );
-
-    $namespace = '';
-
-    for ( $i = count( $file_parts ) - 1; $i > 0; $i-- ) {
-		$current = strtolower( $file_parts[ $i ] );
-		$current = str_ireplace( '_', '-', $current );
-		$current = str_ireplace( 'ddwcaf-', '', $current );
-
-		if ( count( $file_parts ) - 1 === $i ) {
-			if ( strpos( strtolower( $file_parts[ count( $file_parts ) - 1 ] ), 'interface' ) ) {
-				$interface_name = explode( '_', $file_parts[ count( $file_parts ) - 1 ] );
-				array_pop( $interface_name );
-				$interface_name = strtolower( implode( '-', $interface_name ) );
-				$file_name = "interface-{$interface_name}.php";
-			} else {
-				$file_name = "{$current}.php";
-			}
-		} else {
-			$namespace = '/' . $current . $namespace;
+spl_autoload_register(
+	function ( $class_name ) {
+		if ( 0 !== strpos( $class_name, 'DDWCAffiliates\\' ) ) {
+			return;
 		}
 
-		$filepath  = trailingslashit( dirname( dirname( __FILE__ ) ) . $namespace );
-		$filepath .= $file_name;
-	}
+		$file_parts = explode( '\\', $class_name );
+		$class_part = array_pop( $file_parts );
 
-    // If the file exists in the specified path, then include it.
-    if ( file_exists( $filepath ) ) {
-        include_once( $filepath );
-    } else {
-        wp_die(
-			/* translators: %s for the filepath */
-			sprintf( esc_html__( 'The file attempting to be loaded at %s does not exist.', 'affiliates-for-woocommerce' ), $filepath )
-        );
-    }
-}
+		// Drop the root namespace. What is left maps to directories under the plugin root.
+		array_shift( $file_parts );
+
+		// Strip the class prefix, then pick the file prefix from the name's own suffix.
+		$base_name = str_ireplace( [ '_', 'ddwcaf-' ], [ '-', '' ], strtolower( $class_part ) );
+
+		if ( '-interface' === substr( $base_name, -10 ) ) {
+			$file_name = 'interface-' . substr( $base_name, 0, -10 ) . '.php';
+		} else {
+			$file_name = $base_name . '.php';
+		}
+
+		$directories = array_map(
+			function ( $part ) {
+				return str_replace( '_', '-', strtolower( $part ) );
+			},
+			$file_parts
+		);
+
+		$filepath = trailingslashit( dirname( __DIR__ ) ) . implode( '/', $directories );
+		$filepath = trailingslashit( $filepath ) . $file_name;
+
+		// Miss: return quietly so another registered autoloader gets its turn.
+		if ( file_exists( $filepath ) ) {
+			require_once $filepath;
+		}
+	}
+);

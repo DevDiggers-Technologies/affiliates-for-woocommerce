@@ -6,62 +6,40 @@
  * @since 1.0.0
  */
 
-namespace DevDiggers\Framework;
-
 defined( 'ABSPATH' ) || exit();
 
-spl_autoload_register( __NAMESPACE__ . '\\ddfw_namespace_class_autoload' );
-
-/**
- * Autoload classes and interfaces within DevDiggers\Framework namespace.
- *
- * @param string $class The fully qualified class name.
+/*
+ * Registered as a closure so more than one active plugin can autoload the same
+ * namespace without a "Cannot redeclare" fatal.
  */
-function ddfw_namespace_class_autoload( $class ) {
-	$prefix   = __NAMESPACE__ . '\\';
-	$base_dir = dirname( __DIR__ ) . '/';
+spl_autoload_register(
+	function ( $class_name ) {
+		$prefix = 'DevDiggers\\Framework\\';
 
-	$len = strlen( $prefix );
-	if ( strncmp( $prefix, $class, $len ) !== 0 ) {
-		return;
+		if ( 0 !== strncmp( $prefix, $class_name, strlen( $prefix ) ) ) {
+			return;
+		}
+
+		// Namespace separators and underscores both become path separators or hyphens.
+		$relative = substr( $class_name, strlen( $prefix ) );
+		$relative = strtolower( str_replace( [ '\\', '_' ], [ '/', '-' ], $relative ) );
+
+		$path_parts = explode( '/', $relative );
+		$base_name  = array_pop( $path_parts );
+		$dir_path   = implode( '/', $path_parts );
+
+		$file_prefix = 'class-';
+
+		if ( '-interface' === substr( $base_name, -10 ) ) {
+			$file_prefix = 'interface-';
+			$base_name   = substr( $base_name, 0, -10 );
+		}
+
+		$filepath = trailingslashit( dirname( __DIR__ ) ) . ( $dir_path ? $dir_path . '/' : '' ) . $file_prefix . $base_name . '.php';
+
+		// Miss: return quietly so another registered autoloader gets its turn.
+		if ( file_exists( $filepath ) ) {
+			require_once $filepath;
+		}
 	}
-
-	$relative_class = substr( $class, $len );
-
-	// Convert namespace to path
-	$relative_class_path = str_replace( '\\', '/', $relative_class );
-	$relative_class_path = strtolower( str_replace( '_', '-', $relative_class_path ) );
-
-	$path_parts = explode( '/', $relative_class_path );
-	$class_name = array_pop( $path_parts );
-	$dir_path   = implode( '/', $path_parts );
-
-	// Default to class prefix
-	$prefix = 'class-';
-
-	// Detect interfaces based on naming (ends in -interface)
-	if ( '-interface' === substr( $class_name, -10 ) ) {
-		$prefix = 'interface-';
-		$class_name = substr( $class_name, 0, -10 );
-	}
-
-	$file_name = $prefix . $class_name . '.php';
-
-	$file = $base_dir . ( $dir_path ? $dir_path . '/' : '' ) . $file_name;
-
-	if ( file_exists( $file ) ) {
-		require_once $file;
-	} else {
-		$message = sprintf(
-			/* translators: %1$s: class name, %2$s: file path. */
-			esc_html__( 'Autoloader error: The file for class %1$s was expected at path %2$s but was not found.', 'affiliates-for-woocommerce' ),
-			esc_html( $class ),
-			esc_html( $file )
-		);
-
-		wp_die(
-			wp_kses_post( $message ),
-			esc_html__( 'Autoloader Error', 'affiliates-for-woocommerce' )
-		);
-	}
-}
+);
