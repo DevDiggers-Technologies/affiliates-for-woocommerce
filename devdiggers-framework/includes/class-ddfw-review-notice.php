@@ -24,8 +24,18 @@ if ( ! class_exists( 'DDFW_Review_Notice' ) ) {
 		protected $args = [];
 
 		/**
+		 * Registry of plugin prefixes that have registered a review notice.
+		 *
+		 * Used to validate the prefix received over AJAX so the option name can
+		 * never be built from an arbitrary, user-supplied value.
+		 *
+		 * @var array
+		 */
+		protected static $registered_prefixes = [];
+
+		/**
 		 * Constructor to initialize hooks.
-		 * 
+		 *
 		 * @param array $args Plugin specific arguments.
 		 */
 		public function __construct( $args = [] ) {
@@ -41,6 +51,9 @@ if ( ! class_exists( 'DDFW_Review_Notice' ) ) {
 				return;
 			}
 
+			// Record this prefix so the AJAX handler can validate against known prefixes.
+			self::$registered_prefixes[ $this->args['plugin_prefix'] ] = true;
+
 			add_action( 'admin_notices', [ $this, 'display_review_notice' ] );
 			add_action( 'wp_ajax_ddfw_dismiss_review_notice', [ $this, 'dismiss_review_notice' ] );
 		}
@@ -54,12 +67,12 @@ if ( ! class_exists( 'DDFW_Review_Notice' ) ) {
 			$prefix = $this->args['plugin_prefix'];
 
 			// Check if dismissed permanently.
-			if ( 'yes' === get_option( "_{$prefix}_review_notice_dismissed" ) ) {
+			if ( 'yes' === get_option( "ddfw_review_notice_dismissed_{$prefix}" ) ) {
 				return false;
 			}
 
 			// Check install time.
-			$installed_at = get_option( "_{$prefix}_installed_at" );
+			$installed_at = get_option( "{$prefix}_installed_at" );
 			if ( ! $installed_at ) {
 				return false;
 			}
@@ -72,7 +85,7 @@ if ( ! class_exists( 'DDFW_Review_Notice' ) ) {
 			}
 
 			// Check "Maybe Later" delay.
-			$remind_at = get_option( "_{$prefix}_review_notice_remind_at" );
+			$remind_at = get_option( "ddfw_review_notice_remind_at_{$prefix}" );
 			if ( $remind_at && $current_time < $remind_at ) {
 				return false;
 			}
@@ -93,65 +106,25 @@ if ( ! class_exists( 'DDFW_Review_Notice' ) ) {
 			$prefix      = $this->args['plugin_prefix'];
 			$plugin_name = $this->args['plugin_name'];
 			$review_url  = $this->args['review_url'];
+			$script_path = DDFW_FILE . 'assets/js/review-notice.js';
+
+			wp_enqueue_script( 'ddfw-review-notice', DDFW_URL . 'assets/js/review-notice.js', [], filemtime( $script_path ), true );
 
 			?>
-			<div class="notice notice-info ddfw-review-notice" data-prefix="<?php echo esc_attr( $prefix ); ?>">
+			<div class="notice notice-info ddfw-review-notice" data-prefix="<?php echo esc_attr( $prefix ); ?>" data-nonce="<?php echo esc_attr( wp_create_nonce( 'ddfw-review-notice-nonce' ) ); ?>">
 				<p>
 					<?php
 					/* translators: %s: Plugin Name */
-					echo sprintf( esc_html__( 'Enjoying %s? We would love to hear your feedback! Could you take a moment to leave a review?', 'devdiggers-framework' ), '<strong>' . esc_html( $plugin_name ) . '</strong>' );
+					echo sprintf( esc_html__( 'Enjoying %s? We would love to hear your feedback! Could you take a moment to leave a review?', 'affiliates-for-woocommerce' ), '<strong>' . esc_html( $plugin_name ) . '</strong>' );
 					?>
 				</p>
 				<p>
-					<a href="<?php echo esc_url( $review_url ); ?>" class="button button-primary ddfw-review-notice-action" data-action="already-did" target="_blank"><?php esc_html_e( 'Leave a Review', 'devdiggers-framework' ); ?></a>
-					<button class="button button-secondary ddfw-review-notice-action" data-action="maybe-later"><?php esc_html_e( 'Maybe Later', 'devdiggers-framework' ); ?></button>
-					<button class="button button-link ddfw-review-notice-action" data-action="already-did"><?php esc_html_e( 'Already Did', 'devdiggers-framework' ); ?></button>
+					<a href="<?php echo esc_url( $review_url ); ?>" class="button button-primary ddfw-review-notice-action" data-action="already-did" data-open-review="true" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Leave a Review', 'affiliates-for-woocommerce' ); ?></a>
+					&nbsp;&nbsp;
+					<button type="button" class="button button-secondary ddfw-review-notice-action" data-action="maybe-later"><?php esc_html_e( 'Maybe Later', 'affiliates-for-woocommerce' ); ?></button>
+					&nbsp;&nbsp;
+					<a href="#" class="ddfw-review-notice-action" data-action="already-did"><?php esc_html_e( 'I Already Did', 'affiliates-for-woocommerce' ); ?></a>
 				</p>
-				<script>
-					( function() {
-						document.addEventListener( 'DOMContentLoaded', function() {
-							var notice = document.querySelector( '.ddfw-review-notice[data-prefix="<?php echo esc_js( $prefix ); ?>"]' );
-							if ( ! notice ) {
-								return;
-							}
-
-							var buttons = notice.querySelectorAll( '.ddfw-review-notice-action' );
-							buttons.forEach( function( btn ) {
-								btn.addEventListener( 'click', function( e ) {
-									var action = this.getAttribute( 'data-action' );
-									var prefix = notice.getAttribute( 'data-prefix' );
-
-									if ( action !== 'already-did' || this.tagName.toLowerCase() === 'button' ) {
-										e.preventDefault();
-									}
-
-									var formData = new FormData();
-									formData.append( 'action', 'ddfw_dismiss_review_notice' );
-									formData.append( 'dismiss_action', action );
-									formData.append( 'prefix', prefix );
-									formData.append( 'nonce', '<?php echo esc_js( wp_create_nonce( 'ddfw-review-notice-nonce' ) ); ?>' );
-
-									fetch( ajaxurl, {
-										method: 'POST',
-										body: formData
-									} )
-									.then( function( response ) {
-										return response.json();
-									} )
-									.then( function( data ) {
-										if ( data.success ) {
-											notice.style.transition = 'opacity 0.5s';
-											notice.style.opacity = '0';
-											setTimeout( function() {
-												notice.remove();
-											}, 500 );
-										}
-									} );
-								} );
-							} );
-						} );
-					} )();
-				</script>
 			</div>
 			<?php
 		}
@@ -164,18 +137,24 @@ if ( ! class_exists( 'DDFW_Review_Notice' ) ) {
 		public function dismiss_review_notice() {
 			check_ajax_referer( 'ddfw-review-notice-nonce', 'nonce' );
 
-			$prefix = ! empty( $_POST['prefix'] ) ? sanitize_text_field( wp_unslash( $_POST['prefix'] ) ) : '';
+			if ( ! current_user_can( 'manage_options' ) && ! current_user_can( 'manage_woocommerce' ) ) {
+				wp_send_json_error();
+			}
+
+			$prefix = ! empty( $_POST['prefix'] ) ? sanitize_key( wp_unslash( $_POST['prefix'] ) ) : '';
 			$dismiss_action = ! empty( $_POST['dismiss_action'] ) ? sanitize_text_field( wp_unslash( $_POST['dismiss_action'] ) ) : '';
 
-			if ( empty( $prefix ) ) {
+			// Only accept a prefix that an active review-notice instance actually registered.
+			// This prevents the option name from being built out of arbitrary user input.
+			if ( empty( $prefix ) || empty( self::$registered_prefixes[ $prefix ] ) ) {
 				wp_send_json_error();
 			}
 
 			if ( 'maybe-later' === $dismiss_action ) {
 				$remind_at = time() + ( $this->args['remind_days'] * DAY_IN_SECONDS );
-				update_option( "_{$prefix}_review_notice_remind_at", $remind_at );
+				update_option( "ddfw_review_notice_remind_at_{$prefix}", $remind_at );
 			} else {
-				update_option( "_{$prefix}_review_notice_dismissed", 'yes' );
+				update_option( "ddfw_review_notice_dismissed_{$prefix}", 'yes' );
 			}
 
 			wp_send_json_success();

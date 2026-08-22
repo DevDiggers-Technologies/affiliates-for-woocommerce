@@ -550,96 +550,12 @@ if ( ! class_exists( 'DDWCAF_Dashboard_Helper' ) ) {
 		 * Get date range
 		 */
 		public function get_date_range() {
-			$range = ! empty( $_GET['date_range'] ) ? sanitize_text_field( wp_unslash( $_GET['date_range'] ) ) : '30_days';
+			$range = \DevDiggers\Framework\Includes\DDFW_Dashboard_Data::get_date_range();
 
-			switch ( $range ) {
-				case 'today':
-					return [
-						'type'  => 'today',
-						'from'  => current_time( 'Y-m-d' ),
-						'to'    => current_time( 'Y-m-d' ),
-						'label' => esc_html__( 'Today', 'affiliates-for-woocommerce' ),
-					];
-				case '7_days':
-					return [
-						'type'  => '7_days',
-						'from'  => date( 'Y-m-d', strtotime( 'monday this week' ) ),
-						'to'    => current_time( 'Y-m-d' ),
-						'label' => esc_html__( 'This Week', 'affiliates-for-woocommerce' ),
-					];
-				case 'last_week':
-					return [
-						'type'  => 'last_week',
-						'from'  => date( 'Y-m-d', strtotime( 'monday last week' ) ),
-						'to'    => date( 'Y-m-d', strtotime( 'sunday last week' ) ),
-						'label' => esc_html__( 'Last Week', 'affiliates-for-woocommerce' ),
-					];
-				case '30_days':
-					return [
-						'type'  => '30_days',
-						'from'  => current_time( 'Y-m-01' ),
-						'to'    => current_time( 'Y-m-d' ),
-						'label' => esc_html__( 'This Month', 'affiliates-for-woocommerce' ),
-					];
-				case 'last_month':
-					return [
-						'type'  => 'last_month',
-						'from'  => date( 'Y-m-01', strtotime( 'first day of last month' ) ),
-						'to'    => date( 'Y-m-t', strtotime( 'last day of last month' ) ),
-						'label' => esc_html__( 'Last Month', 'affiliates-for-woocommerce' ),
-					];
-				case '90_days':
-					return [
-						'type'  => '90_days',
-						'from'  => date( 'Y-m-d', strtotime( '-90 days' ) ),
-						'to'    => current_time( 'Y-m-d' ),
-						'label' => esc_html__( 'Last 3 Months', 'affiliates-for-woocommerce' ),
-					];
-				case '180_days':
-					return [
-						'type'  => '180_days',
-						'from'  => date( 'Y-m-d', strtotime( '-180 days' ) ),
-						'to'    => current_time( 'Y-m-d' ),
-						'label' => esc_html__( 'Last 6 Months', 'affiliates-for-woocommerce' ),
-					];
-				case 'year_to_date':
-					return [
-						'type'  => 'year_to_date',
-						'from'  => current_time( 'Y-01-01' ),
-						'to'    => current_time( 'Y-m-d' ),
-						'label' => esc_html__( 'Year to Date', 'affiliates-for-woocommerce' ),
-					];
-				case 'last_year':
-					return [
-						'type'  => 'last_year',
-						'from'  => date( 'Y-01-01', strtotime( '-1 year' ) ),
-						'to'    => date( 'Y-12-31', strtotime( '-1 year' ) ),
-						'label' => esc_html__( 'Last Year', 'affiliates-for-woocommerce' ),
-					];
-				case 'all_time':
-					return [
-						'type'  => 'all_time',
-						'from'  => '2020-01-01', // Synced start date
-						'to'    => current_time( 'Y-m-d' ),
-						'label' => esc_html__( 'All Time', 'affiliates-for-woocommerce' ),
-					];
-				case 'custom':
-					$from = ! empty( $_GET['from_date'] ) ? sanitize_text_field( wp_unslash( $_GET['from_date'] ) ) : current_time( 'Y-m-d', false, strtotime( '-30 days' ) );
-					$to   = ! empty( $_GET['to_date'] ) ? sanitize_text_field( wp_unslash( $_GET['to_date'] ) ) : current_time( 'Y-m-d' );
-					return [
-						'type'  => 'custom',
-						'from'  => $from,
-						'to'    => $to,
-						'label' => sprintf( esc_html__( '%s to %s', 'affiliates-for-woocommerce' ), $from, $to ),
-					];
-				default:
-					return [
-						'type'  => '30_days',
-						'from'  => current_time( 'Y-m-01' ),
-						'to'    => current_time( 'Y-m-d' ),
-						'label' => esc_html__( 'This Month', 'affiliates-for-woocommerce' ),
-					];
-			}
+			// Preserve the legacy 'type' alias used internally by this helper.
+			$range['type'] = $range['key'];
+
+			return $range;
 		}
 	}
 }

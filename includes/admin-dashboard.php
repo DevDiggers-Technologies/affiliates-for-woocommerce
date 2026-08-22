@@ -68,7 +68,14 @@ if ( ! class_exists( 'DDWCAF_Admin_Dashboard' ) ) {
         public function ddwcaf_add_dashboard_menu() {
             ob_start();
             ?>
-            <svg width="30" zoomAndPan="magnify" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" version="1.0"><path fill="#000000" d="M11 22c-1.1 0-2-.9-2-2v-3H6c-1.1 0-2-.9-2-2v-4a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2h4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2h4c1.1 0 2 .9 2 2v4a2 2 0 0 1-2 2v4c0 1.1-.9 2-2 2h-3v3c0 1.1-.9 2-2 2h-4zM6 5v4h12V5H6zm0 6v4h4v-4H6zm12 0h-4v4h4v-4zM11 17v3h3v-3h-3z" fill-opacity="1" fill-rule="nonzero"/></svg>
+            <svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="16" cy="16" r="15" fill="#eef2ff"/>
+                <circle cx="16" cy="11" r="3.5" fill="#0256ff"/>
+                <path d="M9 22C9 19.7909 10.7909 18 13 18H19C21.2091 18 23 19.7909 23 22V24H9V22Z" fill="#0256ff"/>
+                <path d="M16 18V14M13 18L11 16M19 18L21 16" stroke="#0256ff" stroke-width="1.5" stroke-linecap="round"/>
+                <circle cx="10" cy="15" r="2.5" fill="#0256ff" fill-opacity="0.5"/>
+                <circle cx="22" cy="15" r="2.5" fill="#0256ff" fill-opacity="0.5"/>
+            </svg>
             <?php esc_html_e( 'Affiliates', 'affiliates-for-woocommerce' ); ?>
             <?php
             $plugin_name = ob_get_clean();
@@ -822,13 +829,7 @@ if ( ! class_exists( 'DDWCAF_Admin_Dashboard' ) ) {
                 $menu   = ! empty( $_GET['menu'] ) ? sanitize_text_field( wp_unslash( $_GET['menu'] ) ) : '';
                 $action = ! empty( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : '';
 
-                if ( empty( $menu ) || 'dashboard' === $menu ) {
-                    wp_enqueue_style( 'ddwcaf-dashboard-style', DDWCAF_PLUGIN_URL . 'assets/css/dashboard.css', [ \DevDiggers\Framework\Includes\DDFW_Assets::$framework_css_handle ], filemtime( DDWCAF_PLUGIN_FILE . 'assets/css/dashboard.css' ) );
-                    
-                    wp_enqueue_script( 'chart-js', DDWCAF_PLUGIN_URL . 'assets/js/chart.js', [ 'jquery' ], filemtime( DDWCAF_PLUGIN_FILE . 'assets/js/chart.js' ) );
-                    
-                    wp_register_script( 'ddwcaf-dashboard-script', DDWCAF_PLUGIN_URL . 'assets/js/dashboard.js', [ 'chart-js' ], filemtime( DDWCAF_PLUGIN_FILE . 'assets/js/dashboard.js' ) );
-                } elseif ( 'affiliates' === $menu && 'view' === $action ) {
+                if ( 'affiliates' === $menu && 'view' === $action ) {
                     // Enqueue Manage Affiliate assets
                     wp_enqueue_style( 'ddwcaf-manage-affiliate-style', DDWCAF_PLUGIN_URL . 'assets/css/manage-affiliate.css', [ \DevDiggers\Framework\Includes\DDFW_Assets::$framework_css_handle ], filemtime( DDWCAF_PLUGIN_FILE . 'assets/css/manage-affiliate.css' ) );
 

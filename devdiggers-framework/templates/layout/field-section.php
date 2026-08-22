@@ -12,6 +12,7 @@ use DevDiggers\Framework\Includes\DDFW_SVG;
 
 defined( 'ABSPATH' ) || exit(); // Exit if accessed directly.
 
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Template scope variables are local include variables.
 if ( ! empty( $args ) && is_array( $args ) ) {
 	foreach ( $args as $key => $arg ) {
 		?>
@@ -22,7 +23,8 @@ if ( ! empty( $args ) && is_array( $args ) ) {
 			}
 
 			if ( ! empty( $arg[ 'after_header_html' ] ) ) {
-				echo ( $arg[ 'after_header_html' ] );
+				// after_header_html may contain form controls (inputs/selects), so allow form HTML, not just post HTML.
+				echo wp_kses( $arg[ 'after_header_html' ], ddfw_kses_allowed_form_html() );
 			}
 
 			if ( ! empty( $arg[ 'fields' ] ) && is_array( $arg[ 'fields' ] ) ) {
@@ -44,14 +46,14 @@ if ( ! empty( $args ) && is_array( $args ) ) {
 				?>
 				<p class="submit <?php echo esc_attr( $submit_button[ 'button_parent_class' ] ?? '' ); ?>">
 					<?php wp_nonce_field( "{$submit_button['name']}_nonce_action", "{$submit_button['name']}_nonce" ); ?>
-					<button type="submit" id="<?php echo esc_attr( $arg[ 'id' ] ?? '' ) ?>" name="<?php echo esc_attr( $submit_button['name'] ); ?>" class="button button-primary <?php echo esc_attr( $arg[ 'class' ] ?? '' ) ?>" value="<?php echo esc_attr( ! empty( $submit_button[ 'value' ] ? $submit_button[ 'value' ] : __( 'Save', 'devdiggers-framework' ) ) ); ?>">
+					<button type="submit" id="<?php echo esc_attr( $arg[ 'id' ] ?? '' ) ?>" name="<?php echo esc_attr( $submit_button['name'] ); ?>" class="button button-primary <?php echo esc_attr( $arg[ 'class' ] ?? '' ) ?>" value="<?php echo esc_attr( ! empty( $submit_button[ 'value' ] ? $submit_button[ 'value' ] : __( 'Save', 'affiliates-for-woocommerce' ) ) ); ?>">
 						<?php
 						DDFW_SVG::get_svg_icon(
 							'circle-check',
 							false,
 							[ 'size' => 15 ]
 						);
-						echo esc_html( ! empty( $submit_button[ 'value' ] ) ? $submit_button[ 'value' ] : __( 'Save', 'devdiggers-framework' ) ); ?>
+						echo esc_html( ! empty( $submit_button[ 'value' ] ) ? $submit_button[ 'value' ] : __( 'Save', 'affiliates-for-woocommerce' ) ); ?>
 					</button>
 				</p>
 				<?php

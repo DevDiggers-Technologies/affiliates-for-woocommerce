@@ -209,5 +209,29 @@ if ( ! class_exists( 'DDWCAF_Admin_Functions' ) ) {
 			$refund->update_meta_data( '_ddwcaf_refunded_commissions', $refund_partials );
 			$refund->save();
         }
+
+        /**
+		 * Display Pro Upgrade Admin Notice
+		 *
+		 * @return void
+		 */
+		public function ddwcaf_show_pro_upgrade_notice() {
+			if ( ! current_user_can( 'manage_woocommerce' ) ) {
+				return;
+			}
+
+			$upgrade_url = 'https://devdiggers.com/product/woocommerce-affiliates/?utm_source=admin_notice&utm_medium=upgrade_button&utm_campaign=plugin_upgrade';
+			
+			$message = sprintf(
+				/* translators: %1$s: opening strong tag, %2$s: closing strong tag, %3$s: opening anchor tag, %4$s: closing anchor tag */
+				esc_html__( 'Want to take your affiliate program to the next level? %1$sUpgrade to Affiliates for WooCommerce Pro%2$s now to unlock advanced features like Tier-Based Commission, Product-wise Commission, Advanced Reports, and more! %3$sGet Pro Version &gt;%4$s', 'affiliates-for-woocommerce' ),
+				'<strong>',
+				'</strong>',
+				'<a href="' . esc_url( $upgrade_url ) . '" target="_blank" style="margin-left: 10px; font-weight: bold; text-decoration: none; color: #0256ff;">',
+				'</a>'
+			);
+
+            ddfw_print_notification( $message, 'info', true );
+		}
     }
 }

@@ -60,14 +60,20 @@ if ( ! class_exists( 'DDFW_Assets' ) ) {
 		 */
 		public function register_styles_and_scripts() {
 			wp_register_style( 'select2', DDFW_URL . 'assets/css/select2.css', [], filemtime( DDFW_FILE . 'assets/css/select2.css' ) );
-			wp_register_script( 'select2', DDFW_URL . 'assets/js/select2.js', [], filemtime( DDFW_FILE . 'assets/js/select2.js' ) );
+			wp_register_script( 'select2', DDFW_URL . 'assets/js/select2.js', [], filemtime( DDFW_FILE . 'assets/js/select2.js' ) , true );
 
 			wp_register_style( self::$framework_css_handle, DDFW_URL . 'assets/css/framework.css', [ 'select2' ], filemtime( DDFW_FILE . 'assets/css/framework.css' ) );
-			wp_register_script( self::$framework_js_handle, DDFW_URL . 'assets/js/framework.js', [ 'select2', 'wp-color-picker' ], filemtime( DDFW_FILE . 'assets/js/framework.js' ) );
+			wp_register_script( self::$framework_js_handle, DDFW_URL . 'assets/js/framework.js', [ 'select2', 'wp-color-picker', 'wp-mediaelement' ], filemtime( DDFW_FILE . 'assets/js/framework.js' ) , true );
 
+			// Shared analytics dashboard assets (enqueued on demand by DDFW_Dashboard).
+			wp_register_script( 'ddfw-chart-js', DDFW_URL . 'assets/js/chart.js', [], self::asset_version( 'assets/js/chart.js' ), true );
+			wp_register_style( 'ddfw-dashboard-analytics-style', DDFW_URL . 'assets/css/dashboard-analytics.css', [ self::$framework_css_handle ], self::asset_version( 'assets/css/dashboard-analytics.css' ) );
+			wp_register_script( 'ddfw-dashboard-analytics-script', DDFW_URL . 'assets/js/dashboard-analytics.js', [ 'jquery', 'ddfw-chart-js', self::$framework_js_handle ], self::asset_version( 'assets/js/dashboard-analytics.js' ), true );
+
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only admin page routing parameter.
 			if ( ! empty( $_GET['page'] ) && in_array( $_GET['page'], [ 'devdiggers-plugins', 'devdiggers-extensions' ], true ) ) {
 				wp_enqueue_style( 'ddfw-dashboard-style', DDFW_URL . 'assets/css/dashboard.css', [], filemtime( DDFW_FILE . 'assets/css/dashboard.css' ) );
-				wp_enqueue_script( 'ddfw-dashboard-script', DDFW_URL . 'assets/js/dashboard.js', [], filemtime( DDFW_FILE . 'assets/js/dashboard.js' ) );
+				wp_enqueue_script( 'ddfw-dashboard-script', DDFW_URL . 'assets/js/dashboard.js', [], filemtime( DDFW_FILE . 'assets/js/dashboard.js' ) , true );
 
 				wp_localize_script(
 					'ddfw-dashboard-script',
@@ -78,10 +84,10 @@ if ( ! class_exists( 'DDFW_Assets' ) ) {
 							'ajaxNonce' => wp_create_nonce( 'ddfw-nonce' ),
 						],
 						'i18n' => [
-							'subscribing'         => esc_html__( 'Subscribing...', 'devdiggers-framework' ),
-							'subscribe'           => esc_html__( 'Subscribe', 'devdiggers-framework' ),
-							'subscriptionSuccess' => esc_html__( 'Thank you for subscribing!', 'devdiggers-framework' ),
-							'subscriptionError'   => esc_html__( 'An error occurred. Please try again.', 'devdiggers-framework' ),
+							'subscribing'         => esc_html__( 'Subscribing...', 'affiliates-for-woocommerce' ),
+							'subscribe'           => esc_html__( 'Subscribe', 'affiliates-for-woocommerce' ),
+							'subscriptionSuccess' => esc_html__( 'Thank you for subscribing!', 'affiliates-for-woocommerce' ),
+							'subscriptionError'   => esc_html__( 'An error occurred. Please try again.', 'affiliates-for-woocommerce' ),
 						],
 					]
 				);
@@ -99,12 +105,12 @@ if ( ! class_exists( 'DDFW_Assets' ) ) {
 						'ajaxNonce' => wp_create_nonce( 'ddfw-nonce' ),
 					],
 					'i18n' => [
-						'selectImage'         => esc_html__( 'Select Image', 'devdiggers-framework' ),
-						'useImage'            => esc_html__( 'Use Image', 'devdiggers-framework' ),
-						'pleaseEnter'         => esc_html__( 'Please enter', 'devdiggers-framework' ),
-						'moreCharacter'       => esc_html__( 'or more character', 'devdiggers-framework' ),
-						'noResult'            => esc_html__( 'No result Found', 'devdiggers-framework' ),
-						'deleteConfirm'       => esc_html__( 'Are you sure you want to delete?', 'devdiggers-framework' ),
+						'selectImage'         => esc_html__( 'Select Image', 'affiliates-for-woocommerce' ),
+						'useImage'            => esc_html__( 'Use Image', 'affiliates-for-woocommerce' ),
+						'pleaseEnter'         => esc_html__( 'Please enter', 'affiliates-for-woocommerce' ),
+						'moreCharacter'       => esc_html__( 'or more character', 'affiliates-for-woocommerce' ),
+						'noResult'            => esc_html__( 'No result Found', 'affiliates-for-woocommerce' ),
+						'deleteConfirm'       => esc_html__( 'Are you sure you want to delete?', 'affiliates-for-woocommerce' ),
 					],
 					'site_url'          => site_url(),
 					'devdiggers_plugin' => $devdiggers_plugin,
@@ -113,19 +119,31 @@ if ( ! class_exists( 'DDFW_Assets' ) ) {
 		}
 
 		/**
+		 * Resolve an asset version, falling back to the framework version if the file is absent.
+		 *
+		 * @param string $relative_path Path relative to the framework root.
+		 * @return string|int Version string.
+		 */
+		private static function asset_version( $relative_path ) {
+			$path = DDFW_FILE . $relative_path;
+
+			return file_exists( $path ) ? filemtime( $path ) : DDFW_VERSION;
+		}
+
+		/**
 		 * Get current DevDiggers plugin dynamically
-		 * 
+		 *
 		 * @return array
 		 */
 		private function get_current_devdiggers_plugin() {
 			$plugin = [];
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only admin page routing parameter.
 			$current_page = ! empty( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
 
 			if ( strpos( $current_page, 'dd' ) !== false ) {
 				$prefix = str_replace( '-dashboard', '', $current_page );
 				$plugin = [
 					'page_slug'          => $current_page,
-					'purchase_code'      => get_option( '_' . $prefix . '_purchase_code' ),
 					'configuration_menu' => 'configuration',
 					'plugin_prefix'      => $prefix,
 				];

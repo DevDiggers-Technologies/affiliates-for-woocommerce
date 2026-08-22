@@ -44,8 +44,8 @@ if ( ! class_exists( 'DDFW_Plugin_Dashboard' ) ) {
 			if ( ! empty( $args ) ) {
 				$default_args = [
 					'parent_slug' => ddfw_get_parent_menu_slug(),
-					'page_title'  => __( 'Plugin Dashboard', 'devdiggers-framework' ),
-					'menu_title'  => __( 'Plugin', 'devdiggers-framework' ),
+					'page_title'  => __( 'Plugin Dashboard', 'affiliates-for-woocommerce' ),
+					'menu_title'  => __( 'Plugin', 'affiliates-for-woocommerce' ),
 					'capability'  => ddfw_get_menu_capability(),
 					'icon_url'    => '',
 					'position'    => null,
@@ -84,6 +84,7 @@ if ( ! class_exists( 'DDFW_Plugin_Dashboard' ) ) {
 		 * @return bool
 		 */
 		public function is_a_plugin_page() {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only admin page routing parameter.
 			$page = ! empty( $_GET[ 'page' ] ) ? sanitize_title( wp_unslash( $_GET[ 'page' ] ) ) : '';
 
 			return $this->plugin_dashboard_slug === $page;
@@ -178,15 +179,23 @@ if ( ! class_exists( 'DDFW_Plugin_Dashboard' ) ) {
 		 */
 		public function ddfw_plugin_dashboard() {
 			$menus        = $this->args[ 'menus' ];
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only admin routing parameter.
 			$page         = ! empty( $_GET[ 'page' ] ) ? sanitize_title( wp_unslash( $_GET[ 'page' ] ) ) : '';
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only admin routing parameter.
 			$current_menu = ! empty( $_GET[ 'menu' ] ) ? sanitize_title( wp_unslash( $_GET[ 'menu' ] ) ) : array_key_first( $menus ); // Default to the first menu if none is set.
+
+			// Check if setup wizard is requested via URL parameter.
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only admin routing parameter.
+			$is_setup_wizard = ! empty( $_GET['setup-wizard'] );
 
 			?>
 			<div class="wrap devdiggers-wrap">
 				<?php
 				include DDFW_FILE . 'templates/header/header.php';
 
-				if ( ! empty( $this->args[ 'menus' ][ $current_menu ] ) && is_array( $this->args[ 'menus' ][ $current_menu ] ) ) {
+				if ( $is_setup_wizard ) {
+					$this->render_setup_wizard( $page );
+				} elseif ( ! empty( $this->args[ 'menus' ][ $current_menu ] ) && is_array( $this->args[ 'menus' ][ $current_menu ] ) ) {
 					$current_menu_data = $this->args[ 'menus' ][ $current_menu ];
 					$layout            = $current_menu_data[ 'layout' ] ?? 'default';  // Load the template for the current menu.
 
@@ -202,6 +211,21 @@ if ( ! class_exists( 'DDFW_Plugin_Dashboard' ) ) {
 				?>
 			</div>
 			<?php
+		}
+
+		/**
+		 * Render the setup wizard within the dashboard layout.
+		 *
+		 * @param string $page The current page slug.
+		 * @return void
+		 */
+		private function render_setup_wizard( $page ) {
+			if ( has_action( 'ddfw_render_setup_wizard' ) ) {
+				do_action( 'ddfw_render_setup_wizard', $page );
+			} else {
+				// Fallback if no wizard matches this dashboard page.
+				echo '<div class="notice notice-error"><p>' . esc_html__( 'Setup wizard not found for this plugin.', 'affiliates-for-woocommerce' ) . '</p></div>';
+			}
 		}
 	}
 }

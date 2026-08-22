@@ -19,9 +19,11 @@ for T in `find i18n -name "*.pot"`
 success "Successfully replaced development mappings with production files in affiliates-for-woocommerce.pot 🎉 ";
 
 # Check for required version
-WPCLI_VERSION=`wp cli version | cut -f2 -d' '`
-if [ ${WPCLI_VERSION:0:1} -lt "2" -o ${WPCLI_VERSION:0:1} -eq "2" -a ${WPCLI_VERSION:2:1} -lt "1" ]; then
+WPCLI_VERSION=`wp cli version 2>/dev/null | grep "WP-CLI" | cut -f2 -d' '`
+if [[ -z "$WPCLI_VERSION" ]] || [[ ${WPCLI_VERSION:0:1} -lt "2" ]] || ([[ ${WPCLI_VERSION:0:1} -eq "2" ]] && [[ ${WPCLI_VERSION:2:1} -lt "1" ]]); then
 	echo WP-CLI version 2.1.0 or greater is required to make JSON translation files
+	exit
+files
 	exit
 fi
 

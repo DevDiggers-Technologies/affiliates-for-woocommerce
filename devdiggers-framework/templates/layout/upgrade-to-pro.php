@@ -9,13 +9,14 @@
 
 defined( 'ABSPATH' ) || exit(); // Exit if accessed directly.
 
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Template scope variables are local include variables.
 $defaults = [
 	'image_url'           => '',
 	'heading'             => '',
 	'description'         => '',
 	'list_features'       => [],
 	'upgrade_url'         => 'https://devdiggers.com/woocommerce-extensions/',
-	'upgrade_button_text' => esc_html__( 'Upgrade to Pro', 'devdiggers-framework' ),
+	'upgrade_button_text' => esc_html__( 'Upgrade to Pro', 'affiliates-for-woocommerce' ),
 ];
 
 $args = wp_parse_args( $args, $defaults );

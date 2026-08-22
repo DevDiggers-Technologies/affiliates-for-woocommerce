@@ -73,16 +73,6 @@ if ( ! class_exists( 'DDWCAF_Manage_Affiliate_Template' ) ) {
                 $affiliate_helper->ddwcaf_update_affiliate_withdrawal_methods( $affiliate_id, $_POST[ '_ddwcaf_withdrawal_methods' ] );
                 $affiliate_helper->ddwcaf_update_affiliate_default_withdrawal_method( $affiliate_id, $_POST[ '_ddwcaf_default_withdrawal_method' ] );
 
-                $token = ! empty( $_POST[ '_ddwcaf_referral_token' ] ) ? sanitize_text_field( wp_unslash( $_POST[ '_ddwcaf_referral_token' ] ) ) : '';
-
-                $token_exists = $affiliate_helper->ddwcaf_get_affiliate_id_by_token( $token );
-
-                if ( ! $token_exists || $token_exists === $affiliate_id ) {
-                    $affiliate_helper->ddwcaf_update_affiliate_referral_token( $affiliate_id, $token );
-                } else {
-                    $this->ddwcaf_print_notification( esc_html__( 'Referral token already exists.', 'affiliates-for-woocommerce' ), 'error' );
-                }
-
                 if ( ! $error ) {
                     $affiliate_helper->ddwcaf_prepare_and_save_affiliate_info( $affiliate_id, $affiliate_registration_fields );
 
@@ -310,6 +300,7 @@ if ( ! class_exists( 'DDWCAF_Manage_Affiliate_Template' ) ) {
                                 'placeholder' => esc_html__( 'Enter your referral token', 'affiliates-for-woocommerce' ),
                                 'description' => esc_html__( 'You can use the brand name as a referral token which allows "friendly" looking referral links.', 'affiliates-for-woocommerce' ),
                                 'value'       => $affiliate_referral_token,
+                                'field_class' => [ 'ddfw-upgrade-to-pro-tag-wrapper' ],
                             ],
                             [
                                 'type'              => 'number',

@@ -10,7 +10,7 @@ module.exports = function( grunt ) {
 				options: {
 					domainPath: '/i18n',
 					exclude: [ '\.git/*', 'bin/*', 'node_modules/*', 'tests/*', 'devdiggers-framework/*' ],
-					mainFile: 'affiliates-for-woocommerce.php',
+					mainFile: 'functions.php',
 					potFilename: 'affiliates-for-woocommerce.pot',
 					potHeaders: {
 						poedit: true,

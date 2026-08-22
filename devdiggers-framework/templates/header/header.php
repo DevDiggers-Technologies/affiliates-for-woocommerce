@@ -11,6 +11,8 @@ use DevDiggers\Framework\Includes\DDFW_SVG;
 
 defined( 'ABSPATH' ) || exit(); // Exit if accessed directly.
 
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Template scope variables are local include variables.
+
 ?>
 <nav class="ddfw-header-tab-wrapper">
 	<div class="ddfw-header-tabs-list-wrapper">
@@ -26,7 +28,7 @@ defined( 'ABSPATH' ) || exit(); // Exit if accessed directly.
 		?>
 
 		<!-- Mobile hamburger toggle button (visible below 1023px) -->
-		<button type="button" class="ddfw-mobile-header-toggle" aria-label="<?php esc_attr_e( 'Open navigation menu', 'devdiggers-framework' ); ?>">
+		<button type="button" class="ddfw-mobile-header-toggle" aria-label="<?php esc_attr_e( 'Open navigation menu', 'affiliates-for-woocommerce' ); ?>">
 			<span class="dashicons dashicons-menu"></span>
 		</button>
 
@@ -42,7 +44,7 @@ defined( 'ABSPATH' ) || exit(); // Exit if accessed directly.
 				} else {
 					if ( $show_menus === $count ) {
 						?>
-						<li class="ddfw-header-tab"><a href="#"><?php esc_html_e( 'More', 'devdiggers-framework' ); ?><span class="dashicons dashicons-arrow-down-alt2"></span></a>
+						<li class="ddfw-header-tab"><a href="#"><?php esc_html_e( 'More', 'affiliates-for-woocommerce' ); ?><span class="dashicons dashicons-arrow-down-alt2"></span></a>
 						<ul class="ddfw-header-dropdown">
 							<li class="ddfw-header-tab <?php echo esc_attr( $current_menu === $slug ? 'ddfw-header-tab-active' : '' ); ?>"><a href="<?php echo esc_url( admin_url( "admin.php?page={$page}&menu={$slug}" ) ); ?>"><?php echo esc_html( $menu[ 'label' ] ); ?></a></li>
 						<?php
@@ -74,7 +76,7 @@ defined( 'ABSPATH' ) || exit(); // Exit if accessed directly.
 						[ 'size' => 15 ]
 					);
 					?>
-					<?php esc_html_e( 'Upgrade to Pro', 'devdiggers-framework' ); ?>
+					<?php esc_html_e( 'Upgrade to Pro', 'affiliates-for-woocommerce' ); ?>
 				</a>
 				<?php
 			}
@@ -92,7 +94,7 @@ defined( 'ABSPATH' ) || exit(); // Exit if accessed directly.
 		<div class="ddfw-mobile-header-plugin-name">
 			<?php echo wp_kses( $this->args[ 'plugin_name' ], array_merge( wp_kses_allowed_html( 'post' ), ddfw_kses_allowed_svg_tags() ) ); ?>
 		</div>
-		<button type="button" class="ddfw-mobile-header-close" aria-label="<?php esc_attr_e( 'Close navigation menu', 'devdiggers-framework' ); ?>">
+		<button type="button" class="ddfw-mobile-header-close" aria-label="<?php esc_attr_e( 'Close navigation menu', 'affiliates-for-woocommerce' ); ?>">
 			<span class="dashicons dashicons-no-alt"></span>
 		</button>
 	</div>
