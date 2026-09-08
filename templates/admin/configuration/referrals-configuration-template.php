@@ -165,6 +165,31 @@ if ( ! class_exists( 'DDWCAF_Referrals_Configuration_Template' ) ) {
                         ],
                     ],
                 ],
+                [
+                    'header' => [
+                        'heading'     => esc_html__( 'Referral Fraud Prevention [Pro]', 'affiliates-for-woocommerce' ),
+                        'description' => esc_html__( 'Self referral is the most common way an affiliate program leaks money: an affiliate places their own orders through their own link and collects a discount disguised as commission. These checks run before a commission is created, and a refused referral is written to the order notes with the reason so you can see exactly what happened.', 'affiliates-for-woocommerce' ),
+                    ],
+                    'class'  => 'ddfw-upgrade-to-pro-tag-wrapper',
+                    'fields' => [
+                        [
+                            'id'                => 'ddwcaf-fraud-block-same-email',
+                            'label'             => esc_html__( 'Matching Email', 'affiliates-for-woocommerce' ),
+                            'type'              => 'checkbox',
+                            'checkbox_label'    => esc_html__( 'Refuse commission when the billing email matches the affiliate email', 'affiliates-for-woocommerce' ),
+                            'description'       => esc_html__( 'Catches an affiliate ordering as a guest with their own email, which the plain self referral check cannot see because there is no logged in account.', 'affiliates-for-woocommerce' ),
+                            'custom_attributes' => [ 'disabled' => 'disabled' ],
+                        ],
+                        [
+                            'id'                => 'ddwcaf-fraud-block-same-ip',
+                            'label'             => esc_html__( 'Matching Address', 'affiliates-for-woocommerce' ),
+                            'type'              => 'checkbox',
+                            'checkbox_label'    => esc_html__( 'Refuse commission when the order comes from an address the affiliate browses from', 'affiliates-for-woocommerce' ),
+                            'description'       => esc_html__( 'Compares the order against addresses already recorded in this affiliate\'s own visit history, so no new tracking is added. Consider turning this off if many of your affiliates and customers share a network, such as a single office or campus.', 'affiliates-for-woocommerce' ),
+                            'custom_attributes' => [ 'disabled' => 'disabled' ],
+                        ],
+                    ],
+                ],
             ];
 
             $layout = new DDFW_Layout();

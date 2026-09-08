@@ -416,6 +416,21 @@ if ( ! class_exists( 'DDWCAF_Manage_Affiliate_Template' ) ) {
                                 'description' => esc_html__( 'Enter the email address associated with your PayPal account.', 'affiliates-for-woocommerce' ),
                                 'value'       => ! empty( $withdrawal_methods[ 'paypal_email' ] ) ? $withdrawal_methods[ 'paypal_email' ] : '',
                             ],
+                            [
+                                'type'  => 'heading',
+                                'label' => esc_html__( 'Stripe Connect [Pro]', 'affiliates-for-woocommerce' ),
+                            ],
+                            [
+                                'type'              => 'text',
+                                'label'             => esc_html__( 'Connected Account ID', 'affiliates-for-woocommerce' ),
+                                'id'                => 'ddwcaf-stripe-account-id',
+                                'name'              => '_ddwcaf_stripe_account_id',
+                                'placeholder'       => 'acct_XXXXXXXXXXXXXXXX',
+                                'description'       => esc_html__( 'Link this affiliate to a Stripe connected account so completed payouts are transferred automatically. Affiliates can also connect their own account from their dashboard, in a hosted flow where Stripe collects their identity and bank details directly.', 'affiliates-for-woocommerce' ),
+                                'value'             => '',
+                                'field_class'       => [ 'ddfw-upgrade-to-pro-tag-wrapper' ],
+                                'custom_attributes' => [ 'disabled' => 'disabled' ],
+                            ],
                         ],
                     ],
                 ];

@@ -9,7 +9,7 @@ Tested up to: 7.1
 Requires PHP: 7.4
 WC requires at least: 9.0.0
 WC tested up to: 11.0.1
-Stable tag: 2.1.3
+Stable tag: 2.2.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -22,6 +22,8 @@ Affiliates for WooCommerce is a [WooCommerce affiliate plugin](https://devdigger
 Everything runs inside WordPress. There is no external affiliate network taking a cut of each sale, and no monthly platform fee on top of what you already pay your affiliates.
 
 Affiliates get their own dashboard inside the WooCommerce My Account page, so they can check earnings, build referral links, and enter payout details without emailing you.
+
+https://youtu.be/rVReXAa54YU
 
 = Quick links =
 
@@ -151,7 +153,35 @@ The free version covers a single global commission rate and manual payouts. Pro 
 * Let affiliates request payouts themselves, or run payouts automatically on a chosen day each month
 * Set a minimum balance before a payout can be requested or processed
 * A step by step payout wizard for processing large batches
-* Pay through bank transfer, PayPal, or [WooCommerce Wallet](https://devdiggers.com/product/woocommerce-wallet-management/)
+* Pay through bank transfer, PayPal, Stripe, or [WooCommerce Wallet](https://devdiggers.com/product/woocommerce-wallet-management/)
+
+= Send the money without leaving WordPress =
+
+Free payouts are a record keeping exercise: you send the money yourself and mark the record paid. Pro can move the money for you.
+
+* PayPal Payouts sends the commission straight to the PayPal email address on the affiliate's profile, with nothing extra required from the affiliate
+* Stripe Connect transfers to a Stripe Express account the affiliate connects once from their own dashboard, so Stripe collects their identity and bank details instead of you
+* Sandbox and live environments for both gateways, with a connection test before you send anything real
+* Payouts are sent through whichever gateway matches that affiliate's chosen withdrawal method
+* A retry limit per payout, a per payout audit log, and an email alert to you when a transfer fails
+* Keep automatic sending switched off and both gateways still work for one off manual sends
+* Stripe keys can live in a `wp-config.php` constant instead of the database
+
+= Lifetime commissions =
+
+* Bind a referred customer to the affiliate who first won them, so their later orders keep earning
+* The binding is written once and never overwritten, so the affiliate who did the work keeps the customer
+* Set a lifetime window in days, or leave it unlimited
+* Pay commission on WooCommerce Subscriptions renewals, not only the first order
+
+= Public affiliate leaderboard =
+
+* `[ddwcaf_affiliate_leaderboard_shortcode]` ranks your top affiliates on any page
+* Card, compact list, or podium layout with rank badges and medal colours
+* Choose how many affiliates are listed and whether the top three are highlighted
+* Show or hide earned amounts, referred order counts, and Gravatar avatars
+* Anonymise affiliate names if you would rather not publish who is who
+* The leaderboard stylesheet only loads on pages that contain the shortcode
 
 = Marketing tools for affiliates =
 
@@ -228,7 +258,7 @@ There is no limit in the free version. The admin lists are filterable, so you ca
 
 = How do I pay my affiliates? =
 
-The free version uses manual payouts. Affiliates save their bank transfer or PayPal details in their dashboard, you create a payout record from the admin, send the money through your own bank or PayPal account, and mark the record as paid. The plugin does not move money on its own. Pro adds affiliate requested payouts, scheduled monthly payouts, minimum payout thresholds, and WooCommerce Wallet.
+The free version uses manual payouts. Affiliates save their bank transfer or PayPal details in their dashboard, you create a payout record from the admin, send the money through your own bank or PayPal account, and mark the record as paid. The plugin does not move money on its own. Pro adds affiliate requested payouts, scheduled monthly payouts, minimum payout thresholds, WooCommerce Wallet, and automatic sending through the PayPal Payouts API or Stripe Connect.
 
 = Can I set a different commission rate per product or per affiliate? =
 
@@ -241,6 +271,14 @@ Coupon based referral tracking is a Pro feature. In the free version, commission
 = Can I stop affiliates from earning commission on their own orders? =
 
 Self referral blocking is a Pro feature. The free version records the commission whenever the referral cookie is present at checkout.
+
+= Can an affiliate keep earning on a customer's future orders? =
+
+Lifetime commissions are a Pro feature. Pro links a referred customer to the affiliate who first won them, so orders placed after the referral cookie has expired still earn, for an unlimited period or a window of days you set. Pro can also pay commission on WooCommerce Subscriptions renewals. The free version pays on orders placed while the referral cookie is still alive.
+
+= Can I show a public leaderboard of my top affiliates? =
+
+The affiliate leaderboard shortcode is a Pro feature. It ranks your top affiliates on any page in a card, list, or podium layout, and you decide whether earnings, order counts, and avatars are visible, or whether names are anonymised.
 
 = Does this work with WooCommerce HPOS? =
 
@@ -318,6 +356,13 @@ To build from source:
 
 == Changelog ==
 
+= 2.2.0 =
+* Added Pro previews across the configuration screens so you can see what the Pro version does before deciding: lifetime commissions, subscription renewal commissions, referral fraud prevention, the affiliate leaderboard, automatic payouts, PayPal Payouts and Stripe Connect.
+* Added Stripe Connect to the withdrawal methods list, and noted on the PayPal row that automatic payouts are a Pro feature.
+* Moved the affiliate leaderboard settings to the General tab. The Shortcodes tab now only holds the leaderboard shortcode itself, alongside the other shortcodes.
+* Made the default "How will you promote our site?" options translatable, along with the confirmation shown when removing a row in the admin.
+* Tested with WordPress 7.1 and WooCommerce 11.0.1.
+
 = 2.1.3 =
 * Fixed a fatal error that could occur when another DevDiggers plugin was active at the same time. Both plugins can now load together without conflict.
 * Fixed the Documentation link on the Plugins screen, which pointed at a page that no longer existed.
@@ -373,6 +418,9 @@ To build from source:
 * Initial release.
 
 == Upgrade Notice ==
+
+= 2.2.0 =
+Adds Pro previews for lifetime commissions, the affiliate leaderboard, and automatic PayPal and Stripe payouts. Moves the leaderboard settings to the General tab and makes several remaining strings translatable.
 
 = 2.1.3 =
 Fixes a fatal error when another DevDiggers plugin is active alongside this one. Adds WordPress 7.1 and WooCommerce 11.0.1 compatibility. Recommended for all users.
