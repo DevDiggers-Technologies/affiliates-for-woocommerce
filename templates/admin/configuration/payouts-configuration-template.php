@@ -82,6 +82,115 @@ if ( ! class_exists( 'DDWCAF_Payouts_Configuration_Template' ) ) {
                         ],
                     ],
                 ],
+                [
+                    'header' => [
+                        'heading'     => esc_html__( 'Automatic Payouts [Pro]', 'affiliates-for-woocommerce' ),
+                        'description' => esc_html__( 'Let the plugin move the money instead of you. Once a payout is completed, whether you complete it yourself, an affiliate requests it, or the scheduled run creates it, it is sent through the gateway that matches that affiliate\'s own withdrawal method. Bank transfer and wallet payouts are never touched by this and stay manual.', 'affiliates-for-woocommerce' ),
+                    ],
+                    'class'  => 'ddfw-upgrade-to-pro-tag-wrapper',
+                    'fields' => [
+                        [
+                            'id'                => 'ddwcaf-payout-auto-send',
+                            'label'             => esc_html__( 'Send Payouts Automatically', 'affiliates-for-woocommerce' ),
+                            'type'              => 'checkbox',
+                            'checkbox_label'    => esc_html__( 'Pay affiliates through their gateway when a payout is completed', 'affiliates-for-woocommerce' ),
+                            'description'       => esc_html__( 'Turn this off to keep recording every payout by hand. The gateways below stay available for one-off manual sends from the payout screen.', 'affiliates-for-woocommerce' ),
+                            'custom_attributes' => [ 'disabled' => 'disabled' ],
+                        ],
+                        [
+                            'id'                => 'ddwcaf-payout-max-attempts',
+                            'label'             => esc_html__( 'Maximum Send Attempts', 'affiliates-for-woocommerce' ),
+                            'type'              => 'number',
+                            'value'             => '3',
+                            'description'       => esc_html__( 'How many times one payout may be sent before it gives up. Protects you from a bad payout address burning through API calls. You can always retry it by hand afterwards.', 'affiliates-for-woocommerce' ),
+                            'custom_attributes' => [ 'min' => 1, 'max' => 10, 'disabled' => 'disabled' ],
+                        ],
+                        [
+                            'id'                => 'ddwcaf-payout-failure-email-enabled',
+                            'label'             => esc_html__( 'Failure Notifications', 'affiliates-for-woocommerce' ),
+                            'type'              => 'checkbox',
+                            'checkbox_label'    => esc_html__( 'Email an administrator when a payout cannot be sent', 'affiliates-for-woocommerce' ),
+                            'description'       => esc_html__( 'A failed transfer is never recorded as paid, so without this alert a payout can sit unnoticed until the affiliate chases it.', 'affiliates-for-woocommerce' ),
+                            'custom_attributes' => [ 'disabled' => 'disabled' ],
+                        ],
+                        [
+                            'id'                => 'ddwcaf-payout-failure-email-recipient',
+                            'label'             => esc_html__( 'Notification Recipient', 'affiliates-for-woocommerce' ),
+                            'type'              => 'email',
+                            'description'       => esc_html__( 'Where failed payout alerts are sent. Defaults to the site administrator email.', 'affiliates-for-woocommerce' ),
+                            'custom_attributes' => [ 'disabled' => 'disabled' ],
+                        ],
+                    ],
+                ],
+                [
+                    'header' => [
+                        'heading'     => esc_html__( 'PayPal Payouts [Pro]', 'affiliates-for-woocommerce' ),
+                        'description' => esc_html__( 'Pay affiliates straight to the PayPal email address on their profile, through the PayPal Payouts API. Nothing is required from the affiliate beyond saving that address.', 'affiliates-for-woocommerce' ),
+                    ],
+                    'class'  => 'ddfw-upgrade-to-pro-tag-wrapper',
+                    'fields' => [
+                        [
+                            'id'                => 'ddwcaf-paypal-enabled',
+                            'label'             => esc_html__( 'Enable PayPal Payouts', 'affiliates-for-woocommerce' ),
+                            'type'              => 'checkbox',
+                            'checkbox_label'    => esc_html__( 'Send PayPal payouts through the PayPal API', 'affiliates-for-woocommerce' ),
+                            'description'       => esc_html__( 'When this is off, PayPal payouts are still listed as a withdrawal method but you send the money yourself and record the transaction ID.', 'affiliates-for-woocommerce' ),
+                            'custom_attributes' => [ 'disabled' => 'disabled' ],
+                        ],
+                        [
+                            'id'                => 'ddwcaf-paypal-mode',
+                            'label'             => esc_html__( 'Environment', 'affiliates-for-woocommerce' ),
+                            'type'              => 'select',
+                            'options'           => [
+                                'sandbox' => esc_html__( 'Sandbox (test payouts, no real money)', 'affiliates-for-woocommerce' ),
+                                'live' => esc_html__( 'Live (real money leaves your account)', 'affiliates-for-woocommerce' ),
+                            ],
+                            'value'             => 'sandbox',
+                            'description'       => esc_html__( 'Sandbox credentials only work against sandbox, and live credentials only against live. Test the whole flow in sandbox before switching.', 'affiliates-for-woocommerce' ),
+                            'custom_attributes' => [ 'disabled' => 'disabled' ],
+                        ],
+                        [
+                            'id'                => 'ddwcaf-paypal-client-id',
+                            'label'             => esc_html__( 'Client ID', 'affiliates-for-woocommerce' ),
+                            'type'              => 'text',
+                            'placeholder'       => esc_html__( 'Paste the client ID of your PayPal REST app', 'affiliates-for-woocommerce' ),
+                            'description'       => esc_html__( 'Found under your REST app in the PayPal developer dashboard. Safe to store, it is not a secret.', 'affiliates-for-woocommerce' ),
+                            'custom_attributes' => [ 'disabled' => 'disabled' ],
+                        ],
+                        [
+                            'id'                => 'ddwcaf-paypal-client-secret',
+                            'label'             => esc_html__( 'Client Secret', 'affiliates-for-woocommerce' ),
+                            'type'              => 'password',
+                            'description'       => esc_html__( 'Can also be defined as the DDWCAF_PAYPAL_CLIENT_SECRET constant in wp-config.php to keep it out of the database entirely.', 'affiliates-for-woocommerce' ),
+                            'custom_attributes' => [ 'disabled' => 'disabled' ],
+                        ],
+                    ],
+                ],
+                [
+                    'header' => [
+                        'heading'     => esc_html__( 'Stripe Connect [Pro]', 'affiliates-for-woocommerce' ),
+                        'description' => esc_html__( 'Stripe cannot send money to a plain email address the way PayPal can. Each affiliate connects a Stripe Express account once from their own dashboard, in a hosted flow where Stripe collects their identity and bank details directly, and payouts are then transferred to that account.', 'affiliates-for-woocommerce' ),
+                    ],
+                    'class'  => 'ddfw-upgrade-to-pro-tag-wrapper',
+                    'fields' => [
+                        [
+                            'id'                => 'ddwcaf-stripe-enabled',
+                            'label'             => esc_html__( 'Enable Stripe Connect Payouts', 'affiliates-for-woocommerce' ),
+                            'type'              => 'checkbox',
+                            'checkbox_label'    => esc_html__( 'Transfer payouts to connected Stripe accounts', 'affiliates-for-woocommerce' ),
+                            'description'       => esc_html__( 'Stripe Connect must be enabled on your Stripe account first, otherwise creating affiliate accounts will fail.', 'affiliates-for-woocommerce' ),
+                            'custom_attributes' => [ 'disabled' => 'disabled' ],
+                        ],
+                        [
+                            'id'                => 'ddwcaf-stripe-secret-key',
+                            'label'             => esc_html__( 'Secret Key', 'affiliates-for-woocommerce' ),
+                            'type'              => 'password',
+                            'placeholder'       => 'sk_live_...',
+                            'description'       => esc_html__( 'Can also be defined as the DDWCAF_STRIPE_SECRET_KEY constant in wp-config.php. A key beginning with sk_test or rk_test puts the integration in test mode automatically, so there is no separate environment switch to keep in sync.', 'affiliates-for-woocommerce' ),
+                            'custom_attributes' => [ 'disabled' => 'disabled' ],
+                        ],
+                    ],
+                ],
             ];
 
             $layout = new DDFW_Layout();
@@ -114,7 +223,12 @@ if ( ! class_exists( 'DDWCAF_Payouts_Configuration_Template' ) ) {
                             $withdrawal_method_name = $affiliate_helper->ddwcaf_get_withdrawal_method_name( $key );
                             ?>
                             <tr>
-                                <td><?php echo esc_html( $withdrawal_method_name ); ?></td>
+                                <td>
+                                    <?php echo esc_html( $withdrawal_method_name ); ?>
+                                    <?php if ( 'paypal_email' === $key ) : ?>
+                                        <span class="description">(<?php esc_html_e( 'Automatic payouts available in Pro', 'affiliates-for-woocommerce' ); ?>)</span>
+                                    <?php endif; ?>
+                                </td>
                                 <td>
                                     <input type="hidden" name="_ddwcaf_withdrawal_methods[<?php echo esc_attr( $key ); ?>][name]" value="<?php echo esc_attr( $withdrawal_method_name ); ?>" />
                                     <input type="hidden" name="_ddwcaf_withdrawal_methods[<?php echo esc_attr( $key ); ?>][available]" value="<?php echo esc_attr( $withdrawal_method[ 'available' ] ); ?>" />
@@ -132,6 +246,13 @@ if ( ! class_exists( 'DDWCAF_Payouts_Configuration_Template' ) ) {
                             <?php
                         }
                         ?>
+                        <tr class="ddfw-upgrade-to-pro-tag-wrapper">
+                            <td><?php esc_html_e( 'Stripe Connect [Pro]', 'affiliates-for-woocommerce' ); ?></td>
+                            <td>
+                                <p style="margin: 0; font-size: 12px;"><?php esc_html_e( 'Affiliates connect a Stripe Express account once from their dashboard, then completed payouts are transferred to it automatically.', 'affiliates-for-woocommerce' ); ?></p>
+                            </td>
+                            <td><input type="checkbox" disabled /></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

@@ -107,6 +107,55 @@ if ( ! class_exists( 'DDWCAF_Commissions_Configuration_Template' ) ) {
                         ],
                     ],
                 ],
+                [
+                    'header' => [
+                        'heading'     => esc_html__( 'Lifetime Commissions [Pro]', 'affiliates-for-woocommerce' ),
+                        'description' => esc_html__( 'Reward the affiliate who won a customer, not just the click that happened to be last. Once an affiliate brings in a new customer, that customer is linked to them and every later order earns commission even with no referral link and no cookie. This is what turns a one-off referral into an income stream and is the single strongest argument for a serious partner to promote you.', 'affiliates-for-woocommerce' ),
+                    ],
+                    'class'  => 'ddfw-upgrade-to-pro-tag-wrapper',
+                    'fields' => [
+                        [
+                            'id'                => 'ddwcaf-lifetime-commissions-enabled',
+                            'label'             => esc_html__( 'Enable Lifetime Commissions', 'affiliates-for-woocommerce' ),
+                            'type'              => 'checkbox',
+                            'checkbox_label'    => esc_html__( 'Link referred customers to their affiliate permanently', 'affiliates-for-woocommerce' ),
+                            'description'       => esc_html__( 'The link is written on the customer\'s first referred order and is never overwritten, so a later affiliate cannot steal a customer someone else won. Guest checkouts are skipped because there is no account to attach the link to.', 'affiliates-for-woocommerce' ),
+                            'custom_attributes' => [ 'disabled' => 'disabled' ],
+                        ],
+                        [
+                            'id'                => 'ddwcaf-lifetime-commissions-days',
+                            'label'             => esc_html__( 'Lifetime Window (Days)', 'affiliates-for-woocommerce' ),
+                            'type'              => 'number',
+                            'value'             => '0',
+                            'description'       => esc_html__( 'How long the customer stays attached to the affiliate. Leave at 0 for genuinely unlimited, or set something like 365 to cap your exposure to one year per customer.', 'affiliates-for-woocommerce' ),
+                            'custom_attributes' => [ 'min' => 0, 'disabled' => 'disabled' ],
+                        ],
+                    ],
+                ],
+                [
+                    'header' => [
+                        'heading'     => esc_html__( 'Subscription Renewals [Pro]', 'affiliates-for-woocommerce' ),
+                        'description' => esc_html__( 'In a subscription store most of the revenue arrives after the first order. Paying affiliates on renewals lines their interests up with retention instead of just acquisition. Requires the WooCommerce Subscriptions plugin.', 'affiliates-for-woocommerce' ),
+                    ],
+                    'class'  => 'ddfw-upgrade-to-pro-tag-wrapper',
+                    'fields' => [
+                        [
+                            'id'                => 'ddwcaf-recurring-commissions-enabled',
+                            'label'             => esc_html__( 'Enable Renewal Commissions', 'affiliates-for-woocommerce' ),
+                            'type'              => 'checkbox',
+                            'checkbox_label'    => esc_html__( 'Pay commission on every subscription renewal', 'affiliates-for-woocommerce' ),
+                            'description'       => esc_html__( 'The affiliate credited for the original subscription order is credited again on each successful renewal payment.', 'affiliates-for-woocommerce' ),
+                            'custom_attributes' => [ 'disabled' => 'disabled' ],
+                        ],
+                        [
+                            'id'                => 'ddwcaf-recurring-commission-rate',
+                            'label'             => esc_html__( 'Renewal Rate (%)', 'affiliates-for-woocommerce' ),
+                            'type'              => 'number',
+                            'description'       => esc_html__( 'Leave empty to pay renewals at the affiliate\'s normal rate. Set a lower number if you want acquisition rewarded more heavily than retention.', 'affiliates-for-woocommerce' ),
+                            'custom_attributes' => [ 'min' => 0, 'max' => 100, 'step' => .01, 'disabled' => 'disabled' ],
+                        ],
+                    ],
+                ],
             ];
 
             $layout = new DDFW_Layout();

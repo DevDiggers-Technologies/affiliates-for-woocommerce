@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Affiliates for WooCommerce 2.1.2\n"
+"Project-Id-Version: Affiliates for WooCommerce 2.2.0\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/affiliates-for-woocommerce\n"
-"POT-Creation-Date: 2026-06-30 06:43:24+00:00\n"
+"POT-Creation-Date: 2026-09-08 19:50:53+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,11 +25,6 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 "X-Generator: grunt-wp-i18n 1.0.3\n"
 
-#: autoload/autoload.php:54
-#. translators: %s for the filepath
-msgid "The file attempting to be loaded at %s does not exist."
-msgstr ""
-
 #: functions.php:84
 #. translators: %s for a opening tag and %s for a closing tag
 msgid ""
@@ -41,7 +36,7 @@ msgstr ""
 msgid "Affiliates for WooCommerce"
 msgstr ""
 
-#: functions.php:112 helper/affiliate/affiliate-helper.php:560
+#: functions.php:112 helper/affiliate/affiliate-helper.php:566
 #: includes/admin-dashboard.php:92
 msgid "Dashboard"
 msgstr ""
@@ -66,7 +61,7 @@ msgstr ""
 msgid "Documentation"
 msgstr ""
 
-#: functions.php:137 includes/admin-dashboard.php:913
+#: functions.php:137 includes/admin-dashboard.php:915
 msgid "Review"
 msgstr ""
 
@@ -112,92 +107,112 @@ msgstr ""
 msgid "How will you promote our site?"
 msgstr ""
 
-#: helper/affiliate/affiliate-helper.php:437
+#: helper/affiliate/affiliate-helper.php:431
+msgid "Website/Blog"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:432
+msgid "Newsletter/Email Marketing"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:433
+msgid "Social Media"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:434
+msgid "YouTube"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:435
+msgid "Others"
+msgstr ""
+
+#: helper/affiliate/affiliate-helper.php:443
 msgid "Please read and accept our %s"
 msgstr ""
 
-#: helper/affiliate/affiliate-helper.php:437
+#: helper/affiliate/affiliate-helper.php:443
 msgid "Terms and Conditions"
 msgstr ""
 
-#: helper/affiliate/affiliate-helper.php:564 includes/admin/setup-wizard.php:75
+#: helper/affiliate/affiliate-helper.php:570 includes/admin/setup-wizard.php:75
 #: includes/admin-dashboard.php:102 includes/admin-dashboard.php:164
 #: includes/admin-dashboard.php:384
 #: templates/admin/dashboard/dashboard-template.php:141
 msgid "Commissions"
 msgstr ""
 
-#: helper/affiliate/affiliate-helper.php:568 includes/admin-dashboard.php:107
+#: helper/affiliate/affiliate-helper.php:574 includes/admin-dashboard.php:107
 #: includes/admin-dashboard.php:173 includes/admin-dashboard.php:454
 msgid "Payouts"
 msgstr ""
 
-#: helper/affiliate/affiliate-helper.php:572 includes/admin-dashboard.php:117
+#: helper/affiliate/affiliate-helper.php:578 includes/admin-dashboard.php:117
 #: includes/admin-dashboard.php:538
 #: templates/admin/affiliates/manage-affiliate-template.php:110
 #: templates/admin/dashboard/dashboard-template.php:220
 msgid "Visits"
 msgstr ""
 
-#: helper/affiliate/affiliate-helper.php:576 includes/admin-dashboard.php:112
+#: helper/affiliate/affiliate-helper.php:582 includes/admin-dashboard.php:112
 #: includes/admin-dashboard.php:505
 msgid "Top Products"
 msgstr ""
 
-#: helper/affiliate/affiliate-helper.php:580
+#: helper/affiliate/affiliate-helper.php:586
 msgid "Link Generator"
 msgstr ""
 
-#: helper/affiliate/affiliate-helper.php:584
+#: helper/affiliate/affiliate-helper.php:590
 msgid "Settings"
 msgstr ""
 
-#: helper/affiliate/affiliate-helper.php:730
+#: helper/affiliate/affiliate-helper.php:736
 msgid "Default Affiliate Link"
 msgstr ""
 
-#: helper/affiliate/affiliate-helper.php:731
+#: helper/affiliate/affiliate-helper.php:737
 msgid "Affiliate Token"
 msgstr ""
 
-#: helper/affiliate/affiliate-helper.php:733
+#: helper/affiliate/affiliate-helper.php:739
 msgid "Referral Link"
 msgstr ""
 
-#: helper/affiliate/affiliate-helper.php:736
+#: helper/affiliate/affiliate-helper.php:742
 msgid "Copy Referral Link"
 msgstr ""
 
-#: helper/affiliate/affiliate-helper.php:742
-#: helper/affiliate/affiliate-helper.php:784
+#: helper/affiliate/affiliate-helper.php:748
+#: helper/affiliate/affiliate-helper.php:790
 msgid "Use this link to refer customers to our store and earn commissions."
 msgstr ""
 
-#: helper/affiliate/affiliate-helper.php:745
+#: helper/affiliate/affiliate-helper.php:751
 msgid "Custom Link Generator"
 msgstr ""
 
-#: helper/affiliate/affiliate-helper.php:746
+#: helper/affiliate/affiliate-helper.php:752
 msgid "Generate a custom referral link for any destination URL on our store."
 msgstr ""
 
-#: helper/affiliate/affiliate-helper.php:747
+#: helper/affiliate/affiliate-helper.php:753
 msgid "Enter Page URL"
 msgstr ""
 
-#: helper/affiliate/affiliate-helper.php:752
+#: helper/affiliate/affiliate-helper.php:758
 msgid "Paste a link from our store to generate your referral version."
 msgstr ""
 
-#: helper/affiliate/affiliate-helper.php:773
+#: helper/affiliate/affiliate-helper.php:779
 msgid "Custom Referral Link"
 msgstr ""
 
-#: helper/affiliate/affiliate-helper.php:777
+#: helper/affiliate/affiliate-helper.php:783
 msgid "Copy Custom Referral Link"
 msgstr ""
 
-#: helper/affiliate/affiliate-helper.php:796
+#: helper/affiliate/affiliate-helper.php:802
 #: helper/commission/commission-helper.php:485
 #: helper/payout/payout-helper.php:405 includes/admin-dashboard.php:374
 #: includes/admin-dashboard.php:447
@@ -208,29 +223,29 @@ msgstr ""
 msgid "Pending"
 msgstr ""
 
-#: helper/affiliate/affiliate-helper.php:797
+#: helper/affiliate/affiliate-helper.php:803
 #: templates/admin/affiliates/affiliates-list-template.php:465
 #: templates/admin/configuration/general-configuration-template.php:32
 msgid "Approved"
 msgstr ""
 
-#: helper/affiliate/affiliate-helper.php:798
+#: helper/affiliate/affiliate-helper.php:804
 #: templates/admin/affiliates/affiliates-list-template.php:466
 #: templates/admin/configuration/general-configuration-template.php:33
 msgid "Rejected"
 msgstr ""
 
-#: helper/affiliate/affiliate-helper.php:799
+#: helper/affiliate/affiliate-helper.php:805
 #: templates/admin/affiliates/affiliates-list-template.php:467
 #: templates/admin/configuration/general-configuration-template.php:34
 msgid "Banned"
 msgstr ""
 
-#: helper/affiliate/affiliate-helper.php:800
+#: helper/affiliate/affiliate-helper.php:806
 msgid "Active"
 msgstr ""
 
-#: helper/affiliate/affiliate-helper.php:801
+#: helper/affiliate/affiliate-helper.php:807
 msgid "Inactive"
 msgstr ""
 
@@ -806,11 +821,15 @@ msgstr ""
 msgid "SEO-Friendly Affiliate Link Structure"
 msgstr ""
 
-#: includes/admin-dashboard.php:858 includes/admin-dashboard.php:878
+#: includes/admin-dashboard.php:858 includes/admin-dashboard.php:879
 msgid "You need to select affiliates first!!"
 msgstr ""
 
-#: includes/admin-dashboard.php:913
+#: includes/admin-dashboard.php:859 includes/admin-dashboard.php:880
+msgid "Are you sure you want to remove this row?"
+msgstr ""
+
+#: includes/admin-dashboard.php:915
 #. translators: %s for a tag
 msgid ""
 "If you really like our plugin, please leave us a %s rating, we'll really "
@@ -934,8 +953,8 @@ msgid "Registered"
 msgstr ""
 
 #: templates/admin/affiliates/affiliates-list-template.php:372
-#: templates/admin/configuration/commissions-configuration-template.php:134
-#: templates/admin/configuration/payouts-configuration-template.php:108
+#: templates/admin/configuration/commissions-configuration-template.php:183
+#: templates/admin/configuration/payouts-configuration-template.php:217
 #: templates/admin/payouts/manage-payout-template.php:168
 #: templates/admin/payouts/payouts-list-template.php:329
 #: templates/admin/registration/affiliate-registration-fields-template.php:255
@@ -1159,7 +1178,7 @@ msgid ""
 msgstr ""
 
 #: templates/admin/affiliates/manage-affiliate-template.php:309
-#: templates/admin/configuration/commissions-configuration-template.php:133
+#: templates/admin/configuration/commissions-configuration-template.php:182
 msgid "Commission Rate"
 msgstr ""
 
@@ -1294,7 +1313,25 @@ msgstr ""
 msgid "Enter the email address associated with your PayPal account."
 msgstr ""
 
-#: templates/admin/affiliates/manage-affiliate-template.php:430
+#: templates/admin/affiliates/manage-affiliate-template.php:421
+#: templates/admin/configuration/payouts-configuration-template.php:171
+#: templates/admin/configuration/payouts-configuration-template.php:250
+msgid "Stripe Connect [Pro]"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:425
+msgid "Connected Account ID"
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:429
+msgid ""
+"Link this affiliate to a Stripe connected account so completed payouts are "
+"transferred automatically. Affiliates can also connect their own account "
+"from their dashboard, in a hosted flow where Stripe collects their identity "
+"and bank details directly."
+msgstr ""
+
+#: templates/admin/affiliates/manage-affiliate-template.php:445
 #: templates/admin/payouts/manage-payout-template.php:178
 #: templates/front/affiliate-dashboard/settings-section.php:107
 msgid "Save Changes"
@@ -1538,25 +1575,101 @@ msgid ""
 "calculation (e.g., 30 days for monthly tiers)."
 msgstr ""
 
-#: templates/admin/configuration/commissions-configuration-template.php:125
-msgid "Multi Level Rules [Pro]"
+#: templates/admin/configuration/commissions-configuration-template.php:112
+msgid "Lifetime Commissions [Pro]"
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:113
+msgid ""
+"Reward the affiliate who won a customer, not just the click that happened "
+"to be last. Once an affiliate brings in a new customer, that customer is "
+"linked to them and every later order earns commission even with no referral "
+"link and no cookie. This is what turns a one-off referral into an income "
+"stream and is the single strongest argument for a serious partner to "
+"promote you."
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:119
+msgid "Enable Lifetime Commissions"
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:121
+msgid "Link referred customers to their affiliate permanently"
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:122
+msgid ""
+"The link is written on the customer's first referred order and is never "
+"overwritten, so a later affiliate cannot steal a customer someone else won. "
+"Guest checkouts are skipped because there is no account to attach the link "
+"to."
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:127
+msgid "Lifetime Window (Days)"
 msgstr ""
 
 #: templates/admin/configuration/commissions-configuration-template.php:130
-#: templates/admin/configuration/payouts-configuration-template.php:106
+msgid ""
+"How long the customer stays attached to the affiliate. Leave at 0 for "
+"genuinely unlimited, or set something like 365 to cap your exposure to one "
+"year per customer."
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:137
+msgid "Subscription Renewals [Pro]"
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:138
+msgid ""
+"In a subscription store most of the revenue arrives after the first order. "
+"Paying affiliates on renewals lines their interests up with retention "
+"instead of just acquisition. Requires the WooCommerce Subscriptions plugin."
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:144
+msgid "Enable Renewal Commissions"
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:146
+msgid "Pay commission on every subscription renewal"
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:147
+msgid ""
+"The affiliate credited for the original subscription order is credited "
+"again on each successful renewal payment."
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:152
+msgid "Renewal Rate (%)"
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:154
+msgid ""
+"Leave empty to pay renewals at the affiliate's normal rate. Set a lower "
+"number if you want acquisition rewarded more heavily than retention."
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:174
+msgid "Multi Level Rules [Pro]"
+msgstr ""
+
+#: templates/admin/configuration/commissions-configuration-template.php:179
+#: templates/admin/configuration/payouts-configuration-template.php:215
 #: templates/admin/registration/affiliate-registration-fields-template.php:251
 msgid "Name"
 msgstr ""
 
-#: templates/admin/configuration/commissions-configuration-template.php:131
+#: templates/admin/configuration/commissions-configuration-template.php:180
 msgid "Earning From"
 msgstr ""
 
-#: templates/admin/configuration/commissions-configuration-template.php:132
+#: templates/admin/configuration/commissions-configuration-template.php:181
 msgid "Earning To"
 msgstr ""
 
-#: templates/admin/configuration/commissions-configuration-template.php:140
+#: templates/admin/configuration/commissions-configuration-template.php:189
 msgid "Add Row"
 msgstr ""
 
@@ -1651,6 +1764,163 @@ msgstr ""
 
 #: templates/admin/configuration/general-configuration-template.php:149
 msgid "Enable WordPress sidebar widgets on the My Account affiliate endpoint."
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:155
+msgid "Affiliate Leaderboard [Pro]"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:156
+msgid ""
+"Everything the leaderboard does and how it looks. The shortcode string "
+"itself lives on the Shortcodes tab. Its stylesheet only loads on pages that "
+"actually contain the shortcode, so these settings cost nothing anywhere "
+"else."
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:162
+msgid "Enable Leaderboard"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:164
+msgid "Allow the leaderboard shortcode to render"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:165
+msgid ""
+"While this is off the shortcode outputs nothing, so you can place it on a "
+"page before you are ready to show it."
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:170
+msgid "Affiliates Shown"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:173
+msgid ""
+"How many affiliates the board lists by default. The shortcode limit "
+"attribute overrides this per placement."
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:178
+msgid "Privacy"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:180
+msgid "Mask affiliate names, showing each viewer only their own in full"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:181
+msgid ""
+"Recommended when the board is public. Affiliates still see their own rank "
+"and earnings, but nobody else's identity or income is exposed."
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:186
+msgid "Layout Style"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:189
+msgid "Card"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:190
+msgid "List"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:191
+msgid "Podium"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:194
+msgid ""
+"Card gives each affiliate its own panel. List is a compact, hairline "
+"separated ranking that suits sidebars. Podium lifts the top three above the "
+"rest."
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:199
+msgid "Rank Badge Shape"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:202
+msgid "Circle"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:203
+msgid "Rounded square"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:204
+msgid "No badge"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:207
+msgid "The shape drawn behind each position number."
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:212
+msgid "Accent Color"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:214
+msgid ""
+"Used for the leading affiliate and for the row belonging to whoever is "
+"viewing. Leave it empty to follow the brand primary color from the Layout "
+"tab."
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:219
+msgid "Medal Colors"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:221
+msgid "Tint the top three rank badges gold, silver and bronze"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:222
+msgid "Turn this off for a flat ranking where every position looks the same."
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:227
+msgid "Avatars"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:229
+msgid "Show the affiliate avatar"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:230
+msgid ""
+"Avatars come from Gravatar, so they load from an external service. Turn "
+"them off if you would rather not make that request."
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:235
+msgid "Order Count"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:237
+msgid "Show how many orders each affiliate referred"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:238
+msgid ""
+"The order count shows the work behind the earnings, so a small affiliate "
+"with steady sales does not look idle next to one big order. Hide it if you "
+"would rather keep your sales volume private."
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:243
+msgid "Earned Amount"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:245
+msgid "Show the total commission each affiliate earned"
+msgstr ""
+
+#: templates/admin/configuration/general-configuration-template.php:246
+msgid "Hide this if you would rather not publish what your affiliates make."
 msgstr ""
 
 #: templates/admin/configuration/layout-configuration-template.php:29
@@ -1907,16 +2177,189 @@ msgid ""
 "for payout. Helps manage refunds."
 msgstr ""
 
-#: templates/admin/configuration/payouts-configuration-template.php:101
+#: templates/admin/configuration/payouts-configuration-template.php:87
+msgid "Automatic Payouts [Pro]"
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:88
+msgid ""
+"Let the plugin move the money instead of you. Once a payout is completed, "
+"whether you complete it yourself, an affiliate requests it, or the "
+"scheduled run creates it, it is sent through the gateway that matches that "
+"affiliate's own withdrawal method. Bank transfer and wallet payouts are "
+"never touched by this and stay manual."
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:94
+msgid "Send Payouts Automatically"
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:96
+msgid "Pay affiliates through their gateway when a payout is completed"
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:97
+msgid ""
+"Turn this off to keep recording every payout by hand. The gateways below "
+"stay available for one-off manual sends from the payout screen."
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:102
+msgid "Maximum Send Attempts"
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:105
+msgid ""
+"How many times one payout may be sent before it gives up. Protects you from "
+"a bad payout address burning through API calls. You can always retry it by "
+"hand afterwards."
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:110
+msgid "Failure Notifications"
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:112
+msgid "Email an administrator when a payout cannot be sent"
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:113
+msgid ""
+"A failed transfer is never recorded as paid, so without this alert a payout "
+"can sit unnoticed until the affiliate chases it."
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:118
+msgid "Notification Recipient"
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:120
+msgid ""
+"Where failed payout alerts are sent. Defaults to the site administrator "
+"email."
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:127
+msgid "PayPal Payouts [Pro]"
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:128
+msgid ""
+"Pay affiliates straight to the PayPal email address on their profile, "
+"through the PayPal Payouts API. Nothing is required from the affiliate "
+"beyond saving that address."
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:134
+msgid "Enable PayPal Payouts"
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:136
+msgid "Send PayPal payouts through the PayPal API"
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:137
+msgid ""
+"When this is off, PayPal payouts are still listed as a withdrawal method "
+"but you send the money yourself and record the transaction ID."
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:142
+msgid "Environment"
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:145
+msgid "Sandbox (test payouts, no real money)"
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:146
+msgid "Live (real money leaves your account)"
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:149
+msgid ""
+"Sandbox credentials only work against sandbox, and live credentials only "
+"against live. Test the whole flow in sandbox before switching."
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:154
+msgid "Client ID"
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:156
+msgid "Paste the client ID of your PayPal REST app"
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:157
+msgid ""
+"Found under your REST app in the PayPal developer dashboard. Safe to store, "
+"it is not a secret."
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:162
+msgid "Client Secret"
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:164
+msgid ""
+"Can also be defined as the DDWCAF_PAYPAL_CLIENT_SECRET constant in "
+"wp-config.php to keep it out of the database entirely."
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:172
+msgid ""
+"Stripe cannot send money to a plain email address the way PayPal can. Each "
+"affiliate connects a Stripe Express account once from their own dashboard, "
+"in a hosted flow where Stripe collects their identity and bank details "
+"directly, and payouts are then transferred to that account."
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:178
+msgid "Enable Stripe Connect Payouts"
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:180
+msgid "Transfer payouts to connected Stripe accounts"
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:181
+msgid ""
+"Stripe Connect must be enabled on your Stripe account first, otherwise "
+"creating affiliate accounts will fail."
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:186
+msgid "Secret Key"
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:189
+msgid ""
+"Can also be defined as the DDWCAF_STRIPE_SECRET_KEY constant in "
+"wp-config.php. A key beginning with sk_test or rk_test puts the integration "
+"in test mode automatically, so there is no separate environment switch to "
+"keep in sync."
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:210
 msgid "Withdrawal Methods"
 msgstr ""
 
-#: templates/admin/configuration/payouts-configuration-template.php:107
+#: templates/admin/configuration/payouts-configuration-template.php:216
 msgid "Available"
 msgstr ""
 
-#: templates/admin/configuration/payouts-configuration-template.php:125
+#: templates/admin/configuration/payouts-configuration-template.php:229
+msgid "Automatic payouts available in Pro"
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:239
 msgid "%s is required"
+msgstr ""
+
+#: templates/admin/configuration/payouts-configuration-template.php:252
+msgid ""
+"Affiliates connect a Stripe Express account once from their dashboard, then "
+"completed payouts are transferred to it automatically."
 msgstr ""
 
 #: templates/admin/configuration/referrals-configuration-template.php:29
@@ -2078,6 +2521,51 @@ msgid ""
 "Prevents analytics bloat."
 msgstr ""
 
+#: templates/admin/configuration/referrals-configuration-template.php:170
+msgid "Referral Fraud Prevention [Pro]"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:171
+msgid ""
+"Self referral is the most common way an affiliate program leaks money: an "
+"affiliate places their own orders through their own link and collects a "
+"discount disguised as commission. These checks run before a commission is "
+"created, and a refused referral is written to the order notes with the "
+"reason so you can see exactly what happened."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:177
+msgid "Matching Email"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:179
+msgid "Refuse commission when the billing email matches the affiliate email"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:180
+msgid ""
+"Catches an affiliate ordering as a guest with their own email, which the "
+"plain self referral check cannot see because there is no logged in account."
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:185
+msgid "Matching Address"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:187
+msgid ""
+"Refuse commission when the order comes from an address the affiliate "
+"browses from"
+msgstr ""
+
+#: templates/admin/configuration/referrals-configuration-template.php:188
+msgid ""
+"Compares the order against addresses already recorded in this affiliate's "
+"own visit history, so no new tracking is added. Consider turning this off "
+"if many of your affiliates and customers share a network, such as a single "
+"office or campus."
+msgstr ""
+
 #: templates/admin/configuration/shortcodes-configuration-template.php:29
 msgid "Shortcode Configuration"
 msgstr ""
@@ -2121,6 +2609,17 @@ msgstr ""
 
 #: templates/admin/configuration/shortcodes-configuration-template.php:56
 msgid "Default: [ddwcaf_affiliate_dashboard_shortcode]"
+msgstr ""
+
+#: templates/admin/configuration/shortcodes-configuration-template.php:60
+msgid "Affiliate Leaderboard Shortcode [Pro]"
+msgstr ""
+
+#: templates/admin/configuration/shortcodes-configuration-template.php:65
+msgid ""
+"Default: [ddwcaf_affiliate_leaderboard_shortcode]. Ranks your top earning "
+"affiliates on any page. Accepts limit, days and title attributes. Configure "
+"how it behaves and looks under Affiliate Leaderboard on the General tab."
 msgstr ""
 
 #: templates/admin/dashboard/dashboard-template.php:128
@@ -2647,8 +3146,8 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
-"Launch a complete WooCommerce affiliate program in minutes. Track "
-"referrals, automate commissions, and manage payouts — no SaaS fees."
+"Run your own affiliate marketing program in WooCommerce. Track referral "
+"links, calculate commissions, and pay affiliates from your own store."
 msgstr ""
 
 #. Author of the plugin/theme

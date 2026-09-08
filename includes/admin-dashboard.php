@@ -856,6 +856,7 @@ if ( ! class_exists( 'DDWCAF_Admin_Dashboard' ) ) {
                             ],
                             'i18n' => [
                                 'createPayoutError' => esc_html__( 'You need to select affiliates first!!', 'affiliates-for-woocommerce' ),
+                                'removeRow'         => esc_html__( 'Are you sure you want to remove this row?', 'affiliates-for-woocommerce' ),
                             ],
                             'ddwcaf_configuration' => $this->ddwcaf_configuration,
                             'site_url'             => site_url(),
@@ -876,6 +877,7 @@ if ( ! class_exists( 'DDWCAF_Admin_Dashboard' ) ) {
                             ],
                             'i18n' => [
                                 'createPayoutError' => esc_html__( 'You need to select affiliates first!!', 'affiliates-for-woocommerce' ),
+                                'removeRow'         => esc_html__( 'Are you sure you want to remove this row?', 'affiliates-for-woocommerce' ),
                             ],
                             'ddwcaf_configuration' => $this->ddwcaf_configuration,
                             'site_url'             => site_url(),

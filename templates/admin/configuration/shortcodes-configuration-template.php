@@ -55,6 +55,15 @@ if ( ! class_exists( 'DDWCAF_Shortcodes_Configuration_Template' ) ) {
                             'value' => $ddwcaf_configuration[ 'affiliate_dashboard_shortcode' ],
                             'description' => esc_html__( 'Default: [ddwcaf_affiliate_dashboard_shortcode]', 'affiliates-for-woocommerce' ),
                         ],
+                        [
+                            'id'                => 'ddwcaf-affiliate-leaderboard-shortcode',
+                            'label'             => esc_html__( 'Affiliate Leaderboard Shortcode [Pro]', 'affiliates-for-woocommerce' ),
+                            'type'              => 'text',
+                            'value'             => 'ddwcaf_affiliate_leaderboard_shortcode',
+                            'class'             => 'ddfw-upgrade-to-pro-tag-wrapper',
+                            'custom_attributes' => [ 'disabled' => 'disabled' ],
+                            'description'       => esc_html__( 'Default: [ddwcaf_affiliate_leaderboard_shortcode]. Ranks your top earning affiliates on any page. Accepts limit, days and title attributes. Configure how it behaves and looks under Affiliate Leaderboard on the General tab.', 'affiliates-for-woocommerce' ),
+                        ],
                     ],
                 ],
             ];

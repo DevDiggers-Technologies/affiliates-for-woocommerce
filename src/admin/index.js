@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const removeButton = e.target.closest('.ddwcaf-remove-row');
             const row = removeButton.closest('tr');
             
-            if (confirm('Are you sure you want to remove this row?')) {
+            if (confirm(window.ddwcafAdminObject?.i18n?.removeRow || 'Are you sure you want to remove this row?')) {
                 row.remove();
             }
         }
