@@ -246,7 +246,7 @@ if ( ! class_exists( 'DDWCAF_Payouts_Configuration_Template' ) ) {
                             <?php
                         }
                         ?>
-                        <tr class="ddfw-upgrade-to-pro-tag-wrapper">
+                        <tr>
                             <td><?php esc_html_e( 'Stripe Connect [Pro]', 'affiliates-for-woocommerce' ); ?></td>
                             <td>
                                 <p style="margin: 0; font-size: 12px;"><?php esc_html_e( 'Affiliates connect a Stripe Express account once from their dashboard, then completed payouts are transferred to it automatically.', 'affiliates-for-woocommerce' ); ?></p>
