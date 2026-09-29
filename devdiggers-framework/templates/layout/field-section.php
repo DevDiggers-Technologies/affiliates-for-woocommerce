@@ -15,6 +15,14 @@ defined( 'ABSPATH' ) || exit(); // Exit if accessed directly.
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Template scope variables are local include variables.
 if ( ! empty( $args ) && is_array( $args ) ) {
 	foreach ( $args as $key => $arg ) {
+		// A group made only of after_header_html (an upgrade block, a notice, a custom table)
+		// brings its own wrapper, so the section card would only double the padding.
+		$html_only = empty( $arg[ 'header' ] ) && empty( $arg[ 'fields' ] ) && empty( $arg[ 'submit_button' ] ) && ! empty( $arg[ 'after_header_html' ] );
+
+		if ( $html_only ) {
+			echo ddfw_kses_form_html( $arg[ 'after_header_html' ] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped inside the helper.
+			continue;
+		}
 		?>
 		<div class="ddfw-fields-section <?php echo esc_attr( $arg[ 'class' ] ?? '' ); ?>" id="<?php echo esc_attr( $arg[ 'id' ] ?? '' ); ?>">
 			<?php
@@ -24,7 +32,7 @@ if ( ! empty( $args ) && is_array( $args ) ) {
 
 			if ( ! empty( $arg[ 'after_header_html' ] ) ) {
 				// after_header_html may contain form controls (inputs/selects), so allow form HTML, not just post HTML.
-				echo wp_kses( $arg[ 'after_header_html' ], ddfw_kses_allowed_form_html() );
+				echo ddfw_kses_form_html( $arg[ 'after_header_html' ] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped inside the helper.
 			}
 
 			if ( ! empty( $arg[ 'fields' ] ) && is_array( $arg[ 'fields' ] ) ) {

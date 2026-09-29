@@ -208,6 +208,8 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 					ob_start();
 					?>
 					<label class="checkbox <?php echo esc_attr( implode( ' ', $args['label_class'] ) ); ?>">
+						<?php // An unchecked box posts nothing, so without this the saved value can only ever be turned on. ?>
+						<input type="hidden" name="<?php echo esc_attr( $name ); ?>" value="" />
 						<input type="<?php echo esc_attr( $args['type'] ); ?>" class="input-checkbox <?php echo esc_attr( implode( ' ', $args['input_class'] ) ); ?>" name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" value="<?php echo esc_attr( $args['checkbox_value'] ); ?>" <?php checked( $value, $args['checkbox_value'] ); ?> <?php echo wp_kses_data( implode( ' ', $custom_attributes ) ); ?> />
 						<?php echo wp_kses_post( $args['checkbox_label'] . $required ); ?>
 					</label>
@@ -561,15 +563,15 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 					if ( $is_admin ) {
 						ob_start();
 						?>
-						<p class="description" id="<?php echo esc_attr( $args['id'] ); ?>-description" aria-hidden="true">
-							<i><?php echo wp_kses_post( $args['description'] ); ?></i>
+						<p class="description" id="<?php echo esc_attr( $args['id'] ); ?>-description">
+							<?php echo wp_kses_post( $args['description'] ); ?>
 						</p>
 						<?php
 						$field_html .= ob_get_clean();
 					} else {
 						ob_start();
 						?>
-						<i class="description" id="<?php echo esc_attr( $args['id'] ); ?>-description" aria-hidden="true">
+						<i class="description" id="<?php echo esc_attr( $args['id'] ); ?>-description">
 							<?php echo wp_kses_post( $args['description'] ); ?>
 						</i>
 						<?php

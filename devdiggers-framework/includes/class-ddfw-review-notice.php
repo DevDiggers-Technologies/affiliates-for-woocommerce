@@ -64,6 +64,11 @@ if ( ! class_exists( 'DDFW_Review_Notice' ) ) {
 		 * @return bool
 		 */
 		protected function should_display() {
+			// Only shown to users who can manage the plugin, so it never reaches customers or subscribers.
+			if ( ! current_user_can( 'manage_options' ) && ! current_user_can( 'manage_woocommerce' ) ) {
+				return false;
+			}
+
 			$prefix = $this->args['plugin_prefix'];
 
 			// Check if dismissed permanently.

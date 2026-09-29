@@ -618,23 +618,9 @@ if ( ! class_exists( 'DDWCAF_Admin_Dashboard' ) ) {
                     $this->ddwcaf_print_notification( esc_html__( 'Registration fields are reset to default now.', 'affiliates-for-woocommerce' ) );
                 }
 
-                ?>
-                <div class="ddwcaf-info-notice">
-                    <div class="ddwcaf-info-notice-icon">
-                        <?php echo DDFW_SVG::get_svg_icon( 'info', true, [ 'size' => 20 ] ); ?>
-                    </div>
-                    <div class="ddwcaf-info-notice-content">
-                        <p>
-                            <strong><?php esc_html_e( 'How to Show the Form?', 'affiliates-for-woocommerce' ); ?></strong><br>
-                            <?php echo sprintf( wp_kses_post( __( 'To show this form anywhere on the front end, use this shortcode %s. Also, registration form will get displayed on the affiliate dashboard page as well.', 'affiliates-for-woocommerce' ) ), '<strong>' . esc_html( $this->ddwcaf_configuration[ 'affiliate_registration_form_shortcode' ] ) . '</strong>' ); ?>
-                        </p>
-                    </div>
-                </div>
-                <?php
 
                 $obj = new Admin\Registration\DDWCAF_Affiliate_Registration_Fields_Template( $this->ddwcaf_configuration );
                 ?>
-                <hr class="wp-header-end" />
                 <h1 class="wp-heading-inline"><?php esc_html_e( 'Affiliates Registration Fields', 'affiliates-for-woocommerce' ); ?></h1>
                 <a href="<?php echo esc_url( admin_url( 'admin.php?page=' . sanitize_text_field( wp_unslash( $_GET[ 'page' ] ) ) . '&menu=' . sanitize_text_field( wp_unslash( $_GET[ 'menu' ] ) ) . '&action=add' ) ); ?>" class="page-title-action button button-primary">
                     <?php
@@ -651,6 +637,18 @@ if ( ! class_exists( 'DDWCAF_Admin_Dashboard' ) ) {
                     <?php wp_nonce_field( 'ddwcaf_nonce_action', 'ddwcaf_nonce' ); ?>
                     <input type="submit" class="page-title-action button button-secondary" name="ddwcaf_reset_affiliate_registration_fields" value="<?php esc_attr_e( 'Restore Defaults', 'affiliates-for-woocommerce' ); ?>" />
                 </form>
+                <hr class="wp-header-end" />
+                <div class="ddwcaf-info-notice">
+                    <div class="ddwcaf-info-notice-icon">
+                        <?php echo DDFW_SVG::get_svg_icon( 'info', true, [ 'size' => 20 ] ); ?>
+                    </div>
+                    <div class="ddwcaf-info-notice-content">
+                        <p>
+                            <strong><?php esc_html_e( 'How to Show the Form?', 'affiliates-for-woocommerce' ); ?></strong><br>
+                            <?php echo sprintf( wp_kses_post( __( 'To show this form anywhere on the front end, use this shortcode %s. Also, registration form will get displayed on the affiliate dashboard page as well.', 'affiliates-for-woocommerce' ) ), '<strong>' . esc_html( $this->ddwcaf_configuration[ 'affiliate_registration_form_shortcode' ] ) . '</strong>' ); ?>
+                        </p>
+                    </div>
+                </div>
 
                 <form method="get">
                     <input type="hidden" name="page" value="<?php echo isset( $_GET[ 'page' ] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET[ 'page' ] ) ) ) : ''; // WPCS: CSRF ok. // WPCS: input var ok. ?>" />

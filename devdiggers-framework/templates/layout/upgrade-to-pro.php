@@ -7,6 +7,8 @@
  * @package DevDiggers\Framework
  */
 
+use DevDiggers\Framework\Includes\DDFW_SVG;
+
 defined( 'ABSPATH' ) || exit(); // Exit if accessed directly.
 
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Template scope variables are local include variables.
@@ -27,13 +29,13 @@ extract( $args );
 	<?php
 	if ( ! empty( $image_url ) ) {
 		?>
-		<img src="<?php echo esc_url( $image_url ); ?>" alt="Upgrade to Pro Plugin Screenshot" title="Upgrade to Pro Plugin Screenshot" />
+		<img src="<?php echo esc_url( $image_url ); ?>" alt="" aria-hidden="true" />
 		<?php
 	}
 	?>
 	<div class="ddfw-upgrade-to-pro-popup">
+		<span class="ddfw-upgrade-to-pro-eyebrow"><?php esc_html_e( 'Pro', 'affiliates-for-woocommerce' ); ?></span>
 		<h2><?php echo esc_html( $heading ); ?></h2>
-		<hr />
 		<p><?php echo esc_html( $description ); ?></p>
 		<?php
 		if ( ! empty( $list_features ) && is_array( $list_features ) ) {
@@ -50,7 +52,10 @@ extract( $args );
 			<?php
 		}
 		?>
-		<a href="<?php echo esc_url( $upgrade_url ); ?>" target="_blank" class="button button-primary"><?php echo esc_html( $upgrade_button_text ); ?></a>
+		<a href="<?php echo esc_url( $upgrade_url ); ?>" target="_blank" rel="noopener noreferrer" class="button button-primary">
+			<?php DDFW_SVG::get_svg_icon( 'crown', false, [ 'size' => 15 ] ); ?>
+			<?php echo esc_html( $upgrade_button_text ); ?>
+		</a>
 	</div>
 </div>
 <?php

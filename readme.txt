@@ -9,7 +9,7 @@ Tested up to: 7.1
 Requires PHP: 7.4
 WC requires at least: 9.0.0
 WC tested up to: 11.0.1
-Stable tag: 2.2.0
+Stable tag: 2.3.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -356,6 +356,12 @@ To build from source:
 
 == Changelog ==
 
+= 2.3.0 =
+* Upgraded to DevDiggers Framework 1.1.0: admin screens now open instantly without a full page reload, with skeleton placeholders while a screen loads.
+* Improved list screens: the title action buttons, search box, bulk actions and pagination now follow one consistent layout.
+* Fixed minor PHP warnings and JavaScript errors seen after in-place navigation.
+* Bug fixes and stability improvements.
+
 = 2.2.0 =
 * Added Pro previews across the configuration screens so you can see what the Pro version does before deciding: lifetime commissions, subscription renewal commissions, referral fraud prevention, the affiliate leaderboard, automatic payouts, PayPal Payouts and Stripe Connect.
 * Added Stripe Connect to the withdrawal methods list, and noted on the PayPal row that automatic payouts are a Pro feature.
@@ -418,6 +424,9 @@ To build from source:
 * Initial release.
 
 == Upgrade Notice ==
+
+= 2.3.0 =
+Adds faster admin navigation without page reloads, a refreshed list-screen layout and minor bug fixes. Recommended for all users.
 
 = 2.2.0 =
 Adds Pro previews for lifetime commissions, the affiliate leaderboard, and automatic PayPal and Stripe payouts. Moves the leaderboard settings to the General tab and makes several remaining strings translatable.

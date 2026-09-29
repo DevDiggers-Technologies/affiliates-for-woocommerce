@@ -47,6 +47,7 @@ module.exports = function( grunt ) {
 					'**/*.php',               // Include all files/
 					'!node_modules/**',       // Exclude node_modules/
 					'!tests/**',              // Exclude tests/
+					'!bin/**',                // Exclude dev helper scripts (stubs redefine i18n functions)
 					'!vendor/**',             // Exclude vendor/
 					'!tmp/**',                // Exclude tmp/
 					'!devdiggers-framework/**' // Exclude devdiggers-framework/

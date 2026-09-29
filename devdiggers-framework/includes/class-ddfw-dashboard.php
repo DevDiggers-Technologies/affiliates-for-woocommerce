@@ -123,6 +123,11 @@ if ( ! class_exists( 'DDFW_Dashboard' ) ) {
 				$welcome = sprintf( $welcome, $current_user->display_name );
 			}
 			$subtitle = isset( $header['subtitle'] ) ? $header['subtitle'] : '';
+
+			// Detail screens ( e.g. a single user ) can point the header at a specific entity instead
+			// of the current admin: override the avatar and add a back link.
+			$avatar_url = ! empty( $header['avatar_url'] ) ? $header['avatar_url'] : get_avatar_url( $current_user->ID, [ 'size' => 48 ] );
+			$back_link  = isset( $header['back_link'] ) && is_array( $header['back_link'] ) ? $header['back_link'] : [];
 			?>
 			<div class="ddfw-dash-header">
 				<div class="ddfw-dash-header-top">
@@ -130,11 +135,19 @@ if ( ! class_exists( 'DDFW_Dashboard' ) ) {
 						<div class="ddfw-dash-welcome-content">
 							<?php if ( $show_avatar ) : ?>
 								<div class="ddfw-dash-admin-avatar">
-									<img src="<?php echo esc_url( get_avatar_url( $current_user->ID, [ 'size' => 48 ] ) ); ?>" alt="<?php echo esc_attr( $current_user->display_name ); ?>" class="ddfw-dash-avatar-image" />
+									<img src="<?php echo esc_url( $avatar_url ); ?>" alt="<?php echo esc_attr( $welcome ); ?>" class="ddfw-dash-avatar-image" />
 								</div>
 							<?php endif; ?>
 							<div class="ddfw-dash-welcome-message">
-								<h1><?php echo esc_html( $welcome ); ?></h1>
+								<h1>
+									<?php echo esc_html( $welcome ); ?>
+									<?php if ( ! empty( $back_link['url'] ) ) : ?>
+										<a href="<?php echo esc_url( $back_link['url'] ); ?>" class="ddfw-dash-back-button">
+											<svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+											<?php echo esc_html( ! empty( $back_link['label'] ) ? $back_link['label'] : esc_html__( 'Back', 'affiliates-for-woocommerce' ) ); ?>
+										</a>
+									<?php endif; ?>
+								</h1>
 								<?php if ( $subtitle ) : ?>
 									<p class="ddfw-dash-welcome-subtitle"><?php echo esc_html( $subtitle ); ?></p>
 								<?php endif; ?>
@@ -165,12 +178,21 @@ if ( ! class_exists( 'DDFW_Dashboard' ) ) {
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only admin routing parameter.
 			$menu = isset( $_GET['menu'] ) ? sanitize_text_field( wp_unslash( $_GET['menu'] ) ) : '';
 
+			// Detail screens pass extra routing args ( e.g. action + record id ) so applying a date
+			// range keeps the same context instead of falling back to the list view. The date filter
+			// JS submits this form, so these hidden fields ride along automatically.
+			$header = isset( $this->config['header'] ) && is_array( $this->config['header'] ) ? $this->config['header'] : [];
+			$extra  = isset( $header['date_filter_extra'] ) && is_array( $header['date_filter_extra'] ) ? $header['date_filter_extra'] : [];
+
 			$presets = DDFW_Dashboard_Data::get_presets();
 			?>
 			<div class="ddfw-dash-filters">
 				<form method="get" class="ddfw-dash-date-filter-form">
 					<input type="hidden" name="page" value="<?php echo esc_attr( $page ); ?>" />
 					<input type="hidden" name="menu" value="<?php echo esc_attr( $menu ); ?>" />
+					<?php foreach ( $extra as $extra_key => $extra_value ) : ?>
+						<input type="hidden" name="<?php echo esc_attr( $extra_key ); ?>" value="<?php echo esc_attr( $extra_value ); ?>" />
+					<?php endforeach; ?>
 
 					<div class="ddfw-dash-date-range-container">
 						<input type="text"
@@ -227,8 +249,12 @@ if ( ! class_exists( 'DDFW_Dashboard' ) ) {
 			if ( empty( $cards ) ) {
 				return;
 			}
+
+			// Optional panel rendered beside the cards ( e.g. a user level / rank widget ) that
+			// spans the full height of the card grid instead of dropping to the bottom section.
+			$aside = isset( $this->config['summary_aside'] ) && is_array( $this->config['summary_aside'] ) ? $this->config['summary_aside'] : [];
 			?>
-			<div class="ddfw-dash-top-section">
+			<div class="ddfw-dash-top-section<?php echo ! empty( $aside ) ? ' ddfw-dash-top-section--with-aside' : ''; ?>">
 				<div class="ddfw-dash-summary-cards ddfw-dash-cols-<?php echo esc_attr( $this->columns ); ?>">
 					<?php
 					foreach ( $cards as $card ) {
@@ -236,6 +262,14 @@ if ( ! class_exists( 'DDFW_Dashboard' ) ) {
 					}
 					?>
 				</div>
+				<?php if ( ! empty( $aside ) && ! empty( $aside['render'] ) && is_callable( $aside['render'] ) ) : ?>
+					<div class="ddfw-dash-widget ddfw-dash-top-aside">
+						<?php if ( ! empty( $aside['title'] ) ) : ?>
+							<h3><?php echo esc_html( $aside['title'] ); ?></h3>
+						<?php endif; ?>
+						<?php call_user_func( $aside['render'] ); ?>
+					</div>
+				<?php endif; ?>
 			</div>
 			<?php
 		}
@@ -249,7 +283,7 @@ if ( ! class_exists( 'DDFW_Dashboard' ) ) {
 		protected function render_summary_card( $card ) {
 			$title       = $card['title'] ?? '';
 			$value       = $card['value'] ?? 0;
-			$change      = isset( $card['change'] ) ? (float) $card['change'] : 0;
+			$change      = round( (float) ( $card['change'] ?? 0 ), 1 ); // Float default: `0.0 !== 0` is true and showed a bogus 0%.
 			$is_positive = ! isset( $card['is_positive'] ) || $card['is_positive'];
 			$icon_svg    = $card['icon'] ?? '';
 			$value_type  = $card['value_type'] ?? 'number';
@@ -257,7 +291,7 @@ if ( ! class_exists( 'DDFW_Dashboard' ) ) {
 			<div class="ddfw-dash-summary-card">
 				<div class="ddfw-dash-card-header">
 					<div class="ddfw-dash-card-icon"><?php echo wp_kses( $icon_svg, ddfw_kses_allowed_svg_tags() ); ?></div>
-					<?php if ( 0.0 !== $change ) : ?>
+					<?php if ( 0.0 !== abs( $change ) ) : ?>
 						<div class="ddfw-dash-change-indicator <?php echo esc_attr( $is_positive ? 'positive' : 'negative' ); ?>">
 							<?php if ( $is_positive ) : ?>
 								<svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23 6l-9.5 9.5-5-5L1 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 6h6v6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -410,7 +444,12 @@ if ( ! class_exists( 'DDFW_Dashboard' ) ) {
 			?>
 			<div class="ddfw-dash-tables-section">
 				<?php foreach ( $widgets as $widget ) : ?>
-					<div class="ddfw-dash-widget<?php echo in_array( ( $widget['width'] ?? '' ), [ 'third', 'half', 'full' ], true ) ? ' ddfw-dash-widget--' . esc_attr( $widget['width'] ) : ''; ?>">
+					<?php
+					// A widget that is only a render callback (an upgrade block, a custom panel) draws its
+					// own card, so the widget card would only nest one box inside another.
+					$bare = empty( $widget['title'] ) && empty( $widget['chart'] );
+					?>
+					<div class="<?php echo $bare ? 'ddfw-dash-widget-bare' : 'ddfw-dash-widget'; ?><?php echo in_array( ( $widget['width'] ?? '' ), [ 'third', 'half', 'full' ], true ) ? ' ddfw-dash-widget--' . esc_attr( $widget['width'] ) : ''; ?>">
 						<?php if ( ! empty( $widget['title'] ) ) : ?>
 							<h3><?php echo esc_html( $widget['title'] ); ?></h3>
 						<?php endif; ?>
