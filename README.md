@@ -169,6 +169,12 @@ npm run build
 
 ## Changelog
 
+**= 2.3.0 =**
+* Upgraded to DevDiggers Framework 1.1.0: admin screens now open instantly without a full page reload, with skeleton placeholders while a screen loads.
+* Improved list screens: the title action buttons, search box, bulk actions and pagination now follow one consistent layout.
+* Fixed minor PHP warnings and JavaScript errors seen after in-place navigation.
+* Bug fixes and stability improvements.
+
 **= 2.2.0 =**
 * Added Pro previews across the configuration screens so you can see what the Pro version does before deciding: lifetime commissions, subscription renewal commissions, referral fraud prevention, the affiliate leaderboard, automatic payouts, PayPal Payouts and Stripe Connect.
 * Added Stripe Connect to the withdrawal methods list, and noted on the PayPal row that automatic payouts are a Pro feature.

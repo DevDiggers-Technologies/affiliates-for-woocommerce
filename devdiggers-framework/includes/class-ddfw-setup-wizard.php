@@ -52,9 +52,12 @@ if ( ! class_exists( 'DDFW_Setup_Wizard' ) ) {
 				return;
 			}
 
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only routing parameter.
+			$requested_page = ! empty( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
+
 			// Handle manual skip action.
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce is sanitized and verified before updating the option.
-			if ( isset( $_GET['page'] ) && $_GET['page'] === $config['dashboard_page'] && ! empty( $_GET['setup-wizard-skipped'] ) ) {
+			if ( $requested_page === $config['dashboard_page'] && ! empty( $_GET['setup-wizard-skipped'] ) ) {
 				$nonce = ! empty( $_GET['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ) : '';
 
 				// Capability check first, kept separate so the condition cannot be bypassed.
@@ -85,7 +88,7 @@ if ( ! class_exists( 'DDFW_Setup_Wizard' ) ) {
 
 			// Force wizard on first visit to dashboard if not completed.
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only routing parameter; no form processing here.
-			if ( isset( $_GET['page'] ) && $_GET['page'] === $config['dashboard_page'] && empty( $_GET['setup-wizard'] ) && empty( $_GET['setup-wizard-skipped'] ) ) {
+			if ( $requested_page === $config['dashboard_page'] && empty( $_GET['setup-wizard'] ) && empty( $_GET['setup-wizard-skipped'] ) ) {
 				if ( ! get_option( 'ddfw_setup_wizard_completed_' . $slug, false ) ) {
 					wp_safe_redirect( admin_url( 'admin.php?page=' . $config['dashboard_page'] . '&setup-wizard=true' ) );
 					exit;
@@ -101,10 +104,12 @@ if ( ! class_exists( 'DDFW_Setup_Wizard' ) ) {
 		 */
 		public function enqueue_scripts( $hook ) {
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only routing parameters used to decide whether assets load.
-			$is_dashboard_wizard = ( ! empty( $_GET['setup-wizard'] ) && ! empty( $_GET['page'] ) );
+			$is_dashboard_wizard = ! empty( $_GET['setup-wizard'] );
 
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only routing parameter used to match current admin page.
-			if ( ! $is_dashboard_wizard || $_GET['page'] !== $this->args['dashboard_page'] ) {
+			$requested_page = ! empty( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
+
+			if ( ! $is_dashboard_wizard || $requested_page !== $this->args['dashboard_page'] ) {
 				return;
 			}
 

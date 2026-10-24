@@ -47,7 +47,7 @@ if ( ! class_exists( 'DDFW_Ajax' ) ) {
 		 */
 		public function ddfw_get_products_list() {
 			$response = [];
-			if ( check_ajax_referer( 'ddfw-nonce', 'nonce', false ) && $this->ddfw_current_user_can_manage() ) {
+			if ( check_ajax_referer( 'ddfw-nonce', 'nonce', false ) && ( current_user_can( 'manage_options' ) || current_user_can( 'manage_woocommerce' ) ) ) {
 
 				$search_results = new \WP_Query( [
 					's'                   => ! empty( $_POST['query'] ) ? sanitize_text_field( wp_unslash( $_POST['query'] ) ) : '',
@@ -93,7 +93,7 @@ if ( ! class_exists( 'DDFW_Ajax' ) ) {
 		 */
 		public function ddfw_get_categories_list() {
 			$response = [];
-			if ( check_ajax_referer( 'ddfw-nonce', 'nonce', false ) && $this->ddfw_current_user_can_manage() ) {
+			if ( check_ajax_referer( 'ddfw-nonce', 'nonce', false ) && ( current_user_can( 'manage_options' ) || current_user_can( 'manage_woocommerce' ) ) ) {
 				$query = isset( $_POST[ 'query' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'query' ] ) ) : ''; // wpcs: input var okay.
 
 				$categories = get_terms( [
@@ -123,7 +123,7 @@ if ( ! class_exists( 'DDFW_Ajax' ) ) {
 		 */
 		public function ddfw_get_users_list() {
 			$response = [];
-			if ( check_ajax_referer( 'ddfw-nonce', 'nonce', false ) && $this->ddfw_current_user_can_manage() ) {
+			if ( check_ajax_referer( 'ddfw-nonce', 'nonce', false ) && ( current_user_can( 'manage_options' ) || current_user_can( 'manage_woocommerce' ) ) ) {
 				$query = isset( $_POST[ 'query' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'query' ] ) ) : ''; // wpcs: input var okay.
 				$role  = isset( $_POST[ 'role' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'role' ] ) ) : ''; // wpcs: input var okay.
 
@@ -158,7 +158,7 @@ if ( ! class_exists( 'DDFW_Ajax' ) ) {
 				wp_send_json_error( [ 'message' => esc_html__( 'Security check failed.', 'affiliates-for-woocommerce' ) ] );
 			}
 
-			if ( ! $this->ddfw_current_user_can_manage() ) {
+			if ( ( ! current_user_can( 'manage_options' ) && ! current_user_can( 'manage_woocommerce' ) ) ) {
 				wp_send_json_error( [ 'message' => esc_html__( 'Insufficient permissions.', 'affiliates-for-woocommerce' ) ] );
 			}
 

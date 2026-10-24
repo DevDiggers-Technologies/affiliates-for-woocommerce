@@ -4,3 +4,5 @@
  *
  * @package DevDiggers\Framework
  */
+
+defined( 'ABSPATH' ) || exit;

@@ -192,7 +192,7 @@ if ( ! class_exists( 'DDWCAF_Visit_Helper' ) ) {
 		 */
 		public function ddwcaf_get_conversion_details( $args ) {
 			$conditions = $this->ddwcaf_prepare_where_conditions_for_visits( $args );
-			$response   = $this->wpdb->get_row( "SELECT SUM( CASE WHEN visits.order_id IS NOT NULL THEN 1 ELSE 0 END ) / COUNT( visits.id ) * 100 AS conversion_rate, SUM( CASE WHEN visits.order_id IS NOT NULL THEN 1 ELSE 0 END ) as customers_count FROM {$this->wpdb->ddwcaf_visits} as visits LEFT JOIN {$this->wpdb->users} as users ON visits.affiliate_id=users.ID WHERE 1=1 $conditions", ARRAY_A );
+			$response   = $this->wpdb->get_row( "SELECT COALESCE( SUM( CASE WHEN visits.order_id IS NOT NULL THEN 1 ELSE 0 END ) * 100.0 / NULLIF( COUNT( visits.id ), 0 ), 0 ) AS conversion_rate, SUM( CASE WHEN visits.order_id IS NOT NULL THEN 1 ELSE 0 END ) as customers_count FROM {$this->wpdb->ddwcaf_visits} as visits LEFT JOIN {$this->wpdb->users} as users ON visits.affiliate_id=users.ID WHERE 1=1 $conditions", ARRAY_A );
 
 			return apply_filters( 'ddwcaf_modify_conversion_details', $response, $args );
 		}
