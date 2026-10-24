@@ -79,7 +79,10 @@ settings_errors();
 					continue;
 				}
 				?>
-				<a href="<?php echo esc_url( $header_button['url'] ); ?>" class="<?php echo esc_attr( ! empty( $header_button['class'] ) ? $header_button['class'] : 'button' ); ?>"><?php echo esc_html( $header_button['label'] ); ?></a>
+				<a href="<?php echo esc_url( $header_button['url'] ); ?>" class="<?php echo esc_attr( ! empty( $header_button['class'] ) ? $header_button['class'] : 'button' ); ?>"<?php echo ! empty( $header_button['target'] ) ? ' target="' . esc_attr( $header_button['target'] ) . '" rel="noopener noreferrer"' : ''; ?>>
+					<?php echo ! empty( $header_button['icon'] ) ? wp_kses( $header_button['icon'], ddfw_kses_allowed_svg_tags() ) : ''; ?>
+					<?php echo esc_html( $header_button['label'] ); ?>
+				</a>
 				<?php
 			}
 

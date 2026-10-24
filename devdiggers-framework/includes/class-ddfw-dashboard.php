@@ -56,7 +56,9 @@ if ( ! class_exists( 'DDFW_Dashboard' ) ) {
 		 *
 		 *     @type int    $columns       Summary-card columns per row. Default 5.
 		 *     @type array  $header        Header config: show_avatar, welcome, subtitle,
-		 *                                 show_date_filter (default true), date_range (override).
+		 *                                 show_date_filter (default true), date_range (override),
+		 *                                 filters (selects shown beside the date picker: name, label,
+		 *                                 options as value => label, value).
 		 *     @type array  $summary_cards List of cards: title, value, change, is_positive, icon, value_type.
 		 *     @type array  $charts        List of charts: id, title, date_label, full_width, type,
 		 *                                 data, x_key, series, label_key, value_key, value_format, empty.
@@ -184,6 +186,11 @@ if ( ! class_exists( 'DDFW_Dashboard' ) ) {
 			$header = isset( $this->config['header'] ) && is_array( $this->config['header'] ) ? $this->config['header'] : [];
 			$extra  = isset( $header['date_filter_extra'] ) && is_array( $header['date_filter_extra'] ) ? $header['date_filter_extra'] : [];
 
+			// Extra selects (an outlet, a store, a vendor) live in the same form as the dates, so
+			// changing one keeps the other. A filter's own name is never also sent as a hidden field.
+			$filters = isset( $header['filters'] ) && is_array( $header['filters'] ) ? $header['filters'] : [];
+			$extra   = array_diff_key( $extra, array_flip( wp_list_pluck( $filters, 'name' ) ) );
+
 			$presets = DDFW_Dashboard_Data::get_presets();
 			?>
 			<div class="ddfw-dash-filters">
@@ -193,6 +200,23 @@ if ( ! class_exists( 'DDFW_Dashboard' ) ) {
 					<?php foreach ( $extra as $extra_key => $extra_value ) : ?>
 						<input type="hidden" name="<?php echo esc_attr( $extra_key ); ?>" value="<?php echo esc_attr( $extra_value ); ?>" />
 					<?php endforeach; ?>
+
+					<?php
+					foreach ( $filters as $filter ) {
+						if ( empty( $filter['name'] ) || empty( $filter['options'] ) || ! is_array( $filter['options'] ) ) {
+							continue;
+						}
+
+						$filter_value = isset( $filter['value'] ) ? (string) $filter['value'] : '';
+						?>
+						<select name="<?php echo esc_attr( $filter['name'] ); ?>" class="ddfw-dash-filter-select" aria-label="<?php echo esc_attr( ! empty( $filter['label'] ) ? $filter['label'] : $filter['name'] ); ?>">
+							<?php foreach ( $filter['options'] as $option_value => $option_label ) : ?>
+								<option value="<?php echo esc_attr( $option_value ); ?>" <?php selected( $filter_value, (string) $option_value ); ?>><?php echo esc_html( $option_label ); ?></option>
+							<?php endforeach; ?>
+						</select>
+						<?php
+					}
+					?>
 
 					<div class="ddfw-dash-date-range-container">
 						<input type="text"
@@ -485,6 +509,7 @@ if ( ! class_exists( 'DDFW_Dashboard' ) ) {
 					'currencySymbol' => $currency_symbol,
 					'i18n'           => [
 						'noData' => esc_html__( 'No data available', 'affiliates-for-woocommerce' ),
+						'total'  => esc_html__( 'Total', 'affiliates-for-woocommerce' ),
 					],
 				]
 			);

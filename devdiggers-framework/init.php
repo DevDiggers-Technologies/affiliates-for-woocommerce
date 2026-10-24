@@ -5,7 +5,7 @@
  * Framework URI - https://devdiggers.com/woocommerce-extensions/
  * Author: DevDiggers
  * Author URI: https://devdiggers.com/
- * Version: 1.1.1
+ * Version: 1.1.2
  * DDFW Build: free
  * Text Domain: affiliates-for-woocommerce
  * License: GPL-2.0+
@@ -13,14 +13,14 @@
  * Requires at least: 5.0
  * Requires PHP: 7.0
  * Tested up to: 6.x.x
- * Stable tag: 1.1.1
+ * Stable tag: 1.1.2
  * Text Domain: affiliates-for-woocommerce
  * Framework Domain Path - /i18n
  *
  * @author  DevDiggers
  * @category Framework
  * @package DevDiggers\Framework
- * @version 1.1.1
+ * @version 1.1.2
  */
 
 defined( 'ABSPATH' ) || exit(); // Exit if accessed directly.
@@ -93,8 +93,8 @@ if ( ! defined( 'DDFW_RESOLVED' ) ) {
 defined( 'DDFW_LOADED' ) || define( 'DDFW_LOADED', true );
 defined( 'DDFW_URL' ) || define( 'DDFW_URL', plugin_dir_url( __FILE__ ) );
 defined( 'DDFW_FILE' ) || define( 'DDFW_FILE', plugin_dir_path( __FILE__ ) );
-defined( 'DDFW_SCRIPT_VERSION' ) || define( 'DDFW_SCRIPT_VERSION', '1.1.1' );
-defined( 'DDFW_VERSION' ) || define( 'DDFW_VERSION', '1.1.1' );
+defined( 'DDFW_SCRIPT_VERSION' ) || define( 'DDFW_SCRIPT_VERSION', '1.1.2' );
+defined( 'DDFW_VERSION' ) || define( 'DDFW_VERSION', '1.1.2' );
 
 // Include the autoloader.
 require_once DDFW_FILE . 'autoload/autoload.php';

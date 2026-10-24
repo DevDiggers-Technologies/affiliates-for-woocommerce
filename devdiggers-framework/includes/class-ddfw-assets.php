@@ -111,6 +111,7 @@ if ( ! class_exists( 'DDFW_Assets' ) ) {
 						'moreCharacter'       => esc_html__( 'or more character', 'affiliates-for-woocommerce' ),
 						'noResult'            => esc_html__( 'No result Found', 'affiliates-for-woocommerce' ),
 						'deleteConfirm'       => esc_html__( 'Are you sure you want to delete?', 'affiliates-for-woocommerce' ),
+						'dismiss'             => esc_html__( 'Dismiss', 'affiliates-for-woocommerce' ),
 					],
 					'site_url'          => site_url(),
 					'devdiggers_plugin' => $devdiggers_plugin,

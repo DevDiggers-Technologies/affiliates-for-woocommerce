@@ -18,3 +18,8 @@ babel.config.js
 *.tar.gz
 *.zip
 landing-page
+.DS_Store
+Thumbs.db
+__MACOSX
+graphify-out
+.graphifyignore

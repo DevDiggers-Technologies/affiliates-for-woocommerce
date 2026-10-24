@@ -23,7 +23,13 @@ $defaults = [
 
 $args = wp_parse_args( $args, $defaults );
 
-extract( $args );
+// Named variables instead of extract(), which WordPress.org review rejects.
+$image_url           = $args['image_url'];
+$heading             = $args['heading'];
+$description         = $args['description'];
+$list_features       = $args['list_features'];
+$upgrade_url         = $args['upgrade_url'];
+$upgrade_button_text = $args['upgrade_button_text'];
 ?>
 <div class="ddfw-upgrade-to-pro-wrapper">
 	<?php

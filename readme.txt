@@ -221,6 +221,12 @@ Free payouts are a record keeping exercise: you send the money yourself and mark
 
 [Try the Pro demo](https://demo.devdiggers.com/woocommerce-affiliates/) or [see the full comparison](https://devdiggers.com/product/woocommerce-affiliates/#free-vs-pro)
 
+= A note from the founder =
+
+Hi, I am Yash Kapoor, founder of DevDiggers. Hosted affiliate networks charge a monthly fee and then take a cut of sales you already paid an affiliate to make. I built this plugin so your program runs on your own orders and your own data. My team keeps it updated for every new WooCommerce release, and the developers who wrote it answer the support forum.
+
+Have a question? Ask in the support forum or message me directly on [LinkedIn](https://www.linkedin.com/in/iamyashkapoor/).
+
 == Installation ==
 
 **From your WordPress admin**

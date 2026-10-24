@@ -2,10 +2,10 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: DevDiggers Framework 1.1.1\n"
+"Project-Id-Version: DevDiggers Framework 1.1.2\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/devdiggers-framework\n"
-"POT-Creation-Date: 2026-09-29 13:29:56+00:00\n"
+"POT-Creation-Date: 2026-10-24 14:03:32+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -167,6 +167,11 @@ msgstr ""
 msgid "Are you sure you want to delete?"
 msgstr ""
 
+#: devdiggers-framework/includes/class-ddfw-assets.php:114
+#: includes/class-ddfw-assets.php:114
+msgid "Dismiss"
+msgstr ""
+
 #: devdiggers-framework/includes/class-ddfw-dashboard-data.php:46
 #: devdiggers-framework/includes/class-ddfw-dashboard-data.php:275
 #: includes/class-ddfw-dashboard-data.php:46
@@ -245,58 +250,63 @@ msgstr ""
 msgid "%1$s to %2$s"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-dashboard.php:121
-#: includes/class-ddfw-dashboard.php:121
+#: devdiggers-framework/includes/class-ddfw-dashboard.php:123
+#: includes/class-ddfw-dashboard.php:123
 msgid "Welcome back!"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-dashboard.php:147
+#: devdiggers-framework/includes/class-ddfw-dashboard.php:149
 #: devdiggers-framework/templates/layout/edit-screen.php:29
 #: devdiggers-framework/templates/layout/field-section-header.php:30
-#: includes/class-ddfw-dashboard.php:147 templates/layout/edit-screen.php:29
+#: includes/class-ddfw-dashboard.php:149 templates/layout/edit-screen.php:29
 #: templates/layout/field-section-header.php:30
 msgid "Back"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-dashboard.php:208
-#: includes/class-ddfw-dashboard.php:208
+#: devdiggers-framework/includes/class-ddfw-dashboard.php:232
+#: includes/class-ddfw-dashboard.php:232
 msgid "Quick Select"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-dashboard.php:217
-#: includes/class-ddfw-dashboard.php:217
+#: devdiggers-framework/includes/class-ddfw-dashboard.php:241
+#: includes/class-ddfw-dashboard.php:241
 msgid "Custom Range"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-dashboard.php:218
-#: includes/class-ddfw-dashboard.php:218
+#: devdiggers-framework/includes/class-ddfw-dashboard.php:242
+#: includes/class-ddfw-dashboard.php:242
 msgid "Select specific start and end dates for your analysis"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-dashboard.php:222
-#: includes/class-ddfw-dashboard.php:222
+#: devdiggers-framework/includes/class-ddfw-dashboard.php:246
+#: includes/class-ddfw-dashboard.php:246
 msgid "From Date"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-dashboard.php:226
-#: includes/class-ddfw-dashboard.php:226
+#: devdiggers-framework/includes/class-ddfw-dashboard.php:250
+#: includes/class-ddfw-dashboard.php:250
 msgid "To Date"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-dashboard.php:230
-#: includes/class-ddfw-dashboard.php:230
+#: devdiggers-framework/includes/class-ddfw-dashboard.php:254
+#: includes/class-ddfw-dashboard.php:254
 msgid "Apply Custom Range"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-dashboard.php:409
-#: devdiggers-framework/includes/class-ddfw-dashboard.php:487
-#: includes/class-ddfw-dashboard.php:409 includes/class-ddfw-dashboard.php:487
+#: devdiggers-framework/includes/class-ddfw-dashboard.php:433
+#: devdiggers-framework/includes/class-ddfw-dashboard.php:511
+#: includes/class-ddfw-dashboard.php:433 includes/class-ddfw-dashboard.php:511
 msgid "No data available"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-dashboard.php:410
-#: includes/class-ddfw-dashboard.php:410
+#: devdiggers-framework/includes/class-ddfw-dashboard.php:434
+#: includes/class-ddfw-dashboard.php:434
 msgid "Data will appear here once activity is recorded."
+msgstr ""
+
+#: devdiggers-framework/includes/class-ddfw-dashboard.php:512
+#: includes/class-ddfw-dashboard.php:512
+msgid "Total"
 msgstr ""
 
 #: devdiggers-framework/includes/class-ddfw-form-field.php:101
@@ -883,34 +893,34 @@ msgstr ""
 msgid "Deactivate License"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/setup-wizard.php:34
-#: templates/layout/setup-wizard.php:34
+#: devdiggers-framework/templates/layout/setup-wizard.php:38
+#: templates/layout/setup-wizard.php:38
 msgid "Onboarding"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/setup-wizard.php:40
-#: templates/layout/setup-wizard.php:40
+#: devdiggers-framework/templates/layout/setup-wizard.php:44
+#: templates/layout/setup-wizard.php:44
 #. translators: 1: current step number, 2: total steps
 msgid "Step %1$s of %2$s"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/setup-wizard.php:85
-#: templates/layout/setup-wizard.php:85
+#: devdiggers-framework/templates/layout/setup-wizard.php:89
+#: templates/layout/setup-wizard.php:89
 msgid "Skip Setup"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/setup-wizard.php:96
-#: templates/layout/setup-wizard.php:96
+#: devdiggers-framework/templates/layout/setup-wizard.php:100
+#: templates/layout/setup-wizard.php:100
 msgid "Go Back"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/setup-wizard.php:101
-#: templates/layout/setup-wizard.php:101
+#: devdiggers-framework/templates/layout/setup-wizard.php:105
+#: templates/layout/setup-wizard.php:105
 msgid "Finish"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/setup-wizard.php:106
-#: templates/layout/setup-wizard.php:106
+#: devdiggers-framework/templates/layout/setup-wizard.php:110
+#: templates/layout/setup-wizard.php:110
 msgid "Continue"
 msgstr ""
 
@@ -924,8 +934,8 @@ msgstr ""
 msgid "Close Settings"
 msgstr ""
 
-#: devdiggers-framework/templates/layout/upgrade-to-pro.php:37
-#: templates/layout/upgrade-to-pro.php:37
+#: devdiggers-framework/templates/layout/upgrade-to-pro.php:43
+#: templates/layout/upgrade-to-pro.php:43
 msgid "Pro"
 msgstr ""
 
