@@ -20,6 +20,25 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
+ * Format an amount the way the store does ( symbol, position, decimals, separators ).
+ *
+ * @param {number} value    Amount.
+ * @param {number} decimals Decimals to show; the store's own when not given.
+ * @return {string} Formatted amount.
+ */
+function formatMoney(value, decimals) {
+    const currency = window.ddwcafDashboardData.currency;
+    const [whole, fraction] = Math.abs(value).toFixed(undefined === decimals ? currency.decimals : decimals).split('.');
+    const amount = (value < 0 ? '-' : '') + whole.replace(/\B(?=(\d{3})+(?!\d))/g, currency.thousandSeparator) + (fraction ? currency.decimalSeparator + fraction : '');
+
+    return {
+        right: amount + currency.symbol,
+        left_space: currency.symbol + '\u00a0' + amount,
+        right_space: amount + '\u00a0' + currency.symbol,
+    }[currency.position] || currency.symbol + amount;
+}
+
+/**
  * Performance Overview Chart
  */
 function initPerformanceChart() {
@@ -70,7 +89,7 @@ function initPerformanceChart() {
         position: 'left',
         beginAtZero: true,
         ticks: {
-            callback: (value) => ddwcafDashboardData.currencySymbol + value.toLocaleString()
+            callback: (value) => formatMoney(value, Number.isInteger(value) ? 0 : undefined)
         }
     };
 
@@ -94,7 +113,7 @@ function initPerformanceChart() {
         }
         if (context.parsed.y !== null) {
             if (context.dataset.yAxisID === 'y') {
-                label += ddwcafDashboardData.currencySymbol + context.parsed.y.toLocaleString();
+                label += formatMoney(context.parsed.y);
             } else {
                 label += context.parsed.y.toLocaleString();
             }

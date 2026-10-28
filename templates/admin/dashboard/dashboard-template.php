@@ -120,6 +120,22 @@ if ( ! class_exists( 'DDWCAF_Dashboard_Template' ) ) {
 				]
 			);
 
+			// Every card gets a line under its figure: the change ( "↗ 12% from $50" ),
+			// "None in the previous period", or a plain note when nothing moved.
+			$no_change = function ( $metric ) {
+				if ( null === $metric['change'] || 0.0 !== (float) $metric['change'] ) {
+					return '';
+				}
+
+				return empty( $metric['value'] ) && empty( $metric['previous'] )
+					? esc_html__( 'No activity in either period', 'affiliates-for-woocommerce' )
+					: esc_html__( 'No change vs previous period', 'affiliates-for-woocommerce' );
+			};
+			$money = fn( $metric ) => wp_strip_all_tags( wc_price( $metric['previous'] ?? 0 ) );
+			$count = fn( $metric ) => number_format_i18n( $metric['previous'] ?? 0 );
+			// One decimal, none when whole, like the Reports page.
+			$percent = fn( $rate ) => number_format_i18n( $rate, floor( $rate ) == $rate ? 0 : 1 ) . '%';
+
 			new DDFW_Dashboard(
 				[
 					'columns' => 5,
@@ -134,6 +150,8 @@ if ( ! class_exists( 'DDWCAF_Dashboard_Template' ) ) {
 							'value'       => wc_price( $summary['total_earnings']['value'] ),
 							'change'      => $summary['total_earnings']['change'],
 							'is_positive' => $summary['total_earnings']['is_positive'],
+							'previous'    => $money( $summary['total_earnings'] ),
+							'note'        => $no_change( $summary['total_earnings'] ),
 							'value_type'  => 'html',
 							'icon'        => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"></circle><path d="M18.09 10.37A6 6 0 1 1 10.34 18"></path><path d="M7 6h1v4"></path><path d="m16.71 13.88.7.71-2.82 2.82"></path></svg>',
 						],
@@ -142,6 +160,8 @@ if ( ! class_exists( 'DDWCAF_Dashboard_Template' ) ) {
 							'value'       => $summary['commissions']['value'],
 							'change'      => $summary['commissions']['change'],
 							'is_positive' => $summary['commissions']['is_positive'],
+							'previous'    => $count( $summary['commissions'] ),
+							'note'        => $no_change( $summary['commissions'] ),
 							'icon'        => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',
 						],
 						[
@@ -149,6 +169,8 @@ if ( ! class_exists( 'DDWCAF_Dashboard_Template' ) ) {
 							'value'       => wc_price( $summary['total_sales']['value'] ),
 							'change'      => $summary['total_sales']['change'],
 							'is_positive' => $summary['total_sales']['is_positive'],
+							'previous'    => $money( $summary['total_sales'] ),
+							'note'        => $no_change( $summary['total_sales'] ),
 							'value_type'  => 'html',
 							'icon'        => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>',
 						],
@@ -157,13 +179,17 @@ if ( ! class_exists( 'DDWCAF_Dashboard_Template' ) ) {
 							'value'       => $summary['visits']['value'],
 							'change'      => $summary['visits']['change'],
 							'is_positive' => $summary['visits']['is_positive'],
+							'previous'    => $count( $summary['visits'] ),
+							'note'        => $no_change( $summary['visits'] ),
 							'icon'        => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>',
 						],
 						[
 							'title'       => esc_html__( 'Conversion Rate', 'affiliates-for-woocommerce' ),
-							'value'       => $summary['conversion_rate']['value'] . '%',
+							'value'       => $percent( $summary['conversion_rate']['value'] ),
 							'change'      => $summary['conversion_rate']['change'],
 							'is_positive' => $summary['conversion_rate']['is_positive'],
+							'previous'    => $percent( $summary['conversion_rate']['previous'] ),
+							'note'        => $no_change( $summary['conversion_rate'] ),
 							'value_type'  => 'text',
 							'icon'        => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>',
 						],
@@ -172,13 +198,14 @@ if ( ! class_exists( 'DDWCAF_Dashboard_Template' ) ) {
 							'value'       => $summary['new_affiliates']['value'],
 							'change'      => $summary['new_affiliates']['change'],
 							'is_positive' => $summary['new_affiliates']['is_positive'],
+							'previous'    => $count( $summary['new_affiliates'] ),
+							'note'        => $no_change( $summary['new_affiliates'] ),
 							'icon'        => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
 						],
 						[
 							'title'       => esc_html__( 'Active Affiliates', 'affiliates-for-woocommerce' ),
 							'value'       => $summary['active_affiliates']['value'],
-							'change'      => $summary['active_affiliates']['change'],
-							'is_positive' => $summary['active_affiliates']['is_positive'],
+							'note'        => esc_html__( 'Approved, right now', 'affiliates-for-woocommerce' ),
 							'icon'        => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8l1 1 2-2"/></svg>',
 						],
 						[
@@ -186,6 +213,8 @@ if ( ! class_exists( 'DDWCAF_Dashboard_Template' ) ) {
 							'value'       => wc_price( $summary['total_payouts']['value'] ),
 							'change'      => $summary['total_payouts']['change'],
 							'is_positive' => $summary['total_payouts']['is_positive'],
+							'previous'    => $money( $summary['total_payouts'] ),
+							'note'        => $no_change( $summary['total_payouts'] ),
 							'value_type'  => 'html',
 							'icon'        => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>',
 						],
@@ -194,6 +223,8 @@ if ( ! class_exists( 'DDWCAF_Dashboard_Template' ) ) {
 							'value'       => wc_price( $summary['pending_earnings']['value'] ),
 							'change'      => $summary['pending_earnings']['change'],
 							'is_positive' => $summary['pending_earnings']['is_positive'],
+							'previous'    => $money( $summary['pending_earnings'] ),
+							'note'        => $no_change( $summary['pending_earnings'] ),
 							'value_type'  => 'html',
 							'icon'        => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
 						],
@@ -202,6 +233,8 @@ if ( ! class_exists( 'DDWCAF_Dashboard_Template' ) ) {
 							'value'       => wc_price( $summary['avg_commission_value']['value'] ),
 							'change'      => $summary['avg_commission_value']['change'],
 							'is_positive' => $summary['avg_commission_value']['is_positive'],
+							'previous'    => $money( $summary['avg_commission_value'] ),
+							'note'        => $no_change( $summary['avg_commission_value'] ),
 							'value_type'  => 'html',
 							'icon'        => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"></line><circle cx="6.5" cy="6.5" r="2.5"></circle><circle cx="17.5" cy="17.5" r="2.5"></circle></svg>',
 						],
@@ -216,7 +249,7 @@ if ( ! class_exists( 'DDWCAF_Dashboard_Template' ) ) {
 							'data'       => $performance,
 							'x_key'      => 'date',
 							'series'     => [
-								[ 'key' => 'earnings', 'label' => esc_html__( 'Earnings', 'affiliates-for-woocommerce' ), 'color' => '#0256ff' ],
+								[ 'key' => 'earnings', 'label' => esc_html__( 'Earnings', 'affiliates-for-woocommerce' ), 'color' => '#0256ff', 'value_format' => 'currency' ],
 								[ 'key' => 'visits', 'label' => esc_html__( 'Visits', 'affiliates-for-woocommerce' ), 'color' => '#ec4899' ],
 							],
 							'empty'      => [
@@ -244,10 +277,11 @@ if ( ! class_exists( 'DDWCAF_Dashboard_Template' ) ) {
 						[
 							'id'        => 'conversion-sources',
 							'title'     => esc_html__( 'Conversion Sources', 'affiliates-for-woocommerce' ),
+							'date_label' => $date_label,
 							'type'      => 'doughnut',
 							'data'      => $data['charts']['conversion_sources'],
 							'label_key' => 'source',
-							'value_key' => 'value',
+							'value_key' => 'count',
 							'empty'     => [
 								'title' => esc_html__( 'No conversion data', 'affiliates-for-woocommerce' ),
 								'desc'  => esc_html__( 'Top conversion sources will appear here.', 'affiliates-for-woocommerce' ),
@@ -274,33 +308,20 @@ if ( ! class_exists( 'DDWCAF_Dashboard_Template' ) ) {
 		 * @return void
 		 */
 		public function render_recent_commissions() {
-			$commissions = $this->dashboard_data['recent_activities']['commissions'];
+			$items = [];
 
-			if ( empty( $commissions ) ) {
-				?>
-				<div class="ddfw-dash-no-data"><?php esc_html_e( 'No recent commissions', 'affiliates-for-woocommerce' ); ?></div>
-				<?php
-				return;
+			foreach ( $this->dashboard_data['recent_commissions'] as $commission ) {
+				$items[] = [
+					'url'   => ! empty( $commission['display_name'] ) ? admin_url( 'admin.php?page=ddwcaf-dashboard&menu=affiliates&action=view&id=' . $commission['affiliate_id'] ) : '',
+					'title' => ! empty( $commission['display_name'] ) ? $commission['display_name'] : __( 'Guest', 'affiliates-for-woocommerce' ),
+					'meta'  => $this->commission_helper->ddwcaf_get_translation( $commission['status'] ) . ' • ' . date_i18n( get_option( 'date_format' ), strtotime( $commission['created_at'] ) ),
+					'image' => ! empty( $commission['user_email'] ) ? get_avatar_url( $commission['user_email'], [ 'size' => 72 ] ) : '',
+					'shape' => 'round',
+					'value' => wc_price( $commission['commission'] ),
+				];
 			}
-			?>
-			<div class="ddfw-dash-list">
-				<?php foreach ( $commissions as $commission ) : ?>
-					<div class="ddfw-dash-list-item">
-						<div class="ddfw-dash-list-info">
-							<div class="ddfw-dash-list-title"><strong><?php echo esc_html( $commission['display_name'] ? $commission['display_name'] : esc_html__( 'Guest', 'affiliates-for-woocommerce' ) ); ?></strong></div>
-							<div class="ddfw-dash-list-meta">
-								<?php
-								echo esc_html( $this->commission_helper->ddwcaf_get_translation( $commission['status'] ) );
-								echo ' • ';
-								echo esc_html( date_i18n( get_option( 'date_format' ), strtotime( $commission['created_at'] ) ) );
-								?>
-							</div>
-						</div>
-						<div class="ddfw-dash-list-value positive"><?php echo wp_kses_post( wc_price( $commission['commission'] ) ); ?></div>
-					</div>
-				<?php endforeach; ?>
-			</div>
-			<?php
+
+			DDFW_Dashboard::render_list( $items, __( 'No recent commissions', 'affiliates-for-woocommerce' ) );
 		}
 
 		/**
@@ -309,27 +330,20 @@ if ( ! class_exists( 'DDWCAF_Dashboard_Template' ) ) {
 		 * @return void
 		 */
 		public function render_top_affiliates() {
-			$affiliates = $this->dashboard_data['top_affiliates'];
+			$items = [];
 
-			if ( empty( $affiliates ) ) {
-				?>
-				<div class="ddfw-dash-no-data"><?php esc_html_e( 'No affiliate data', 'affiliates-for-woocommerce' ); ?></div>
-				<?php
-				return;
+			foreach ( $this->dashboard_data['top_affiliates'] as $affiliate ) {
+				$items[] = [
+					'url'   => admin_url( 'admin.php?page=ddwcaf-dashboard&menu=affiliates&action=view&id=' . $affiliate['ID'] ),
+					'title' => $affiliate['display_name'],
+					'meta'  => $affiliate['user_email'],
+					'image' => get_avatar_url( $affiliate['user_email'], [ 'size' => 72 ] ),
+					'shape' => 'round',
+					'value' => wc_price( $affiliate['total_earnings'] ),
+				];
 			}
-			?>
-			<div class="ddfw-dash-list">
-				<?php foreach ( $affiliates as $affiliate ) : ?>
-					<div class="ddfw-dash-list-item">
-						<div class="ddfw-dash-list-avatar"><?php echo get_avatar( $affiliate['ID'], 32 ); ?></div>
-						<div class="ddfw-dash-list-info">
-							<div class="ddfw-dash-list-title"><strong><?php echo esc_html( $affiliate['display_name'] ); ?></strong></div>
-						</div>
-						<div class="ddfw-dash-list-value"><?php echo wp_kses_post( wc_price( $affiliate['total_earnings'] ) ); ?></div>
-					</div>
-				<?php endforeach; ?>
-			</div>
-			<?php
+
+			DDFW_Dashboard::render_list( $items, __( 'No affiliate data', 'affiliates-for-woocommerce' ) );
 		}
 	}
 }

@@ -139,6 +139,8 @@ if ( ! class_exists( 'DDWCAF_Payout_Helper' ) ) {
 			}
 			if ( ! empty( $end_date ) ) {
 				$end_date   = str_replace( 'T', ' ', $end_date );
+				// A day picked in the filter runs to its end, not to its first second.
+				$end_date   = 10 === strlen( $end_date ) ? $end_date . ' 23:59:59' : $end_date;
 				$conditions .= $this->wpdb->prepare( " AND payouts.created_at<=%s", $end_date );
 			}
 			if ( ! empty( $search ) ) {
@@ -416,14 +418,21 @@ if ( ! class_exists( 'DDWCAF_Payout_Helper' ) ) {
 		 * @param string $reference
 		 * @return string|array
 		 */
-		public function ddwcaf_get_references( $reference = '' ) {
+		public function ddwcaf_get_references( $reference = null ) {
 			$references = [
 				'manually_by_admin'        => esc_html__( 'Manually by Admin', 'affiliates-for-woocommerce' ),
 				'requested_by_affiliate'   => esc_html__( 'Requested by Affiliate', 'affiliates-for-woocommerce' ),
 				'automatic_monthly_payout' => esc_html__( 'Automatic Monthly Payout', 'affiliates-for-woocommerce' ),
 			];
 
-			return ! empty( $references[ $reference ] ) ? $references[ $reference ] : $references;
+			if ( null === $reference ) {
+				return $references;
+			}
+
+			// Saved by the automatic withdrawal schedule, so it is not one to pick in the admin form.
+			$references['automatic_withdrawal'] = esc_html__( 'Automatic Withdrawal', 'affiliates-for-woocommerce' );
+
+			return isset( $references[ $reference ] ) ? $references[ $reference ] : esc_html( $reference );
 		}
 
 		/**

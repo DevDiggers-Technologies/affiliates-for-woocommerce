@@ -5,11 +5,11 @@
  * Plugin URI: https://devdiggers.com/product/woocommerce-affiliates/?utm_source=plugin_link&utm_medium=upgrade_button&utm_campaign=plugin_upgrade
  * Author: DevDiggers
  * Author URI: https://devdiggers.com/
- * Version: 2.3.0
+ * Version: 2.4.0
  * Text Domain: affiliates-for-woocommerce
  * Domain Path: /i18n
  * WC requires at least: 9.0.0
- * WC tested up to: 11.0.1
+ * WC tested up to: 11.2
  * WP requires at least: 6.5
  * WP tested up to: 7.1
  * DevDiggersPrefix: ddwcaf
@@ -89,6 +89,9 @@ if ( ! class_exists( 'DDWCAF_Free_Init' ) ) {
 				} );
 			} else {
 				require_once DDWCAF_PLUGIN_FILE . 'autoload/autoload.php';
+
+				DDWCAF_Install::ddwcaf_maybe_upgrade();
+
 				new DDWCAF_File_Handler();
 
 				// Initialize review notice if framework is available.
@@ -187,6 +190,30 @@ add_action( 'before_woocommerce_init', function() {
 		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
 	}
 } );
+
+if ( ! function_exists( 'ddwcaf_print_list_empty_state' ) ) {
+	/**
+	 * Empty state for an admin list, on the framework's block. When a search or filter is set,
+	 * it says nothing matched instead, since the list itself is not empty.
+	 *
+	 * @param array $args Same arguments as ddfw_print_empty_state().
+	 * @return void
+	 */
+	function ddwcaf_print_list_empty_state( $args ) {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only check of the list's own filters.
+		$filtered = array_filter( array_intersect_key( wp_unslash( $_GET ), array_flip( [ 's', 'show', 'affiliate-id', 'affiliate_status', 'from-date', 'end-date', 'payout-id', 'product-id' ] ) ) );
+
+		if ( $filtered ) {
+			$args = [
+				'title'       => __( 'No matching results', 'affiliates-for-woocommerce' ),
+				'description' => __( 'Nothing matches this search or these filters. Try a wider date range or clear the filters.', 'affiliates-for-woocommerce' ),
+				'icon'        => '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M8.5 11h5"/></svg>',
+			];
+		}
+
+		ddfw_print_empty_state( $args );
+	}
+}
 
 require_once plugin_dir_path( __FILE__ ) . 'includes/install.php';
 register_activation_hook( __FILE__, [ 'DDWCAF_Install', 'ddwcaf_on_plugin_activation' ] );

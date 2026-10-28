@@ -130,6 +130,8 @@ if ( ! class_exists( 'DDWCAF_Visit_Helper' ) ) {
 			}
 			if ( ! empty( $end_date ) ) {
 				$end_date   = str_replace( 'T', ' ', $end_date );
+				// A day picked in the filter runs to its end, not to its first second.
+				$end_date   = 10 === strlen( $end_date ) ? $end_date . ' 23:59:59' : $end_date;
 				$conditions .= $this->wpdb->prepare( " AND visits.date<=%s", $end_date );
 			}
 			if ( ! empty( $search ) ) {

@@ -344,7 +344,15 @@ if ( ! class_exists( 'DDWCAF_Affiliates_List_Template' ) ) {
 		 * @return void
 		 */
 		public function no_items() {
-			esc_html_e( 'No affiliates avaliable.', 'affiliates-for-woocommerce' );
+			ddwcaf_print_list_empty_state(
+				[
+					'title'       => __( 'No affiliates yet', 'affiliates-for-woocommerce' ),
+					'description' => __( 'People who sign up through your affiliate registration form, or that you add, are listed here.', 'affiliates-for-woocommerce' ),
+					'icon'        => '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0"/><path d="M16 4.5a4 4 0 0 1 0 7M22 21a7 7 0 0 0-4-6.3"/></svg>',
+					'button_url'  => admin_url( 'user-new.php?ddwcaf-add-affiliate=1' ),
+					'button_text' => __( 'Add affiliate', 'affiliates-for-woocommerce' ),
+				]
+			);
 		}
 
 		/**

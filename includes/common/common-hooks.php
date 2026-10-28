@@ -28,6 +28,9 @@ if ( ! class_exists( 'DDWCAF_Common_Hooks' ) ) {
 			add_filter( 'ddfw_modify_svg_icons', [ $this, 'ddwcaf_add_svg_icons' ], 10, 2 );
 
 			add_filter( 'woocommerce_order_status_changed', [ $this, 'ddwcaf_handle_order_status_changed' ], 10, 3 );
+
+			// Drops the cached Dashboard figures when a commission, payout or visit changes.
+			add_filter( 'query', [ \DDWCAffiliates\Helper\Affiliate\DDWCAF_Dashboard_Helper::class, 'ddwcaf_watch_writes' ] );
 		}
 	}
 }

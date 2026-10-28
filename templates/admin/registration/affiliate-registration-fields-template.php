@@ -226,7 +226,15 @@ if ( ! class_exists( 'DDWCAF_Affiliate_Registration_Fields_Template' ) ) {
 		 * @return void
 		 */
 		public function no_items() {
-			esc_html_e( 'No fields avaliable.', 'affiliates-for-woocommerce' );
+			ddwcaf_print_list_empty_state(
+				[
+					'title'       => __( 'No registration fields', 'affiliates-for-woocommerce' ),
+					'description' => __( 'Add fields to ask applicants for more details when they apply to be an affiliate.', 'affiliates-for-woocommerce' ),
+					'icon'        => '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>',
+					'button_url'  => admin_url( 'admin.php?page=ddwcaf-dashboard&menu=registration-fields&action=add' ),
+					'button_text' => __( 'Add field', 'affiliates-for-woocommerce' ),
+				]
+			);
 		}
 
 		/**
