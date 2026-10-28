@@ -27,8 +27,8 @@ https://youtu.be/rVReXAa54YU
 
 = Quick links =
 
-* [Free demo](https://demo.devdiggers.com/woocommerce-affiliates-free/)
-* [Pro demo](https://demo.devdiggers.com/woocommerce-affiliates/)
+* [Live Demo](https://demo.devdiggers.com/woocommerce-affiliates-free/)
+* [Pro Demo](https://demo.devdiggers.com/woocommerce-affiliates/)
 * [Documentation](https://docs.devdiggers.com/woocommerce-affiliates/)
 * [Free vs Pro comparison](https://devdiggers.com/product/woocommerce-affiliates/#free-vs-pro)
 
@@ -379,6 +379,7 @@ To build from source:
 * Improved money formatting on the affiliate charts in admin, which now follow the store's currency position and separators.
 * Updated the status badge colours to match the other DevDiggers plugins.
 * Fixed the Commissions, Visits and Payouts date filters leaving out the last day of the range.
+* Fixed the Automatic Withdrawal payout reference showing as a raw key in the Payouts list.
 * Fixed JavaScript errors on the Affiliates admin screens that stopped WordPress audio and video players from loading.
 * Fixed typos in list headings and empty list messages.
 * Added Pro previews of the Fraud report and the Fraud Prevention settings, and refreshed the Reports preview to show the new Pro Reports page.

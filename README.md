@@ -24,6 +24,8 @@ Everything runs inside WordPress. No external affiliate network takes a cut of e
 
 Affiliates get their own dashboard inside the WooCommerce My Account page, so they can check earnings, build referral links, and enter payout details without emailing you.
 
+**Live Demo:** [Free demo](https://demo.devdiggers.com/woocommerce-affiliates-free/) | [Pro demo](https://demo.devdiggers.com/woocommerce-affiliates/)
+
 [Watch the plugin overview](https://youtu.be/rVReXAa54YU)
 
 ### How referral tracking works
@@ -134,13 +136,15 @@ The free version covers a single global commission rate and manual payouts. Pro 
 * One click sharing to 10+ networks, Pinterest ready uploads, default share titles and messages
 * Custom registration fields (text, select, radio, checkbox, textarea)
 * Control which profile fields affiliates may edit, and require terms acceptance at signup
-* Self referral blocking
+* Self referral checks on the buyer's email, IP address, browser and billing details, with doubtful commissions held as Flagged for Review
+* New customers only, no commission on free orders, a minimum order total, and blocked emails, domains and IP addresses
+* A Fraud report listing the affiliates and orders the checks caught
 * Visit debounce time, and control over whether a newer referral link overwrites an existing cookie
 * Clear the referral cookie after purchase
 * CAPTCHA on the signup form via the [WooCommerce Advanced CAPTCHA](https://devdiggers.com/product/woocommerce-advanced-captcha/) plugin by DevDiggers, sold separately
 * Automated emails for registration, approval, and commission updates
-* Charts for earnings, visits, and conversions with month on month comparison
-* Top products report filtered by affiliate
+* Reports page: referral sales, commission, orders, visits and conversion rate for any date range, compared with the previous period or last year
+* Top affiliates, products, traffic sources, landing pages and payout methods, each with CSV export, plus a busiest times heatmap
 * Custom URL endpoints and titles for each dashboard section and the My Account tab
 
 [Pro demo](https://demo.devdiggers.com/woocommerce-affiliates/) | [Free vs Pro comparison](https://devdiggers.com/product/woocommerce-affiliates/#free-vs-pro)
@@ -181,6 +185,7 @@ npm run build
 * Improved money formatting on the affiliate charts in admin, which now follow the store's currency position and separators.
 * Updated the status badge colours to match the other DevDiggers plugins.
 * Fixed the Commissions, Visits and Payouts date filters leaving out the last day of the range.
+* Fixed the Automatic Withdrawal payout reference showing as a raw key in the Payouts list.
 * Fixed JavaScript errors on the Affiliates admin screens that stopped WordPress audio and video players from loading.
 * Fixed typos in list headings and empty list messages.
 * Added Pro previews of the Fraud report and the Fraud Prevention settings, and refreshed the Reports preview to show the new Pro Reports page.
