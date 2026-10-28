@@ -249,7 +249,13 @@ if ( ! class_exists( 'DDWCAF_Visits_List_Template' ) ) {
 		 * @return void
 		 */
 		public function no_items() {
-			esc_html_e( 'No visits avaliable.', 'affiliates-for-woocommerce' );
+			ddwcaf_print_list_empty_state(
+				[
+					'title'       => __( 'No visits yet', 'affiliates-for-woocommerce' ),
+					'description' => __( 'Every click on an affiliate\'s referral link is logged here, with the page it landed on.', 'affiliates-for-woocommerce' ),
+					'icon'        => '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"/><circle cx="12" cy="12" r="3"/></svg>',
+				]
+			);
 		}
 
 		/**

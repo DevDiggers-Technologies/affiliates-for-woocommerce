@@ -38,6 +38,22 @@ if ( ! class_exists( 'DDFW_Dashboard_Data' ) ) {
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only dashboard filter parameter.
 			$range = ! empty( $_GET['date_range'] ) ? sanitize_text_field( wp_unslash( $_GET['date_range'] ) ) : $default;
 
+			return self::resolve_range( $range, $all_time_start );
+		}
+
+		/**
+		 * Range of one preset key, as the date filter shows beside each preset.
+		 *
+		 * @param string $range          Preset key ( see get_presets() ), or 'custom'.
+		 * @param string $all_time_start Start date used for the "all_time" range.
+		 * @return array{from:string,to:string,label:string,key:string}
+		 */
+		public static function resolve_range( $range, $all_time_start = '2020-01-01' ) {
+			// Every date from the site's clock, not the server's ( UTC ): near midnight the two fall on
+			// different days. Weeks start on the WordPress "Week starts on" setting, like the calendar.
+			$now        = current_time( 'timestamp' ); // phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested -- Site-local timestamp for gmdate() maths.
+			$week_start = $now - ( ( (int) gmdate( 'w', $now ) - (int) get_option( 'start_of_week', 1 ) + 7 ) % 7 ) * DAY_IN_SECONDS;
+
 			switch ( $range ) {
 				case 'today':
 					$data = [
@@ -48,15 +64,15 @@ if ( ! class_exists( 'DDFW_Dashboard_Data' ) ) {
 					break;
 				case '7_days':
 					$data = [
-						'from'  => gmdate( 'Y-m-d', strtotime( 'monday this week' ) ),
+						'from'  => gmdate( 'Y-m-d', $week_start ),
 						'to'    => current_time( 'Y-m-d' ),
 						'label' => esc_html__( 'This Week', 'affiliates-for-woocommerce' ),
 					];
 					break;
 				case 'last_week':
 					$data = [
-						'from'  => gmdate( 'Y-m-d', strtotime( 'monday last week' ) ),
-						'to'    => gmdate( 'Y-m-d', strtotime( 'sunday last week' ) ),
+						'from'  => gmdate( 'Y-m-d', $week_start - 7 * DAY_IN_SECONDS ),
+						'to'    => gmdate( 'Y-m-d', $week_start - DAY_IN_SECONDS ),
 						'label' => esc_html__( 'Last Week', 'affiliates-for-woocommerce' ),
 					];
 					break;
@@ -69,21 +85,21 @@ if ( ! class_exists( 'DDFW_Dashboard_Data' ) ) {
 					break;
 				case 'last_month':
 					$data = [
-						'from'  => gmdate( 'Y-m-01', strtotime( 'first day of last month' ) ),
-						'to'    => gmdate( 'Y-m-t', strtotime( 'last day of last month' ) ),
+						'from'  => gmdate( 'Y-m-01', strtotime( 'first day of last month', $now ) ),
+						'to'    => gmdate( 'Y-m-t', strtotime( 'last day of last month', $now ) ),
 						'label' => esc_html__( 'Last Month', 'affiliates-for-woocommerce' ),
 					];
 					break;
 				case '90_days':
 					$data = [
-						'from'  => gmdate( 'Y-m-d', strtotime( '-90 days' ) ),
+						'from'  => gmdate( 'Y-m-d', strtotime( '-90 days', $now ) ),
 						'to'    => current_time( 'Y-m-d' ),
 						'label' => esc_html__( 'Last 3 Months', 'affiliates-for-woocommerce' ),
 					];
 					break;
 				case '180_days':
 					$data = [
-						'from'  => gmdate( 'Y-m-d', strtotime( '-180 days' ) ),
+						'from'  => gmdate( 'Y-m-d', strtotime( '-180 days', $now ) ),
 						'to'    => current_time( 'Y-m-d' ),
 						'label' => esc_html__( 'Last 6 Months', 'affiliates-for-woocommerce' ),
 					];
@@ -97,8 +113,8 @@ if ( ! class_exists( 'DDFW_Dashboard_Data' ) ) {
 					break;
 				case 'last_year':
 					$data = [
-						'from'  => gmdate( 'Y-01-01', strtotime( '-1 year' ) ),
-						'to'    => gmdate( 'Y-12-31', strtotime( '-1 year' ) ),
+						'from'  => gmdate( 'Y-01-01', strtotime( '-1 year', $now ) ),
+						'to'    => gmdate( 'Y-12-31', strtotime( '-1 year', $now ) ),
 						'label' => esc_html__( 'Last Year', 'affiliates-for-woocommerce' ),
 					];
 					break;
@@ -111,14 +127,14 @@ if ( ! class_exists( 'DDFW_Dashboard_Data' ) ) {
 					break;
 				case 'custom':
 					// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only dashboard filter parameter.
-					$from = ! empty( $_GET['from_date'] ) ? sanitize_text_field( wp_unslash( $_GET['from_date'] ) ) : gmdate( 'Y-m-d', strtotime( '-30 days' ) );
+					$from = ! empty( $_GET['from_date'] ) ? sanitize_text_field( wp_unslash( $_GET['from_date'] ) ) : gmdate( 'Y-m-d', strtotime( '-30 days', $now ) );
 					// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only dashboard filter parameter.
 					$to   = ! empty( $_GET['to_date'] ) ? sanitize_text_field( wp_unslash( $_GET['to_date'] ) ) : current_time( 'Y-m-d' );
 					$data = [
 						'from'  => $from,
 						'to'    => $to,
 						/* translators: 1: from date, 2: to date. */
-						'label' => sprintf( esc_html__( '%1$s to %2$s', 'affiliates-for-woocommerce' ), $from, $to ),
+						'label' => sprintf( esc_html__( '%1$s – %2$s', 'affiliates-for-woocommerce' ), date_i18n( 'j M Y', strtotime( $from ) ), date_i18n( 'j M Y', strtotime( $to ) ) ),
 					];
 					break;
 				default:
@@ -139,26 +155,18 @@ if ( ! class_exists( 'DDFW_Dashboard_Data' ) ) {
 		/**
 		 * Resolve the chart grouping interval for a date range.
 		 *
-		 * Single source of truth for dashboard granularity across all plugins:
-		 * up to 90 days -> daily, up to a year -> monthly, longer -> quarterly. This matches the
-		 * x-axis label format produced by the JS engine ( ChartUtils.getDateFormat ).
+		 * Single source of truth for dashboard granularity across all plugins: up to a year ->
+		 * daily, longer -> monthly. Daily rows let the chart regroup them into weeks or months in the
+		 * browser ( the Day / Week / Month switch ), and it picks the default for the range length.
 		 *
 		 * @param string $from Range start ( Y-m-d ).
 		 * @param string $to   Range end ( Y-m-d ).
-		 * @return string 'day' | 'month' | 'quarter'.
+		 * @return string 'day' | 'month'.
 		 */
 		public static function get_interval( $from, $to ) {
 			$days = floor( ( strtotime( $to ) - strtotime( $from ) ) / DAY_IN_SECONDS );
 
-			if ( $days <= 90 ) {
-				return 'day';
-			}
-
-			if ( $days <= 365 ) {
-				return 'month';
-			}
-
-			return 'quarter';
+			return $days <= 366 ? 'day' : 'month';
 		}
 
 		/**
@@ -271,6 +279,7 @@ if ( ! class_exists( 'DDFW_Dashboard_Data' ) ) {
 		 * @return array<string,string> Map of range key => translated label.
 		 */
 		public static function get_presets() {
+			// Order matters: get_preset_groups() splits this list into day, week, month, range and year.
 			return [
 				'today'        => esc_html__( 'Today', 'affiliates-for-woocommerce' ),
 				'7_days'       => esc_html__( 'This Week', 'affiliates-for-woocommerce' ),
@@ -282,6 +291,27 @@ if ( ! class_exists( 'DDFW_Dashboard_Data' ) ) {
 				'year_to_date' => esc_html__( 'Year to Date', 'affiliates-for-woocommerce' ),
 				'last_year'    => esc_html__( 'Last Year', 'affiliates-for-woocommerce' ),
 				'all_time'     => esc_html__( 'All Time', 'affiliates-for-woocommerce' ),
+			];
+		}
+
+		/**
+		 * Group of each preset, so the date menu can draw a hairline between days, weeks, months,
+		 * longer ranges and years.
+		 *
+		 * @return array<string,string> Map of range key => group.
+		 */
+		public static function get_preset_groups() {
+			return [
+				'today'        => 'day',
+				'7_days'       => 'week',
+				'last_week'    => 'week',
+				'30_days'      => 'month',
+				'last_month'   => 'month',
+				'90_days'      => 'range',
+				'180_days'     => 'range',
+				'year_to_date' => 'year',
+				'last_year'    => 'year',
+				'all_time'     => 'all',
 			];
 		}
 	}

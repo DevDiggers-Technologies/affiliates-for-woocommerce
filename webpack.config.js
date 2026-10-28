@@ -5,7 +5,6 @@
 const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
 const { get } = require( 'lodash' );
 const path = require( 'path' );
-const { DefinePlugin } = require( 'webpack' );
 const TerserPlugin = require( 'terser-webpack-plugin' );
 const CssMinimizerPlugin = require( 'css-minimizer-webpack-plugin' );
 
@@ -18,40 +17,10 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 const IS_PRODUCTION = NODE_ENV === 'production';
 const SOURCE_EXTENSIONS = [ '.json', '.js', '.jsx' ];
 const CAMEL_CASE_REPLACE_REGEX = /-([a-z])/g;
-const WC_ADMIN_SETTINGS_ALIAS = path.resolve( __dirname, 'src/reports/settings/index.js' );
 const JS_ENTRY_POINTS = {
 	"admin": "./src/admin/index.js",
 	"front": "./src/front/index.js",
 	"manage-affiliate": "./src/manage-affiliate/index.js"
-};
-const WC_SETTINGS = {
-	adminUrl : 'http://localhost/wp-admin/',
-	locale   : 'en-US',
-	currency : {
-		code     : 'USD',
-		precision: 2,
-		symbol   : '$',
-	},
-	date: {
-		dow: 0,
-	},
-	orderStatuses: {
-		pending   : 'Pending payment',
-		processing: 'Processing',
-		'on-hold' : 'On hold',
-		completed : 'Completed',
-		cancelled : 'Cancelled',
-		refunded  : 'Refunded',
-		failed    : 'Failed',
-	},
-	l10n: {
-		userLocale   : 'en_US',
-		weekdaysShort: [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ],
-	},
-	wcAdminSettings: {
-		woocommerce_actionable_order_statuses    : [],
-		woocommerce_excluded_report_order_statuses: [],
-	},
 };
 const COMMON_EXTERNALS = {
 	'@wordpress/api-fetch'    : { this: [ 'wp', 'apiFetch' ] },
@@ -65,41 +34,15 @@ const COMMON_EXTERNALS = {
 	'@wordpress/html-entities': { this: [ 'wp', 'htmlEntities' ] },
 	'@wordpress/i18n'         : { this: [ 'wp', 'i18n' ] },
 	'@wordpress/keycodes'     : { this: [ 'wp', 'keycodes' ] },
-	'@woocommerce/settings'   : { this: [ 'wc', 'wcSettings' ] },
 	'tinymce'                 : 'tinymce',
 	'moment'                  : 'moment',
 	'lodash'                  : 'lodash',
 	'react-dom'               : 'ReactDOM',
 	'react'                   : 'React',
 };
-const wcAdminPackages = [
-	'components',
-	'csv-export',
-	'currency',
-	'customer-effort-score',
-	'date',
-	'experimental',
-	'explat',
-	'navigation',
-	'notices',
-	'number',
-	'data',
-	'tracks',
-	'onboarding',
-];
 
 const toCamelCase = value => value.replace( CAMEL_CASE_REPLACE_REGEX, ( match, letter ) => letter.toUpperCase() );
-const createExternals = () => {
-	const externals = { ...COMMON_EXTERNALS };
-
-	wcAdminPackages.forEach( name => {
-		externals[ `@woocommerce/${ name }` ] = {
-			this: [ 'wc', toCamelCase( name ) ],
-		};
-	} );
-
-	return externals;
-};
+const createExternals = () => ( { ...COMMON_EXTERNALS } );
 
 const createCssLoaders = () => ( [
 	MiniCssExtractPlugin.loader,
@@ -149,9 +92,6 @@ const createBabelRules = () => ( [
 ] );
 
 const createPlugins = () => ( [
-	new DefinePlugin( {
-		wcSettings: JSON.stringify( WC_SETTINGS ),
-	} ),
 	new CustomTemplatedPathPlugin( {
 		modulename( outputPath, data ) {
 			const entryName = get( data, [ 'chunk', 'name' ] );
@@ -174,10 +114,12 @@ const webpackConfig = {
 	output: {
 		filename     : './assets/js/[name].js',
 		path         : __dirname,
-		libraryTarget: 'this',
 		chunkFilename: './assets/js/chunks/[name].js',
 	},
-	externals: createExternals(),
+	// Globals are read off `this` ( window ), but the bundles export nothing: a library target of
+	// 'this' copied each bundle's `__esModule` flag onto window, which broke mediaelement after it.
+	externalsType: 'this',
+	externals    : createExternals(),
 	module   : {
 		rules: [
 			...createBabelRules(),
@@ -193,9 +135,6 @@ const webpackConfig = {
 			path.join( __dirname, 'src' ),
 			'node_modules',
 		],
-		alias: {
-			'@woocommerce/wc-admin-settings': WC_ADMIN_SETTINGS_ALIAS,
-		},
 	},
 	plugins: createPlugins(),
 	optimization: {

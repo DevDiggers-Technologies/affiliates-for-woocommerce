@@ -46,7 +46,7 @@ $top_products      = $commission_helper->ddwcaf_get_top_products( $args );
                 <tr>
                     <th><?php esc_html_e( 'Product', 'affiliates-for-woocommerce' ); ?></th>
                     <th><?php esc_html_e( 'Quantity', 'affiliates-for-woocommerce' ); ?></th>
-                    <th><?php esc_html_e( 'Total Commisions', 'affiliates-for-woocommerce' ); ?></th>
+                    <th><?php esc_html_e( 'Total Commissions', 'affiliates-for-woocommerce' ); ?></th>
                 </tr>
             </thead>
             <tbody>

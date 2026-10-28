@@ -102,7 +102,14 @@ if ( ! class_exists( 'DDWCAF_Manage_Affiliate_Template' ) ) {
                 'ddwcaf-manage-affiliate-script',
                 'ddwcafDashboardData',
                 [
-                    'currencySymbol'   => get_woocommerce_currency_symbol(),
+                    // The store's money format: the raw symbol is an HTML entity ( &#36; ) and its position varies.
+                    'currency'         => [
+                        'symbol'            => html_entity_decode( get_woocommerce_currency_symbol(), ENT_QUOTES, 'UTF-8' ),
+                        'position'          => get_option( 'woocommerce_currency_pos', 'left' ),
+                        'decimals'          => wc_get_price_decimals(),
+                        'decimalSeparator'  => wc_get_price_decimal_separator(),
+                        'thousandSeparator' => wc_get_price_thousand_separator(),
+                    ],
                     'charts'           => $dashboard_data['charts'],
                     'dateRange'        => $dashboard_data['date_range'],
                     'i18n'             => [
@@ -468,7 +475,7 @@ if ( ! class_exists( 'DDWCAF_Manage_Affiliate_Template' ) ) {
 					<h4><?php echo esc_html( $title ); ?></h4>
 					<div class="ddwcaf-card-value">
                         <?php if ( 'number' === $value_type ) : ?>
-                            <span class="ddwcaf-value-number"><?php echo esc_html( number_format( (float) ( $value ?? 0 ) ) ); ?></span>
+                            <span class="ddwcaf-value-number"><?php echo esc_html( number_format_i18n( (float) ( $value ?? 0 ) ) ); ?></span>
                         <?php elseif ( 'html' === $value_type ) : ?>
 							<span class="ddwcaf-value-text"><?php echo wp_kses_post( $value ); ?></span>
 						<?php else : ?>

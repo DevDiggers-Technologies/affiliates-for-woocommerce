@@ -8,8 +8,8 @@ Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
 WC requires at least: 9.0.0
-WC tested up to: 11.0.1
-Stable tag: 2.3.0
+WC tested up to: 11.2
+Stable tag: 2.4.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -108,7 +108,8 @@ Affiliates see their own numbers without any access to your WordPress admin.
 
 * Affiliates list with a status control and an earnings summary for each affiliate
 * Single affiliate screen with the full profile and that affiliate's commission history
-* Commission log across all affiliates with filters
+* Dashboard with earnings, sales, visits, conversion rate and payouts, each compared with the previous period
+* Commission log across all affiliates with filters and a count on each status tab
 * Visit log across all affiliates showing referral source URLs
 * Top products report showing which products drive the most affiliate revenue
 
@@ -198,7 +199,11 @@ Free payouts are a record keeping exercise: you send the money yourself and mark
 
 = Fraud controls =
 
-* Block affiliates from earning commission on their own orders
+* Refuse or flag a commission when the buyer's email, IP address, browser or billing details match the affiliate
+* Hold doubtful commissions as Flagged for Review, never paid until you approve them
+* New customers only, no commission on free orders, and a minimum order total
+* Block emails, email domains and IP addresses from earning commission
+* A Fraud report listing the affiliates and orders the checks caught
 * Set a debounce time so repeated clicks from the same visitor are not counted as separate visits
 * Decide whether a newer referral link overwrites an existing affiliate cookie
 * Clear the referral cookie after a purchase
@@ -210,9 +215,10 @@ Free payouts are a record keeping exercise: you send the money yourself and mark
 
 = Advanced reports =
 
-* Charts for earnings, visits, and conversions with month on month comparison
-* Conversion rate and earnings breakdown at a glance
-* Top products report filtered by affiliate
+* Referral sales, commission, orders, visits and conversion rate for any date range, compared with the previous period or the same period last year
+* Top affiliates, top products, traffic sources and landing pages, each with CSV export
+* Commission by status, paid out by payout method, and a busiest times heatmap for referral visits
+* Filter every report by affiliate
 
 = Dashboard endpoints =
 
@@ -362,6 +368,24 @@ To build from source:
 
 == Changelog ==
 
+= 2.4.0 =
+* Improved the Dashboard so its figures match the Pro Reports page. Refunded commission no longer counts as earnings, and each card now shows the previous period's figure.
+* Improved the Dashboard conversion rate and average commission cards, which now compare with the previous period too.
+* Improved Dashboard speed. It runs a few queries instead of fifty and keeps its figures until a commission, payout or visit changes.
+* Fixed the store revenue line on the Dashboard chart dipping below zero on days with a refund.
+* Added counts to the status tabs on the Commissions, Payouts and Visits lists.
+* Added a clear empty state to every admin list, with its own message when a search or filter matches nothing.
+* Added database indexes on visit, commission and payout dates and affiliates, so lists and the Dashboard stay fast on large stores. They are added automatically on update.
+* Improved money formatting on the affiliate charts in admin, which now follow the store's currency position and separators.
+* Updated the status badge colours to match the other DevDiggers plugins.
+* Fixed the Commissions, Visits and Payouts date filters leaving out the last day of the range.
+* Fixed JavaScript errors on the Affiliates admin screens that stopped WordPress audio and video players from loading.
+* Fixed typos in list headings and empty list messages.
+* Added Pro previews of the Fraud report and the Fraud Prevention settings, and refreshed the Reports preview to show the new Pro Reports page.
+* Moved the fraud prevention Pro preview from the Referrals tab to its own Fraud Prevention tab.
+* Updated the bundled DevDiggers framework to 1.2.0.
+* Tested with WordPress 7.1 and WooCommerce 11.2.
+
 = 2.3.0 =
 * Upgraded to DevDiggers Framework 1.1.0: admin screens now open instantly without a full page reload, with skeleton placeholders while a screen loads.
 * Improved list screens: the title action buttons, search box, bulk actions and pagination now follow one consistent layout.
@@ -430,6 +454,9 @@ To build from source:
 * Initial release.
 
 == Upgrade Notice ==
+
+= 2.4.0 =
+Faster Dashboard with figures that match the Pro Reports page, counts on the list status tabs, and date filter fixes. Recommended for all users.
 
 = 2.3.0 =
 Adds faster admin navigation without page reloads, a refreshed list-screen layout and minor bug fixes. Recommended for all users.

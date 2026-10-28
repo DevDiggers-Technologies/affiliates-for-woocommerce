@@ -316,7 +316,13 @@ if ( ! class_exists( 'DDWCAF_Commissions_List_Template' ) ) {
 		 * @return void
 		 */
 		public function no_items() {
-			esc_html_e( 'No commissions avaliable.', 'affiliates-for-woocommerce' );
+			ddwcaf_print_list_empty_state(
+				[
+					'title'       => __( 'No commissions yet', 'affiliates-for-woocommerce' ),
+					'description' => __( 'A commission is recorded here each time a customer orders through an affiliate\'s link or coupon.', 'affiliates-for-woocommerce' ),
+					'icon'        => '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h14v18l-3-2-2 2-2-2-2 2-2-2-3 2V3Z"/><path d="M9 8h6M9 12h6"/></svg>',
+				]
+			);
 		}
 
 		/**

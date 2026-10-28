@@ -8,6 +8,9 @@
 
 namespace DDWCAffiliates\Helper\Affiliate;
 
+use Automattic\WooCommerce\Utilities\OrderUtil;
+use DevDiggers\Framework\Includes\DDFW_Dashboard_Data;
+
 defined( 'ABSPATH' ) || exit();
 
 if ( ! class_exists( 'DDWCAF_Dashboard_Helper' ) ) {
@@ -15,6 +18,22 @@ if ( ! class_exists( 'DDWCAF_Dashboard_Helper' ) ) {
 	 * Dashboard helper class
 	 */
 	class DDWCAF_Dashboard_Helper {
+		/**
+		 * Commissions that count as earned, as on the Pro Reports page.
+		 */
+		const EARNING = "status NOT IN ('cancelled','refunded','flagged','rejected')";
+
+		/**
+		 * Option whose value is part of every cache key; moving it on drops every cached dashboard.
+		 * Same option as the Pro Reports cache, so either plugin's writes drop both.
+		 */
+		const CACHE_VERSION = '_ddwcaf_reports_cache_version';
+
+		/**
+		 * The site a visit came from: the referrer's host, without "www.", or '' when there was none.
+		 */
+		const REFERRER_HOST = "TRIM(LEADING 'www.' FROM LOWER(SUBSTRING_INDEX(SUBSTRING_INDEX(SUBSTRING_INDEX(SUBSTRING_INDEX(COALESCE(referrer_url, ''), '://', -1), '/', 1), '?', 1), ':', 1)))";
+
 		/**
 		 * Database object
 		 *
@@ -41,516 +60,380 @@ if ( ! class_exists( 'DDWCAF_Dashboard_Helper' ) ) {
 		}
 
 		/**
-		 * Get dashboard data function
+		 * Dashboard figures of a date range, with the same number of days before it for the cards' change.
+		 * Every figure is defined as on Affiliates > Reports, so the two pages agree.
 		 *
+		 * @param int|null   $affiliate_id One affiliate ( their admin page ), or the whole program.
+		 * @param array|null $date_range   [ 'from' => Y-m-d, 'to' => Y-m-d ]; the date filter's range by default.
 		 * @return array
 		 */
-		public function get_dashboard_data( $affiliate_id = null ) {
-			$date_range = $this->get_date_range();
-			$from_date  = $date_range['from'];
-			$to_date    = $date_range['to'];
+		public function get_dashboard_data( $affiliate_id = null, $date_range = null ) {
+			$date_range   = $date_range ?: $this->get_date_range();
+			$affiliate_id = absint( $affiliate_id );
+
+			// ponytail: the plugin-table figures share the Reports cache ( dropped on any commission or payout write,
+			// checked against the newest visit ). Orders and users are not watched, so those figures are read fresh.
+			$latest_visit = (int) $this->wpdb->get_var( "SELECT MAX(id) FROM {$this->wpdb->ddwcaf_visits}" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Primary key lookup.
+			$cache_key    = 'ddwcaf_dashboard_' . md5( wp_json_encode( [ $affiliate_id, $date_range['from'], $date_range['to'], get_option( self::CACHE_VERSION ), get_locale() ] ) );
+			$cached       = get_transient( $cache_key );
+
+			if ( is_array( $cached ) && isset( $cached['visit'], $cached['data'] ) && $latest_visit === $cached['visit'] ) {
+				$data = $cached['data'];
+			} else {
+				$data = $this->get_program_data( $date_range['from'], $date_range['to'], $affiliate_id );
+				set_transient(
+					$cache_key,
+					[
+						'visit' => $latest_visit,
+						'data'  => $data,
+					],
+					HOUR_IN_SECONDS
+				);
+			}
+
+			// Store-wide figures, only the main Dashboard shows them.
+			if ( ! $affiliate_id ) {
+				$store = DDFW_Dashboard_Data::build_time_series( $date_range['from'], $date_range['to'], [ 'value' => $this->get_store_revenue( $date_range['from'], $date_range['to'] ) ] );
+
+				$data['charts']['revenue_impact']['total'] = array_map(
+					function ( $row ) {
+						return [
+							'period' => $row['date'],
+							'value'  => $row['value'],
+						];
+					},
+					$store
+				);
+				$data['summary'] += $this->get_affiliate_counts( $data['previous_from'], $date_range['from'], $date_range['to'] );
+			}
+
+			$data['date_range'] = $date_range;
+
+			return $data;
+		}
+
+		/**
+		 * The figures read from the plugin's own tables: one query per table covers both periods by day,
+		 * for the cards and the charts.
+		 *
+		 * @param string $from         Range start ( Y-m-d ).
+		 * @param string $to           Range end ( Y-m-d ).
+		 * @param int    $affiliate_id Affiliate, or 0.
+		 * @return array
+		 */
+		protected function get_program_data( $from, $to, $affiliate_id ) {
+			// Plain calendar days in UTC, like Reports: stepping a day never skips one.
+			$utc       = new \DateTimeZone( 'UTC' );
+			$after     = new \DateTimeImmutable( $from, $utc );
+			$before    = new \DateTimeImmutable( $to, $utc );
+			$prev_to   = $after->modify( '-1 day' );
+			$prev_from = $prev_to->modify( '-' . (int) $after->diff( $before )->days . ' days' );
+			$both      = [ $prev_from->format( 'Y-m-d 00:00:00' ), $before->format( 'Y-m-d 23:59:59' ) ];
+			$current   = [ $after->format( 'Y-m-d 00:00:00' ), $before->format( 'Y-m-d 23:59:59' ) ];
+			$earning   = self::EARNING;
+			$where     = function ( $column, $range ) use ( $affiliate_id ) {
+				$sql = $this->wpdb->prepare( "{$column} BETWEEN %s AND %s", $range[0], $range[1] ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Fixed column names.
+
+				return $affiliate_id ? $sql . $this->wpdb->prepare( ' AND affiliate_id = %d', $affiliate_id ) : $sql;
+			};
+
+			$commissions = $this->results(
+				"SELECT DATE(created_at) AS day,
+					SUM(CASE WHEN {$earning} THEN commission ELSE 0 END) AS earnings,
+					SUM(CASE WHEN {$earning} THEN line_total ELSE 0 END) AS sales,
+					SUM({$earning}) AS commissions,
+					SUM(CASE WHEN status IN ('pending','pending_payment') THEN commission ELSE 0 END) AS pending
+				FROM {$this->wpdb->ddwcaf_commissions}
+				WHERE {$where( 'created_at', $both )}
+				GROUP BY day"
+			);
+			$visits      = $this->results(
+				"SELECT DATE(date) AS day, COUNT(*) AS visits, SUM(order_id > 0) AS conversions
+				FROM {$this->wpdb->ddwcaf_visits}
+				WHERE {$where( 'date', $both )}
+				GROUP BY day"
+			);
+			$payouts     = $this->results(
+				"SELECT DATE(COALESCE(completed_at, created_at)) AS day, SUM(amount) AS payouts
+				FROM {$this->wpdb->ddwcaf_payouts}
+				WHERE status = 'completed' AND {$where( 'COALESCE(completed_at, created_at)', $both )}
+				GROUP BY day"
+			);
+
+			$totals = [
+				'current'  => [],
+				'previous' => [],
+			];
+
+			foreach ( array_merge( $commissions, $visits, $payouts ) as $row ) {
+				$period = $row['day'] >= $after->format( 'Y-m-d' ) ? 'current' : 'previous';
+
+				foreach ( $row as $field => $value ) {
+					if ( 'day' !== $field ) {
+						$totals[ $period ][ $field ] = ( $totals[ $period ][ $field ] ?? 0 ) + (float) $value;
+					}
+				}
+			}
+
+			$figure = function ( $period, $field ) use ( $totals ) {
+				$value = $totals[ $period ][ $field ] ?? 0;
+
+				return in_array( $field, [ 'earnings', 'sales', 'pending', 'payouts' ], true ) ? round( $value, wc_get_price_decimals() ) : (int) $value;
+			};
+			$metric = function ( $current, $previous ) {
+				return [
+					'value'       => $current,
+					'change'      => $this->calculate_change( $current, $previous ),
+					'is_positive' => $current >= $previous,
+					'previous'    => $previous,
+				];
+			};
+			$rate   = function ( $period ) use ( $figure ) {
+				return $figure( $period, 'visits' ) ? round( $figure( $period, 'conversions' ) / $figure( $period, 'visits' ) * 100, 1 ) : 0;
+			};
+			$avg    = function ( $period ) use ( $figure ) {
+				return $figure( $period, 'commissions' ) ? $figure( $period, 'earnings' ) / $figure( $period, 'commissions' ) : 0;
+			};
+			$series = DDFW_Dashboard_Data::build_time_series(
+				$from,
+				$to,
+				[
+					'earnings' => array_column( $commissions, 'earnings', 'day' ),
+					'sales'    => array_column( $commissions, 'sales', 'day' ),
+					'visits'   => array_column( $visits, 'visits', 'day' ),
+				]
+			);
+			$list   = function ( $key ) use ( $series ) {
+				return array_map(
+					function ( $row ) use ( $key ) {
+						return [
+							'period' => $row['date'],
+							'value'  => $row[ $key ],
+						];
+					},
+					$series
+				);
+			};
+
+			$summary = [];
+			foreach ( [ 'total_earnings' => 'earnings', 'commissions' => 'commissions', 'total_sales' => 'sales', 'visits' => 'visits', 'pending_earnings' => 'pending', 'total_payouts' => 'payouts' ] as $key => $field ) {
+				$summary[ $key ] = $metric( $figure( 'current', $field ), $figure( 'previous', $field ) );
+			}
+			$summary['conversion_rate']      = $metric( $rate( 'current' ), $rate( 'previous' ) );
+			$summary['avg_commission_value'] = $metric( $avg( 'current' ), $avg( 'previous' ) );
 
 			return [
-				'summary'            => $this->get_summary_metrics( $from_date, $to_date, $affiliate_id ),
+				'summary'            => $summary,
+				'previous_from'      => $prev_from->format( 'Y-m-d' ),
 				'charts'             => [
-					'performance'        => $this->get_performance_chart_data( $from_date, $to_date, $affiliate_id ),
-					'revenue_impact'     => $this->get_revenue_impact_data( $from_date, $to_date, $affiliate_id ),
-					'conversion_sources' => $this->get_conversion_sources_data( $from_date, $to_date, $affiliate_id ),
+					'performance'        => [
+						'earnings' => $list( 'earnings' ),
+						'visits'   => $list( 'visits' ),
+					],
+					'revenue_impact'     => [
+						'affiliate' => $list( 'sales' ),
+						'total'     => [],
+					],
+					'conversion_sources' => $this->get_conversion_sources( $where( 'date', $current ) ),
 				],
-				'recent_activities'  => $this->get_recent_activities( 10, $affiliate_id ),
-				'top_affiliates'     => $this->get_top_affiliates(),
-				'date_range'         => $date_range,
+				'recent_commissions' => $this->results(
+					"SELECT c.*, u.display_name, u.user_email
+					FROM {$this->wpdb->ddwcaf_commissions} c
+					LEFT JOIN {$this->wpdb->users} u ON c.affiliate_id = u.ID" .
+					( $affiliate_id ? $this->wpdb->prepare( ' WHERE c.affiliate_id = %d', $affiliate_id ) : '' ) . '
+					ORDER BY c.created_at DESC, c.id DESC LIMIT 5'
+				),
+				'top_affiliates'     => $this->results(
+					"SELECT u.ID, u.display_name, u.user_email, SUM(c.commission) AS total_earnings
+					FROM {$this->wpdb->ddwcaf_commissions} c
+					JOIN {$this->wpdb->users} u ON u.ID = c.affiliate_id
+					WHERE {$earning} AND {$where( 'c.created_at', $current )}
+					GROUP BY u.ID ORDER BY total_earnings DESC LIMIT 5"
+				),
 			];
 		}
 
 		/**
-		 * Get summary metrics
+		 * Orders that came through a referral link, by the site the visitor came from.
 		 *
-		 * @param string $from_date
-		 * @param string $to_date
-		 * @return array
+		 * @param string $where Prepared range and affiliate condition on the visits table.
+		 * @return array [ [ 'source' => host, 'count' => orders ], ... ], ten at most.
 		 */
-		public function get_summary_metrics( $from_date, $to_date, $affiliate_id = null ) {
-			$affiliate_where = $affiliate_id ? $this->wpdb->prepare( " AND affiliate_id = %d", $affiliate_id ) : "";
+		protected function get_conversion_sources( $where ) {
+			$host = self::REFERRER_HOST;
 
-			// Current period data
-			$current_earnings = $this->wpdb->get_var( $this->wpdb->prepare(
-				"SELECT SUM(commission) FROM {$this->wpdb->ddwcaf_commissions} WHERE status != 'cancelled' AND created_at BETWEEN %s AND %s $affiliate_where",
-				$from_date . ' 00:00:00',
-				$to_date . ' 23:59:59'
-			) ) ?: 0;
+			return array_map(
+				function ( $row ) {
+					return [
+						'source' => '' !== $row['host'] ? $row['host'] : esc_html__( 'Direct / Unknown', 'affiliates-for-woocommerce' ),
+						'count'  => (int) $row['count'],
+					];
+				},
+				$this->results(
+					"SELECT {$host} AS host, COUNT(*) AS count
+					FROM {$this->wpdb->ddwcaf_visits}
+					WHERE order_id > 0 AND {$where}
+					GROUP BY host ORDER BY count DESC LIMIT 10"
+				)
+			);
+		}
 
-			$current_commissions = $this->wpdb->get_var( $this->wpdb->prepare(
-				"SELECT COUNT(id) FROM {$this->wpdb->ddwcaf_commissions} WHERE created_at BETWEEN %s AND %s $affiliate_where",
-				$from_date . ' 00:00:00',
-				$to_date . ' 23:59:59'
-			) ) ?: 0;
+		/**
+		 * Completed and processing order totals by the site's local day.
+		 *
+		 * @param string $from Range start ( Y-m-d ).
+		 * @param string $to   Range end ( Y-m-d ).
+		 * @return array Map of Y-m-d => total.
+		 */
+		protected function get_store_revenue( $from, $to ) {
+			$timezone = wp_timezone();
+			$start    = new \DateTimeImmutable( $from . ' 00:00:00', $timezone );
+			$end      = new \DateTimeImmutable( $to . ' 23:59:59', $timezone );
 
-			$current_visits = $this->wpdb->get_var( $this->wpdb->prepare(
-				"SELECT COUNT(id) FROM {$this->wpdb->ddwcaf_visits} WHERE date BETWEEN %s AND %s $affiliate_where",
-				$from_date . ' 00:00:00',
-				$to_date . ' 23:59:59'
-			) ) ?: 0;
+			if ( class_exists( OrderUtil::class ) && OrderUtil::custom_orders_table_usage_is_enabled() ) {
+				// Order tables keep only the GMT time: each order moves by the site's offset at that moment,
+				// which daylight saving changes ( a fixed-offset site has no transitions ).
+				$shift = (string) $start->getOffset();
+				foreach ( array_slice( (array) $timezone->getTransitions( $start->getTimestamp(), $end->getTimestamp() ), 1 ) as $transition ) {
+					$shift = $this->wpdb->prepare( 'IF(date_created_gmt < %s, ', gmdate( 'Y-m-d H:i:s', $transition['ts'] ) ) . $shift . ', ' . (int) $transition['offset'] . ')';
+				}
 
-			$current_affiliates = $this->wpdb->get_var( $this->wpdb->prepare(
-				"SELECT COUNT(u.ID) FROM {$this->wpdb->users} u 
-				JOIN {$this->wpdb->usermeta} um ON u.ID = um.user_id 
-				WHERE um.meta_key = 'user_registered' AND u.user_registered BETWEEN %s AND %s",
-				$from_date . ' 00:00:00',
-				$to_date . ' 23:59:59'
-			) ) ?: 0;
-			// user_registered is in users table, not usermeta usually, but let's check WP query.
-			$current_affiliates = $this->wpdb->get_var( $this->wpdb->prepare(
-				"SELECT COUNT(ID) FROM {$this->wpdb->users} WHERE user_registered BETWEEN %s AND %s",
-				$from_date . ' 00:00:00',
-				$to_date . ' 23:59:59'
-			) ) ?: 0;
-			// Filter by role ddwcaf_affiliate
-			$current_affiliates = $this->wpdb->get_var( $this->wpdb->prepare(
-				"SELECT COUNT(u.ID) FROM {$this->wpdb->users} u 
-				INNER JOIN {$this->wpdb->usermeta} um ON (u.ID = um.user_id) 
-				WHERE u.user_registered BETWEEN %s AND %s 
-				AND um.meta_key = '{$this->wpdb->prefix}capabilities' AND um.meta_value LIKE %s",
-				$from_date . ' 00:00:00',
-				$to_date . ' 23:59:59',
-				'%ddwcaf_affiliate%'
-			) ) ?: 0;
+				$rows = $this->results(
+					$this->wpdb->prepare(
+						"SELECT DATE(DATE_ADD(date_created_gmt, INTERVAL {$shift} SECOND)) AS day, SUM(total_amount) AS total
+						FROM {$this->wpdb->prefix}wc_orders
+						WHERE type = 'shop_order' AND status IN ('wc-completed','wc-processing') AND date_created_gmt BETWEEN %s AND %s
+						GROUP BY day",
+						gmdate( 'Y-m-d H:i:s', $start->getTimestamp() ),
+						gmdate( 'Y-m-d H:i:s', $end->getTimestamp() )
+					)
+				);
+			} else {
+				$rows = $this->results(
+					$this->wpdb->prepare(
+						"SELECT DATE(p.post_date) AS day, SUM(m.meta_value) AS total
+						FROM {$this->wpdb->posts} p
+						JOIN {$this->wpdb->postmeta} m ON m.post_id = p.ID AND m.meta_key = '_order_total'
+						WHERE p.post_type = 'shop_order' AND p.post_status IN ('wc-completed','wc-processing') AND p.post_date BETWEEN %s AND %s
+						GROUP BY day",
+						$start->format( 'Y-m-d H:i:s' ),
+						$end->format( 'Y-m-d H:i:s' )
+					)
+				);
+			}
 
-			$current_sales = $this->wpdb->get_var( $this->wpdb->prepare(
-				"SELECT SUM(line_total) FROM {$this->wpdb->ddwcaf_commissions} WHERE status != 'cancelled' AND created_at BETWEEN %s AND %s $affiliate_where",
-				$from_date . ' 00:00:00',
-				$to_date . ' 23:59:59'
-			) ) ?: 0;
+			return array_column( $rows, 'total', 'day' );
+		}
 
-			$current_pending = $this->wpdb->get_var( $this->wpdb->prepare(
-				"SELECT SUM(commission) FROM {$this->wpdb->ddwcaf_commissions} WHERE status = 'pending' AND created_at BETWEEN %s AND %s $affiliate_where",
-				$from_date . ' 00:00:00',
-				$to_date . ' 23:59:59'
-			) ) ?: 0;
+		/**
+		 * Affiliates who joined in each period, and those approved right now.
+		 *
+		 * @param string $prev_from Previous period start ( Y-m-d ).
+		 * @param string $from      Range start ( Y-m-d ).
+		 * @param string $to        Range end ( Y-m-d ).
+		 * @return array Summary cards 'new_affiliates' and 'active_affiliates'.
+		 */
+		protected function get_affiliate_counts( $prev_from, $from, $to ) {
+			// Registration times are stored in GMT; each period runs up to the next one's first second.
+			$start = get_gmt_from_date( $from . ' 00:00:00' );
+			$row   = $this->wpdb->get_row( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+				$this->wpdb->prepare(
+					"SELECT SUM(u.user_registered >= %s AND u.user_registered < %s) AS current,
+						SUM(u.user_registered >= %s AND u.user_registered < %s) AS previous,
+						SUM(s.meta_value = 'approved') AS active
+					FROM {$this->wpdb->users} u
+					JOIN {$this->wpdb->usermeta} r ON r.user_id = u.ID AND r.meta_key = %s AND r.meta_value LIKE %s
+					LEFT JOIN {$this->wpdb->usermeta} s ON s.user_id = u.ID AND s.meta_key = '_ddwcaf_affiliate_status'",
+					$start,
+					get_gmt_from_date( gmdate( 'Y-m-d', strtotime( $to . ' +1 day' ) ) . ' 00:00:00' ),
+					get_gmt_from_date( $prev_from . ' 00:00:00' ),
+					$start,
+					$this->wpdb->get_blog_prefix() . 'capabilities',
+					'%' . $this->wpdb->esc_like( 'ddwcaf_affiliate' ) . '%'
+				),
+				ARRAY_A
+			);
 
-			// Previous period for comparison
-			$days_diff = ( strtotime( $to_date ) - strtotime( $from_date ) ) / ( 60 * 60 * 24 );
-			$prev_from = date( 'Y-m-d', strtotime( $from_date . ' -' . ceil( $days_diff + 1 ) . ' days' ) );
-			$prev_to   = date( 'Y-m-d', strtotime( $from_date . ' -1 day' ) );
-
-			$prev_earnings = $this->wpdb->get_var( $this->wpdb->prepare(
-				"SELECT SUM(commission) FROM {$this->wpdb->ddwcaf_commissions} WHERE status != 'cancelled' AND created_at BETWEEN %s AND %s $affiliate_where",
-				$prev_from . ' 00:00:00',
-				$prev_to . ' 23:59:59'
-			) ) ?: 0;
-
-			$prev_commissions = $this->wpdb->get_var( $this->wpdb->prepare(
-				"SELECT COUNT(id) FROM {$this->wpdb->ddwcaf_commissions} WHERE created_at BETWEEN %s AND %s $affiliate_where",
-				$prev_from . ' 00:00:00',
-				$prev_to . ' 23:59:59'
-			) ) ?: 0;
-
-			$prev_sales = $this->wpdb->get_var( $this->wpdb->prepare(
-				"SELECT SUM(line_total) FROM {$this->wpdb->ddwcaf_commissions} WHERE status != 'cancelled' AND created_at BETWEEN %s AND %s $affiliate_where",
-				$prev_from . ' 00:00:00',
-				$prev_to . ' 23:59:59'
-			) ) ?: 0;
-
-			$prev_pending = $this->wpdb->get_var( $this->wpdb->prepare(
-				"SELECT SUM(commission) FROM {$this->wpdb->ddwcaf_commissions} WHERE status = 'pending' AND created_at BETWEEN %s AND %s $affiliate_where",
-				$prev_from . ' 00:00:00',
-				$prev_to . ' 23:59:59'
-			) ) ?: 0;
-
-			$prev_visits = $this->wpdb->get_var( $this->wpdb->prepare(
-				"SELECT COUNT(id) FROM {$this->wpdb->ddwcaf_visits} WHERE date BETWEEN %s AND %s $affiliate_where",
-				$prev_from . ' 00:00:00',
-				$prev_to . ' 23:59:59'
-			) ) ?: 0;
-
-			$prev_affiliates = $this->wpdb->get_var( $this->wpdb->prepare(
-				"SELECT COUNT(u.ID) FROM {$this->wpdb->users} u 
-				INNER JOIN {$this->wpdb->usermeta} um ON (u.ID = um.user_id) 
-				WHERE u.user_registered BETWEEN %s AND %s 
-				AND um.meta_key = '{$this->wpdb->prefix}capabilities' AND um.meta_value LIKE %s",
-				$prev_from . ' 00:00:00',
-				$prev_to . ' 23:59:59',
-				'%ddwcaf_affiliate%'
-			) ) ?: 0;
-
-			// Total Payouts (Current)
-			$current_payouts = $this->wpdb->get_var( $this->wpdb->prepare(
-				"SELECT SUM(amount) FROM {$this->wpdb->prefix}ddwcaf_payouts WHERE created_at BETWEEN %s AND %s AND status = 'completed' $affiliate_where",
-				$from_date . ' 00:00:00',
-				$to_date . ' 23:59:59'
-			) ) ?: 0;
-
-			$prev_payouts = $this->wpdb->get_var( $this->wpdb->prepare(
-				"SELECT SUM(amount) FROM {$this->wpdb->prefix}ddwcaf_payouts WHERE created_at BETWEEN %s AND %s AND status = 'completed' $affiliate_where",
-				$prev_from . ' 00:00:00',
-				$prev_to . ' 23:59:59'
-			) ) ?: 0;
-
-			// Active Affiliates (Total)
-			$active_affiliates = $this->wpdb->get_var( $this->wpdb->prepare(
-				"SELECT COUNT(u.ID) FROM {$this->wpdb->users} u 
-				INNER JOIN {$this->wpdb->usermeta} um1 ON (u.ID = um1.user_id) 
-				INNER JOIN {$this->wpdb->usermeta} um2 ON (u.ID = um2.user_id) 
-				WHERE um1.meta_key = '{$this->wpdb->prefix}capabilities' AND um1.meta_value LIKE %s
-				AND um2.meta_key = '_ddwcaf_affiliate_status' AND um2.meta_value = %s",
-				'%ddwcaf_affiliate%',
-				'approved'
-			) ) ?: 0;
+			$current  = (int) ( $row['current'] ?? 0 );
+			$previous = (int) ( $row['previous'] ?? 0 );
 
 			return [
-				'total_earnings' => [
-					'value'       => (float) $current_earnings,
-					'change'      => $this->calculate_change( $current_earnings, $prev_earnings ),
-					'is_positive' => $current_earnings >= $prev_earnings,
-				],
-				'commissions' => [
-					'value'       => (int) $current_commissions,
-					'change'      => $this->calculate_change( $current_commissions, $prev_commissions ),
-					'is_positive' => $current_commissions >= $prev_commissions,
-				],
-				'total_sales' => [
-					'value'       => (float) $current_sales,
-					'change'      => $this->calculate_change( $current_sales, $prev_sales ),
-					'is_positive' => $current_sales >= $prev_sales,
-				],
-				'visits' => [
-					'value'       => (int) $current_visits,
-					'change'      => $this->calculate_change( $current_visits, $prev_visits ),
-					'is_positive' => $current_visits >= $prev_visits,
-				],
-				'new_affiliates' => [
-					'value'       => (int) $current_affiliates,
-					'change'      => $this->calculate_change( $current_affiliates, $prev_affiliates ),
-					'is_positive' => $current_affiliates >= $prev_affiliates,
-				],
-				'pending_earnings' => [
-					'value'       => (float) $current_pending,
-					'change'      => $this->calculate_change( $current_pending, $prev_pending ),
-					'is_positive' => $current_pending >= $prev_pending,
-				],
-				'total_payouts' => [
-					'value'       => (float) $current_payouts,
-					'change'      => $this->calculate_change( $current_payouts, $prev_payouts ),
-					'is_positive' => $current_payouts >= $prev_payouts,
+				'new_affiliates'    => [
+					'value'       => $current,
+					'change'      => $this->calculate_change( $current, $previous ),
+					'is_positive' => $current >= $previous,
+					'previous'    => $previous,
 				],
 				'active_affiliates' => [
-					'value'       => (int) $active_affiliates,
-					'change'      => 0,
-					'is_positive' => true,
+					'value' => (int) ( $row['active'] ?? 0 ),
 				],
-				'conversion_rate' => [
-					'value'       => $current_visits > 0 ? round( ( $current_commissions / $current_visits ) * 100, 2 ) : 0,
-					'change'      => 0,
-					'is_positive' => true,
-				],
-				'avg_commission_value' => [
-					'value'       => $current_commissions > 0 ? (float) ($current_earnings / $current_commissions) : 0,
-					'change'      => 0,
-					'is_positive' => true,
-				]
 			];
+		}
+
+		/**
+		 * Note a write to the commissions or payouts tables, or a visit changed or deleted, so cached
+		 * figures are dropped at the end of the request. The plugin writes these tables from many
+		 * places with no action of its own, so the writes themselves are watched. New visits are
+		 * caught by the cache key instead, so a busy site does not flush on every click.
+		 *
+		 * @param string $query SQL.
+		 * @return string
+		 */
+		public static function ddwcaf_watch_writes( $query ) {
+			static $flushing = false;
+
+			if ( $flushing || false === stripos( $query, 'ddwcaf_' ) ) {
+				return $query;
+			}
+
+			// Built per call, not kept: the prefix changes after switch_to_blog() on multisite.
+			global $wpdb;
+			$table   = preg_quote( $wpdb->prefix, '/' ) . 'ddwcaf_';
+			$pattern = "/^\\s*(?:(?:INSERT|UPDATE|DELETE|REPLACE)\\b.*?\\b{$table}(?:commissions|payouts)|(?:UPDATE|DELETE)\\b.*?\\b{$table}visits)(?![a-z_])/is";
+
+			if ( preg_match( $pattern, $query ) ) {
+				$flushing = true;
+				add_action( 'shutdown', [ __CLASS__, 'ddwcaf_flush_cache' ] );
+			}
+
+			return $query;
+		}
+
+		/**
+		 * Drop every cached dashboard.
+		 *
+		 * @return void
+		 */
+		public static function ddwcaf_flush_cache() {
+			update_option( self::CACHE_VERSION, (string) microtime( true ), false );
+		}
+
+		/**
+		 * Results of a query as arrays.
+		 *
+		 * @param string $sql Prepared SQL.
+		 * @return array
+		 */
+		protected function results( $sql ) {
+			return (array) $this->wpdb->get_results( $sql, ARRAY_A ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.NotPrepared -- Built from prepared parts.
 		}
 
 		/**
 		 * Calculate percentage change
 		 */
 		protected function calculate_change( $current, $prev ) {
+			// A jump from nothing is not a percentage: null makes the card say "None in the previous period".
 			if ( $prev == 0 ) {
-				return $current > 0 ? 100 : 0;
+				return $current > 0 ? null : 0;
 			}
 			return round( ( ( $current - $prev ) / $prev ) * 100, 1 );
-		}
-
-		/**
-		 * Get chart data with intelligent grouping
-		 *
-		 * @param string $from_date
-		 * @param string $to_date
-		 * @param string $table
-		 * @param string $date_column
-		 * @param string $select_clause
-		 * @param string $value_key
-		 * @return array
-		 */
-		protected function get_chart_data_with_grouping( $from_date, $to_date, $table, $date_column, $select_clause, $value_key = 'value', $affiliate_id = null ) {
-			$days_diff = ( strtotime( $to_date ) - strtotime( $from_date ) ) / ( 60 * 60 * 24 );
-
-			$affiliate_where = $affiliate_id ? $this->wpdb->prepare( " AND affiliate_id = %d", $affiliate_id ) : "";
-
-
-			if ( $days_diff <= 60 ) {
-				$group_by = "DATE({$date_column})";
-			} elseif ( $days_diff <= 365 ) {
-				$group_by = "DATE_FORMAT({$date_column}, '%Y-%m')";
-			} else {
-				$group_by = "CONCAT(YEAR({$date_column}), '-Q', QUARTER({$date_column}))";
-			}
-
-			$data = $this->wpdb->get_results( $this->wpdb->prepare(
-				"SELECT {$group_by} as period, {$select_clause} 
-				FROM {$table} 
-				WHERE {$date_column} BETWEEN %s AND %s $affiliate_where 
-				GROUP BY period ORDER BY period ASC",
-				$from_date . ' 00:00:00',
-				$to_date . ' 23:59:59'
-			), ARRAY_A );
-
-			$processed_data = [];
-
-			// Organize data by date
-			foreach ( $data as $row ) {
-				$date_value = $row['period'];
-
-				if ( $days_diff > 365 ) {
-					// Quarterly: convert to first month of quarter for frontend parsing
-					$year    = substr( $date_value, 0, 4 );
-					$quarter = substr( $date_value, -1 );
-					$month   = ( $quarter - 1 ) * 3 + 1;
-					$date    = $year . '-' . str_pad( $month, 2, '0', STR_PAD_LEFT ) . '-01';
-				} else {
-					$date = $date_value;
-				}
-
-				$processed_data[$date] = [
-					'period' => $date,
-					'value'  => (float) $row[$value_key]
-				];
-			}
-
-			// Fill gaps for daily data
-			if ( $days_diff <= 90 ) {
-				$curr = $from_date;
-				while ( $curr <= $to_date ) {
-					if ( ! isset( $processed_data[$curr] ) ) {
-						$processed_data[$curr] = [
-							'period' => $curr,
-							'value'  => 0
-						];
-					}
-					$curr = date( 'Y-m-d', strtotime( $curr . ' +1 day' ) );
-				}
-			}
-
-			ksort( $processed_data );
-			return array_values( $processed_data );
-		}
-
-		/**
-		 * Get performance chart data
-		 */
-		public function get_performance_chart_data( $from_date, $to_date, $affiliate_id = null ) {
-			return [
-				'earnings' => $this->get_chart_data_with_grouping(
-					$from_date,
-					$to_date,
-					$this->wpdb->ddwcaf_commissions,
-					'created_at',
-					"SUM(commission) as value",
-					'value',
-					$affiliate_id
-				),
-				'visits' => $this->get_chart_data_with_grouping(
-					$from_date,
-					$to_date,
-					$this->wpdb->ddwcaf_visits,
-					'date',
-					"COUNT(id) as value",
-					'value',
-					$affiliate_id
-				),
-			];
-		}
-
-		/**
-		 * Get revenue impact data
-		 * 
-		 * @param string $from_date
-		 * @param string $to_date
-		 * @return array
-		 */
-		public function get_revenue_impact_data( $from_date, $to_date, $affiliate_id = null ) {
-			$days_diff = ( strtotime( $to_date ) - strtotime( $from_date ) ) / ( 60 * 60 * 24 );
-
-			$affiliate_revenue_data = $this->get_chart_data_with_grouping(
-				$from_date,
-				$to_date,
-				$this->wpdb->ddwcaf_commissions,
-				'created_at',
-				"SUM(line_total) as value",
-				'value',
-				$affiliate_id
-			);
-
-			// Store revenue (using wc_get_orders for parity)
-			$store_revenue_raw = [];
-			$orders = wc_get_orders( [
-				'status'       => [ 'wc-completed', 'wc-processing' ],
-				'date_created' => $from_date . '...' . $to_date,
-				'limit'        => -1,
-			] );
-
-			if ( ! empty( $orders ) ) {
-				foreach ( $orders as $order ) {
-					$date = $order->get_date_created();
-					if ( ! $date ) continue;
-					
-					$period = '';
-					if ( $days_diff > 365 ) {
-						// Quarterly
-						$q = ceil( $date->date( 'n' ) / 3 );
-						$m = ( $q - 1 ) * 3 + 1;
-						$period = $date->date( 'Y-' ) . str_pad( $m, 2, '0', STR_PAD_LEFT ) . '-01';
-					} elseif ( $days_diff > 90 ) {
-						// Monthly
-						$period = $date->date( 'Y-m' );
-					} else {
-						// Daily
-						$period = $date->date( 'Y-m-d' );
-					}
-
-					if ( ! isset( $store_revenue_raw[ $period ] ) ) {
-						$store_revenue_raw[ $period ] = 0;
-					}
-					$store_revenue_raw[ $period ] += (float) $order->get_total();
-				}
-			}
-
-			// Consolidate and fill gaps
-			$all_periods = array_unique( array_merge( 
-				array_column( $affiliate_revenue_data, 'period' ), 
-				array_keys( $store_revenue_raw ) 
-			) );
-
-			if ( $days_diff <= 90 ) {
-				$curr = $from_date;
-				while ( $curr <= $to_date ) {
-					$all_periods[] = $curr;
-					$curr = date( 'Y-m-d', strtotime( $curr . ' +1 day' ) );
-				}
-			}
-			$all_periods = array_unique( $all_periods );
-			sort( $all_periods );
-
-			$affiliate = [];
-			$total     = [];
-
-			foreach ( $all_periods as $period ) {
-				$aff_val = 0;
-				foreach ( $affiliate_revenue_data as $row ) {
-					if ( $row['period'] === $period ) {
-						$aff_val = $row['value'];
-						break;
-					}
-				}
-				$affiliate[] = [ 'period' => $period, 'value' => $aff_val ];
-				$total[]     = [ 'period' => $period, 'value' => $store_revenue_raw[$period] ?? 0 ];
-			}
-
-			return [
-				'affiliate' => $affiliate,
-				'total'     => $total,
-			];
-		}
-
-		/**
-		 * Get conversion sources data
-		 */
-		public function get_conversion_sources_data( $from_date, $to_date, $affiliate_id = null ) {
-			$affiliate_where = $affiliate_id ? $this->wpdb->prepare( " AND c.affiliate_id = %d", $affiliate_id ) : "";
-
-			$results = $this->wpdb->get_results( $this->wpdb->prepare(
-				"SELECT v.referrer_url as source, COUNT(c.id) as count 
-				FROM {$this->wpdb->ddwcaf_commissions} c
-				LEFT JOIN {$this->wpdb->ddwcaf_visits} v ON c.order_id = v.order_id
-				WHERE c.created_at BETWEEN %s AND %s $affiliate_where 
-				GROUP BY v.referrer_url ORDER BY count DESC",
-				$from_date . ' 00:00:00',
-				$to_date . ' 23:59:59'
-			), ARRAY_A );
-
-			$consolidated = [];
-			$default_label = esc_html__( 'Direct / Unknown', 'affiliates-for-woocommerce' );
-
-			if ( ! empty( $results ) ) {
-				foreach ( $results as $row ) {
-					$source_host = ! empty( $row['source'] ) ? parse_url( $row['source'], PHP_URL_HOST ) : $default_label;
-					
-					// Final fallback if host extraction fails
-					$source = $source_host ?: $default_label;
-
-					if ( ! isset( $consolidated[$source] ) ) {
-						$consolidated[$source] = 0;
-					}
-					$consolidated[$source] += (int) $row['count'];
-				}
-			}
-
-			$formatted = [];
-			foreach ( $consolidated as $source => $count ) {
-				$formatted[] = [
-					'source' => $source,
-					'count'  => $count,
-				];
-			}
-
-			// Re-sort by count and limit
-			usort( $formatted, function( $a, $b ) {
-				return $b['count'] - $a['count'];
-			} );
-
-			return array_slice( $formatted, 0, 10 );
-		}
-
-		/**
-		 * Get recent activities
-		 */
-		public function get_recent_activities( $limit = 10, $affiliate_id = null ) {
-			$affiliate_where_c = $affiliate_id ? $this->wpdb->prepare( " WHERE c.affiliate_id = %d", $affiliate_id ) : "";
-			$affiliate_where_v = $affiliate_id ? $this->wpdb->prepare( " WHERE v.affiliate_id = %d", $affiliate_id ) : "";
-
-			$commissions = $this->wpdb->get_results( $this->wpdb->prepare(
-				"SELECT c.*, u.display_name, u.user_email 
-				FROM {$this->wpdb->ddwcaf_commissions} c 
-				LEFT JOIN {$this->wpdb->users} u ON c.affiliate_id = u.ID 
-				$affiliate_where_c 
-				ORDER BY c.created_at DESC LIMIT %d",
-				$limit
-			), ARRAY_A );
-
-			$visits = $this->wpdb->get_results( $this->wpdb->prepare(
-				"SELECT v.*, u.display_name, u.user_email 
-				FROM {$this->wpdb->ddwcaf_visits} v 
-				LEFT JOIN {$this->wpdb->users} u ON v.affiliate_id = u.ID 
-				$affiliate_where_v 
-				ORDER BY v.date DESC LIMIT %d",
-				$limit
-			), ARRAY_A );
-
-			return [
-				'commissions' => $commissions,
-				'visits'      => $visits,
-			];
-		}
-
-		/**
-		 * Get top affiliates
-		 */
-		public function get_top_affiliates( $limit = 5 ) {
-			return $this->wpdb->get_results( $this->wpdb->prepare(
-				"SELECT u.ID, u.display_name, u.user_email, SUM(c.commission) as total_earnings 
-				FROM {$this->wpdb->users} u 
-				JOIN {$this->wpdb->ddwcaf_commissions} c ON u.ID = c.affiliate_id 
-				WHERE c.status != 'cancelled' 
-				GROUP BY u.ID ORDER BY total_earnings DESC LIMIT %d",
-				$limit
-			), ARRAY_A );
 		}
 
 		/**
 		 * Get date range
 		 */
 		public function get_date_range() {
-			$range = \DevDiggers\Framework\Includes\DDFW_Dashboard_Data::get_date_range();
+			$range = DDFW_Dashboard_Data::get_date_range();
 
 			// Preserve the legacy 'type' alias used internally by this helper.
 			$range['type'] = $range['key'];

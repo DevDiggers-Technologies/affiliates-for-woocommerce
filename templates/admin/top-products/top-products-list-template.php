@@ -133,7 +133,13 @@ if ( ! class_exists( 'DDWCAF_Top_Products_List_Template' ) ) {
 		 * @return void
 		 */
 		public function no_items() {
-			esc_html_e( 'No products avaliable.', 'affiliates-for-woocommerce' );
+			ddwcaf_print_list_empty_state(
+				[
+					'title'       => __( 'No products sold yet', 'affiliates-for-woocommerce' ),
+					'description' => __( 'Products bought through affiliate referrals are ranked here by quantity sold.', 'affiliates-for-woocommerce' ),
+					'icon'        => '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5V8Z"/><path d="m3 8 9 5 9-5M12 13v8"/></svg>',
+				]
+			);
 		}
 
 		/**
@@ -155,7 +161,7 @@ if ( ! class_exists( 'DDWCAF_Top_Products_List_Template' ) ) {
 				'product'    => esc_html__( 'Product', 'affiliates-for-woocommerce' ),
 				'quantity'   => esc_html__( 'Quantity', 'affiliates-for-woocommerce' ),
 				'earnings'   => esc_html__( 'Total Earnings', 'affiliates-for-woocommerce' ),
-				'commission' => esc_html__( 'Total Commisions', 'affiliates-for-woocommerce' ),
+				'commission' => esc_html__( 'Total Commissions', 'affiliates-for-woocommerce' ),
 			];
 
 			return apply_filters( 'ddwcaf_top_products_list_columns', $columns );

@@ -302,7 +302,15 @@ if ( ! class_exists( 'DDWCAF_Payouts_List_Template' ) ) {
 		 * @return void
 		 */
 		public function no_items() {
-			esc_html_e( 'No payouts avaliable.', 'affiliates-for-woocommerce' );
+			ddwcaf_print_list_empty_state(
+				[
+					'title'       => __( 'No payouts yet', 'affiliates-for-woocommerce' ),
+					'description' => __( 'Payouts you send to affiliates, and the ones they request, are listed here.', 'affiliates-for-woocommerce' ),
+					'icon'        => '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0 0 4h15v13H5a2 2 0 0 1-2-2V5"/><path d="M16 13h.01"/></svg>',
+					'button_url'  => admin_url( 'admin.php?page=ddwcaf-dashboard&menu=payouts&tab=create' ),
+					'button_text' => __( 'Create payout', 'affiliates-for-woocommerce' ),
+				]
+			);
 		}
 
 		/**
