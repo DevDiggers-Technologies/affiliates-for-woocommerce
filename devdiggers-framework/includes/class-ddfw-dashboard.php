@@ -59,9 +59,12 @@ if ( ! class_exists( 'DDFW_Dashboard' ) ) {
 		 *                                 show_date_filter (default true), date_range (override),
 		 *                                 filters (selects shown beside the date picker: name, label,
 		 *                                 options as value => label, value).
-		 *     @type array  $summary_cards List of cards: title, value, change, is_positive, icon, value_type.
+		 *     @type array  $summary_cards List of cards: title, value, value_type, icon, change, is_positive,
+		 *                                 previous, note, no_previous_label.
 		 *     @type array  $charts        List of charts: id, title, date_label, full_width, type,
-		 *                                 data, x_key, series, label_key, value_key, value_format, empty.
+		 *                                 data, x_key, series ( key, label, color, style, aggregate:
+		 *                                 'average' for a series that must not add up by week or
+		 *                                 month ), label_key, value_key, value_format, empty.
 		 *     @type array  $widgets       List of bottom widgets: title, render (callable).
 		 * }
 		 */
@@ -131,6 +134,8 @@ if ( ! class_exists( 'DDFW_Dashboard' ) ) {
 			$avatar_url = ! empty( $header['avatar_url'] ) ? $header['avatar_url'] : get_avatar_url( $current_user->ID, [ 'size' => 48 ] );
 			$back_link  = isset( $header['back_link'] ) && is_array( $header['back_link'] ) ? $header['back_link'] : [];
 			?>
+			<?php // Admin notices are moved after this marker; without it WordPress put them after the first heading, inside the welcome line. ?>
+			<hr class="wp-header-end" />
 			<div class="ddfw-dash-header">
 				<div class="ddfw-dash-header-top">
 					<div class="ddfw-dash-header-left">
@@ -157,9 +162,15 @@ if ( ! class_exists( 'DDFW_Dashboard' ) ) {
 						</div>
 					</div>
 
-					<?php if ( $show_date_filter ) : ?>
+					<?php if ( $show_date_filter || ! empty( $header['actions'] ) ) : ?>
 						<div class="ddfw-dash-header-right">
-							<?php $this->render_date_filter(); ?>
+							<?php
+							if ( $show_date_filter ) {
+								$this->render_date_filter();
+							}
+
+							$this->render_header_actions( isset( $header['actions'] ) && is_array( $header['actions'] ) ? $header['actions'] : [] );
+							?>
 						</div>
 					<?php endif; ?>
 				</div>
@@ -192,6 +203,9 @@ if ( ! class_exists( 'DDFW_Dashboard' ) ) {
 			$extra   = array_diff_key( $extra, array_flip( wp_list_pluck( $filters, 'name' ) ) );
 
 			$presets = DDFW_Dashboard_Data::get_presets();
+			$groups  = DDFW_Dashboard_Data::get_preset_groups();
+			$active  = $this->date_range['key'] ?? '30_days';
+			$check = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg>';
 			?>
 			<div class="ddfw-dash-filters">
 				<form method="get" class="ddfw-dash-date-filter-form">
@@ -201,66 +215,103 @@ if ( ! class_exists( 'DDFW_Dashboard' ) ) {
 						<input type="hidden" name="<?php echo esc_attr( $extra_key ); ?>" value="<?php echo esc_attr( $extra_value ); ?>" />
 					<?php endforeach; ?>
 
+					<div class="ddfw-dash-dropdown ddfw-dash-date-range-container">
+						<button type="button" id="ddfw-dash-date-range-picker" class="ddfw-dash-trigger ddfw-dash-date-range-picker" aria-haspopup="dialog" aria-expanded="false">
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+							<span class="ddfw-dash-trigger-label"><?php echo esc_html( $this->date_range['label'] ); ?></span>
+						</button>
+
+						<div class="ddfw-dash-menu ddfw-dash-date-range-dropdown" id="ddfw-dash-date-range-dropdown" role="dialog" aria-label="<?php esc_attr_e( 'Date range', 'affiliates-for-woocommerce' ); ?>" hidden>
+							<ul class="ddfw-dash-date-presets">
+								<?php
+								$previous_group = '';
+								foreach ( $presets as $key => $label ) :
+									$range = DDFW_Dashboard_Data::resolve_range( $key );
+									$group = $groups[ $key ] ?? $key;
+									?>
+									<li class="<?php echo esc_attr( $previous_group && $previous_group !== $group ? 'has-divider' : '' ); ?>">
+										<button type="button" class="ddfw-dash-date-preset<?php echo esc_attr( $active === $key ? ' is-active' : '' ); ?>" data-range="<?php echo esc_attr( $key ); ?>" data-from="<?php echo esc_attr( 'all_time' === $key ? '' : $range['from'] ); ?>" data-to="<?php echo esc_attr( $range['to'] ); ?>">
+											<span><?php echo esc_html( $label ); ?></span>
+											<small class="ddfw-dash-preset-dates"></small>
+										</button>
+									</li>
+									<?php
+									$previous_group = $group;
+								endforeach;
+								?>
+							</ul>
+
+							<div class="ddfw-dash-custom-date-range">
+								<div class="ddfw-dash-calendar"></div>
+								<div class="ddfw-dash-range-footer">
+									<span class="ddfw-dash-range-selection"></span>
+									<span class="ddfw-dash-range-buttons">
+										<button type="button" class="button ddfw-dash-cancel-custom-range"><?php esc_html_e( 'Cancel', 'affiliates-for-woocommerce' ); ?></button>
+										<button type="button" class="button button-primary ddfw-dash-apply-custom-range"><?php esc_html_e( 'Apply', 'affiliates-for-woocommerce' ); ?></button>
+									</span>
+								</div>
+								<input type="hidden" name="from_date" id="ddfw-dash-from-date" value="<?php echo esc_attr( $this->date_range['from'] ); ?>" />
+								<input type="hidden" name="to_date" id="ddfw-dash-to-date" value="<?php echo esc_attr( $this->date_range['to'] ); ?>" />
+							</div>
+						</div>
+
+						<input type="hidden" name="date_range" id="ddfw-dash-selected-range" value="<?php echo esc_attr( $active ); ?>" />
+					</div>
+
 					<?php
+					// Extra filters as dropdowns in the same bar. The first option is the unfiltered one;
+					// any other choice turns the control blue, so a narrowed view is never missed.
 					foreach ( $filters as $filter ) {
 						if ( empty( $filter['name'] ) || empty( $filter['options'] ) || ! is_array( $filter['options'] ) ) {
 							continue;
 						}
 
 						$filter_value = isset( $filter['value'] ) ? (string) $filter['value'] : '';
+						$values       = array_map( 'strval', array_keys( $filter['options'] ) );
+						$filter_value = in_array( $filter_value, $values, true ) ? $filter_value : $values[0];
+						$filter_label = ! empty( $filter['label'] ) ? $filter['label'] : $filter['name'];
+						$is_filtered  = $filter_value !== $values[0];
 						?>
-						<select name="<?php echo esc_attr( $filter['name'] ); ?>" class="ddfw-dash-filter-select" aria-label="<?php echo esc_attr( ! empty( $filter['label'] ) ? $filter['label'] : $filter['name'] ); ?>">
-							<?php foreach ( $filter['options'] as $option_value => $option_label ) : ?>
-								<option value="<?php echo esc_attr( $option_value ); ?>" <?php selected( $filter_value, (string) $option_value ); ?>><?php echo esc_html( $option_label ); ?></option>
-							<?php endforeach; ?>
-						</select>
+						<div class="ddfw-dash-dropdown ddfw-dash-filter">
+							<input type="hidden" name="<?php echo esc_attr( $filter['name'] ); ?>" value="<?php echo esc_attr( $filter_value ); ?>" />
+							<button type="button" class="ddfw-dash-trigger<?php echo esc_attr( $is_filtered ? ' is-filtered' : '' ); ?>" aria-haspopup="listbox" aria-expanded="false" aria-label="<?php echo esc_attr( $filter_label . ': ' . $filter['options'][ $filter_value ] ); ?>">
+								<?php echo ! empty( $filter['icon'] ) ? wp_kses( $filter['icon'], ddfw_kses_allowed_svg_tags() ) : ''; ?>
+								<span class="ddfw-dash-trigger-label"><?php echo esc_html( $filter['options'][ $filter_value ] ); ?></span>
+							</button>
+							<ul class="ddfw-dash-menu" role="listbox" aria-label="<?php echo esc_attr( $filter_label ); ?>" hidden>
+								<?php foreach ( $filter['options'] as $option_value => $option_label ) : ?>
+									<li role="none">
+										<button type="button" role="option" class="ddfw-dash-option<?php echo esc_attr( (string) $option_value === $filter_value ? ' is-active' : '' ); ?>" data-value="<?php echo esc_attr( $option_value ); ?>" aria-selected="<?php echo esc_attr( (string) $option_value === $filter_value ? 'true' : 'false' ); ?>">
+											<span><?php echo esc_html( $option_label ); ?></span>
+											<?php echo (string) $option_value === $filter_value ? $check : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Static SVG. ?>
+										</button>
+									</li>
+								<?php endforeach; ?>
+							</ul>
+						</div>
 						<?php
 					}
 					?>
-
-					<div class="ddfw-dash-date-range-container">
-						<input type="text"
-							id="ddfw-dash-date-range-picker"
-							class="ddfw-dash-date-range-picker"
-							value="<?php echo esc_attr( $this->date_range['label'] ); ?>"
-							readonly />
-
-						<div class="ddfw-dash-date-range-dropdown" id="ddfw-dash-date-range-dropdown">
-							<div class="ddfw-dash-dropdown-content">
-								<div class="ddfw-dash-date-presets">
-									<div class="ddfw-dash-presets-header">
-										<h4><?php esc_html_e( 'Quick Select', 'affiliates-for-woocommerce' ); ?></h4>
-									</div>
-									<?php foreach ( $presets as $key => $label ) : ?>
-										<button type="button" class="ddfw-dash-date-preset" data-range="<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $label ); ?></button>
-									<?php endforeach; ?>
-								</div>
-
-								<div class="ddfw-dash-custom-date-range">
-									<div class="ddfw-dash-custom-header">
-										<h4><?php esc_html_e( 'Custom Range', 'affiliates-for-woocommerce' ); ?></h4>
-										<p><?php esc_html_e( 'Select specific start and end dates for your analysis', 'affiliates-for-woocommerce' ); ?></p>
-									</div>
-									<div class="ddfw-dash-date-inputs">
-										<div class="ddfw-dash-date-input-group">
-											<label for="ddfw-dash-from-date"><?php esc_html_e( 'From Date', 'affiliates-for-woocommerce' ); ?></label>
-											<input type="date" name="from_date" id="ddfw-dash-from-date" value="<?php echo esc_attr( $this->date_range['from'] ); ?>" />
-										</div>
-										<div class="ddfw-dash-date-input-group">
-											<label for="ddfw-dash-to-date"><?php esc_html_e( 'To Date', 'affiliates-for-woocommerce' ); ?></label>
-											<input type="date" name="to_date" id="ddfw-dash-to-date" value="<?php echo esc_attr( $this->date_range['to'] ); ?>" />
-										</div>
-									</div>
-									<button type="button" class="ddfw-dash-apply-custom-range button button-primary"><?php esc_html_e( 'Apply Custom Range', 'affiliates-for-woocommerce' ); ?></button>
-								</div>
-							</div>
-						</div>
-
-						<input type="hidden" name="date_range" id="ddfw-dash-selected-range" value="<?php echo esc_attr( $this->date_range['key'] ?? '30_days' ); ?>" />
-					</div>
 				</form>
 			</div>
 			<?php
+		}
+
+		/**
+		 * Render links on the right of the header ( e.g. "View reports" on a today overview ).
+		 *
+		 * @param array $actions List of actions: label, url, primary, new_tab.
+		 * @return void
+		 */
+		protected function render_header_actions( $actions ) {
+			foreach ( $actions as $action ) {
+				if ( empty( $action['url'] ) || empty( $action['label'] ) ) {
+					continue;
+				}
+				?>
+				<a href="<?php echo esc_url( $action['url'] ); ?>" class="button<?php echo ! empty( $action['primary'] ) ? ' button-primary' : ''; ?> ddfw-dash-header-action"<?php echo ! empty( $action['new_tab'] ) ? ' target="_blank" rel="noopener"' : ''; ?>><?php echo esc_html( $action['label'] ); ?></a>
+				<?php
+			}
 		}
 
 		/**
@@ -299,44 +350,84 @@ if ( ! class_exists( 'DDFW_Dashboard' ) ) {
 		}
 
 		/**
-		 * Render a single summary card.
+		 * Render a single summary card: label ( with its icon ), the figure, and how it compares
+		 * with the previous period. No sparkline: only two or three cards per dashboard have a
+		 * matching daily series, and a row where some cards have one and others don't looked broken.
 		 *
-		 * @param array $card Card config: title, value, change, is_positive, icon, value_type.
+		 * @param array $card Card config: title, value, value_type, icon, change ( percent; null when
+		 *                    the previous period had nothing ), is_positive, previous ( formatted
+		 *                    previous figure ), note, no_previous_label.
 		 * @return void
 		 */
 		protected function render_summary_card( $card ) {
-			$title       = $card['title'] ?? '';
-			$value       = $card['value'] ?? 0;
-			$change      = round( (float) ( $card['change'] ?? 0 ), 1 ); // Float default: `0.0 !== 0` is true and showed a bogus 0%.
-			$is_positive = ! isset( $card['is_positive'] ) || $card['is_positive'];
-			$icon_svg    = $card['icon'] ?? '';
-			$value_type  = $card['value_type'] ?? 'number';
+			$value      = $card['value'] ?? 0;
+			$value_type = $card['value_type'] ?? 'number';
+			$no_compare = array_key_exists( 'change', $card ) && null === $card['change'];
+			$change     = round( (float) ( $card['change'] ?? 0 ), 1 ); // Float default: `0.0 !== 0` is true and showed a bogus 0%.
+			$good       = ! isset( $card['is_positive'] ) || $card['is_positive'];
+
+			// Zero now and zero before ( "$0.00" from "$0.00" ): one line for every plugin, instead of
+			// "No change", "None in the previous period" or a 0% depending on how each one counted.
+			$zero = static function ( $figure ) {
+				$text = html_entity_decode( wp_strip_all_tags( (string) $figure ), ENT_QUOTES, 'UTF-8' );
+				return (bool) preg_match( '/\d/', $text ) && ! preg_match( '/[1-9]/', $text );
+			};
+			if ( isset( $card['previous'] ) && '' !== $card['previous'] && $zero( $value ) && $zero( $card['previous'] ) ) {
+				$no_compare                = false;
+				$change                    = 0.0;
+				$card['note'] = __( 'No activity in either period', 'affiliates-for-woocommerce' );
+			}
 			?>
 			<div class="ddfw-dash-summary-card">
-				<div class="ddfw-dash-card-header">
-					<div class="ddfw-dash-card-icon"><?php echo wp_kses( $icon_svg, ddfw_kses_allowed_svg_tags() ); ?></div>
-					<?php if ( 0.0 !== abs( $change ) ) : ?>
-						<div class="ddfw-dash-change-indicator <?php echo esc_attr( $is_positive ? 'positive' : 'negative' ); ?>">
-							<?php if ( $is_positive ) : ?>
-								<svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23 6l-9.5 9.5-5-5L1 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 6h6v6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-							<?php else : ?>
-								<svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23 18l-9.5-9.5-5 5L1 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 18h6v-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-							<?php endif; ?>
-							<span><?php echo esc_html( $change ); ?>%</span>
-						</div>
-					<?php endif; ?>
-				</div>
 				<div class="ddfw-dash-card-content">
-					<h4><?php echo esc_html( $title ); ?></h4>
+					<h4>
+						<?php if ( ! empty( $card['icon'] ) ) : ?>
+							<span class="ddfw-dash-card-icon" aria-hidden="true"><?php echo wp_kses( $card['icon'], ddfw_kses_allowed_svg_tags() ); ?></span>
+						<?php endif; ?>
+						<span><?php echo esc_html( $card['title'] ?? '' ); ?></span>
+					</h4>
+					<?php
+					// The comparison is a line of its own under the figure: beside it, it crowded the
+					// number in a narrow card and read as part of it.
+					$has_change = ! $no_compare && 0.0 !== abs( $change );
+					?>
 					<div class="ddfw-dash-card-value">
 						<?php if ( 'number' === $value_type ) : ?>
 							<span class="ddfw-dash-value-number"><?php echo esc_html( number_format_i18n( (float) $value ) ); ?></span>
 						<?php elseif ( 'html' === $value_type ) : ?>
 							<span class="ddfw-dash-value-text"><?php echo wp_kses_post( $value ); ?></span>
-						<?php else : ?>
+						<?php elseif ( is_numeric( $value ) || preg_match( '/^[\d.,%+\-\s]+$/', (string) $value ) ) : ?>
+							<?php // A figure passed as text ( "3", "-12%" ) keeps the figure size; only a name gets the label size. ?>
 							<span class="ddfw-dash-value-text"><?php echo esc_html( $value ); ?></span>
+						<?php else : ?>
+							<span class="ddfw-dash-value-text is-label" title="<?php echo esc_attr( $value ); ?>"><?php echo esc_html( $value ); ?></span>
 						<?php endif; ?>
 					</div>
+					<?php if ( $no_compare ) : ?>
+						<p class="ddfw-dash-card-note"><?php echo esc_html( $card['no_previous_label'] ?? __( 'None in the previous period', 'affiliates-for-woocommerce' ) ); ?></p>
+					<?php elseif ( $has_change ) : ?>
+						<p class="ddfw-dash-card-note">
+							<span class="ddfw-dash-change-indicator <?php echo esc_attr( $good ? 'positive' : 'negative' ); ?>">
+								<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><?php echo $change > 0 ? '<path d="M22 7 13.5 15.5 8.5 10.5 2 17"/><path d="M16 7h6v6"/>' : '<path d="M22 17 13.5 8.5 8.5 13.5 2 7"/><path d="M16 17h6v-6"/>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Static markup. ?></svg>
+								<?php // Past 1000% the exact figure only says "from almost nothing". ?>
+								<?php echo esc_html( ( $change < 0 ? '-' : '' ) . ( abs( $change ) >= 1000 ? '999+' : number_format_i18n( abs( $change ), fmod( $change, 1 ) ? 1 : 0 ) ) . '%' ); ?>
+							</span>
+							<span>
+								<?php
+								if ( ! empty( $card['note'] ) ) {
+									echo wp_kses_post( $card['note'] );
+								} elseif ( isset( $card['previous'] ) && '' !== $card['previous'] ) {
+									/* translators: %s: the figure in the previous period */
+									echo esc_html( sprintf( __( 'from %s', 'affiliates-for-woocommerce' ), wp_strip_all_tags( (string) $card['previous'] ) ) );
+								} else {
+									esc_html_e( 'vs previous period', 'affiliates-for-woocommerce' );
+								}
+								?>
+							</span>
+						</p>
+					<?php elseif ( ! empty( $card['note'] ) ) : ?>
+						<p class="ddfw-dash-card-note"><?php echo wp_kses_post( $card['note'] ); ?></p>
+					<?php endif; ?>
 				</div>
 			</div>
 			<?php
@@ -491,14 +582,95 @@ if ( ! class_exists( 'DDFW_Dashboard' ) ) {
 		}
 
 		/**
+		 * One widget list in the shared style, so every plugin's lists line up: a thumbnail ( a
+		 * square tile for products, a round avatar for people, a placeholder tile when there is no
+		 * image ), a title with a meta line, and a value on the right. Call it from a widget's
+		 * `render` callback.
+		 *
+		 * @param array  $items {
+		 *     List rows.
+		 *
+		 *     @type string $title       Title ( plain text ).
+		 *     @type string $meta        Meta line under the title ( plain text ).
+		 *     @type string $url         Optional link for the row.
+		 *     @type string $image       Optional image: an <img> tag ( `$product->get_image()` ) or an image URL.
+		 *     @type string $shape       'square' ( products, the default ) or 'round' ( people ).
+		 *     @type string $value       Optional value on the right ( HTML: `wc_price()`, a status badge ).
+		 *     @type string $value_class Optional 'positive' or 'negative' for a tinted signed value.
+		 * }
+		 * @param string $empty Message shown when there are no rows.
+		 * @param bool   $image Whether rows carry an image column. Rows without one get the placeholder tile.
+		 * @return void
+		 */
+		public static function render_list( $items, $empty = '', $image = true ) {
+			if ( empty( $items ) ) {
+				?>
+				<div class="ddfw-dash-no-data"><?php echo esc_html( $empty ? $empty : __( 'Nothing to show yet.', 'affiliates-for-woocommerce' ) ); ?></div>
+				<?php
+				return;
+			}
+			?>
+			<div class="ddfw-dash-list">
+				<?php foreach ( $items as $item ) : ?>
+					<?php
+					$tag    = empty( $item['url'] ) ? 'div' : 'a';
+					$round  = 'round' === ( $item['shape'] ?? 'square' );
+					$source = $item['image'] ?? '';
+					// WooCommerce's grey placeholder for a product without a photo reads as a broken
+					// image at this size: the shared placeholder tile says "no image" instead.
+					if ( $source && false !== strpos( $source, 'woocommerce-placeholder' ) ) {
+						$source = '';
+					}
+					?>
+					<<?php echo esc_attr( $tag ); ?> class="ddfw-dash-list-item"<?php echo 'a' === $tag ? ' href="' . esc_url( $item['url'] ) . '"' : ''; ?>>
+						<?php if ( $image ) : ?>
+							<?php if ( $source ) : ?>
+								<span class="ddfw-dash-list-avatar<?php echo $round ? '' : ' is-square'; ?>">
+									<?php echo false === strpos( $source, '<img' ) ? '<img src="' . esc_url( $source ) . '" alt="" loading="lazy" />' : wp_kses_post( $source ); ?>
+								</span>
+							<?php else : ?>
+								<span class="ddfw-dash-list-placeholder<?php echo $round ? ' is-round' : ''; ?>" aria-hidden="true">
+									<?php if ( $round ) : ?>
+										<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+									<?php else : ?>
+										<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.09-3.09a2 2 0 0 0-2.82 0L6 21"/></svg>
+									<?php endif; ?>
+								</span>
+							<?php endif; ?>
+						<?php endif; ?>
+						<span class="ddfw-dash-list-info">
+							<span class="ddfw-dash-list-title"><?php echo esc_html( $item['title'] ?? '' ); ?></span>
+							<?php if ( ! empty( $item['meta'] ) ) : ?>
+								<span class="ddfw-dash-list-meta"><?php echo esc_html( $item['meta'] ); ?></span>
+							<?php endif; ?>
+						</span>
+						<?php if ( isset( $item['value'] ) && '' !== $item['value'] ) : ?>
+							<span class="ddfw-dash-list-value<?php echo ! empty( $item['value_class'] ) ? ' ' . esc_attr( $item['value_class'] ) : ''; ?>"><?php echo wp_kses_post( $item['value'] ); ?></span>
+						<?php endif; ?>
+					</<?php echo esc_attr( $tag ); ?>>
+				<?php endforeach; ?>
+			</div>
+			<?php
+		}
+
+		/**
 		 * Localize the collected chart config + shared strings for the JS engine.
 		 *
 		 * @return void
 		 */
 		protected function localize() {
-			$currency_symbol = function_exists( 'get_woocommerce_currency_symbol' )
-				? html_entity_decode( get_woocommerce_currency_symbol() )
-				: '$';
+			// Charts write money the way the store does: its currency, symbol position, decimals
+			// and separators. A plugin on another store ( FluentCart ) passes its own through the filter.
+			$currency = function_exists( 'get_woocommerce_currency_symbol' )
+				? [
+					'symbol'            => html_entity_decode( get_woocommerce_currency_symbol(), ENT_QUOTES, 'UTF-8' ),
+					'position'          => get_option( 'woocommerce_currency_pos', 'left' ),
+					'decimals'          => wc_get_price_decimals(),
+					'decimalSeparator'  => wc_get_price_decimal_separator(),
+					'thousandSeparator' => wc_get_price_thousand_separator(),
+				]
+				: [ 'symbol' => '$' ];
+			$currency = apply_filters( 'ddfw_dashboard_currency', $currency );
 
 			wp_localize_script(
 				'ddfw-dashboard-analytics-script',
@@ -506,10 +678,28 @@ if ( ! class_exists( 'DDFW_Dashboard' ) ) {
 				[
 					'charts'         => $this->charts_js,
 					'dateRange'      => $this->date_range,
-					'currencySymbol' => $currency_symbol,
+					'currency'       => $currency,
+					'currencySymbol' => $currency['symbol'],
+					'today'          => current_time( 'Y-m-d' ),
+					'startOfWeek'    => (int) get_option( 'start_of_week', 1 ),
 					'i18n'           => [
-						'noData' => esc_html__( 'No data available', 'affiliates-for-woocommerce' ),
-						'total'  => esc_html__( 'Total', 'affiliates-for-woocommerce' ),
+						'noData'        => esc_html__( 'No data available', 'affiliates-for-woocommerce' ),
+						'total'         => esc_html__( 'Total', 'affiliates-for-woocommerce' ),
+						'pickStart'     => esc_html__( 'Pick a start date', 'affiliates-for-woocommerce' ),
+						'pickEnd'       => esc_html__( 'Now pick the end date', 'affiliates-for-woocommerce' ),
+						'previousMonth' => esc_html__( 'Previous month', 'affiliates-for-woocommerce' ),
+						'nextMonth'     => esc_html__( 'Next month', 'affiliates-for-woocommerce' ),
+						/* translators: %s: the period still being counted, e.g. "Oct 19 – 25, 2026". */
+						'soFar'         => esc_html__( '%s (so far)', 'affiliates-for-woocommerce' ),
+						'busiestDay'    => esc_html__( 'Busiest day', 'affiliates-for-woocommerce' ),
+						'busiestHour'   => esc_html__( 'Busiest hour', 'affiliates-for-woocommerce' ),
+						'less'          => esc_html__( 'Less', 'affiliates-for-woocommerce' ),
+						'more'          => esc_html__( 'More', 'affiliates-for-woocommerce' ),
+						'day'           => esc_html__( 'Day', 'affiliates-for-woocommerce' ),
+						'week'          => esc_html__( 'Week', 'affiliates-for-woocommerce' ),
+						'month'         => esc_html__( 'Month', 'affiliates-for-woocommerce' ),
+						'line'          => esc_html__( 'Line', 'affiliates-for-woocommerce' ),
+						'bar'           => esc_html__( 'Bar', 'affiliates-for-woocommerce' ),
 					],
 				]
 			);

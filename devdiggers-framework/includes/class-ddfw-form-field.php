@@ -98,6 +98,9 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 
 			if ( $args['required'] ) {
 				$args['class'][] = 'validate-required';
+				// Marks the input itself, without the browser's own validation ( a required field hidden
+				// by a toggle would block the form ), so scripts such as the date picker can tell.
+				$args['custom_attributes']['data-required'] = 'true';
 				$required        = '&nbsp;<abbr class="required" title="' . esc_attr__( 'required', 'affiliates-for-woocommerce' ) . '">*</abbr>';
 			} else {
 				$required = '';
@@ -126,7 +129,7 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 				$args['custom_attributes']['autofocus'] = 'autofocus';
 			}
 
-			if ( $args['description'] ) {
+			if ( $args['description'] && $args['id'] ) {
 				$args['custom_attributes']['aria-describedby'] = $args['id'] . '-description';
 			}
 
@@ -325,40 +328,39 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 					$image_src  = wp_get_attachment_image_src( $value, 'thumbnail' );
 					$image_url  = ! empty( $image_src ) ? $image_src[0] : ( $args['default_image'] ? $args['default_image'] : '' );
 					?>
+					<?php
+					// A compact row: the image ( or an empty tile ) with its buttons beside it, always
+					// visible. Class names and ids stay as they were, plugins script against them.
+					$image_icon = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/></svg>';
+					?>
 					<div>
 						<div class="ddfw-image-upload regular-text">
 							<div class="ddfw-image-preview-container <?php echo esc_attr( $value || $args['default_image'] ? '' : 'ddfw-hide' ); ?>">
 								<div class="ddfw-image-preview-wrapper">
-									<img src="<?php echo esc_url( $image_url ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>-preview" />
-									<div class="ddfw-image-actions">
-										<span class="ddfw-upload-image-button" data-id="<?php echo esc_attr( $args['id'] ); ?>" title="<?php esc_attr_e( 'Replace Image', 'affiliates-for-woocommerce' ); ?>">
-											<span class="dashicons dashicons-edit"></span>
-										</span>
-										<span class="ddfw-remove-image-button <?php echo esc_attr( $args['default_image'] && ! $value ? 'ddfw-hide' : '' ); ?>" data-id="<?php echo esc_attr( $args['id'] ); ?>" title="<?php esc_attr_e( 'Remove Image', 'affiliates-for-woocommerce' ); ?>">
-											<span class="dashicons dashicons-trash"></span>
-										</span>
-									</div>
+									<img src="<?php echo esc_url( $image_url ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>-preview" alt="" />
 								</div>
-								<p><?php esc_html_e( 'Hover on the image to replace or remove', 'affiliates-for-woocommerce' ); ?></p>
+								<?php // Which image this is: shown from CSS, so it follows plugins that swap the default too. ?>
+								<span class="ddfw-image-upload-text ddfw-image-state">
+									<strong class="is-custom"><?php esc_html_e( 'Your image', 'affiliates-for-woocommerce' ); ?></strong>
+									<strong class="is-default"><?php esc_html_e( 'Default image', 'affiliates-for-woocommerce' ); ?></strong>
+									<span class="is-default"><?php esc_html_e( 'Replace it with your own', 'affiliates-for-woocommerce' ); ?></span>
+								</span>
+								<div class="ddfw-image-actions">
+									<button type="button" class="button ddfw-upload-image-button" data-id="<?php echo esc_attr( $args['id'] ); ?>" <?php echo wp_kses_data( implode( ' ', $custom_attributes ) ); ?>><?php esc_html_e( 'Replace', 'affiliates-for-woocommerce' ); ?></button>
+									<button type="button" class="button-link ddfw-remove-image-button <?php echo esc_attr( $args['default_image'] && ! $value ? 'ddfw-hide' : '' ); ?>" data-id="<?php echo esc_attr( $args['id'] ); ?>" <?php echo wp_kses_data( implode( ' ', $custom_attributes ) ); ?>><?php esc_html_e( 'Remove', 'affiliates-for-woocommerce' ); ?></button>
+								</div>
 							</div>
 							<div class="ddfw-image-upload-wrapper <?php echo esc_attr( $value || $args['default_image'] ? 'ddfw-hide' : '' ); ?>">
-								<div class="ddfw-upload-icon-wrapper">
-									<?php DDFW_SVG::get_svg_icon( 'upload', false ); ?>
-								</div>
-								<h3><?php esc_html_e( 'Upload Image', 'affiliates-for-woocommerce' ); ?></h3>
-								<p><?php esc_html_e( 'Click the upload button to select an image from your media library or upload a new one.', 'affiliates-for-woocommerce' ); ?></p>
+								<?php // The whole card is the button: icon, label and hint. ?>
+								<button type="button" class="ddfw-upload-image-button ddfw-image-dropzone" data-id="<?php echo esc_attr( $args['id'] ); ?>" <?php echo wp_kses_data( implode( ' ', $custom_attributes ) ); ?>>
+									<span class="ddfw-upload-icon-wrapper"><?php echo $image_icon; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Static markup. ?></span>
+									<span class="ddfw-image-upload-text">
+										<strong><?php esc_html_e( 'Upload image', 'affiliates-for-woocommerce' ); ?></strong>
+										<span><?php esc_html_e( 'From your media library', 'affiliates-for-woocommerce' ); ?></span>
+									</span>
+								</button>
 								<input type="hidden" name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $args['id'] ); ?>" value="<?php echo esc_attr( $value ); ?>" />
 								<input type="hidden" id="<?php echo esc_attr( $args['id'] ); ?>-default-image" value="<?php echo esc_attr( $args['default_image'] ? $args['default_image'] : '' ); ?>" />
-								<button type="button" class="button ddfw-upload-image-button" data-id="<?php echo esc_attr( $args['id'] ); ?>" <?php echo wp_kses_data( implode( ' ', $custom_attributes ) ); ?>>
-									<?php
-									DDFW_SVG::get_svg_icon(
-										'file',
-										false,
-										[ 'size' => 15 ]
-									);
-									esc_html_e( 'Choose Image', 'affiliates-for-woocommerce' );
-									?>
-								</button>
 							</div>
 						</div>
 					</div>
@@ -474,6 +476,9 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 								}
 								$wrapper = ! empty( $column['wrapper'] ) ? $column['wrapper'] : 'span'; ?>
 								<<?php echo esc_attr( $wrapper ); ?>>
+									<?php if ( ! empty( $column['label'] ) ) : ?>
+										<span class="ddfw-column-label"><?php echo esc_html( $column['label'] ); ?></span>
+									<?php endif; ?>
 									<?php echo wp_kses_post( isset( $column['prefix'] ) ? $column['prefix'] : '' ); ?>
 									<input
 										type="<?php echo esc_attr( $column['type'] ); ?>"
@@ -483,7 +488,7 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 										<?php echo ! empty( $column['class'] ) ? 'class="' . esc_attr( implode( ' ', (array) $column['class'] ) ) . '"' : ''; ?>
 										<?php echo ! empty( $column['placeholder'] ) ? 'placeholder="' . esc_attr( $column['placeholder'] ) . '"' : ''; ?>
 										<?php echo isset( $column['min'] ) ? 'min="' . esc_attr( $column['min'] ) . '"' : ''; ?>
-										<?php echo esc_attr( ! empty( $column['custom_attributes'] ) ? implode( ' ', array_map( function( $k, $v ) { return esc_attr( $k ) . '="' . esc_attr( $v ) . '"'; }, array_keys( $column['custom_attributes'] ), $column['custom_attributes'] ) ) : '' ); ?>
+										<?php echo ! empty( $column['custom_attributes'] ) ? implode( ' ', array_map( fn( $k, $v ) => esc_attr( $k ) . '="' . esc_attr( $v ) . '"', array_keys( $column['custom_attributes'] ), $column['custom_attributes'] ) ) : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Each name and value is escaped above. ?>
 									/>
 									<?php echo wp_kses_post( isset( $column['suffix'] ) ? $column['suffix'] : '' ); ?>
 								</<?php echo esc_attr( $wrapper ); ?>>
@@ -563,7 +568,7 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 					if ( $is_admin ) {
 						ob_start();
 						?>
-						<p class="description" id="<?php echo esc_attr( $args['id'] ); ?>-description">
+						<p class="description"<?php echo $args['id'] ? ' id="' . esc_attr( $args['id'] ) . '-description"' : ''; ?>>
 							<?php echo wp_kses_post( $args['description'] ); ?>
 						</p>
 						<?php
@@ -571,7 +576,7 @@ if ( ! class_exists( 'DDFW_Form_Field' ) ) {
 					} else {
 						ob_start();
 						?>
-						<i class="description" id="<?php echo esc_attr( $args['id'] ); ?>-description">
+						<i class="description"<?php echo $args['id'] ? ' id="' . esc_attr( $args['id'] ) . '-description"' : ''; ?>>
 							<?php echo wp_kses_post( $args['description'] ); ?>
 						</i>
 						<?php
