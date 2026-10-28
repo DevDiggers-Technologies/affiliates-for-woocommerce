@@ -10,10 +10,10 @@
 
 **WooCommerce**
   * `Requires at least: 9.0.0`
-  * `Tested up to: 11.0.1`
+  * `Tested up to: 11.2`
 
 **Requires PHP**: `7.4`
-**Stable tag**: `2.2.0`
+**Stable tag**: `2.4.0`
 **License**: `GPL v3.0`
 
 ## Description
@@ -86,7 +86,8 @@ Affiliates get their own dashboard inside the WooCommerce My Account page, so th
 
 * Affiliates list with status control and per affiliate earnings summary
 * Single affiliate screen with full profile and commission history
-* Commission log across all affiliates with filters
+* Dashboard with earnings, sales, visits, conversion rate and payouts, each compared with the previous period
+* Commission log across all affiliates with filters and a count on each status tab
 * Visit log with referral source URLs
 * Top products report
 
@@ -168,6 +169,24 @@ npm run build
 [Documentation](https://docs.devdiggers.com/woocommerce-affiliates/) | [Support forum](https://wordpress.org/support/plugin/affiliates-for-woocommerce/) | [Contact DevDiggers](https://devdiggers.com/contact/)
 
 ## Changelog
+
+**= 2.4.0 =**
+* Improved the Dashboard so its figures match the Pro Reports page. Refunded commission no longer counts as earnings, and each card now shows the previous period's figure.
+* Improved the Dashboard conversion rate and average commission cards, which now compare with the previous period too.
+* Improved Dashboard speed. It runs a few queries instead of fifty and keeps its figures until a commission, payout or visit changes.
+* Fixed the store revenue line on the Dashboard chart dipping below zero on days with a refund.
+* Added counts to the status tabs on the Commissions, Payouts and Visits lists.
+* Added a clear empty state to every admin list, with its own message when a search or filter matches nothing.
+* Added database indexes on visit, commission and payout dates and affiliates, so lists and the Dashboard stay fast on large stores. They are added automatically on update.
+* Improved money formatting on the affiliate charts in admin, which now follow the store's currency position and separators.
+* Updated the status badge colours to match the other DevDiggers plugins.
+* Fixed the Commissions, Visits and Payouts date filters leaving out the last day of the range.
+* Fixed JavaScript errors on the Affiliates admin screens that stopped WordPress audio and video players from loading.
+* Fixed typos in list headings and empty list messages.
+* Added Pro previews of the Fraud report and the Fraud Prevention settings, and refreshed the Reports preview to show the new Pro Reports page.
+* Moved the fraud prevention Pro preview from the Referrals tab to its own Fraud Prevention tab.
+* Updated the bundled DevDiggers framework to 1.2.0.
+* Tested with WordPress 7.1 and WooCommerce 11.2.
 
 **= 2.3.0 =**
 * Upgraded to DevDiggers Framework 1.1.0: admin screens now open instantly without a full page reload, with skeleton placeholders while a screen loads.

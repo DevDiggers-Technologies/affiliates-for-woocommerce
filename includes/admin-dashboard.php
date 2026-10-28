@@ -118,6 +118,11 @@ if ( ! class_exists( 'DDWCAF_Admin_Dashboard' ) ) {
                         'callback' => [ $this, 'ddwcaf_get_visits_list' ],
                         'layout'   => 'full-width',
                     ],
+                    'fraud'          => [
+                        'label'    => esc_html__( 'Fraud', 'affiliates-for-woocommerce' ),
+                        'callback' => [ $this, 'ddwcaf_get_fraud_report' ],
+                        'layout'   => 'full-width',
+                    ],
                     'reports'         => [
                         'label'    => esc_html__( 'Reports', 'affiliates-for-woocommerce' ),
                         'callback' => [ $this, 'ddwcaf_get_reports' ],
@@ -159,6 +164,15 @@ if ( ! class_exists( 'DDWCAF_Admin_Dashboard' ) ) {
                                     [ 'size' => 18 ]
                                 ),
                                 'callback' => [ $this, 'ddwcaf_get_referrals_configuration_template' ],
+                            ],
+                            'fraud'       => [
+                                'label'    => esc_html__( 'Fraud Prevention', 'affiliates-for-woocommerce' ),
+                                'icon'     => DDFW_SVG::get_svg_icon(
+                                    'fraud',
+                                    true,
+                                    [ 'size' => 18 ]
+                                ),
+                                'callback' => [ $this, 'ddwcaf_get_fraud_configuration_template' ],
                             ],
                             'commissions' => [
                                 'label'    => esc_html__( 'Commissions', 'affiliates-for-woocommerce' ),
@@ -304,17 +318,89 @@ if ( ! class_exists( 'DDWCAF_Admin_Dashboard' ) ) {
             ddfw_upgrade_to_pro_section(
                 [
                     'image_url'     => DDWCAF_PLUGIN_URL . 'assets/images/pro-pages/reports.webp',
-                    'heading'       => esc_html__( 'Advanced Affiliate Analytics', 'affiliates-for-woocommerce' ),
-                    'description'   => esc_html__( 'Get deep insights into your affiliate program performance with comprehensive reports and real-time data visualization.', 'affiliates-for-woocommerce' ),
+                    'heading'       => esc_html__( 'Affiliate Reports in One Place', 'affiliates-for-woocommerce' ),
+                    'description'   => esc_html__( 'The Dashboard shows your program at a glance. Upgrade to Pro for one Reports page with every affiliate figure, compared with an earlier period and exportable to CSV.', 'affiliates-for-woocommerce' ),
                     'list_features' => [
-                        esc_html__( 'Detailed Revenue and Commission Overviews', 'affiliates-for-woocommerce' ),
-                        esc_html__( 'Top Performing Affiliates and Products Tracking', 'affiliates-for-woocommerce' ),
-                        esc_html__( 'Visit and Conversion Rate Analysis', 'affiliates-for-woocommerce' ),
-                        esc_html__( 'Custom Date Range Filtering', 'affiliates-for-woocommerce' ),
+                        esc_html__( 'Referral sales, commission, orders, visits and conversion rate against the previous period or last year', 'affiliates-for-woocommerce' ),
+                        esc_html__( 'Top affiliates, products, traffic sources and landing pages', 'affiliates-for-woocommerce' ),
+                        esc_html__( 'Commission by status and paid out by payout method', 'affiliates-for-woocommerce' ),
+                        esc_html__( 'Busiest weekday and hour for referral visits', 'affiliates-for-woocommerce' ),
+                        esc_html__( 'Unpaid and flagged commission that needs your attention', 'affiliates-for-woocommerce' ),
+                        esc_html__( 'Filter by date range and affiliate, with CSV exports', 'affiliates-for-woocommerce' ),
                     ],
                     'upgrade_url'   => 'https://devdiggers.com/product/woocommerce-affiliates/?utm_source=Affiliates for WooCommerce Plugin&utm_medium=Plugin Reports Page&utm_campaign=Affiliates for WooCommerce Pro',
                 ]
             );
+        }
+
+        /**
+		 * Fraud Report Submenu
+		 *
+		 * @return void
+		 */
+        public function ddwcaf_get_fraud_report() {
+            ddfw_upgrade_to_pro_section(
+                [
+                    'image_url'     => DDWCAF_PLUGIN_URL . 'assets/images/pro-pages/fraud-report.webp',
+                    'heading'       => esc_html__( 'See Every Referral the Fraud Checks Caught', 'affiliates-for-woocommerce' ),
+                    'description'   => esc_html__( 'Upgrade to Pro for a Fraud report that shows which affiliates trip the self referral checks most and which orders were refused, so you can act before a payout goes out.', 'affiliates-for-woocommerce' ),
+                    'list_features' => [
+                        esc_html__( 'Flagged, rejected and refused referrals counted per affiliate', 'affiliates-for-woocommerce' ),
+                        esc_html__( 'The latest refused orders with the reason for each', 'affiliates-for-woocommerce' ),
+                        esc_html__( 'One click to review the flagged commissions', 'affiliates-for-woocommerce' ),
+                    ],
+                    'upgrade_url'   => 'https://devdiggers.com/product/woocommerce-affiliates/?utm_source=Affiliates for WooCommerce Plugin&utm_medium=Plugin Fraud Page&utm_campaign=Affiliates for WooCommerce Pro',
+                ]
+            );
+        }
+
+        /**
+		 * Status tabs above a list, each with the number of rows it holds under the current search
+		 * and filters, as the other DevDiggers plugins show them. A tab keeps those filters, so
+		 * opening it lists the rows it counted.
+		 *
+		 * @param array    $shows Status => label; '' is All.
+		 * @param callable $count The list helper's count function, given the list's args.
+		 * @return void
+		 */
+        protected function ddwcaf_print_status_views( $shows, $count ) {
+            // phpcs:disable WordPress.Security.NonceVerification.Recommended -- Read-only list filters.
+            $query   = [];
+            $args    = [];
+            $current = ! empty( $_GET[ 'show' ] ) ? sanitize_text_field( wp_unslash( $_GET[ 'show' ] ) ) : '';
+            $filters = [
+                's'            => 'search',
+                'affiliate-id' => 'affiliate_id',
+                'payout-id'    => 'payout_id',
+                'product-id'   => 'product_id',
+                'from-date'    => 'from_date',
+                'end-date'     => 'end_date',
+            ];
+
+            foreach ( $filters as $param => $arg ) {
+                if ( ! empty( $_GET[ $param ] ) && is_string( $_GET[ $param ] ) ) {
+                    $query[ $param ] = sanitize_text_field( wp_unslash( $_GET[ $param ] ) );
+                    $args[ $arg ]    = $query[ $param ];
+                }
+            }
+            // phpcs:enable
+
+            $base = add_query_arg(
+                [
+                    'page' => 'ddwcaf-dashboard',
+                    'menu' => isset( $_GET[ 'menu' ] ) ? sanitize_key( wp_unslash( $_GET[ 'menu' ] ) ) : '', // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+                ] + $query,
+                admin_url( 'admin.php' )
+            );
+            ?>
+            <ul class="subsubsub">
+                <?php foreach ( $shows as $key => $label ) : ?>
+                    <li class="<?php echo esc_attr( $key ); ?>">
+                        <a href="<?php echo esc_url( add_query_arg( 'show', $key, $base ) ); ?>"<?php echo $current === $key ? ' class="current" aria-current="page"' : ''; ?>><?php echo esc_html( $label ); ?> <span class="count">(<?php echo esc_html( number_format_i18n( (int) call_user_func( $count, [ 'show' => $key ] + $args ) ) ); ?>)</span></a>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+            <?php
         }
 
         /**
@@ -379,20 +465,9 @@ if ( ! class_exists( 'DDWCAF_Admin_Dashboard' ) ) {
                 'refunded'        => esc_html__( 'Refunded', 'affiliates-for-woocommerce' ),
             ];
 
-            $current_show = ! empty( $_GET[ 'show' ] ) ? sanitize_text_field( wp_unslash( $_GET[ 'show' ] ) ) : '';
             ?>
                 <h1 class="wp-heading-inline"><?php esc_html_e( 'Commissions', 'affiliates-for-woocommerce' ); ?></h1>
-                <ul class="subsubsub">
-                    <?php
-                    foreach ( $shows as $key => $value ) {
-                        ?>
-                        <li class="<?php echo esc_attr( $key ); ?>">
-                            <a class="<?php echo esc_attr( $current_show === $key ? 'current' : '' ); ?>" href="<?php echo esc_url( admin_url( 'admin.php?page=' . sanitize_text_field( wp_unslash( $_GET[ 'page' ] ) ) . '&menu=' . sanitize_text_field( wp_unslash( $_GET[ 'menu' ] ) ) . '&show=' . $key ) ); ?>"><?php echo esc_html( $value ); ?></a>
-                        </li>
-                        <?php
-                    }
-                    ?>
-                </ul>
+                <?php $this->ddwcaf_print_status_views( $shows, [ new \DDWCAffiliates\Helper\Commission\DDWCAF_Commission_Helper( $this->ddwcaf_configuration ), 'ddwcaf_get_commissions_count' ] ); ?>
                 <form method="get">
                     <input type="hidden" name="page" value="<?php echo isset( $_GET[ 'page' ] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET[ 'page' ] ) ) ) : ''; // WPCS: CSRF ok. // WPCS: input var ok. ?>" />
                     <input type="hidden" name="menu" value="<?php echo isset( $_GET[ 'menu' ] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET[ 'menu' ] ) ) ) : ''; ?>" />
@@ -449,7 +524,6 @@ if ( ! class_exists( 'DDWCAF_Admin_Dashboard' ) ) {
                     'cancelled' => esc_html__( 'Cancelled', 'affiliates-for-woocommerce' ),
                 ];
 
-                $current_show = ! empty( $_GET[ 'show' ] ) ? sanitize_text_field( wp_unslash( $_GET[ 'show' ] ) ) : '';
                 ?>
                 <h1 class="wp-heading-inline"><?php esc_html_e( 'Payouts', 'affiliates-for-woocommerce' ); ?></h1>
 
@@ -463,17 +537,7 @@ if ( ! class_exists( 'DDWCAF_Admin_Dashboard' ) ) {
                         esc_html_e( 'Create', 'affiliates-for-woocommerce' );
                     ?>
                 </a>
-                <ul class="subsubsub">
-                    <?php
-                    foreach ( $shows as $key => $value ) {
-                        ?>
-                        <li class="<?php echo esc_attr( $key ); ?>">
-                            <a class="<?php echo esc_attr( $current_show === $key ? 'current' : '' ); ?>" href="<?php echo esc_url( admin_url( 'admin.php?page=' . sanitize_text_field( wp_unslash( $_GET[ 'page' ] ) ) . '&menu=' . sanitize_text_field( wp_unslash( $_GET[ 'menu' ] ) ) . '&show=' . $key ) ); ?>"><?php echo esc_html( $value ); ?></a>
-                        </li>
-                        <?php
-                    }
-                    ?>
-                </ul>
+                <?php $this->ddwcaf_print_status_views( $shows, [ new \DDWCAffiliates\Helper\Payout\DDWCAF_Payout_Helper( $this->ddwcaf_configuration ), 'ddwcaf_get_payouts_count' ] ); ?>
                 <form method="get">
                     <input type="hidden" name="page" value="<?php echo isset( $_GET[ 'page' ] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET[ 'page' ] ) ) ) : ''; // WPCS: CSRF ok. // WPCS: input var ok. ?>" />
                     <input type="hidden" name="menu" value="<?php echo isset( $_GET[ 'menu' ] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET[ 'menu' ] ) ) ) : ''; ?>" />
@@ -533,20 +597,9 @@ if ( ! class_exists( 'DDWCAF_Admin_Dashboard' ) ) {
                 'not_converted' => esc_html__( 'Not Converted', 'affiliates-for-woocommerce' ),
             ];
 
-            $current_show = ! empty( $_GET[ 'show' ] ) ? sanitize_text_field( wp_unslash( $_GET[ 'show' ] ) ) : '';
             ?>
                 <h1 class="wp-heading-inline"><?php esc_html_e( 'Visits', 'affiliates-for-woocommerce' ); ?></h1>
-                <ul class="subsubsub">
-                    <?php
-                    foreach ( $shows as $key => $value ) {
-                        ?>
-                        <li class="<?php echo esc_attr( $key ); ?>">
-                            <a class="<?php echo esc_attr( $current_show === $key ? 'current' : '' ); ?>" href="<?php echo esc_url( admin_url( 'admin.php?page=' . sanitize_text_field( wp_unslash( $_GET[ 'page' ] ) ) . '&menu=' . sanitize_text_field( wp_unslash( $_GET[ 'menu' ] ) ) . '&show=' . $key ) ); ?>"><?php echo esc_html( $value ); ?></a>
-                        </li>
-                        <?php
-                    }
-                    ?>
-                </ul>
+                <?php $this->ddwcaf_print_status_views( $shows, [ new \DDWCAffiliates\Helper\Visit\DDWCAF_Visit_Helper( $this->ddwcaf_configuration ), 'ddwcaf_get_visits_count' ] ); ?>
                 <form method="get">
                     <input type="hidden" name="page" value="<?php echo isset( $_GET[ 'page' ] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET[ 'page' ] ) ) ) : ''; ?>" />
                     <input type="hidden" name="menu" value="<?php echo isset( $_GET[ 'menu' ] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET[ 'menu' ] ) ) ) : ''; ?>" />
@@ -701,6 +754,30 @@ if ( ! class_exists( 'DDWCAF_Admin_Dashboard' ) ) {
 		 */
 		public function ddwcaf_get_referrals_configuration_template() {
 			new Admin\Configuration\DDWCAF_Referrals_Configuration_Template( $this->ddwcaf_configuration );
+		}
+
+		/**
+		 * Get Fraud Prevention Configuration Template
+		 *
+		 * @return void
+		 */
+		public function ddwcaf_get_fraud_configuration_template() {
+            ddfw_upgrade_to_pro_section(
+                [
+                    'image_url'     => DDWCAF_PLUGIN_URL . 'assets/images/pro-pages/fraud-prevention.webp',
+                    'heading'       => esc_html__( 'Stop Paying Commission on Self Referrals', 'affiliates-for-woocommerce' ),
+                    'description'   => esc_html__( 'Self referral is the most common way an affiliate program leaks money. Pro checks every referral before a commission is created and holds the doubtful ones for your review.', 'affiliates-for-woocommerce' ),
+                    'list_features' => [
+                        esc_html__( 'Matching email, IP address, browser and billing details', 'affiliates-for-woocommerce' ),
+                        esc_html__( 'Flag for review or refuse outright, and refuse when the affiliate used their own coupon', 'affiliates-for-woocommerce' ),
+                        esc_html__( 'New customers only, no commission on free orders and a minimum order total', 'affiliates-for-woocommerce' ),
+                        esc_html__( 'Refund and chargeback clawback against the next payout', 'affiliates-for-woocommerce' ),
+                        esc_html__( 'Blocked emails, domains and IP addresses', 'affiliates-for-woocommerce' ),
+                        esc_html__( 'Admin email when a commission is flagged', 'affiliates-for-woocommerce' ),
+                    ],
+                    'upgrade_url'   => 'https://devdiggers.com/product/woocommerce-affiliates/?utm_source=Affiliates for WooCommerce Plugin&utm_medium=Plugin Fraud Prevention Tab&utm_campaign=Affiliates for WooCommerce Pro',
+                ]
+            );
 		}
 
 		/**
