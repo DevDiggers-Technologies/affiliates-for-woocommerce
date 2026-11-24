@@ -51,6 +51,47 @@ if ( ! class_exists( 'DDFW_Assets' ) ) {
 		 */
 		public function __construct() {
 			add_action( 'admin_enqueue_scripts', [ $this, 'register_styles_and_scripts' ] );
+
+			// WordPress silently skips a script or style whose dependency is not registered. Themes and plugins
+			// that replace a shared handle ( select2, wp-color-picker ) would therefore switch the whole
+			// framework off, so drop dependencies that are gone right before the queue is printed.
+			add_action( 'admin_print_styles', [ $this, 'drop_missing_dependencies' ], 1 );
+			add_action( 'admin_print_scripts', [ $this, 'drop_missing_dependencies' ], 1 );
+			add_action( 'admin_print_footer_scripts', [ $this, 'drop_missing_dependencies' ], 1 );
+		}
+
+		/**
+		 * Remove dependencies that are no longer registered from the framework handles.
+		 *
+		 * The framework scripts guard every call to an optional library ( Select2, the color picker ), so a
+		 * missing dependency costs one field type instead of the whole screen.
+		 *
+		 * @return void
+		 */
+		public function drop_missing_dependencies() {
+			$groups = [
+				[ wp_scripts(), [ self::$framework_js_handle, 'ddfw-dashboard-analytics-script' ] ],
+				[ wp_styles(), [ self::$framework_css_handle, 'ddfw-dashboard-analytics-style' ] ],
+			];
+
+			foreach ( $groups as $group ) {
+				list( $assets, $handles ) = $group;
+
+				foreach ( $handles as $handle ) {
+					if ( empty( $assets->registered[ $handle ] ) ) {
+						continue;
+					}
+
+					$dependencies = array_filter(
+						(array) $assets->registered[ $handle ]->deps,
+						function ( $dependency ) use ( $assets ) {
+							return isset( $assets->registered[ $dependency ] );
+						}
+					);
+
+					$assets->registered[ $handle ]->deps = array_values( $dependencies );
+				}
+			}
 		}
 
 		/**
@@ -59,11 +100,23 @@ if ( ! class_exists( 'DDFW_Assets' ) ) {
 		 * @return void
 		 */
 		public function register_styles_and_scripts() {
-			wp_register_style( 'select2', DDFW_URL . 'assets/css/select2.css', [], filemtime( DDFW_FILE . 'assets/css/select2.css' ) );
-			wp_register_script( 'select2', DDFW_URL . 'assets/js/select2.js', [], filemtime( DDFW_FILE . 'assets/js/select2.js' ) , true );
+			// The framework depends on its own handle: themes and plugins ( MyListing, WooCommerce ) register or
+			// replace the generic 'select2' one, and a script depending on a missing handle never loads.
+			wp_register_style( 'ddfw-select2', DDFW_URL . 'assets/css/select2.css', [], filemtime( DDFW_FILE . 'assets/css/select2.css' ) );
+			wp_register_script( 'ddfw-select2', DDFW_URL . 'assets/js/select2.js', [], filemtime( DDFW_FILE . 'assets/js/select2.js' ) , true );
 
-			wp_register_style( self::$framework_css_handle, DDFW_URL . 'assets/css/framework.css', [ 'select2' ], filemtime( DDFW_FILE . 'assets/css/framework.css' ) );
-			wp_register_script( self::$framework_js_handle, DDFW_URL . 'assets/js/framework.js', [ 'select2', 'wp-color-picker', 'wp-mediaelement' ], filemtime( DDFW_FILE . 'assets/js/framework.js' ) , true );
+			// Plugins without WooCommerce ( FluentCart, WCFM ) still depend on the generic handle: provide it
+			// only when no one else has.
+			if ( ! wp_style_is( 'select2', 'registered' ) ) {
+				wp_register_style( 'select2', DDFW_URL . 'assets/css/select2.css', [], filemtime( DDFW_FILE . 'assets/css/select2.css' ) );
+			}
+
+			if ( ! wp_script_is( 'select2', 'registered' ) ) {
+				wp_register_script( 'select2', DDFW_URL . 'assets/js/select2.js', [], filemtime( DDFW_FILE . 'assets/js/select2.js' ) , true );
+			}
+
+			wp_register_style( self::$framework_css_handle, DDFW_URL . 'assets/css/framework.css', [ 'ddfw-select2' ], filemtime( DDFW_FILE . 'assets/css/framework.css' ) );
+			wp_register_script( self::$framework_js_handle, DDFW_URL . 'assets/js/framework.js', [ 'jquery', 'ddfw-select2', 'wp-color-picker', 'wp-mediaelement' ], filemtime( DDFW_FILE . 'assets/js/framework.js' ) , true );
 
 			// Shared analytics dashboard assets (enqueued on demand by DDFW_Dashboard).
 			wp_register_script( 'ddfw-chart-js', DDFW_URL . 'assets/js/chart.js', [], self::asset_version( 'assets/js/chart.js' ), true );
@@ -71,7 +124,7 @@ if ( ! class_exists( 'DDFW_Assets' ) ) {
 			wp_register_script( 'ddfw-dashboard-analytics-script', DDFW_URL . 'assets/js/dashboard-analytics.js', [ 'jquery', 'ddfw-chart-js', self::$framework_js_handle ], self::asset_version( 'assets/js/dashboard-analytics.js' ), true );
 
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only admin page routing parameter.
-			if ( ! empty( $_GET['page'] ) && in_array( sanitize_text_field( wp_unslash( $_GET['page'] ) ), [ 'devdiggers-plugins', 'devdiggers-extensions' ], true ) ) {
+			if ( ! empty( $_GET['page'] ) && in_array( sanitize_text_field( wp_unslash( $_GET['page'] ) ), [ 'devdiggers-plugins', 'devdiggers-extensions', 'devdiggers-mcp' ], true ) ) {
 				wp_enqueue_style( 'ddfw-dashboard-style', DDFW_URL . 'assets/css/dashboard.css', [], filemtime( DDFW_FILE . 'assets/css/dashboard.css' ) );
 				wp_enqueue_script( 'ddfw-dashboard-script', DDFW_URL . 'assets/js/dashboard.js', [], filemtime( DDFW_FILE . 'assets/js/dashboard.js' ) , true );
 

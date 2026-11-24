@@ -674,7 +674,7 @@ if ( ! class_exists( 'DDWCAF_Affiliate_Helper' ) ) {
 			}
 
 			if ( empty( $all_affiliates ) && ! empty( $include_affiliate_ids ) ) {
-				$include_affiliate_ids = implode( ", ", $include_affiliate_ids );
+				$include_affiliate_ids = implode( ", ", array_map( 'absint', (array) $include_affiliate_ids ) );
 				$conditions           .= " AND commissions.affiliate_id IN ($include_affiliate_ids)";
 			}
 
@@ -702,7 +702,7 @@ if ( ! class_exists( 'DDWCAF_Affiliate_Helper' ) ) {
 			}
 
 			if ( empty( $all_affiliates ) && ! empty( $include_affiliate_ids ) ) {
-				$include_affiliate_ids = implode( ", ", $include_affiliate_ids );
+				$include_affiliate_ids = implode( ", ", array_map( 'absint', (array) $include_affiliate_ids ) );
 				$conditions           .= " AND commissions.affiliate_id IN ($include_affiliate_ids)";
 			}
 

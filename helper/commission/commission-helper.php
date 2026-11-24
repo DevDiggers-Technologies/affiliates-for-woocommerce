@@ -223,6 +223,9 @@ if ( ! class_exists( 'DDWCAF_Commission_Helper' ) ) {
 			extract( $args );
 
 			$conditions = $this->ddwcaf_prepare_where_conditions_for_top_products( $args );
+			// Sort column and direction come from the URL: only the sortable columns reach the query.
+			$orderby    = in_array( $orderby ?? '', [ 'product', 'quantity', 'earnings', 'commission' ], true ) ? $orderby : 'quantity';
+			$order      = 'ASC' === strtoupper( (string) ( $order ?? '' ) ) ? 'ASC' : 'DESC';
 			$response   = $this->wpdb->get_results( $this->wpdb->prepare( "SELECT DISTINCT commissions.product_id as product, SUM( CASE WHEN quantity IS NOT NULL THEN quantity ELSE 0 END ) AS quantity, SUM( CASE WHEN line_total IS NOT NULL THEN line_total ELSE 0 END ) AS earnings, SUM( CASE WHEN commission IS NOT NULL THEN commission ELSE 0 END ) AS commission FROM {$this->wpdb->ddwcaf_commissions} as commissions LEFT JOIN {$this->wpdb->users} as users ON commissions.affiliate_id=users.ID WHERE 1=1 $conditions GROUP BY product_id ORDER BY $orderby $order LIMIT %d OFFSET %d", $per_page, $offset ), ARRAY_A );
 
 			return apply_filters( 'ddwcaf_modify_top_products_response', $response, $args );
@@ -236,6 +239,9 @@ if ( ! class_exists( 'DDWCAF_Commission_Helper' ) ) {
 		 */
 		public function ddwcaf_get_top_products_count( $args ) {
 			$conditions = $this->ddwcaf_prepare_where_conditions_for_top_products( $args );
+			// Sort column and direction come from the URL: only the sortable columns reach the query.
+			$orderby    = in_array( $orderby ?? '', [ 'product', 'quantity', 'earnings', 'commission' ], true ) ? $orderby : 'quantity';
+			$order      = 'ASC' === strtoupper( (string) ( $order ?? '' ) ) ? 'ASC' : 'DESC';
 			$response   = $this->wpdb->get_var( "SELECT count(DISTINCT commissions.product_id) FROM {$this->wpdb->ddwcaf_commissions} as commissions LEFT JOIN {$this->wpdb->users} as users ON commissions.affiliate_id=users.ID WHERE 1=1 $conditions ORDER BY quantity DESC" );
 
 			return apply_filters( 'ddwcaf_modify_top_products_count', $response, $args );

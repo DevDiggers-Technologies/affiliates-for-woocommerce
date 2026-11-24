@@ -70,6 +70,14 @@ if ( ! class_exists( 'DDFW_Plugins_API' ) ) {
 				return $this->runtime_cache;
 			}
 
+			// Never contact devdiggers.com, or show its images, without the administrator's opt-in.
+			if ( ! $this->has_consent() ) {
+				return [
+					'plugins' => [],
+					'stats'   => [],
+				];
+			}
+
 			$cache_key   = $this->cache_prefix . 'master_data';
 			$cached_data = get_transient( $cache_key );
 
@@ -165,6 +173,25 @@ if ( ! class_exists( 'DDFW_Plugins_API' ) ) {
 				} ) ),
 				'average_rating'    => 4.9
 			];
+		}
+
+		/**
+		 * Whether an administrator agreed to load the extensions list from devdiggers.com.
+		 *
+		 * @return bool
+		 */
+		public function has_consent() {
+			return 'yes' === get_option( 'ddfw_extensions_consent' );
+		}
+
+		/**
+		 * Forget the cached extensions list.
+		 *
+		 * @return void
+		 */
+		public function clear_cache() {
+			$this->runtime_cache = null;
+			delete_transient( $this->cache_prefix . 'master_data' );
 		}
 
 		/**
