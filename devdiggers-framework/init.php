@@ -5,7 +5,7 @@
  * Framework URI - https://devdiggers.com/woocommerce-extensions/
  * Author: DevDiggers
  * Author URI: https://devdiggers.com/
- * Version: 1.2.0
+ * Version: 1.3.0
  * DDFW Build: free
  * Text Domain: affiliates-for-woocommerce
  * License: GPL-2.0+
@@ -13,14 +13,14 @@
  * Requires at least: 5.0
  * Requires PHP: 7.0
  * Tested up to: 6.x.x
- * Stable tag: 1.2.0
+ * Stable tag: 1.3.0
  * Text Domain: affiliates-for-woocommerce
  * Framework Domain Path - /i18n
  *
  * @author  DevDiggers
  * @category Framework
  * @package DevDiggers\Framework
- * @version 1.2.0
+ * @version 1.3.0
  */
 
 defined( 'ABSPATH' ) || exit(); // Exit if accessed directly.
@@ -93,8 +93,8 @@ if ( ! defined( 'DDFW_RESOLVED' ) ) {
 defined( 'DDFW_LOADED' ) || define( 'DDFW_LOADED', true );
 defined( 'DDFW_URL' ) || define( 'DDFW_URL', plugin_dir_url( __FILE__ ) );
 defined( 'DDFW_FILE' ) || define( 'DDFW_FILE', plugin_dir_path( __FILE__ ) );
-defined( 'DDFW_SCRIPT_VERSION' ) || define( 'DDFW_SCRIPT_VERSION', '1.2.0' );
-defined( 'DDFW_VERSION' ) || define( 'DDFW_VERSION', '1.2.0' );
+defined( 'DDFW_SCRIPT_VERSION' ) || define( 'DDFW_SCRIPT_VERSION', '1.3.0' );
+defined( 'DDFW_VERSION' ) || define( 'DDFW_VERSION', '1.3.0' );
 
 // Include the autoloader.
 require_once DDFW_FILE . 'autoload/autoload.php';
@@ -102,6 +102,8 @@ require_once DDFW_FILE . 'autoload/autoload.php';
 // Load the framework files.
 require_once DDFW_FILE . 'global-functions.php';
 require_once DDFW_FILE . 'includes/class-ddfw-plugins-api.php';
+// AI & MCP hub: runs on REST and WP-CLI requests too, not only in wp-admin.
+require_once DDFW_FILE . 'includes/class-ddfw-mcp.php';
 
 if ( is_admin() ) {
 	require_once DDFW_FILE . 'includes/class-ddfw-assets.php';

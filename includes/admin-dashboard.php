@@ -61,11 +61,11 @@ if ( ! class_exists( 'DDWCAF_Admin_Dashboard' ) ) {
         }
 
         /**
-         * Add Admin menu function
+         * The plugin logo, shared by the dashboard header and the DevDiggers AI & MCP hub.
          *
-         * @return void
+         * @return string SVG markup.
          */
-        public function ddwcaf_add_dashboard_menu() {
+        public static function ddwcaf_get_logo() {
             ob_start();
             ?>
             <svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -76,9 +76,17 @@ if ( ! class_exists( 'DDWCAF_Admin_Dashboard' ) ) {
                 <circle cx="10" cy="15" r="2.5" fill="#0256ff" fill-opacity="0.5"/>
                 <circle cx="22" cy="15" r="2.5" fill="#0256ff" fill-opacity="0.5"/>
             </svg>
-            <?php esc_html_e( 'Affiliates', 'affiliates-for-woocommerce' ); ?>
             <?php
-            $plugin_name = ob_get_clean();
+            return ob_get_clean();
+        }
+
+        /**
+         * Add Admin menu function
+         *
+         * @return void
+         */
+        public function ddwcaf_add_dashboard_menu() {
+            $plugin_name = self::ddwcaf_get_logo() . ' ' . esc_html__( 'Affiliates', 'affiliates-for-woocommerce' );
 
             $args = [
                 'page_title'              => esc_html__( 'Affiliates for WooCommerce', 'affiliates-for-woocommerce' ),

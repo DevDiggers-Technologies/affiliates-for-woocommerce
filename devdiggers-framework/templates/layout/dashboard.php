@@ -202,6 +202,17 @@ $svg_tags = ddfw_kses_allowed_svg_tags();
 						<button type="submit" class="ddfw-button ddfw-button-primary" id="ddfw-newsletter-submit"><?php esc_html_e( 'Subscribe', 'affiliates-for-woocommerce' ); ?></button>
 					</div>
 					<div id="ddfw-newsletter-message" class="ddfw-newsletter-message" role="status"></div>
+					<p class="description">
+						<?php
+						echo wp_kses_post(
+							sprintf(
+								/* translators: %s: privacy policy link. */
+								esc_html__( 'Subscribing sends the email address you enter and your site URL to devdiggers.com. Nothing is sent unless you subscribe. %s', 'affiliates-for-woocommerce' ),
+								'<a href="https://devdiggers.com/privacy-policy/" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Privacy Policy', 'affiliates-for-woocommerce' ) . '</a>'
+							)
+						);
+						?>
+					</p>
 				</form>
 			</div>
 		<?php endif; ?>

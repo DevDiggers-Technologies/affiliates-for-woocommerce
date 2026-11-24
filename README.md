@@ -13,7 +13,7 @@
   * `Tested up to: 11.2`
 
 **Requires PHP**: `7.4`
-**Stable tag**: `2.4.0`
+**Stable tag**: `2.5.0`
 **License**: `GPL v3.0`
 
 ## Description
@@ -100,11 +100,23 @@ Affiliates get their own dashboard inside the WooCommerce My Account page, so th
 * Table header background and text colours
 * Show or hide summary card icons and set icon size
 
+### AI assistants (MCP)
+
+Ask Claude, ChatGPT, Cursor, VS Code or any MCP client about your affiliate program in plain words: "How did the affiliate program do last month?", "Who are my top affiliates?", "Who is waiting for approval?", "How much do I owe affiliates?"
+
+* Tools for a program overview (the Dashboard figures against the period before), affiliates and their applications, one affiliate in detail, referrals and commissions, payouts, payouts due, top affiliates, top products, referral visits and a settings summary
+* Monthly affiliate program review and Review affiliate applications prompts
+* Optional: let the assistant approve, reject or ban an affiliate and approve or cancel a commission, the same way as the admin lists, logged under WooCommerce > Status > Logs
+* Same access as the Affiliates screens: store managers only. Payment details and visitor IP addresses are never shared
+* Managed in DevDiggers Plugins > AI & MCP: one MCP server for every DevDiggers plugin, an on / off switch per plugin and per write tool (write tools start off), a Try panel and an activity log
+* Needs WordPress 6.9+ and the MCP Adapter (WooCommerce 10.3+ bundles it)
+
 ### Technical
 
 * Declared compatible with WooCommerce High Performance Order Storage (HPOS)
 * Translation ready, `.pot` file included (WPML, Polylang, Loco Translate)
 * Object oriented codebase with hooks and filters
+* MCP abilities live in `includes/integrations/mcp-integration.php` under the `affiliates/` namespace. Add, change or remove one with the `ddwcaf_mcp_abilities` filter
 * Admin screens adapt to small displays with drawer based navigation
 
 [Free demo](https://demo.devdiggers.com/woocommerce-affiliates-free/)
@@ -173,6 +185,13 @@ npm run build
 [Documentation](https://docs.devdiggers.com/woocommerce-affiliates/) | [Support forum](https://wordpress.org/support/plugin/affiliates-for-woocommerce/) | [Contact DevDiggers](https://devdiggers.com/contact/)
 
 ## Changelog
+
+**= 2.5.0 =**
+* Added AI assistants (MCP): ask Claude, ChatGPT, Cursor, VS Code or any MCP client about your affiliate program, affiliates and applications, referrals and commissions, payouts and payouts due, top affiliates and products, and referral visits. Optional tools let the assistant approve, reject or ban an affiliate and approve or cancel a commission; they stay off until you allow them.
+* Added the DevDiggers Plugins > AI & MCP page: connect Claude, ChatGPT, Claude Code, Codex, Cursor, VS Code or any MCP client by signing in and clicking Allow in WordPress, with nothing to copy. Switch each plugin and each write tool on or off, test tools in the Try panel and review every call in the activity log.
+* Updated the bundled DevDiggers framework to 1.3.0. The title bar with the Save button now stays visible on desktop while you scroll an edit screen, and admin charts and pickers no longer break when another theme or plugin replaces the shared select2 script.
+* Security: creating payouts now checks the user's permission and validates the affiliate IDs.
+* Security: the Top Products report only accepts known columns as its sort order.
 
 **= 2.4.0 =**
 * Improved the Dashboard so its figures match the Pro Reports page. Refunded commission no longer counts as earnings, and each card now shows the previous period's figure.

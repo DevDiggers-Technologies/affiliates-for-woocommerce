@@ -75,6 +75,24 @@ if ( ! class_exists( 'DDFW_Admin' ) ) {
 		 * @return void
 		 */
 		public function ddfw_get_extensions_page() {
+			// The list comes from devdiggers.com, so it is only loaded after an administrator opts in on this page.
+			if ( isset( $_POST['ddfw_extensions_consent'] ) ) {
+				if ( empty( $_POST['ddfw_extensions_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['ddfw_extensions_nonce'] ) ), 'ddfw_extensions_consent_action' ) ) {
+					wp_die( esc_html__( 'Security check failed.', 'affiliates-for-woocommerce' ) );
+				}
+
+				if ( ! current_user_can( 'manage_options' ) && ! current_user_can( 'manage_woocommerce' ) ) {
+					wp_die( esc_html__( 'You are not allowed to change this setting.', 'affiliates-for-woocommerce' ) );
+				}
+
+				if ( 'yes' === sanitize_key( wp_unslash( $_POST['ddfw_extensions_consent'] ) ) ) {
+					update_option( 'ddfw_extensions_consent', 'yes', false );
+				} else {
+					delete_option( 'ddfw_extensions_consent' );
+					DDFW_Plugins_API::instance()->clear_cache();
+				}
+			}
+
 			include DDFW_FILE . 'templates/layout/extensions.php';
 		}
 

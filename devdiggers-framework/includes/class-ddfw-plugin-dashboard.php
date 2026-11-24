@@ -271,6 +271,7 @@ if ( ! class_exists( 'DDFW_Plugin_Dashboard' ) ) {
 			if ( ! empty( $submenu[ $parent_slug ] ) ) {
 				$dashboard_item  = null;
 				$extensions_item = null;
+				$mcp_item        = null;
 				$other_items     = [];
 
 				foreach ( $submenu[ $parent_slug ] as $item ) {
@@ -279,6 +280,8 @@ if ( ! class_exists( 'DDFW_Plugin_Dashboard' ) ) {
 						$dashboard_item = $item;
 					} elseif ( 'devdiggers-extensions' === $slug ) {
 						$extensions_item = $item;
+					} elseif ( 'devdiggers-mcp' === $slug ) {
+						$mcp_item = $item;
 					} else {
 						$other_items[] = $item;
 					}
@@ -296,6 +299,10 @@ if ( ! class_exists( 'DDFW_Plugin_Dashboard' ) ) {
 					$sorted_submenu[] = $dashboard_item;
 				}
 				$sorted_submenu = array_merge( $sorted_submenu, $other_items );
+				// AI & MCP sits just above Extensions.
+				if ( $mcp_item ) {
+					$sorted_submenu[] = $mcp_item;
+				}
 				if ( $extensions_item ) {
 					$sorted_submenu[] = $extensions_item;
 				}

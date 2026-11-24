@@ -42,7 +42,7 @@ if ( ! class_exists( 'DDWCAF_Admin_Ajax_Functions' ) ) {
 		public function ddwcaf_create_payout_for_affiliates() {
 			$response = [];
 
-			if ( check_ajax_referer( 'ddwcaf-nonce', 'nonce', false ) ) {
+			if ( check_ajax_referer( 'ddwcaf-nonce', 'nonce', false ) && current_user_can( 'manage_woocommerce' ) ) {
 				if ( ! empty( $_POST[ 'ddwcaf_response' ] ) ) {
 					$response = json_decode( stripslashes( $_POST[ 'ddwcaf_response' ] ), true );
 				} else {
@@ -66,7 +66,7 @@ if ( ! class_exists( 'DDWCAF_Admin_Ajax_Functions' ) ) {
 				}
 
 				$per_page       = 20;
-				$affiliate_ids  = ! empty( $_POST[ 'ddwcaf_affiliates' ] ) ? array_map( 'sanitize_text_field', $_POST[ 'ddwcaf_affiliates' ] ) : [];
+				$affiliate_ids  = ! empty( $_POST[ 'ddwcaf_affiliates' ] ) ? array_filter( array_map( 'absint', (array) wp_unslash( $_POST[ 'ddwcaf_affiliates' ] ) ) ) : [];
 				$all_affiliates = ! empty( $_POST[ 'ddwcaf_all_affiliates' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'ddwcaf_all_affiliates' ] ) ) : '';
 				$offset         = ( $response[ 'current_page' ] - 1 ) * $per_page;
 

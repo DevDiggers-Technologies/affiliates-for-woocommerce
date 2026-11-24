@@ -31,6 +31,7 @@ if ( ! class_exists( 'DDWCAF_File_Handler' ) ) {
 
 			new Common\DDWCAF_Common_Hooks( $this->ddwcaf_configuration );
 			new Front\DDWCAF_Front_Ajax_Hooks( $this->ddwcaf_configuration );
+			new Integrations\DDWCAF_MCP_Integration( $this->ddwcaf_configuration );
 
 			if ( is_admin() ) {
 				new DDWCAF_Admin_Dashboard( $this->ddwcaf_configuration );
