@@ -442,9 +442,19 @@ if ( ! class_exists( 'DDFW_MCP_OAuth' ) ) {
 		 */
 		protected static function send_back( $uri, $args ) {
 			$args = array_filter( $args, 'strlen' );
+			$url  = $uri . ( false === strpos( $uri, '?' ) ? '?' : '&' ) . http_build_query( $args, '', '&', PHP_QUERY_RFC3986 );
 
-			// ponytail: header() directly, as wp_redirect() would refuse an app scheme such as cursor:// on some setups.
-			header( 'Location: ' . $uri . ( false === strpos( $uri, '?' ) ? '?' : '&' ) . http_build_query( $args, '', '&', PHP_QUERY_RFC3986 ), true, 302 );
+			if ( in_array( strtolower( (string) wp_parse_url( $uri, PHP_URL_SCHEME ) ), [ 'http', 'https' ], true ) ) {
+				// ponytail: header() directly, as wp_redirect() refuses some loopback addresses on some setups.
+				header( 'Location: ' . $url, true, 302 );
+				exit;
+			}
+
+			// An app link ( claude://, cursor:// ) opens the app but leaves the browser on the approval form, which then
+			// looks like it asks again. Show a page that says it is done and opens the app from there.
+			$allowed     = ! isset( $args['error'] );
+			$destination = self::describe_redirect( $uri );
+			include DDFW_FILE . 'templates/layout/mcp-authorize-done.php';
 			exit;
 		}
 

@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: DevDiggers Framework 1.3.0\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/devdiggers-framework\n"
-"POT-Creation-Date: 2026-11-24 13:39:07+00:00\n"
+"POT-Creation-Date: 2026-11-24 18:06:44+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -544,73 +544,73 @@ msgid "Too many apps are registered. Revoke unused connections first."
 msgstr ""
 
 #: devdiggers-framework/includes/class-ddfw-mcp-oauth.php:415
-#: devdiggers-framework/includes/class-ddfw-mcp-oauth.php:468
-#: includes/class-ddfw-mcp-oauth.php:415 includes/class-ddfw-mcp-oauth.php:468
+#: devdiggers-framework/includes/class-ddfw-mcp-oauth.php:478
+#: includes/class-ddfw-mcp-oauth.php:415 includes/class-ddfw-mcp-oauth.php:478
 msgid "Unknown app or return address. Start the connection again from your AI app."
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-mcp-oauth.php:468
-#: includes/class-ddfw-mcp-oauth.php:468
+#: devdiggers-framework/includes/class-ddfw-mcp-oauth.php:478
+#: includes/class-ddfw-mcp-oauth.php:478
 msgid "Connection failed"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-mcp-oauth.php:492
-#: includes/class-ddfw-mcp-oauth.php:492
+#: devdiggers-framework/includes/class-ddfw-mcp-oauth.php:502
+#: includes/class-ddfw-mcp-oauth.php:502
 msgid "Your account can not connect AI apps to this store. Ask an administrator."
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-mcp-oauth.php:492
+#: devdiggers-framework/includes/class-ddfw-mcp-oauth.php:502
 #: devdiggers-framework/templates/layout/mcp.php:110
-#: includes/class-ddfw-mcp-oauth.php:492 templates/layout/mcp.php:110
+#: includes/class-ddfw-mcp-oauth.php:502 templates/layout/mcp.php:110
 msgid "Not allowed"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-mcp-oauth.php:546
-#: includes/class-ddfw-mcp-oauth.php:546
+#: devdiggers-framework/includes/class-ddfw-mcp-oauth.php:556
+#: includes/class-ddfw-mcp-oauth.php:556
 msgid "an app on this computer"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-mcp-oauth.php:553
-#: includes/class-ddfw-mcp-oauth.php:553
+#: devdiggers-framework/includes/class-ddfw-mcp-oauth.php:563
+#: includes/class-ddfw-mcp-oauth.php:563
 #. translators: %s: app scheme, such as cursor.
 msgid "the %s app on this computer"
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-mcp-oauth.php:667
-#: includes/class-ddfw-mcp-oauth.php:667
+#: devdiggers-framework/includes/class-ddfw-mcp-oauth.php:677
+#: includes/class-ddfw-mcp-oauth.php:677
 msgid "The sign-in code is wrong, used or expired. Connect again."
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-mcp-oauth.php:671
-#: includes/class-ddfw-mcp-oauth.php:671
+#: devdiggers-framework/includes/class-ddfw-mcp-oauth.php:681
+#: includes/class-ddfw-mcp-oauth.php:681
 msgid "This account can no longer connect."
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-mcp-oauth.php:683
-#: devdiggers-framework/includes/class-ddfw-mcp-oauth.php:695
-#: includes/class-ddfw-mcp-oauth.php:683 includes/class-ddfw-mcp-oauth.php:695
+#: devdiggers-framework/includes/class-ddfw-mcp-oauth.php:693
+#: devdiggers-framework/includes/class-ddfw-mcp-oauth.php:705
+#: includes/class-ddfw-mcp-oauth.php:693 includes/class-ddfw-mcp-oauth.php:705
 msgid "This connection was revoked or expired. Connect again."
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-mcp-oauth.php:691
-#: includes/class-ddfw-mcp-oauth.php:691
+#: devdiggers-framework/includes/class-ddfw-mcp-oauth.php:701
+#: includes/class-ddfw-mcp-oauth.php:701
 msgid ""
 "This connection was signed out because its token was used twice. Connect "
 "again."
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-mcp-oauth.php:701
-#: includes/class-ddfw-mcp-oauth.php:701
+#: devdiggers-framework/includes/class-ddfw-mcp-oauth.php:711
+#: includes/class-ddfw-mcp-oauth.php:711
 msgid "Use authorization_code or refresh_token."
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-mcp-oauth.php:904
-#: includes/class-ddfw-mcp-oauth.php:904
+#: devdiggers-framework/includes/class-ddfw-mcp-oauth.php:914
+#: includes/class-ddfw-mcp-oauth.php:914
 msgid "This token only works for the DevDiggers MCP server."
 msgstr ""
 
-#: devdiggers-framework/includes/class-ddfw-mcp-oauth.php:911
-#: includes/class-ddfw-mcp-oauth.php:911
+#: devdiggers-framework/includes/class-ddfw-mcp-oauth.php:921
+#: includes/class-ddfw-mcp-oauth.php:921
 msgid "Sign in to use the DevDiggers MCP server."
 msgstr ""
 
@@ -1319,15 +1319,47 @@ msgstr ""
 msgid "Deactivate License"
 msgstr ""
 
+#: devdiggers-framework/templates/layout/mcp-authorize-done.php:25
+#: devdiggers-framework/templates/layout/mcp.php:489
+#: templates/layout/mcp-authorize-done.php:25 templates/layout/mcp.php:489
+msgid "Connected"
+msgstr ""
+
+#: devdiggers-framework/templates/layout/mcp-authorize-done.php:25
+#: devdiggers-framework/templates/layout/mcp-authorize-done.php:42
+#: templates/layout/mcp-authorize-done.php:25
+#: templates/layout/mcp-authorize-done.php:42
+msgid "Connection cancelled"
+msgstr ""
+
+#: devdiggers-framework/templates/layout/mcp-authorize-done.php:41
+#: devdiggers-framework/templates/layout/mcp-authorize.php:60
+#: templates/layout/mcp-authorize-done.php:41
+#: templates/layout/mcp-authorize.php:60
+msgid "DevDiggers MCP"
+msgstr ""
+
+#: devdiggers-framework/templates/layout/mcp-authorize-done.php:42
+#: templates/layout/mcp-authorize-done.php:42
+msgid "Connected. You can close this tab."
+msgstr ""
+
+#: devdiggers-framework/templates/layout/mcp-authorize-done.php:48
+#: templates/layout/mcp-authorize-done.php:48
+#. translators: %s: where the person goes back to, such as the claude app on
+#. this computer.
+msgid "Your answer was sent to %s. If it did not open, use the button below."
+msgstr ""
+
+#: devdiggers-framework/templates/layout/mcp-authorize-done.php:55
+#: templates/layout/mcp-authorize-done.php:55
+msgid "Open the app"
+msgstr ""
+
 #: devdiggers-framework/templates/layout/mcp-authorize.php:35
 #: devdiggers-framework/templates/layout/mcp.php:594
 #: templates/layout/mcp-authorize.php:35 templates/layout/mcp.php:594
 msgid "Connect an AI app"
-msgstr ""
-
-#: devdiggers-framework/templates/layout/mcp-authorize.php:60
-#: templates/layout/mcp-authorize.php:60
-msgid "DevDiggers MCP"
 msgstr ""
 
 #: devdiggers-framework/templates/layout/mcp-authorize.php:65
@@ -1783,11 +1815,6 @@ msgstr ""
 #: devdiggers-framework/templates/layout/mcp.php:481
 #: templates/layout/mcp.php:481
 msgid "Action"
-msgstr ""
-
-#: devdiggers-framework/templates/layout/mcp.php:489
-#: templates/layout/mcp.php:489
-msgid "Connected"
 msgstr ""
 
 #: devdiggers-framework/templates/layout/mcp.php:491
