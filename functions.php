@@ -6,6 +6,7 @@
  * Author: DevDiggers
  * Author URI: https://devdiggers.com/
  * Version: 2.5.0
+ * Requires at least: 6.9
  * Text Domain: affiliates-for-woocommerce
  * Domain Path: /i18n
  * WC requires at least: 9.0.0
